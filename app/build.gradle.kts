@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.google.services)
     alias(libs.plugins.google.firebase.crashlytics)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.compose.compiler)
@@ -25,8 +24,8 @@ android {
         applicationId = "com.galaxy.airviewdictionary"
         minSdk = 26
         targetSdk = 36
-        versionCode = 20501
-        versionName = "2.5.1"
+        versionCode = 20502
+        versionName = "2.5.2"
         manifestPlaceholders["ADMOB_APP_ID"] = admobAppId
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -98,8 +97,6 @@ dependencies {
     implementation(libs.app.review)
 //    implementation(libs.app.update)
 
-    implementation(libs.androidx.appcompat)
-
     // Architecture Components
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
@@ -108,7 +105,6 @@ dependencies {
     // Jetpack Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.compose.compiler)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.material3)
@@ -130,10 +126,10 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.coroutines.play.services)
 
-    // screen spec
-    implementation(libs.androidx.window)
+    // AdMob(play-services-ads)이 전이하는 work-runtime 2.7.0은 구식 Room(2.2.5)을 동반해
+    // R8 최소 규칙에서 WorkDatabase 리플렉션 생성이 깨진다 → 최신으로 명시 승격
+    implementation(libs.androidx.work.runtime)
 
     // theme
     implementation(libs.material)
@@ -152,7 +148,6 @@ dependencies {
 //    implementation(libs.google.gms.mlkit.text.recognition.korean)
     implementation(libs.google.mlkit.language.id)
 
-    implementation(libs.google.mlkit.translate)
     implementation(libs.deepl.api)
 
     // firebase
@@ -164,13 +159,10 @@ dependencies {
     implementation(libs.firebase.config)
 
     implementation(libs.gson)
-    implementation(libs.kotlinx.serialization.json)
     implementation(libs.squareup.retrofit2.retrofit)
-    implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.squareup.retrofit2.converter.gson)
-    implementation(libs.coil.compose)
+    implementation(libs.squareup.okhttp)
     implementation(libs.reorderable)
-    implementation(libs.exoplayer)
 
     implementation(libs.timber)
 

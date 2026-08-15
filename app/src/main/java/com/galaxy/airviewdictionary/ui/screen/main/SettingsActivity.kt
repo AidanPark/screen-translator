@@ -45,6 +45,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -415,6 +416,8 @@ class SettingsActivity : AVDActivity() {
 
         val contentPadding = 9.dp
         val cornerRound = 32.dp
+        // 태블릿/폴더블 등 넓은 화면에서 설정 목록이 좌우로 늘어나지 않도록 읽기 좋은 최대 폭으로 제한하고 중앙 정렬한다. (폰은 화면보다 좁으므로 영향 없음)
+        val maxContentWidth = 600.dp
         val startPadding = paddingValues.calculateLeftPadding(layoutDirection).toPx(context)
 
         val isDarkMode = isSystemInDarkTheme()
@@ -687,10 +690,15 @@ class SettingsActivity : AVDActivity() {
                 )
 
                 Box(
-                    modifier = Modifier.padding(start = contentPadding, top = contentPadding, end = contentPadding)
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(start = contentPadding, top = contentPadding, end = contentPadding),
+                    contentAlignment = Alignment.TopCenter
                 ) {
                     Surface(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .widthIn(max = maxContentWidth)
+                            .fillMaxSize(),
                         shape = RoundedCornerShape(cornerRound),
                         color = Color.Transparent
                     ) {
@@ -2724,7 +2732,7 @@ class SettingsActivity : AVDActivity() {
             Timber.tag(TAG).d("appReview() trialCount $trialCount")
             val isReviewDone = viewModel.preferenceRepository.isReviewDoneFlow.first()
             Timber.tag(TAG).d("appReview() isReviewDone $isReviewDone")
-            if (trialCount > 30 && !isReviewDone) {
+            if (trialCount > 10 && !isReviewDone) {
                 while (true) {
                     delay(3000L)
                     if (

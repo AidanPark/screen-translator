@@ -7,6 +7,7 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.addCallback
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -116,6 +117,8 @@ class AdGateActivity : ComponentActivity() {
     private var timeoutJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Android 15(SDK 35)+ edge-to-edge 강제에 맞춰 이전 버전에서도 동일 동작 (Play Console 권장 조치)
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         liveStateFlow.value = true
 
