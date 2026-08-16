@@ -170,6 +170,7 @@ All of this happens in **under a second**.
 | | |
 |---|---|
 | **Kotlin + Jetpack Compose** | Modern Android UI with reactive state management |
+| **Adaptive, edge-to-edge UI** | Scales cleanly from phones to tablets and foldables |
 | **Clean Architecture + MVVM** | Separation of concerns with ViewModels and Repositories |
 | **Hilt** | Dependency injection for clean, testable code |
 | **ML Kit** | On-device OCR for English, Chinese, Japanese, Korean, and Devanagari |
@@ -216,9 +217,9 @@ app/src/main/java/com/galaxy/airviewdictionary/
 
 ### What you need
 
-- **Android Studio** (Ladybug or later)
+- **Android Studio** (2025.3 or later — the project builds with AGP 9)
 - **JDK 17**
-- **Android SDK 35**
+- **Android SDK 36**
 
 ### Steps
 
