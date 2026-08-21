@@ -95,4 +95,5 @@
   <string name="claude_key_guide">Claude 모델로 번역하려면 Claude API 키를 입력하세요.</string>
   <string name="help_text_claude_own_key">개인 Claude API 키로 동작합니다</string>
   <string name="claude_key_signup_guide">Anthropic Console에서 API 키를 생성하세요. 사용량은 Anthropic 계정으로 청구됩니다.</string>
+    <string name="ocr_model_preparing">번역 엔진을 준비하고 있어요. 잠시만 기다려 주세요.</string>
 </resources>

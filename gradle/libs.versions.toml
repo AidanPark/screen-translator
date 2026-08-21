@@ -24,12 +24,13 @@ hiltNavigationCompose = "1.2.0"
 
 kotlinxCoroutines = "1.11.0"
 
-workRuntime = "2.11.2"
+workRuntime = "2.8.1"
 
 material = "1.14.0"
 
-mlkitTextRecognition = "16.0.1"
-#mlkitGmsTextRecognition = "19.0.1"
+# 번들 OCR은 제거(앱 크기 절감). GMS(언번들) OCR로 전환 — 모델은 Play 서비스가 런타임에 내려받음.
+mlkitGmsTextRecognition = "19.0.1"
+mlkitGmsTextRecognitionScript = "16.0.1"
 mlkitLanguageId = "17.0.6"
 
 deepl = "1.7.0"
@@ -97,16 +98,11 @@ androidx-work-runtime = { group = "androidx.work", name = "work-runtime", versio
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" } # composeBom
 
-google-mlkit-text-recognition = { module = "com.google.mlkit:text-recognition", version.ref = "mlkitTextRecognition" }
-#google-gms-mlkit-text-recognition = { module = "com.google.android.gms:play-services-mlkit-text-recognition", version.ref = "mlkitGmsTextRecognition" }
-google-mlkit-text-recognition-chinese = { module = "com.google.mlkit:text-recognition-chinese", version.ref = "mlkitTextRecognition" }
-#google-gms-mlkit-text-recognition-chinese = { module = "com.google.android.gms:play-services-mlkit-text-recognition-chinese", version.ref = "mlkitTextRecognition" }
-google-mlkit-text-recognition-devanagari = { module = "com.google.mlkit:text-recognition-devanagari", version.ref = "mlkitTextRecognition" }
-#google-gms-mlkit-text-recognition-devanagari = { module = "com.google.android.gms:play-services-mlkit-text-recognition-devanagari", version.ref = "mlkitTextRecognition" }
-google-mlkit-text-recognition-japanese = { module = "com.google.mlkit:text-recognition-japanese", version.ref = "mlkitTextRecognition" }
-#google-gms-mlkit-text-recognition-japanese = { module = "com.google.android.gms:play-services-mlkit-text-recognition-japanese", version.ref = "mlkitTextRecognition" }
-google-mlkit-text-recognition-korean = { module = "com.google.mlkit:text-recognition-korean", version.ref = "mlkitTextRecognition" }
-#google-gms-mlkit-text-recognition-korean = { module = "com.google.android.gms:play-services-mlkit-text-recognition-korean", version.ref = "mlkitTextRecognition" }
+google-gms-mlkit-text-recognition = { module = "com.google.android.gms:play-services-mlkit-text-recognition", version.ref = "mlkitGmsTextRecognition" }
+google-gms-mlkit-text-recognition-chinese = { module = "com.google.android.gms:play-services-mlkit-text-recognition-chinese", version.ref = "mlkitGmsTextRecognitionScript" }
+google-gms-mlkit-text-recognition-devanagari = { module = "com.google.android.gms:play-services-mlkit-text-recognition-devanagari", version.ref = "mlkitGmsTextRecognitionScript" }
+google-gms-mlkit-text-recognition-japanese = { module = "com.google.android.gms:play-services-mlkit-text-recognition-japanese", version.ref = "mlkitGmsTextRecognitionScript" }
+google-gms-mlkit-text-recognition-korean = { module = "com.google.android.gms:play-services-mlkit-text-recognition-korean", version.ref = "mlkitGmsTextRecognitionScript" }
 google-mlkit-language-id = { module = "com.google.mlkit:language-id", version.ref = "mlkitLanguageId" }
 #google-gms-mlkit-language-id = { module = "com.google.android.gms:play-services-mlkit-language-id", version.ref = "mlkitLanguageId" }
 

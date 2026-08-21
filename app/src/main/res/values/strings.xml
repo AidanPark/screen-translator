@@ -102,4 +102,5 @@
     <string name="detect_mode_description_select">You can also specify the range you want.</string>
     <string name="detect_mode_description_word">Point at a word to translate it instantly.</string>
     <string name="detect_mode_description_fixed_area">You can continuously translate fixed areas, such as movie subtitles.</string>
+    <string name="ocr_model_preparing">Preparing the translation engine. Please wait a moment.</string>
 </resources>

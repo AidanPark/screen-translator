@@ -106,10 +106,10 @@
                 android:value="Floating timers to display on top of other apps" />
         </service>
 
-        <!-- Automatically download the text recognition model after app install. -->
+        <!-- Play 스토어 설치 시 라틴 OCR 모델을 미리 내려받는다. 나머지 스크립트는 App.onCreate 의 프리페치가 처리. -->
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"
-            android:value="service" />
+            android:value="ocr" />
 
         <meta-data
             android:name="google_analytics_default_allow_analytics_storage"

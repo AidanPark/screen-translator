@@ -1,7 +1,22 @@
 package com.galaxy.airviewdictionary
 
 import android.app.Application
+import android.os.Handler
+import android.os.Looper
+import android.widget.Toast
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.common.moduleinstall.InstallStatusListener
+import com.google.android.gms.common.moduleinstall.ModuleInstall
+import com.google.android.gms.common.moduleinstall.ModuleInstallRequest
+import com.google.android.gms.common.moduleinstall.ModuleInstallStatusUpdate
+import com.google.android.gms.common.moduleinstall.ModuleInstallStatusUpdate.InstallState
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.TextRecognizer
+import com.google.mlkit.vision.text.chinese.ChineseTextRecognizerOptions
+import com.google.mlkit.vision.text.devanagari.DevanagariTextRecognizerOptions
+import com.google.mlkit.vision.text.japanese.JapaneseTextRecognizerOptions
+import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.analytics
@@ -49,6 +64,82 @@ class App : Application() {
         CoroutineScope(Dispatchers.IO).launch {
             // Initialize the Google Mobile Ads SDK on a background thread.
             MobileAds.initialize(applicationContext) {}
+        }
+
+        prefetchOcrModels()
+    }
+
+    /**
+     * 언번들(GMS) ML Kit OCR 모델을 앱 첫 실행 시 미리 내려받는다.
+     * 번들 대신 Play 서비스가 모델을 제공하므로 앱 크기가 크게 줄지만,
+     * 신규 기기에서는 첫 사용 전 모델을 받아야 한다. 이를 시작 시점에 미리 처리하고,
+     * 실제로 다운로드가 필요한 경우에만 "준비 중" 안내를 한 번 띄운다.
+     * 이미 설치돼 있으면 아무 동작도 하지 않는다(매 실행 호출해도 안전).
+     */
+    private fun prefetchOcrModels() {
+        val recognizers: List<TextRecognizer> = listOf(
+            TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS),
+            TextRecognition.getClient(ChineseTextRecognizerOptions.Builder().build()),
+            TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build()),
+            TextRecognition.getClient(JapaneseTextRecognizerOptions.Builder().build()),
+            TextRecognition.getClient(DevanagariTextRecognizerOptions.Builder().build()),
+        )
+        val moduleInstall = ModuleInstall.getClient(this)
+
+        moduleInstall.areModulesAvailable(*recognizers.toTypedArray())
+            .addOnSuccessListener { response ->
+                if (response.areModulesAvailable()) {
+                    // 이미 준비됨 — 조용히 종료.
+                    recognizers.forEach { it.close() }
+                    return@addOnSuccessListener
+                }
+                // 모델이 없다 → 다운로드하고, 진행 상태를 사용자에게 한 번 알린다.
+                val listener = object : InstallStatusListener {
+                    private var announced = false
+                    override fun onInstallStatusUpdated(update: ModuleInstallStatusUpdate) {
+                        when (update.installState) {
+                            InstallState.STATE_PENDING,
+                            InstallState.STATE_DOWNLOADING,
+                            InstallState.STATE_INSTALLING -> {
+                                if (!announced) {
+                                    announced = true
+                                    showToast(getString(R.string.ocr_model_preparing))
+                                }
+                            }
+                            InstallState.STATE_COMPLETED,
+                            InstallState.STATE_FAILED,
+                            InstallState.STATE_CANCELED -> {
+                                Timber.tag("MLKit").d("OCR 모델 설치 종료: state=${update.installState}")
+                                moduleInstall.unregisterListener(this)
+                                recognizers.forEach { it.close() }
+                            }
+                        }
+                    }
+                }
+                val request = ModuleInstallRequest.newBuilder()
+                    .apply { recognizers.forEach { addApi(it) } }
+                    .setListener(listener)
+                    .build()
+                moduleInstall.installModules(request)
+                    .addOnFailureListener { e ->
+                        Timber.tag("MLKit").w(e, "OCR 모델 다운로드 요청 실패 — 첫 사용 시 재시도")
+                        moduleInstall.unregisterListener(listener)
+                        recognizers.forEach { it.close() }
+                    }
+            }
+            .addOnFailureListener {
+                // 가용성 확인 실패 시에도 설치는 시도한다(폴백).
+                val request = ModuleInstallRequest.newBuilder()
+                    .apply { recognizers.forEach { addApi(it) } }
+                    .build()
+                moduleInstall.installModules(request)
+                    .addOnCompleteListener { recognizers.forEach { it.close() } }
+            }
+    }
+
+    private fun showToast(message: String) {
+        Handler(Looper.getMainLooper()).post {
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         }
     }
 }

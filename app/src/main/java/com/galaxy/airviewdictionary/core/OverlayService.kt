@@ -105,6 +105,13 @@ class OverlayService : LifecycleService(), SavedStateRegistryOwner, ViewModelSto
             val intent = Intent(applicationContext, SplashActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+        } catch (e: IllegalStateException) {
+            // Android 12+ 에서 앱이 백그라운드일 때 포그라운드 서비스 시작이 차단되면
+            // ForegroundServiceStartNotAllowedException(IllegalStateException 계열)이 발생한다.
+            // 크래시 대신 서비스를 정리하고, 재생성 루프를 막기 위해 START_NOT_STICKY 를 반환한다.
+            Timber.tag(TAG).w(e, "startForeground not allowed (background); stopping service")
+            stopSelf()
+            return START_NOT_STICKY
         }
 
         intent?.let {

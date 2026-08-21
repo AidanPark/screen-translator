@@ -24,8 +24,8 @@ android {
         applicationId = "com.galaxy.airviewdictionary"
         minSdk = 26
         targetSdk = 36
-        versionCode = 20502
-        versionName = "2.5.2"
+        versionCode = 20600
+        versionName = "2.6.0"
         manifestPlaceholders["ADMOB_APP_ID"] = admobAppId
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -127,8 +127,11 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
-    // AdMob(play-services-ads)이 전이하는 work-runtime 2.7.0은 구식 Room(2.2.5)을 동반해
-    // R8 최소 규칙에서 WorkDatabase 리플렉션 생성이 깨진다 → 최신으로 명시 승격
+    // 우리는 WorkManager 를 직접 쓰지 않고, AdMob(play-services-ads)이 전이로 끌어온다.
+    // AdMob 전이본 2.7.0 은 구식 Room(2.2.5)을 동반해 R8 최소 규칙에서 WorkDatabase 생성이 깨진다.
+    // 그렇다고 2.9.0+ 로 올리면 JobScheduler.forNamespace(API34)를 호출해 일부 OEM 기기에서
+    // NoSuchMethodError 로 크래시난다(2.5.2 사례). → forNamespace 이전 마지막 버전 2.8.1 로 고정하고,
+    // R8 대비는 proguard 의 Room keep 규칙으로 방어한다.
     implementation(libs.androidx.work.runtime)
 
     // theme
@@ -136,16 +139,13 @@ dependencies {
     // icons
     implementation(libs.material.icons.extended)
 
-    implementation(libs.google.mlkit.text.recognition)
-    implementation(libs.google.mlkit.text.recognition.chinese)
-    implementation(libs.google.mlkit.text.recognition.devanagari)
-    implementation(libs.google.mlkit.text.recognition.japanese)
-    implementation(libs.google.mlkit.text.recognition.korean)
-//    implementation(libs.google.gms.mlkit.text.recognition)
-//    implementation(libs.google.gms.mlkit.text.recognition.chinese)
-//    implementation(libs.google.gms.mlkit.text.recognition.devanagari)
-//    implementation(libs.google.gms.mlkit.text.recognition.japanese)
-//    implementation(libs.google.gms.mlkit.text.recognition.korean)
+    // OCR: 언번들(GMS) 버전 — OCR 모델을 앱에 내장하지 않고 Play 서비스가 런타임에 제공해 앱 크기를 줄인다.
+    // 모델은 App.onCreate 에서 ModuleInstallClient 로 첫 실행 시 미리 내려받는다(첫 OCR 지연 방지).
+    implementation(libs.google.gms.mlkit.text.recognition)
+    implementation(libs.google.gms.mlkit.text.recognition.chinese)
+    implementation(libs.google.gms.mlkit.text.recognition.devanagari)
+    implementation(libs.google.gms.mlkit.text.recognition.japanese)
+    implementation(libs.google.gms.mlkit.text.recognition.korean)
     implementation(libs.google.mlkit.language.id)
 
     implementation(libs.deepl.api)
