@@ -38,7 +38,13 @@ fun ScreenTranslatorTheme(
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            // 일부 기기(동적 색상 리소스가 빠진 OEM 빌드)에서 Resources.NotFoundException 이
+            // 발생할 수 있어 정적 스킴으로 폴백한다. (2.6.0 크래시: Theme.kt:41)
+            try {
+                if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            } catch (e: Exception) {
+                if (darkTheme) DarkColorScheme else LightColorScheme
+            }
         }
         darkTheme -> DarkColorScheme
         else -> LightColorScheme

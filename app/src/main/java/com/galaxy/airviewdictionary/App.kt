@@ -4,7 +4,6 @@ import android.app.Application
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
-import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.common.moduleinstall.InstallStatusListener
 import com.google.android.gms.common.moduleinstall.ModuleInstall
 import com.google.android.gms.common.moduleinstall.ModuleInstallRequest
@@ -61,12 +60,12 @@ class App : Application() {
             Firebase.analytics.setConsent(consentMap)
         }
 
+        // 광고 SDK 초기화는 AdGateActivity 가 동의 수집 후 백그라운드에서 수행한다.
+        // (여기서의 중복 초기화는 콜드스타트에 SDK 내부 락을 잡아 ANR 을 유발했다 — 2.6.0)
+        // OCR 모델 프리페치도 클라이언트 생성(바인더 IPC)이 있어 메인스레드 밖에서 돌린다.
         CoroutineScope(Dispatchers.IO).launch {
-            // Initialize the Google Mobile Ads SDK on a background thread.
-            MobileAds.initialize(applicationContext) {}
+            prefetchOcrModels()
         }
-
-        prefetchOcrModels()
     }
 
     /**

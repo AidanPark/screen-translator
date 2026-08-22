@@ -41,9 +41,15 @@ class ScreenCapturePermissionRequesterActivity : AVDActivity() {
         // Android 14(API 34)+ 에서는 '단일 앱 / 전체 화면' 선택지가 뜨는데,
         // 전체 화면 캡처로 고정하여 사용자가 헷갈리지 않고 전체 화면만 공유하도록 한다.
         val captureIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            mediaProjectionManager.createScreenCaptureIntent(
-                MediaProjectionConfig.createConfigForDefaultDisplay()
-            )
+            // 일부 기기(커스텀 ROM 등)는 API 34 를 표방하면서도 MediaProjectionConfig 클래스가 없어
+            // ClassNotFoundException/NoClassDefFoundError 가 난다 → 기본 캡처 인텐트로 폴백 (2.6.0 크래시)
+            try {
+                mediaProjectionManager.createScreenCaptureIntent(
+                    MediaProjectionConfig.createConfigForDefaultDisplay()
+                )
+            } catch (t: Throwable) {
+                mediaProjectionManager.createScreenCaptureIntent()
+            }
         } else {
             mediaProjectionManager.createScreenCaptureIntent()
         }

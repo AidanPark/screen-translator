@@ -2757,8 +2757,9 @@ class SettingsActivity : AVDActivity() {
                     viewModel.updateIsReviewDone()
                 }
             } else {
-                val reviewErrorCode = (task.exception as ReviewException).errorCode
-                Timber.tag(TAG).d("appReview() startReviewFlow reviewErrorCode $reviewErrorCode")
+                // 실패 원인이 ReviewException 이 아닐 수도 있다(강제 캐스팅은 2.6.0 에서 크래시).
+                val reviewErrorCode = (task.exception as? ReviewException)?.errorCode
+                Timber.tag(TAG).d("appReview() startReviewFlow reviewErrorCode $reviewErrorCode ${task.exception}")
             }
             lifecycleScope.launch {
                 MenuBarView.INSTANCE.cast(applicationContext)
