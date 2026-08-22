@@ -130,7 +130,6 @@ import com.galaxy.airviewdictionary.BuildConfig
 import com.galaxy.airviewdictionary.R
 import com.galaxy.airviewdictionary.data.local.capture.CaptureRepository
 import com.galaxy.airviewdictionary.data.local.screen.ScreenInfoHolder
-import com.galaxy.airviewdictionary.data.local.secure.TrialLimitInfo
 import com.galaxy.airviewdictionary.data.local.preference.PreferenceRepository
 import com.galaxy.airviewdictionary.data.local.tts.TTSReadTarget
 import com.galaxy.airviewdictionary.data.local.vision.TextDetectMode
@@ -554,14 +553,6 @@ class SettingsActivity : AVDActivity() {
 
         fun getSecondValueText(second: Long): String {
             return "${round(second / 1000.0 * 10) / 10} sec"
-        }
-
-        val remoteConfig by viewModel.remoteConfigRepository.remoteConfigFlow.collectAsStateWithLifecycle(
-            lifecycle = lifecycleOwner.lifecycle,
-            initialValue = 0
-        )
-        LaunchedEffect(remoteConfig) {
-            Timber.tag(TAG).d("trialRemainMinutes ${TrialLimitInfo.trialRemainMinutes(applicationContext)} ")
         }
 
         AutoRefreshEveryMinute {

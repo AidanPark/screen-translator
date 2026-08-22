@@ -48,7 +48,6 @@ import com.galaxy.airviewdictionary.data.local.capture.NoMediaProjectionTokenExc
 import com.galaxy.airviewdictionary.data.local.screen.ScreenInfo
 import com.galaxy.airviewdictionary.data.local.screen.ScreenInfoHolder
 import com.galaxy.airviewdictionary.data.local.ads.AdGateState
-import com.galaxy.airviewdictionary.data.local.secure.TrialLimitInfo
 import com.galaxy.airviewdictionary.data.local.vision.TextDetectMode
 import com.galaxy.airviewdictionary.data.local.vision.model.Transaction
 import com.galaxy.airviewdictionary.data.local.vision.model.VisionResponse
@@ -456,15 +455,11 @@ open class FixedAreaView : OverlayView() {
         fixedAreaViewStateFlowJob?.cancel()
         fixedAreaViewStateFlow.value = State.Translating
         translateJob = launchInOverlayViewCoroutineScope {
-            val campaignPeriodMinute = TrialLimitInfo.getFixedAreaViewCampaignPeriodMinute(context)
-            val startTime = System.nanoTime()
             while (fixedAreaViewStateFlow.value == State.Translating || fixedAreaViewStateFlow.value == State.TranslatingHandling) {
                 // 0.1초 간격
                 delay(100)
-                val elapsedTimeMillis = (System.nanoTime() - startTime) / 1_000_000 // 나노초를 밀리초로 변환
-//                Timber.tag(TAG).d("==== $campaignPeriodMinute, $purchaseState,  $elapsedTimeMillis")
-                // 사용권이 없고 campaignPeriodMinute 가 지나면 광고 표시
-                if (!AdGateState.isUsable() && elapsedTimeMillis > (60000 * campaignPeriodMinute)) {
+                // 광고 사용권이 없으면(스킵/미시청) 광고 게이트를 열고 종료 — 포인터 모드와 동일한 규칙
+                if (!AdGateState.isUsable()) {
                     targetHandleViewModel.showAdGate()
                     clear()
                 }

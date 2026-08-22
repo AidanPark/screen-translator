@@ -37,22 +37,6 @@
     </entry>
 
     <!--
-        1.99 ~ 무료 번역 제한 시간(분)
-    -->
-    <entry>
-        <key>trial_time_limit_minute</key>
-        <value>10</value>
-    </entry>
-
-    <!--
-        2.2.0 ~ FixedAreaView 에서 무료사용자 대상 광고캠페인 주기(분)
-    -->
-    <entry>
-        <key>fixed_area_view_campaign_period_minute</key>
-        <value>10</value>
-    </entry>
-
-    <!--
         2.4.0 ~ 무료체험 광고 아이디
     -->
     <entry>

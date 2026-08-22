@@ -25,7 +25,7 @@ import com.galaxy.airviewdictionary.data.local.capture.NoMediaProjectionTokenExc
 import com.galaxy.airviewdictionary.data.local.preference.PreferenceRepository
 import com.galaxy.airviewdictionary.data.local.ads.AdGateState
 import com.galaxy.airviewdictionary.data.local.secure.SecureRepository
-import com.galaxy.airviewdictionary.data.local.secure.TrialLimitInfo
+import com.galaxy.airviewdictionary.data.local.secure.UsageInfo
 import com.galaxy.airviewdictionary.data.local.tts.TTSReadTarget
 import com.galaxy.airviewdictionary.data.local.tts.TTSRepository
 import com.galaxy.airviewdictionary.data.local.vision.TextDetectMode
@@ -897,25 +897,9 @@ class TargetHandleViewModel(
     }
 
     private fun collectAdGateInfo() {
-        /*
-            remote config 에서 TRIAL_TIME_LIMIT_MINUTE 값을 수신,
-            TrialLimitInfo 에 무료체험 시간제한 정보를 저장
-         */
+        // 참여도 분석(elapsed*)의 기준점인 최초 사용 시각을 세션 시작 시 확정한다.
         viewModelScope.launch {
-            remoteConfigRepository.remoteConfigFlow
-                .collect { remoteConfig ->
-                    TrialLimitInfo.setTrialTimeLimitMinute(
-                        context = applicationContext,
-                        trialTimeLimitMinute = remoteConfig[RemoteConfigRepository.TRIAL_TIME_LIMIT_MINUTE]?.asLong()?.toInt() ?: 0
-                    )
-                    TrialLimitInfo.setFixedAreaViewCampaignPeriodMinute(
-                        context = applicationContext,
-                        fixedAreaViewCampaignPeriodMinute = remoteConfig[RemoteConfigRepository.FIXED_AREA_VIEW_CAMPAIGN_PERIOD_MINUTE]?.asLong()?.toInt() ?: 10
-                    )
-
-                    Timber.tag(TAG).d("==== remoteConfig ${TrialLimitInfo.trialRemainMinutes(applicationContext)} ")
-                    Timber.tag(TAG).d("==== remoteConfig ${TrialLimitInfo.toString(applicationContext)} ")
-                }
+            UsageInfo.getFirstUseTime(applicationContext)
         }
 
         // 번역 카운트 통계 (앱 리뷰 유도 및 사용량 통계용)
@@ -932,10 +916,10 @@ class TargetHandleViewModel(
                         || trialCount == 300
                         || trialCount == 500
                     ) {
-                        val hoursTaken = TrialLimitInfo.trialElapsedHours(applicationContext)
+                        val hoursTaken = UsageInfo.elapsedHoursSinceFirstUse(applicationContext)
                         analyticsRepository.hoursTakenReport(trialCount, hoursTaken)
                     } else if (trialCount % 1000 == 0) {
-                        val daysTaken = TrialLimitInfo.trialElapsedDays(applicationContext)
+                        val daysTaken = UsageInfo.elapsedDaysSinceFirstUse(applicationContext)
                         analyticsRepository.daysTakenReport(trialCount, daysTaken)
                     }
                 }

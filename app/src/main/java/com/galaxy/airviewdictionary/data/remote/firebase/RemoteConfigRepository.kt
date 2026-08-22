@@ -28,8 +28,6 @@ class RemoteConfigRepository @Inject constructor(@ApplicationContext val context
         const val SERVICE_AVAILABLE_KEY = "service_available"
         const val LATEST_VERSION_CODE_KEY = "latest_version_code"
         const val FORCE_UPDATE_VERSION_CODE_KEY = "force_update_version_code"
-        const val TRIAL_TIME_LIMIT_MINUTE = "trial_time_limit_minute"
-        const val FIXED_AREA_VIEW_CAMPAIGN_PERIOD_MINUTE = "fixed_area_view_campaign_period_minute"
         const val AD_UNIT_ID = "ad_unit_id"
 
         // OpenAI 번역에서 고를 수 있는 모델 후보 (쉼표 구분). 설정 UI 가 이 목록을 노출한다.
@@ -83,8 +81,6 @@ class RemoteConfigRepository @Inject constructor(@ApplicationContext val context
         Timber.tag(TAG).d("SERVICE_AVAILABLE_KEY ${remoteConfig[SERVICE_AVAILABLE_KEY].asString()}")
         Timber.tag(TAG).d("LATEST_VERSION_CODE_KEY ${remoteConfig[LATEST_VERSION_CODE_KEY].asString()}")
         Timber.tag(TAG).d("FORCE_UPDATE_VERSION_CODE_KEY ${remoteConfig[FORCE_UPDATE_VERSION_CODE_KEY].asString()}")
-        Timber.tag(TAG).d("TRIAL_TIME_LIMIT_MINUTE ${remoteConfig[TRIAL_TIME_LIMIT_MINUTE].asString()}")
-        Timber.tag(TAG).d("FIXED_AREA_VIEW_CAMPAIGN_PERIOD_MINUTE ${remoteConfig[FIXED_AREA_VIEW_CAMPAIGN_PERIOD_MINUTE].asString()}")
         Timber.tag(TAG).d("AD_UNIT_ID ${remoteConfig[AD_UNIT_ID].asString()}")
         _remoteConfigFlow.value = remoteConfig.all
     }

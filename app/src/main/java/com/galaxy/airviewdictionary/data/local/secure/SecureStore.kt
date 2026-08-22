@@ -25,9 +25,8 @@ object SecureStoreKey {
 
     const val CLAUDE_API_KEY = "claude_api_key"
 
-    const val TRIAL_START_TIME = "trial_start_time"
-    const val TRIAL_TIME_LIMIT_MINUTE = "trial_time_limit_minute"
-    const val FIXED_AREA_VIEW_CAMPAIGN_PERIOD_MINUTE = "fixed_area_view_campaign_period_minute"
+    // 최초 사용 시각(참여도 분석 기준점). 저장 문자열은 기존 사용자 데이터 연속성을 위해 유지한다.
+    const val FIRST_USE_TIME = "trial_start_time"
 }
 
 /**
