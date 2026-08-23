@@ -186,6 +186,9 @@ class SettingsActivity : AVDActivity() {
         // 공개 가능한 소스가 게시되는 퍼블릭 저장소
         private const val GITHUB_REPO_URL = "https://github.com/AidanPark/android-screen-translator"
 
+        // 웹 사용 가이드 (모드별 데모 영상 + FAQ)
+        private const val HOW_TO_USE_GUIDE_URL = "https://aidanpark.github.io/guide/"
+
         fun start(context: Context) {
             val intent = Intent(context, SettingsActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -1543,6 +1546,27 @@ class SettingsActivity : AVDActivity() {
                                             paddingValues = paddingValues
                                         )
                                     }
+                                }
+                            }
+
+                            MenuItem(
+                                menuItemPosition = MenuItemPosition.Middle,
+                                onClick = {
+                                    val guideIntent = Intent(Intent.ACTION_VIEW, HOW_TO_USE_GUIDE_URL.toUri())
+                                    context.startActivity(guideIntent)
+                                    viewModel.analyticsRepository.screenViewReport("HowToUseGuide")
+                                },
+                            ) {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .heightIn(min = 50.dp)
+                                        .padding(end = 6.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    MenuText(
+                                        text = getString(R.string.settings_menu_how_to_use),
+                                    )
                                 }
                             }
 

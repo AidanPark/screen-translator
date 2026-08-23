@@ -1,8 +1,10 @@
 package com.galaxy.airviewdictionary
 
 import android.app.Application
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.view.WindowInsets
 import android.widget.Toast
 import com.google.android.gms.common.moduleinstall.InstallStatusListener
 import com.google.android.gms.common.moduleinstall.ModuleInstall
@@ -21,6 +23,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.analytics
 import com.google.firebase.appcheck.appCheck
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
+import com.google.firebase.crashlytics.crashlytics
 import com.google.firebase.initialize
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
@@ -58,6 +61,19 @@ class App : Application() {
                 FirebaseAnalytics.ConsentType.AD_USER_DATA to FirebaseAnalytics.ConsentStatus.GRANTED
             )
             Firebase.analytics.setConsent(consentMap)
+
+            // 위장 프레임워크 관측: SDK_INT 는 34+ 라면서 API 34 필수 메서드가 없는
+            // 가상/개조 기기(에뮬레이터·클라우드폰)를 크래시와 애널리틱스에서 분류한다.
+            // (2.6.1 의 WindowInsetsCompat systemOverlays NoSuchMethodError 가 이 부류)
+            val integrity = frameworkIntegrityLabel()
+            Firebase.crashlytics.apply {
+                setCustomKey("framework_integrity", integrity)
+                setCustomKey("build_fingerprint", Build.FINGERPRINT)
+                setCustomKey("hardware", Build.HARDWARE)
+                val dm = resources.displayMetrics
+                setCustomKey("screen", "${dm.widthPixels}x${dm.heightPixels}@${dm.densityDpi}dpi")
+            }
+            Firebase.analytics.setUserProperty("framework_integrity", integrity)
         }
 
         // 광고 SDK 초기화는 AdGateActivity 가 동의 수집 후 백그라운드에서 수행한다.
@@ -134,6 +150,21 @@ class App : Application() {
                 moduleInstall.installModules(request)
                     .addOnCompleteListener { recognizers.forEach { it.close() } }
             }
+    }
+
+    /**
+     * 기기 신분(SDK_INT)과 실제 프레임워크의 일치 여부를 확인한다.
+     * API 34+ 를 자칭하면 반드시 있어야 하는 WindowInsets.Type.systemOverlays() 가 없으면
+     * 빌드 속성을 위장한 가상 안드로이드(에뮬레이터/클라우드폰/개조 ROM)로 판정한다.
+     */
+    private fun frameworkIntegrityLabel(): String {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) return "ok"
+        return try {
+            WindowInsets.Type::class.java.getMethod("systemOverlays")
+            "ok"
+        } catch (t: Throwable) {
+            "spoofed_api34"
+        }
     }
 
     private fun showToast(message: String) {

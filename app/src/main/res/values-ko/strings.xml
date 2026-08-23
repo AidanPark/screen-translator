@@ -70,6 +70,7 @@
   <string name="label_save">저장</string>
   <string name="settings_menu_app_version">앱 버전</string>
   <string name="settings_menu_app_version_latest">(최신)</string>
+  <string name="settings_menu_how_to_use">사용법 안내</string>
 
   <!-- HelpTextDetectModeView, HelpTranslationKitView -->
   <string name="help_text_no_limit_free">사용량 제한 없음, 기간 제한 없음</string>
