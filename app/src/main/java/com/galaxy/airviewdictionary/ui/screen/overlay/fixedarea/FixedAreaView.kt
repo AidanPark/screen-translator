@@ -45,6 +45,7 @@ import com.galaxy.airviewdictionary.core.OverlayService
 import com.galaxy.airviewdictionary.data.local.capture.CapturePreventedException
 import com.galaxy.airviewdictionary.data.local.capture.CaptureResponse
 import com.galaxy.airviewdictionary.data.local.capture.NoMediaProjectionTokenException
+import com.galaxy.airviewdictionary.data.local.preference.PreferenceRepository
 import com.galaxy.airviewdictionary.data.local.screen.ScreenInfo
 import com.galaxy.airviewdictionary.data.local.screen.ScreenInfoHolder
 import com.galaxy.airviewdictionary.data.local.ads.AdGateState
@@ -527,6 +528,10 @@ open class FixedAreaView : OverlayView() {
         if (sourceText.trim().isEmpty()) {
             translationFlow.value = ""
         } else {
+            // TTS 목소리 목록 등이 참조하는 "마지막 번역의 실제 소스 언어"를 기록
+            sourceLanguageCode.takeIf { it.isNotBlank() && it != "auto" && it != "und" }?.let {
+                targetHandleViewModel.preferenceRepository.update(PreferenceRepository.LAST_USED_SOURCE_LANGUAGE_CODE, it)
+            }
             targetHandleViewModel.translationRepository.request(
                 translationKitType = translationKitType,
                 sourceLanguageCode = sourceLanguageCode,

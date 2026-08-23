@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">અહીં અનુવાદ કરો</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">ઉપલબ્ધ અવાજો</string>
+    <string name="title_voice_list_view">TTS અવાજ પસંદ કરો</string>
 
     <!-- Dialog -->
     <string name="message_force_update">અપડેટ જરૂરી છે</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">બેટરી ચેતવણી</string>
     <string name="message_translate_fixedarea_warn_detail">બેટરી ઝડપથી ખૂટી શકે છે.</string>
     <string name="ad_gate_loading">જાહેરાત તૈયાર થઈ રહી છે…</string>
-    <string name="ad_gate_reward_notice">જાહેરાત અંત સુધી જુઓ અને એપ બંધ કરો ત્યાં સુધી જાહેરાત વિના વાપરો.</string>
+    <string name="ad_gate_reward_notice">જાહેરાત અંત સુધી જુઓ, એપ બંધ ન કરો ત્યાં સુધી બીજી કોઈ જાહેરાત દેખાશે નહીં.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">સેટિંગ્સ</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Claude મોડલ સાથે અનુવાદ કરવા માટે તમારી Claude API કી દાખલ કરો.</string>
   <string name="help_text_claude_own_key">તમારી વ્યક્તિગત Claude API કી વાપરે છે</string>
   <string name="claude_key_signup_guide">Anthropic Console માં API કી બનાવો. વપરાશનું બિલ તમારા Anthropic એકાઉન્ટમાં કરવામાં આવે છે.</string>
+    <string name="settings_menu_how_to_use">ઉપયોગ કેવી રીતે કરવો</string>
+    <string name="ocr_model_preparing">અનુવાદ એન્જિન તૈયાર થઈ રહ્યું છે. કૃપા કરીને થોડી રાહ જુઓ.</string>
 </resources>

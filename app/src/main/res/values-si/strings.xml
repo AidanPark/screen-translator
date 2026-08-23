@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">පරිවර්තනය විය යුතු භාෂාව</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">ලභ්‍ය හඬ</string>
+    <string name="title_voice_list_view">TTS හඬ තෝරන්න</string>
 
     <!-- Dialog -->
     <string name="message_force_update">යාවත්කාලීන අවශ්‍යයි</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">බැටරි අනතුරු ඇඟවීම</string>
     <string name="message_translate_fixedarea_warn_detail">බැටරිය ඉතා ඉක්මනින් විශේෂ වශයෙන් නිම විය හැක.</string>
     <string name="ad_gate_loading">දැන්වීම සූදානම් වෙමින්…</string>
-    <string name="ad_gate_reward_notice">දැන්වීම අවසානය දක්වා නරඹා, යෙදුම වසන තුරු දැන්වීම් රහිතව භාවිතා කරන්න.</string>
+    <string name="ad_gate_reward_notice">දැන්වීම අවසානය දක්වා නරඹන්න, යෙදුම වසන තුරු තවත් දැන්වීම් නොපෙන්වයි.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">සැකසීම්</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Claude ආකෘති සමඟ පරිවර්තනය කිරීමට ඔබගේ Claude API යතුර ඇතුළත් කරන්න.</string>
   <string name="help_text_claude_own_key">ඔබේ පෞද්ගලික Claude API යතුර භාවිත කරයි</string>
   <string name="claude_key_signup_guide">Anthropic Console හි API යතුරක් සාදන්න. භාවිතය ඔබගේ Anthropic ගිණුමට බිල් කෙරේ.</string>
+    <string name="settings_menu_how_to_use">භාවිත ක්‍රමය</string>
+    <string name="ocr_model_preparing">පරිවර්තන එන්ජිම සූදානම් වෙමින් පවතී. කරුණාකර මොහොතක් රැඳී සිටින්න.</string>
 </resources>

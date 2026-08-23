@@ -75,7 +75,8 @@ import java.util.concurrent.atomic.AtomicBoolean
  *
  * 보상 규칙:
  * - 끝까지 시청(onUserEarnedReward): 앱 종료 시까지 광고 없이 사용
- * - 스킵 / 로드 실패 / 표시 실패 / 동의 미확보 / 뒤로가기: 모두 동일하게 5분 사용권 부여 후 종료
+ * - 로드 실패 / 표시 실패 / 동의 미확보 (기술적 사유): 5분 사용권 부여 후 종료
+ * - 스킵(중간에 닫기·뒤로가기·홈키 중단): 유예 없음 → 다음 번역 시 게이트가 다시 뜬다
  */
 class AdGateActivity : ComponentActivity() {
 
@@ -134,7 +135,7 @@ class AdGateActivity : ComponentActivity() {
         TranslationView.INSTANCE.hideTemporarily()
         VisionTextView.INSTANCE.hideTemporarily()
 
-        // 뒤로가기로 다이얼로그를 닫는 것은 광고 스킵과 동일 취급
+        // 뒤로가기로 다이얼로그를 닫는 것은 광고 스킵과 동일 취급 (유예 없음)
         onBackPressedDispatcher.addCallback(this) {
             finishAsSkip()
         }
@@ -216,7 +217,7 @@ class AdGateActivity : ComponentActivity() {
                             onClick = {
                                 when (adLoadStateFlow.value) {
                                     AdLoadState.Loaded -> showRewardedVideo()
-                                    AdLoadState.Failed -> finishAsSkip()
+                                    AdLoadState.Failed -> finishAsFailure()
                                     AdLoadState.Loading -> Unit // disabled 상태라 도달하지 않음
                                 }
                             },
@@ -294,12 +295,17 @@ class AdGateActivity : ComponentActivity() {
             return
         }
 
-        // Set your test devices.
-        if (BuildConfig.DEBUG) {
-            MobileAds.setRequestConfiguration(
-                RequestConfiguration.Builder().setTestDeviceIds(listOf("BA6732E32C6CA0D01FB929ECC2FDA19F")).build()
-            )
-        }
+        // 개발자 기기는 릴리스 빌드에서도 항상 테스트 광고를 받는다.
+        // (개발자가 실광고를 직접 시청/클릭하면 AdMob 무효 트래픽으로 계정 제재 위험이 있다)
+        // 값은 기기 광고 ID 의 해시라 다른 사용자 기기에는 아무 영향이 없다.
+        MobileAds.setRequestConfiguration(
+            RequestConfiguration.Builder().setTestDeviceIds(
+                listOf(
+                    "BA6732E32C6CA0D01FB929ECC2FDA19F", // 개발 에뮬레이터
+                    "D6702C0742CE9DD6BBA2193ED921D92E", // SM-G991N 실기기
+                )
+            ).build()
+        )
 
         CoroutineScope(Dispatchers.IO).launch {
             // Initialize the Google Mobile Ads SDK on a background thread.
@@ -363,17 +369,14 @@ class AdGateActivity : ComponentActivity() {
             override fun onAdDismissedFullScreenContent() {
                 Timber.tag(TAG).d("Ad dismissed. earned=$earned")
                 rewardedAd = null
-                if (!earned) {
-                    // 끝까지 보지 않고 닫음(스킵) → 5분 사용권
-                    AdGateState.grantSkipWindow()
-                }
+                // 끝까지 보지 않고 닫음(스킵·홈키 중단 포함)이면 유예 없이 종료 → 다음 번역 시 재게이트
                 finishGate()
             }
 
             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
                 Timber.tag(TAG).d("Ad failed to show: ${adError.message}")
                 rewardedAd = null
-                finishAsSkip()
+                finishAsFailure()
             }
 
             override fun onAdShowedFullScreenContent() {
@@ -390,10 +393,15 @@ class AdGateActivity : ComponentActivity() {
         }
     }
 
-    /** 스킵과 동일 취급: 5분 사용권 부여 후 종료 */
+    /** 사용자 스킵 취급: 유예 없이 종료 → 다음 번역 시 게이트가 다시 뜬다 */
     private fun finishAsSkip() {
+        finishGate()
+    }
+
+    /** 기술적 실패(로드/표시/동의) 취급: 5분 사용권 부여 후 종료 */
+    private fun finishAsFailure() {
         if (finished) return
-        AdGateState.grantSkipWindow()
+        AdGateState.grantFailureWindow()
         finishGate()
     }
 

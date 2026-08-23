@@ -24,7 +24,7 @@
   <string name="title_language_list_view_target">Traduzir para</string>
 
   <!-- VoiceListView -->
-  <string name="title_voice_list_view">Vozes disponíveis</string>
+  <string name="title_voice_list_view">Selecionar voz de TTS</string>
 
   <!-- Dialog -->
   <string name="message_force_update">Atualização obrigatória</string>
@@ -36,7 +36,7 @@
   <string name="message_translate_fixedarea_warn">Aviso de bateria</string>
   <string name="message_translate_fixedarea_warn_detail">A bateria pode descarregar rapidamente.</string>
   <string name="ad_gate_loading">A preparar um anúncio…</string>
-  <string name="ad_gate_reward_notice">Veja o anúncio até ao fim para usar a app sem anúncios até a fechar.</string>
+  <string name="ad_gate_reward_notice">Assista ao anúncio até o fim e nenhum outro anúncio aparecerá até você fechar o app.</string>
 
   <!-- SettingsActivity -->
   <string name="settings_title">Definições</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Insira sua chave de API da Claude para traduzir com modelos da Claude.</string>
   <string name="help_text_claude_own_key">Usa a sua chave de API pessoal do Claude</string>
   <string name="claude_key_signup_guide">Crie uma chave API no Anthropic Console. O uso é cobrado na sua conta Anthropic.</string>
+  <string name="settings_menu_how_to_use">Como usar</string>
+  <string name="ocr_model_preparing">Preparando o mecanismo de tradução. Aguarde um momento.</string>
 </resources>

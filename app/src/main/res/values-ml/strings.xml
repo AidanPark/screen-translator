@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">ഇതിലേക്ക് പരിഭാഷ ചെയ്യുക</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">ലഭ്യമായ ശബ്ദങ്ങൾ</string>
+    <string name="title_voice_list_view">TTS ശബ്ദം തിരഞ്ഞെടുക്കുക</string>
 
     <!-- Dialog -->
     <string name="message_force_update">അപ്‌ഡേറ്റ് ആവശ്യമാണ്</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">ബാറ്ററി മുന്നറിയിപ്പ്</string>
     <string name="message_translate_fixedarea_warn_detail">ബാറ്ററി വേഗത്തിൽ തീർന്നേക്കാം.</string>
     <string name="ad_gate_loading">പരസ്യം തയ്യാറാക്കുന്നു…</string>
-    <string name="ad_gate_reward_notice">പരസ്യം അവസാനം വരെ കാണുക, ആപ്പ് അടയ്ക്കുന്നതുവരെ പരസ്യമില്ലാതെ ഉപയോഗിക്കുക.</string>
+    <string name="ad_gate_reward_notice">പരസ്യം അവസാനം വരെ കാണുക, ആപ്പ് അടയ്ക്കുന്നത് വരെ ഇനി പരസ്യം കാണിക്കില്ല.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">ക്രമീകരണം</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Claude മോഡലുകൾ ഉപയോഗിച്ച് വിവർത്തനം ചെയ്യാൻ നിങ്ങളുടെ Claude API കീ നൽകുക.</string>
   <string name="help_text_claude_own_key">നിങ്ങളുടെ വ്യക്തിഗത Claude API കീ ഉപയോഗിക്കുന്നു</string>
   <string name="claude_key_signup_guide">Anthropic Console-ൽ ഒരു API കീ സൃഷ്‌ടിക്കുക. ഉപയോഗം നിങ്ങളുടെ Anthropic അക്കൗണ്ടിലേക്ക് ബില്ല് ചെയ്യുന്നു.</string>
+    <string name="settings_menu_how_to_use">ഉപയോഗിക്കുന്ന വിധം</string>
+    <string name="ocr_model_preparing">വിവർത്തന എൻജിൻ തയ്യാറാക്കുന്നു. അൽപ്പം കാത്തിരിക്കുക.</string>
 </resources>

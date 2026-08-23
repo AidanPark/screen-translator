@@ -24,7 +24,7 @@
   <string name="title_language_list_view_target">الترجمة إلى</string>
 
   <!-- VoiceListView -->
-  <string name="title_voice_list_view">الأصوات المتاحة</string>
+  <string name="title_voice_list_view">اختيار صوت TTS</string>
 
   <!-- Dialog -->
   <string name="message_force_update">التحديث مطلوب</string>
@@ -36,7 +36,7 @@
   <string name="message_translate_fixedarea_warn">تحذير البطارية</string>
   <string name="message_translate_fixedarea_warn_detail">قد تنفد البطارية بسرعة.</string>
   <string name="ad_gate_loading">جارٍ تحضير إعلان…</string>
-  <string name="ad_gate_reward_notice">شاهد الإعلان حتى النهاية لاستخدام التطبيق دون إعلانات حتى إغلاقه.</string>
+  <string name="ad_gate_reward_notice">شاهد الإعلان حتى النهاية ولن تظهر إعلانات أخرى حتى تغلق التطبيق.</string>
 
   <!-- SettingsActivity -->
   <string name="settings_title">الإعدادات</string>
@@ -95,6 +95,8 @@
   <string name="claude_key_guide">أدخل مفتاح Claude API الخاص بك للترجمة باستخدام نماذج Claude.</string>
   <string name="help_text_claude_own_key">يستخدم مفتاح Claude API الخاص بك</string>
   <string name="claude_key_signup_guide">أنشئ مفتاح API في Anthropic Console. تتم محاسبة الاستخدام على حساب Anthropic الخاص بك.</string>
+  <string name="settings_menu_how_to_use">طريقة الاستخدام</string>
+  <string name="ocr_model_preparing">جارٍ تجهيز محرك الترجمة. يُرجى الانتظار قليلًا.</string>
 </resources>
 
 

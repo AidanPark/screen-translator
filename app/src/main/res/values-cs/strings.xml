@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Překládat do</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Dostupné hlasy</string>
+    <string name="title_voice_list_view">Vyberte hlas TTS</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Je vyžadována aktualizace</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Upozornění na baterii</string>
     <string name="message_translate_fixedarea_warn_detail">Baterie se může rychle vybít.</string>
     <string name="ad_gate_loading">Připravuje se reklama…</string>
-    <string name="ad_gate_reward_notice">Sledujte reklamu až do konce a používejte aplikaci bez reklam, dokud ji nezavřete.</string>
+    <string name="ad_gate_reward_notice">Zhlédněte reklamu až do konce a další reklamy se nezobrazí, dokud aplikaci nezavřete.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Nastavení</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Zadejte svůj klíč Claude API pro překlad pomocí modelů Claude.</string>
   <string name="help_text_claude_own_key">Používá váš osobní klíč API Claude</string>
   <string name="claude_key_signup_guide">Vytvořte klíč API v Anthropic Console. Použití se účtuje na váš účet Anthropic.</string>
+    <string name="settings_menu_how_to_use">Jak používat</string>
+    <string name="ocr_model_preparing">Připravuje se překladový modul. Chvíli počkejte, prosím.</string>
 </resources>

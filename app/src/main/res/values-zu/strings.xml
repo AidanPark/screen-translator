@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Humusha kuya ku</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Amazwi atholakalayo</string>
+    <string name="title_voice_list_view">Khetha izwi le-TTS</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Kubuyekezwe kuyadingeka</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Isixwayiso sebhathri</string>
     <string name="message_translate_fixedarea_warn_detail">Ibhathri ingase iphele ngokushesha.</string>
     <string name="ad_gate_loading">Kulungiswa isikhangiso…</string>
-    <string name="ad_gate_reward_notice">Buka isikhangiso kuze kube sekugcineni ukuze usebenzise uhlelo ngaphandle kwezikhangiso uze uluvale.</string>
+    <string name="ad_gate_reward_notice">Buka isikhangiso kuze kube sekupheleni, akukho esinye isikhangiso esizovela uze uvale uhlelo lokusebenza.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Izilungiselelo</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Faka ukhiye wakho we-Claude API ukuze uhumushe ngezimodeli ze-Claude.</string>
   <string name="help_text_claude_own_key">Isebenzisa ukhiye wakho we-Claude API womuntu siqu</string>
   <string name="claude_key_signup_guide">Dala ukhiye we-API ku-Anthropic Console. Ukusetshenziswa kukhokhiswa ku-akhawunti yakho ye-Anthropic.</string>
+    <string name="settings_menu_how_to_use">Indlela yokusebenzisa</string>
+    <string name="ocr_model_preparing">Kulungiswa injini yokuhumusha. Sicela ulinde isikhashana.</string>
 </resources>

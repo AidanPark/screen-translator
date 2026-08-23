@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Käännä kieleen</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Saatavilla olevat äänet</string>
+    <string name="title_voice_list_view">Valitse TTS-ääni</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Päivitys vaaditaan</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Akkun varoitus</string>
     <string name="message_translate_fixedarea_warn_detail">Akku voi tyhjentyä nopeasti.</string>
     <string name="ad_gate_loading">Valmistellaan mainosta…</string>
-    <string name="ad_gate_reward_notice">Katso mainos loppuun asti, niin voit käyttää sovellusta mainoksitta sen sulkemiseen saakka.</string>
+    <string name="ad_gate_reward_notice">Katso mainos loppuun, niin mainoksia ei enää näytetä ennen kuin suljet sovelluksen.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Asetukset</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Anna Claude API -avaimesi kääntääksesi Claude-malleilla.</string>
   <string name="help_text_claude_own_key">Käyttää henkilökohtaista Claude API -avaintasi</string>
   <string name="claude_key_signup_guide">Luo API-avain Anthropic Consolessa. Käyttö laskutetaan Anthropic-tililtäsi.</string>
+    <string name="settings_menu_how_to_use">Käyttöohje</string>
+    <string name="ocr_model_preparing">Käännösmoottoria valmistellaan. Odota hetki.</string>
 </resources>

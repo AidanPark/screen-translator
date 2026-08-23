@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">இடத்திற்கு மொழிபெயர்</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">கிடைக்கும் குரல்கள்</string>
+    <string name="title_voice_list_view">TTS குரலைத் தேர்ந்தெடுக்கவும்</string>
 
     <!-- Dialog -->
     <string name="message_force_update">புதுப்பிப்பு தேவை</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">மின்கலன் எச்சரிக்கை</string>
     <string name="message_translate_fixedarea_warn_detail">மின்கலன் விரைவாக தீரலாம்.</string>
     <string name="ad_gate_loading">விளம்பரம் தயாராகிறது…</string>
-    <string name="ad_gate_reward_notice">விளம்பரத்தை இறுதிவரை பார்த்து, ஆப்ஸை மூடும் வரை விளம்பரமின்றி பயன்படுத்துங்கள்.</string>
+    <string name="ad_gate_reward_notice">விளம்பரத்தை இறுதிவரை பாருங்கள், ஆப்ஸை மூடும் வரை இனி விளம்பரம் தோன்றாது.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">அமைப்புகள்</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Claude மாதிரிகளுடன் மொழிபெயர்க்க உங்கள் Claude API விசையை உள்ளிடவும்.</string>
   <string name="help_text_claude_own_key">உங்கள் தனிப்பட்ட Claude API விசையைப் பயன்படுத்துகிறது</string>
   <string name="claude_key_signup_guide">Anthropic Console இல் ஒரு API விசையை உருவாக்கவும். பயன்பாட்டிற்கு உங்கள் Anthropic கணக்கில் கட்டணம் விதிக்கப்படும்.</string>
+    <string name="settings_menu_how_to_use">பயன்படுத்தும் முறை</string>
+    <string name="ocr_model_preparing">மொழிபெயர்ப்பு இயந்திரம் தயாராகிறது. சிறிது காத்திருக்கவும்.</string>
 </resources>

@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Translate into</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Available voices</string>
+    <string name="title_voice_list_view">Select TTS Voice</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Update needed</string>
@@ -38,7 +38,7 @@
     <string name="hint_settings_reopen">Double-tap the handle to open settings again</string>
     <string name="say_here">I\'m here!</string>
     <string name="ad_gate_loading">Preparing an ad…</string>
-    <string name="ad_gate_reward_notice">Watch the ad to the end to use the app ad-free until you close it.</string>
+    <string name="ad_gate_reward_notice">Watch the ad to the end and no more ads will appear until you close the app.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Settings</string>

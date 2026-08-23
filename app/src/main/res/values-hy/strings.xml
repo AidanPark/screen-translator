@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Թարգմանել դեպի</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Հասանելի ձայներ</string>
+    <string name="title_voice_list_view">Ընտրել TTS ձայնը</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Պահանջվում է թարմացում</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Մարտկոցի նախազգուշացում</string>
     <string name="message_translate_fixedarea_warn_detail">Մարտկոցը կարող է արագ լիցքաթափվել։</string>
     <string name="ad_gate_loading">Գովազդը պատրաստվում է…</string>
-    <string name="ad_gate_reward_notice">Դիտեք գովազդը մինչև վերջ և օգտագործեք հավելվածն առանց գովազդի մինչև այն փակելը։</string>
+    <string name="ad_gate_reward_notice">Դիտեք գովազդը մինչև վերջ, և հավելվածը փակելուց առաջ այլևս գովազդ չի ցուցադրվի։</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Կարգավորումներ</string>
@@ -95,6 +95,8 @@
   <string name="claude_key_guide">Մուտքագրեք ձեր Claude API բանալին՝ Claude մոդելներով թարգմանելու համար։</string>
   <string name="help_text_claude_own_key">Օգտագործում է ձեր անձնական Claude API բանալին</string>
   <string name="claude_key_signup_guide">Ստեղծեք API բանալի Anthropic Console-ում։ Օգտագործումը գանձվում է ձեր Anthropic հաշվին։</string>
+    <string name="settings_menu_how_to_use">Օգտագործման ուղեցույց</string>
+    <string name="ocr_model_preparing">Թարգմանության շարժիչը պատրաստվում է։ Խնդրում ենք մի փոքր սպասել։</string>
 </resources>
 
 

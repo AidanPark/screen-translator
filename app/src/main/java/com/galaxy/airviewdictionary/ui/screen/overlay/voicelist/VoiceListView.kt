@@ -14,7 +14,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,22 +33,20 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.GraphicEq
-import androidx.compose.material.icons.rounded.DragHandle
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -64,7 +61,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -79,8 +75,6 @@ import com.galaxy.airviewdictionary.core.OverlayService
 import com.galaxy.airviewdictionary.ui.screen.overlay.OverlayView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import sh.calvin.reorderable.ReorderableItem
-import sh.calvin.reorderable.rememberReorderableLazyListState
 import javax.inject.Singleton
 
 
@@ -150,26 +144,12 @@ class VoiceListView private constructor() : OverlayView() {
         val shadowPadding = 1.dp
         val contentHorizontalPadding: Dp = 16.dp
 
-        var mutableVoices = remember { mutableStateListOf<Triple<Int, Voice, Language>>() }
-
-        val voices: List<Triple<Int, Voice, Language>> by viewModel.voicesFlow.collectAsStateWithLifecycle(
+        val voices: List<VoiceListItem> by viewModel.voicesFlow.collectAsStateWithLifecycle(
             lifecycle = lifecycleOwner.lifecycle,
             initialValue = emptyList()
         )
 
-        LaunchedEffect(voices) {
-            mutableVoices.clear()
-            mutableVoices.addAll(voices)
-        }
-
         val lazyListState = rememberLazyListState()
-
-        val reorderableLazyColumnState = rememberReorderableLazyListState(lazyListState) { from, to ->
-            if (mutableVoices[from.index].third == mutableVoices[to.index].third) {
-                mutableVoices = mutableVoices.apply { add(to.index, removeAt(from.index)) }
-                ViewCompat.performHapticFeedback(localView, HapticFeedbackConstantsCompat.GESTURE_START)
-            }
-        }
 
         val showHeaderDivider = remember {
             derivedStateOf {
@@ -264,68 +244,62 @@ class VoiceListView private constructor() : OverlayView() {
                             modifier = Modifier.weight(1f),
                             state = lazyListState,
                         ) {
-                            itemsIndexed(mutableVoices, key = { _, item -> item.first }) { index, item ->
-                                val voice = item.second
-                                val language = item.third
+                            itemsIndexed(voices, key = { _, item -> item.id }) { index, item ->
+                                val voice = item.voice
+                                val language = item.language
 
-                                ReorderableItem(reorderableLazyColumnState, item.first) {
-                                    val interactionSource = remember { MutableInteractionSource() }
-
-                                    Button(
-                                        onClick = {},
-                                        colors = ButtonDefaults.textButtonColors(contentColor = contentColor),
-                                        shape = RectangleShape,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .clip(RectangleShape),
-                                        interactionSource = interactionSource,
-                                        contentPadding = PaddingValues(horizontal = contentHorizontalPadding, vertical = 12.dp)
+                                Button(
+                                    onClick = {
+                                        // 탭 = 선택 + 들어보기 (별도 재생 버튼 없음)
+                                        ViewCompat.performHapticFeedback(localView, HapticFeedbackConstantsCompat.CONFIRM)
+                                        viewModel.selectVoice(item)
+                                        viewModel.playSampleVoice(voice)
+                                    },
+                                    colors = ButtonDefaults.textButtonColors(contentColor = contentColor),
+                                    shape = RectangleShape,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clip(RectangleShape),
+                                    contentPadding = PaddingValues(horizontal = contentHorizontalPadding, vertical = 4.dp)
+                                ) {
+                                    Row(
+                                        Modifier.fillMaxWidth(),
+                                        verticalAlignment = Alignment.CenterVertically,
                                     ) {
-                                        Row(
-                                            Modifier.fillMaxWidth(),
-                                            verticalAlignment = Alignment.CenterVertically,
+                                        RadioButton(
+                                            selected = item.isActive,
+                                            onClick = {
+                                                ViewCompat.performHapticFeedback(localView, HapticFeedbackConstantsCompat.CONFIRM)
+                                                viewModel.selectVoice(item)
+                                                viewModel.playSampleVoice(voice)
+                                            },
+                                            colors = RadioButtonDefaults.colors(
+                                                selectedColor = headerFooterColor,
+                                                unselectedColor = Color.Gray,
+                                            ),
+                                        )
+                                        Spacer(modifier = Modifier.width(4.dp))
+                                        Column(
+                                            horizontalAlignment = Alignment.Start,
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .padding(vertical = 8.dp)
                                         ) {
-                                            Icon(
-                                                imageVector = Icons.Rounded.DragHandle,
-                                                contentDescription = "ReorderDragHandle",
-                                                modifier = Modifier
-                                                    .draggableHandle(
-                                                        onDragStarted = { ViewCompat.performHapticFeedback(localView, HapticFeedbackConstantsCompat.GESTURE_START) },
-                                                        onDragStopped = { ViewCompat.performHapticFeedback(localView, HapticFeedbackConstantsCompat.GESTURE_END) },
-                                                        interactionSource = interactionSource,
-                                                    )
-                                                    .clearAndSetSemantics { },
+                                            Text(
+                                                text = voice.name,
+                                                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 17.sp),
+                                                color = contentColor
                                             )
-                                            Spacer(modifier = Modifier.width(12.dp))
-                                            Column(
-                                                horizontalAlignment = Alignment.Start,
-                                                modifier = Modifier.weight(1f)
-                                            ) {
-                                                Text(
-                                                    text = voice.name,
-                                                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 17.sp),
-                                                    color = contentColor
-                                                )
-                                                Text(
-                                                    text = language.displayName,
-                                                    style = MaterialTheme.typography.bodySmall.copy(fontSize = 13.sp),
-                                                    color = Color.Gray
-                                                )
-                                            }
-                                            IconButton(
-                                                onClick = { viewModel.playSampleVoice(voice) },
-                                            ) {
-                                                Icon(
-                                                    imageVector = Icons.Default.GraphicEq,
-                                                    contentDescription = "play ${voice.name}",
-                                                    tint = contentColor
-                                                )
-                                            }
+                                            Text(
+                                                text = language.displayName,
+                                                style = MaterialTheme.typography.bodySmall.copy(fontSize = 13.sp),
+                                                color = Color.Gray
+                                            )
                                         }
                                     }
                                 }
 
-                                if (index < mutableVoices.size - 1 && language != mutableVoices[index + 1].third) {
+                                if (index < voices.size - 1 && language != voices[index + 1].language) {
                                     DottedDivider(
                                         horizontalPadding = contentHorizontalPadding,
                                     )
@@ -351,7 +325,6 @@ class VoiceListView private constructor() : OverlayView() {
                                 coroutineScope.launch {
                                     delay(200L)
                                     clear()
-                                    viewModel.addOrUpdateOrderedVoiceNames(mutableVoices)
                                 }
                             },
                             colors = ButtonDefaults.textButtonColors(contentColor = contentColor),

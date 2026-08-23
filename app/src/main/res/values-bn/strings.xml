@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">যে ভাষায় অনুবাদ করবেন</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">উপলভ্য কণ্ঠ</string>
+    <string name="title_voice_list_view">TTS ভয়েস নির্বাচন করুন</string>
 
     <!-- Dialog -->
     <string name="message_force_update">আপডেট প্রয়োজন</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">ব্যাটারির সতর্কতা</string>
     <string name="message_translate_fixedarea_warn_detail">ব্যাটারি দ্রুত শেষ হতে পারে।</string>
     <string name="ad_gate_loading">বিজ্ঞাপন প্রস্তুত করা হচ্ছে…</string>
-    <string name="ad_gate_reward_notice">বিজ্ঞাপনটি শেষ পর্যন্ত দেখুন, অ্যাপ বন্ধ করা পর্যন্ত বিজ্ঞাপন ছাড়াই ব্যবহার করুন।</string>
+    <string name="ad_gate_reward_notice">বিজ্ঞাপনটি শেষ পর্যন্ত দেখুন, অ্যাপ বন্ধ না করা পর্যন্ত আর কোনো বিজ্ঞাপন দেখানো হবে না।</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">সেটিংস</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Claude মডেল দিয়ে অনুবাদ করতে আপনার Claude API কী লিখুন।</string>
   <string name="help_text_claude_own_key">আপনার ব্যক্তিগত Claude API কী ব্যবহার করে</string>
   <string name="claude_key_signup_guide">Anthropic Console-এ একটি API কী তৈরি করুন। ব্যবহারের বিল আপনার Anthropic অ্যাকাউন্টে করা হয়।</string>
+    <string name="settings_menu_how_to_use">ব্যবহারের নিয়ম</string>
+    <string name="ocr_model_preparing">অনুবাদ ইঞ্জিন প্রস্তুত করা হচ্ছে। অনুগ্রহ করে একটু অপেক্ষা করুন।</string>
 </resources>

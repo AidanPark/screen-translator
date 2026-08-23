@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Tafsiri hadi</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Sauti Zinazopatikana</string>
+    <string name="title_voice_list_view">Chagua sauti ya TTS</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Sasisho Linahitajika</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Onyo la betri</string>
     <string name="message_translate_fixedarea_warn_detail">Betri inaweza kuisha haraka.</string>
     <string name="ad_gate_loading">Inaandaa tangazo…</string>
-    <string name="ad_gate_reward_notice">Tazama tangazo hadi mwisho ili utumie programu bila matangazo hadi uifunge.</string>
+    <string name="ad_gate_reward_notice">Tazama tangazo hadi mwisho na hakuna tangazo lingine litakaloonekana hadi ufunge programu.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Mipangilio</string>
@@ -95,6 +95,8 @@
   <string name="claude_key_guide">Weka ufunguo wako wa Claude API ili kutafsiri kwa miundo ya Claude.</string>
   <string name="help_text_claude_own_key">Hutumia ufunguo wako wa kibinafsi wa Claude API</string>
   <string name="claude_key_signup_guide">Unda ufunguo wa API katika Anthropic Console. Matumizi hutozwa kwenye akaunti yako ya Anthropic.</string>
+    <string name="settings_menu_how_to_use">Jinsi ya kutumia</string>
+    <string name="ocr_model_preparing">Injini ya tafsiri inaandaliwa. Tafadhali subiri kidogo.</string>
 </resources>
 
 

@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">ဘာသာပြန်သည့်ဘာသာ</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">အသံရွေးချယ်စရာများ</string>
+    <string name="title_voice_list_view">TTS အသံ ရွေးချယ်ရန်</string>
 
     <!-- Dialog -->
     <string name="message_force_update">အပ်ဒိတ်လိုအပ်ပါသည်</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">ဘက်ထရီသတိပေးချက်</string>
     <string name="message_translate_fixedarea_warn_detail">ဘက်ထရီအလျင်အမြန် ဆွဲချပေးနိုင်ပါတယ်။</string>
     <string name="ad_gate_loading">ကြော်ငြာ ပြင်ဆင်နေသည်…</string>
-    <string name="ad_gate_reward_notice">ကြော်ငြာကို အဆုံးအထိကြည့်ပြီး အက်ပ်ကိုပိတ်သည်အထိ ကြော်ငြာမပါဘဲ အသုံးပြုပါ။</string>
+    <string name="ad_gate_reward_notice">ကြော်ငြာကို အဆုံးထိကြည့်ပါ၊ အက်ပ်ကို ပိတ်သည်အထိ ကြော်ငြာ ထပ်မပေါ်တော့ပါ။</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">ဆက်တင်</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Claude မော်ဒယ်များဖြင့် ဘာသာပြန်ရန် သင့် Claude API သော့ကို ထည့်သွင်းပါ။</string>
   <string name="help_text_claude_own_key">သင့်ကိုယ်ပိုင် Claude API သော့ကို အသုံးပြုသည်</string>
   <string name="claude_key_signup_guide">Anthropic Console တွင် API key တစ်ခု ဖန်တီးပါ။ အသုံးပြုမှုကို သင့် Anthropic အကောင့်သို့ ငွေတောင်းခံပါသည်။</string>
+    <string name="settings_menu_how_to_use">အသုံးပြုနည်း</string>
+    <string name="ocr_model_preparing">ဘာသာပြန်အင်ဂျင်ကို ပြင်ဆင်နေသည်။ ခဏစောင့်ပါ။</string>
 </resources>

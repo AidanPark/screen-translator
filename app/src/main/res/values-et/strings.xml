@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Tõlgi keelde</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Saadaolevad hääled</string>
+    <string name="title_voice_list_view">Vali TTS-hääl</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Värskendus vajalik</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Akutähtsus</string>
     <string name="message_translate_fixedarea_warn_detail">Aku võib kiiresti tühjeneda.</string>
     <string name="ad_gate_loading">Reklaami ettevalmistamine…</string>
-    <string name="ad_gate_reward_notice">Vaadake reklaam lõpuni, et kasutada rakendust reklaamivabalt kuni selle sulgemiseni.</string>
+    <string name="ad_gate_reward_notice">Vaata reklaam lõpuni ja rohkem reklaame ei kuvata enne, kui rakenduse sulged.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Seaded</string>
@@ -95,6 +95,8 @@
   <string name="claude_key_guide">Sisestage oma Claude API-võti, et tõlkida Claude mudelitega.</string>
   <string name="help_text_claude_own_key">Kasutab teie isiklikku Claude-i API-võtit</string>
   <string name="claude_key_signup_guide">Looge API-võti keskkonnas Anthropic Console. Kasutuse eest esitatakse arve teie Anthropic kontole.</string>
+    <string name="settings_menu_how_to_use">Kasutusjuhend</string>
+    <string name="ocr_model_preparing">Tõlkemootori ettevalmistamine. Palun oota hetk.</string>
 </resources>
 
 

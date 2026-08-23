@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Перакласці на</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Даступныя галасы</string>
+    <string name="title_voice_list_view">Выберыце голас TTS</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Патрабуецца абнаўленне</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Папярэджанне аб батарэі</string>
     <string name="message_translate_fixedarea_warn_detail">Батарэя можа хутка разрадзіцца.</string>
     <string name="ad_gate_loading">Ідзе падрыхтоўка рэкламы…</string>
-    <string name="ad_gate_reward_notice">Прагледзьце рэкламу да канца, каб карыстацца праграмай без рэкламы да яе закрыцця.</string>
+    <string name="ad_gate_reward_notice">Прагледзьце рэкламу да канца — і больш рэклама не будзе паказвацца, пакуль вы не закрыеце праграму.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Налады</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Увядзіце свой ключ Claude API, каб перакладаць з дапамогай мадэляў Claude.</string>
   <string name="help_text_claude_own_key">Выкарыстоўвае ваш асабісты ключ Claude API</string>
   <string name="claude_key_signup_guide">Стварыце ключ API у Anthropic Console. Выкарыстанне тарыфікуецца на ваш рахунак Anthropic.</string>
+    <string name="settings_menu_how_to_use">Як карыстацца</string>
+    <string name="ocr_model_preparing">Ідзе падрыхтоўка рухавіка перакладу. Калі ласка, пачакайце.</string>
 </resources>

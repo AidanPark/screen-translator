@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Аудару тілі</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Қол жетімді дауыстар</string>
+    <string name="title_voice_list_view">TTS дауысын таңдау</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Жаңарту қажет</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Батарея туралы ескерту</string>
     <string name="message_translate_fixedarea_warn_detail">Батарея тез таусылуы мүмкін.</string>
     <string name="ad_gate_loading">Жарнама дайындалуда…</string>
-    <string name="ad_gate_reward_notice">Жарнаманы соңына дейін көріп, қолданбаны жапқанша жарнамасыз пайдаланыңыз.</string>
+    <string name="ad_gate_reward_notice">Жарнаманы соңына дейін көріңіз, қолданбаны жапқанша жарнама енді көрсетілмейді.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Параметрлер</string>
@@ -96,4 +96,6 @@
   <string name="claude_key_guide">Claude үлгілерімен аудару үшін Claude API кілтіңізді енгізіңіз.</string>
   <string name="help_text_claude_own_key">Жеке Claude API кілтіңізді пайдаланады</string>
   <string name="claude_key_signup_guide">Anthropic Console-де API кілтін жасаңыз. Пайдалану Anthropic есептік жазбаңызға есептеледі.</string>
+    <string name="settings_menu_how_to_use">Пайдалану нұсқаулығы</string>
+    <string name="ocr_model_preparing">Аударма жүйесі дайындалуда. Сәл күте тұрыңыз.</string>
 </resources>

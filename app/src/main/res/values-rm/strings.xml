@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Translatar en</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Vuschs disponiblas</string>
+    <string name="title_voice_list_view">Tscherner la vusch TTS</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Actualisaziun obligatorica</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Avis da batteria</string>
     <string name="message_translate_fixedarea_warn_detail">La batteria po sa svidar spert.</string>
     <string name="ad_gate_loading">L\'annunzia vegn preparada…</string>
-    <string name="ad_gate_reward_notice">Guarda l\'annunzia fin a la fin per utilisar l\'app senza reclamas fin che ti la serras.</string>
+    <string name="ad_gate_reward_notice">Guardai la reclama fin la fin – naginas ulteriuras reclamas fin che l\'app vegn serrada.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Configuraziuns</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Endatai vossa clav API Claude per translatar cun models Claude.</string>
   <string name="help_text_claude_own_key">Utilisescha tia clav API persunala da Claude</string>
   <string name="claude_key_signup_guide">Creescha ina clav API en l’Anthropic Console. L’utilisaziun vegn fatgurada a tes conto Anthropic.</string>
+    <string name="settings_menu_how_to_use">Co utilisar</string>
+    <string name="ocr_model_preparing">Il motor da translaziun vegn preparà. Spetgai in mument.</string>
 </resources>

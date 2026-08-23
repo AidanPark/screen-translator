@@ -649,6 +649,11 @@ class TargetHandleViewModel(
                             }
                             Timber.tag(TAG).d("sourceLanguageCode $sourceLanguageCode (pref $sourceLanguagePref)")
 
+                            // TTS 목소리 목록 등이 참조하는 "마지막 번역의 실제 소스 언어"를 기록
+                            sourceLanguageCode.takeIf { it.isNotBlank() && it != "auto" && it != "und" }?.let {
+                                preferenceRepository.update(PreferenceRepository.LAST_USED_SOURCE_LANGUAGE_CODE, it)
+                            }
+
                             val motionEventState = motionEventFlow.first()
                             Timber.tag(TAG).d("motionEventState $motionEventState")
                             if (motionEventState == MotionEvent.ACTION_DOWN || motionEventState == MotionEvent.ACTION_MOVE) {
@@ -929,7 +934,8 @@ class TargetHandleViewModel(
          * 광고 게이트:
          *   번역 수행 시, 광고 시청/5분 사용권으로 사용 가능한 상태가 아니고(AdGateState.isUsable() == false)
          *   설정 화면 상태가 아니면 리워드 광고를 띄운다.
-         *   광고를 끝까지 보면 이번 세션 동안, 스킵/실패하면 5분 동안 다시 뜨지 않는다.
+         *   광고를 끝까지 보면 이번 세션 동안 다시 뜨지 않고, 로드/표시 실패면 5분 유예,
+         *   스킵(중간 닫기·홈키 중단)이면 유예 없이 다음 번역 시 다시 뜬다.
          */
         viewModelScope.launch {
             pointerPositionedTranslationFlow

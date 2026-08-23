@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">ಇದಕ್ಕೆ ಅನುವಾದಿಸಿ</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">ಲಭ್ಯವಿರುವ ಧ್ವನಿಗಳು</string>
+    <string name="title_voice_list_view">TTS ಧ್ವನಿ ಆಯ್ಕೆಮಾಡಿ</string>
 
     <!-- Dialog -->
     <string name="message_force_update">ನವೀಕರಣ ಅಗತ್ಯವಿದೆ</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">ಬ್ಯಾಟರಿ ಎಚ್ಚರಿಕೆ</string>
     <string name="message_translate_fixedarea_warn_detail">ಬ್ಯಾಟರಿ ವೇಗವಾಗಿ ಖಾಲಿಯಾಗಬಹುದು.</string>
     <string name="ad_gate_loading">ಜಾಹೀರಾತು ಸಿದ್ಧವಾಗುತ್ತಿದೆ…</string>
-    <string name="ad_gate_reward_notice">ಜಾಹೀರಾತನ್ನು ಕೊನೆವರೆಗೆ ನೋಡಿ, ಆ್ಯಪ್ ಮುಚ್ಚುವವರೆಗೆ ಜಾಹೀರಾತು ಇಲ್ಲದೆ ಬಳಸಿ.</string>
+    <string name="ad_gate_reward_notice">ಜಾಹೀರಾತನ್ನು ಕೊನೆಯವರೆಗೆ ನೋಡಿ, ಆ್ಯಪ್ ಮುಚ್ಚುವವರೆಗೆ ಇನ್ನು ಜಾಹೀರಾತು ಕಾಣಿಸುವುದಿಲ್ಲ.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Claude ಮಾದರಿಗಳೊಂದಿಗೆ ಅನುವಾದಿಸಲು ನಿಮ್ಮ Claude API ಕೀಲಿಯನ್ನು ನಮೂದಿಸಿ.</string>
   <string name="help_text_claude_own_key">ನಿಮ್ಮ ವೈಯಕ್ತಿಕ Claude API ಕೀಲಿಯನ್ನು ಬಳಸುತ್ತದೆ</string>
   <string name="claude_key_signup_guide">Anthropic Console ನಲ್ಲಿ API ಕೀ ರಚಿಸಿ. ಬಳಕೆಯನ್ನು ನಿಮ್ಮ Anthropic ಖಾತೆಗೆ ಬಿಲ್ ಮಾಡಲಾಗುತ್ತದೆ.</string>
+    <string name="settings_menu_how_to_use">ಬಳಕೆ ವಿಧಾನ</string>
+    <string name="ocr_model_preparing">ಅನುವಾದ ಎಂಜಿನ್ ಸಿದ್ಧವಾಗುತ್ತಿದೆ. ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ಕಾಯಿರಿ.</string>
 </resources>

@@ -24,7 +24,7 @@
   <string name="title_language_list_view_target">번역될 언어</string>
 
   <!-- VoiceListView -->
-  <string name="title_voice_list_view">사용 가능한 음성</string>
+  <string name="title_voice_list_view">TTS 목소리 선택</string>
 
   <!-- Dialog -->
   <string name="message_force_update">업데이트 필요</string>
@@ -36,7 +36,7 @@
   <string name="message_translate_fixedarea_warn">배터리 주의</string>
   <string name="message_translate_fixedarea_warn_detail">배터리가 빠르게 소모될 수 있습니다.</string>
   <string name="ad_gate_loading">광고를 준비하고 있습니다…</string>
-  <string name="ad_gate_reward_notice">광고를 끝까지 보면 앱을 닫을 때까지 광고 없이 사용할 수 있습니다.</string>
+  <string name="ad_gate_reward_notice">광고를 끝까지 보면 앱을 닫을 때까지 더 이상 광고가 나오지 않습니다.</string>
 
   <!-- SettingsActivity -->
   <string name="settings_title">설정</string>

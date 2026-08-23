@@ -1040,7 +1040,6 @@ class SettingsActivity : AVDActivity() {
                                             ) {
                                                 MenuText(
                                                     text = getString(R.string.settings_menu_menubar_composition),
-                                                    fontSize = 13.sp,
                                                     maxLines = 2,
                                                     onTextPositioned = { offset ->
                                                         menuBarConfigTextOffset.value = Point(offset.x - startPadding, offset.y)
@@ -1503,6 +1502,27 @@ class SettingsActivity : AVDActivity() {
                             MenuItem(
                                 menuItemPosition = MenuItemPosition.Top,
                                 onClick = {
+                                    val guideIntent = Intent(Intent.ACTION_VIEW, HOW_TO_USE_GUIDE_URL.toUri())
+                                    context.startActivity(guideIntent)
+                                    viewModel.analyticsRepository.screenViewReport("HowToUseGuide")
+                                },
+                            ) {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .heightIn(min = 50.dp)
+                                        .padding(end = 6.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    MenuText(
+                                        text = getString(R.string.settings_menu_how_to_use),
+                                    )
+                                }
+                            }
+
+                            MenuItem(
+                                menuItemPosition = MenuItemPosition.Middle,
+                                onClick = {
                                     context.gotoStore(
                                         newTask = false,
                                         finishService = false
@@ -1546,27 +1566,6 @@ class SettingsActivity : AVDActivity() {
                                             paddingValues = paddingValues
                                         )
                                     }
-                                }
-                            }
-
-                            MenuItem(
-                                menuItemPosition = MenuItemPosition.Middle,
-                                onClick = {
-                                    val guideIntent = Intent(Intent.ACTION_VIEW, HOW_TO_USE_GUIDE_URL.toUri())
-                                    context.startActivity(guideIntent)
-                                    viewModel.analyticsRepository.screenViewReport("HowToUseGuide")
-                                },
-                            ) {
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .heightIn(min = 50.dp)
-                                        .padding(end = 6.dp),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                ) {
-                                    MenuText(
-                                        text = getString(R.string.settings_menu_how_to_use),
-                                    )
                                 }
                             }
 

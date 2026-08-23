@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Prevedi na</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Dostupni glasovi</string>
+    <string name="title_voice_list_view">Odaberite TTS glas</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Potrebno ažuriranje</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Upozorenje o bateriji</string>
     <string name="message_translate_fixedarea_warn_detail">Baterija se može brzo isprazniti.</string>
     <string name="ad_gate_loading">Priprema se oglas…</string>
-    <string name="ad_gate_reward_notice">Pogledajte oglas do kraja i koristite aplikaciju bez oglasa dok je ne zatvorite.</string>
+    <string name="ad_gate_reward_notice">Pogledajte oglas do kraja i oglasi se više neće prikazivati dok ne zatvorite aplikaciju.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Postavke</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Unesite svoj Claude API ključ za prevođenje pomoću Claude modela.</string>
   <string name="help_text_claude_own_key">Koristi vaš osobni Claude API ključ</string>
   <string name="claude_key_signup_guide">Izradite API ključ u Anthropic Console. Upotreba se naplaćuje na vaš Anthropic račun.</string>
+    <string name="settings_menu_how_to_use">Kako koristiti</string>
+    <string name="ocr_model_preparing">Priprema se prevoditeljski modul. Pričekajte trenutak.</string>
 </resources>

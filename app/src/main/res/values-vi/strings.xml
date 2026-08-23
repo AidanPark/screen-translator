@@ -24,7 +24,7 @@
   <string name="title_language_list_view_target">Dịch sang</string>
 
   <!-- VoiceListView -->
-  <string name="title_voice_list_view">Giọng nói có sẵn</string>
+  <string name="title_voice_list_view">Chọn giọng TTS</string>
 
   <!-- Dialog -->
   <string name="message_force_update">Cần cập nhật</string>
@@ -36,7 +36,7 @@
   <string name="message_translate_fixedarea_warn">Cảnh báo pin</string>
   <string name="message_translate_fixedarea_warn_detail">Pin có thể hết nhanh chóng.</string>
   <string name="ad_gate_loading">Đang chuẩn bị quảng cáo…</string>
-  <string name="ad_gate_reward_notice">Xem hết quảng cáo để dùng ứng dụng không quảng cáo cho đến khi bạn đóng nó.</string>
+  <string name="ad_gate_reward_notice">Xem hết quảng cáo và sẽ không có quảng cáo nào xuất hiện nữa cho đến khi bạn đóng ứng dụng.</string>
 
   <!-- SettingsActivity -->
   <string name="settings_title">Cài đặt</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Nhập khóa Claude API của bạn để dịch bằng các mô hình Claude.</string>
   <string name="help_text_claude_own_key">Sử dụng khóa API Claude cá nhân của bạn</string>
   <string name="claude_key_signup_guide">Tạo khóa API trong Anthropic Console. Mức sử dụng được tính vào tài khoản Anthropic của bạn.</string>
+  <string name="settings_menu_how_to_use">Hướng dẫn sử dụng</string>
+  <string name="ocr_model_preparing">Đang chuẩn bị công cụ dịch. Vui lòng đợi một lát.</string>
 </resources>

@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Itzuli hona</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Pantaila Itzultzailea</string>
+    <string name="title_voice_list_view">Hautatu TTS ahotsa</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Eguneraketa beharrezkoa</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Bateriaren abisua</string>
     <string name="message_translate_fixedarea_warn_detail">Bateria azkar agortu daiteke.</string>
     <string name="ad_gate_loading">Iragarkia prestatzen…</string>
-    <string name="ad_gate_reward_notice">Ikusi iragarkia amaierara arte, aplikazioa itxi arte iragarkirik gabe erabiltzeko.</string>
+    <string name="ad_gate_reward_notice">Ikusi iragarkia amaierara arte eta ez da iragarki gehiago agertuko aplikazioa itxi arte.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Ezarpenak</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Sartu zure Claude API gakoa Claude ereduekin itzultzeko.</string>
   <string name="help_text_claude_own_key">Zure Claude API gako pertsonala erabiltzen du</string>
   <string name="claude_key_signup_guide">Sortu API gako bat Anthropic Console-n. Erabilera zure Anthropic kontuan fakturatzen da.</string>
+    <string name="settings_menu_how_to_use">Nola erabili</string>
+    <string name="ocr_model_preparing">Itzulpen-motorra prestatzen ari da. Itxaron une bat.</string>
 </resources>

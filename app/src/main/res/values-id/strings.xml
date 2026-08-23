@@ -24,7 +24,7 @@
   <string name="title_language_list_view_target">Terjemahkan ke</string>
 
   <!-- VoiceListView -->
-  <string name="title_voice_list_view">Suara yang tersedia</string>
+  <string name="title_voice_list_view">Pilih suara TTS</string>
 
   <!-- Dialog -->
   <string name="message_force_update">Perlu diperbarui</string>
@@ -36,7 +36,7 @@
   <string name="message_translate_fixedarea_warn">Peringatan baterai</string>
   <string name="message_translate_fixedarea_warn_detail">Baterai mungkin cepat habis.</string>
   <string name="ad_gate_loading">Menyiapkan iklan…</string>
-  <string name="ad_gate_reward_notice">Tonton iklan sampai selesai untuk menggunakan aplikasi tanpa iklan sampai Anda menutupnya.</string>
+  <string name="ad_gate_reward_notice">Tonton iklan sampai selesai dan iklan tidak akan muncul lagi sampai Anda menutup aplikasi.</string>
 
   <!-- SettingsActivity -->
   <string name="settings_title">Pengaturan</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Masukkan kunci Claude API Anda untuk menerjemahkan dengan model Claude.</string>
   <string name="help_text_claude_own_key">Menggunakan kunci API Claude pribadi Anda</string>
   <string name="claude_key_signup_guide">Buat kunci API di Anthropic Console. Penggunaan ditagihkan ke akun Anthropic Anda.</string>
+  <string name="settings_menu_how_to_use">Cara penggunaan</string>
+  <string name="ocr_model_preparing">Menyiapkan mesin terjemahan. Harap tunggu sebentar.</string>
 </resources>

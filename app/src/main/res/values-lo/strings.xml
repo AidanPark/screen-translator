@@ -24,7 +24,7 @@
   <string name="title_language_list_view_target">ແປເປັນ</string>
 
   <!-- VoiceListView -->
-  <string name="title_voice_list_view">ສຽງທີ່ມີໃຫ້ໃຊ້</string>
+  <string name="title_voice_list_view">ເລືອກສຽງ TTS</string>
 
   <!-- Dialog -->
   <string name="message_force_update">ຕ້ອງການອັບເດດ</string>
@@ -36,7 +36,7 @@
   <string name="message_translate_fixedarea_warn">ຄໍາເຕືອນແບັດເຕີຣີ</string>
   <string name="message_translate_fixedarea_warn_detail">ແບັດເຕີຣີອາດຈະໝົດໄວ.</string>
   <string name="ad_gate_loading">ກຳລັງກຽມໂຄສະນາ…</string>
-  <string name="ad_gate_reward_notice">ເບິ່ງໂຄສະນາຈົນຈົບ ເພື່ອໃຊ້ແອັບໂດຍບໍ່ມີໂຄສະນາຈົນກວ່າທ່ານຈະປິດມັນ.</string>
+  <string name="ad_gate_reward_notice">ເບິ່ງໂຄສະນາຈົນຈົບ ແລ້ວຈະບໍ່ມີໂຄສະນາສະແດງອີກຈົນກວ່າທ່ານຈະປິດແອັບ.</string>
 
   <!-- SettingsActivity -->
   <string name="settings_title">ການຕັ້ງຄ່າ</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">ໃສ່ກະແຈ Claude API ຂອງທ່ານເພື່ອແປດ້ວຍໂມເດວ Claude.</string>
   <string name="help_text_claude_own_key">ໃຊ້ກະແຈ Claude API ສ່ວນຕົວຂອງທ່ານ</string>
   <string name="claude_key_signup_guide">ສ້າງກະແຈ API ໃນ Anthropic Console. ການນຳໃຊ້ຈະຖືກເກັບເງິນໃສ່ບັນຊີ Anthropic ຂອງທ່ານ.</string>
+  <string name="settings_menu_how_to_use">ວິທີໃຊ້</string>
+  <string name="ocr_model_preparing">ກຳລັງກຽມເຄື່ອງມືແປພາສາ. ກະລຸນາລໍຖ້າຈັກໜ້ອຍ.</string>
 </resources>

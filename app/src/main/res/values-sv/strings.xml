@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Översätt till</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Tillgängliga röster</string>
+    <string name="title_voice_list_view">Välj TTS-röst</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Uppdatering krävs</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Batterivarning</string>
     <string name="message_translate_fixedarea_warn_detail">Batteriet kan laddas ur snabbt.</string>
     <string name="ad_gate_loading">Förbereder en annons…</string>
-    <string name="ad_gate_reward_notice">Se annonsen till slutet för att använda appen reklamfritt tills du stänger den.</string>
+    <string name="ad_gate_reward_notice">Se annonsen till slutet så visas inga fler annonser förrän du stänger appen.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Inställningar</string>
@@ -95,6 +95,8 @@
   <string name="claude_key_guide">Ange din Claude API-nyckel för att översätta med Claude-modeller.</string>
   <string name="help_text_claude_own_key">Använder din personliga Claude API-nyckel</string>
   <string name="claude_key_signup_guide">Skapa en API-nyckel i Anthropic Console. Användning faktureras till ditt Anthropic-konto.</string>
+    <string name="settings_menu_how_to_use">Så här använder du appen</string>
+    <string name="ocr_model_preparing">Förbereder översättningsmotorn. Vänta ett ögonblick.</string>
 </resources>
 
 

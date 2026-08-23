@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Þýða á</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Tiltækir raddir</string>
+    <string name="title_voice_list_view">Veldu TTS-rödd</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Uppfærsla krafist</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Viðvörun um rafhlöðu</string>
     <string name="message_translate_fixedarea_warn_detail">Rafhlaðan gæti tæmst hratt.</string>
     <string name="ad_gate_loading">Undirbý auglýsingu…</string>
-    <string name="ad_gate_reward_notice">Horfðu á auglýsinguna til enda til að nota forritið án auglýsinga þar til þú lokar því.</string>
+    <string name="ad_gate_reward_notice">Horfðu á auglýsinguna til enda og engar auglýsingar birtast fyrr en þú lokar forritinu.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Stillingar</string>
@@ -95,6 +95,8 @@
   <string name="claude_key_guide">Sláðu inn Claude API-lykilinn þinn til að þýða með Claude-líkönum.</string>
   <string name="help_text_claude_own_key">Notar persónulega Claude API-lykilinn þinn</string>
   <string name="claude_key_signup_guide">Búðu til API-lykil í Anthropic Console. Notkun er gjaldfærð á Anthropic-reikninginn þinn.</string>
+    <string name="settings_menu_how_to_use">Notkunarleiðbeiningar</string>
+    <string name="ocr_model_preparing">Undirbý þýðingarvélina. Vinsamlegast bíddu augnablik.</string>
 </resources>
 
 

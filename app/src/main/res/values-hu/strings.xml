@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Fordítás ide</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Elérhető hangok</string>
+    <string name="title_voice_list_view">TTS-hang kiválasztása</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Frissítés szükséges</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Akkumulátor figyelmeztetés</string>
     <string name="message_translate_fixedarea_warn_detail">Az akkumulátor gyorsan lemerülhet.</string>
     <string name="ad_gate_loading">Hirdetés előkészítése…</string>
-    <string name="ad_gate_reward_notice">Nézze végig a hirdetést, és az alkalmazás bezárásáig hirdetések nélkül használhatja.</string>
+    <string name="ad_gate_reward_notice">Nézze végig a hirdetést, és az alkalmazás bezárásáig több hirdetés nem jelenik meg.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Beállítások</string>
@@ -95,6 +95,8 @@
   <string name="claude_key_guide">Adja meg az Claude API-kulcsát, hogy Claude-modellekkel fordíthasson.</string>
   <string name="help_text_claude_own_key">A személyes Claude API-kulcsát használja</string>
   <string name="claude_key_signup_guide">Hozzon létre egy API-kulcsot az Anthropic Console-ban. A használatot az Anthropic-fiókján számlázzuk.</string>
+    <string name="settings_menu_how_to_use">Használati útmutató</string>
+    <string name="ocr_model_preparing">A fordítómotor előkészítése folyamatban. Kérjük, várjon egy pillanatot.</string>
 </resources>
 
 

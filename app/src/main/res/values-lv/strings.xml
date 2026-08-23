@@ -24,7 +24,7 @@
   <string name="title_language_list_view_target">Tulkot uz</string>
 
   <!-- VoiceListView -->
-  <string name="title_voice_list_view">Pieejamās balsis</string>
+  <string name="title_voice_list_view">Izvēlieties TTS balsi</string>
 
   <!-- Dialog -->
   <string name="message_force_update">Nepieciešama atjaunināšana</string>
@@ -36,7 +36,7 @@
   <string name="message_translate_fixedarea_warn">Akumulatora brīdinājums</string>
   <string name="message_translate_fixedarea_warn_detail">Akumulators var ātri izlādeties.</string>
   <string name="ad_gate_loading">Notiek reklāmas sagatavošana…</string>
-  <string name="ad_gate_reward_notice">Noskatieties reklāmu līdz beigām, lai lietotni izmantotu bez reklāmām, līdz to aizverat.</string>
+  <string name="ad_gate_reward_notice">Noskatieties reklāmu līdz beigām, un reklāmas vairs netiks rādītas, līdz aizvērsiet lietotni.</string>
 
   <!-- SettingsActivity -->
   <string name="settings_title">Iestatījumi</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Ievadiet savu Claude API atslēgu, lai tulkotu ar Claude modeļiem.</string>
   <string name="help_text_claude_own_key">Izmanto jūsu personīgo Claude API atslēgu</string>
   <string name="claude_key_signup_guide">Izveidojiet API atslēgu Anthropic Console. Lietojums tiek rēķināts jūsu Anthropic kontā.</string>
+  <string name="settings_menu_how_to_use">Lietošanas pamācība</string>
+  <string name="ocr_model_preparing">Tiek sagatavots tulkošanas dzinējs. Lūdzu, uzgaidiet brīdi.</string>
 </resources>

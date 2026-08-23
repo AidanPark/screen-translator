@@ -24,7 +24,7 @@
   <string name="title_language_list_view_target">แปลเป็น</string>
 
   <!-- VoiceListView -->
-  <string name="title_voice_list_view">เสียงที่มีให้เลือก</string>
+  <string name="title_voice_list_view">เลือกเสียง TTS</string>
 
   <!-- Dialog -->
   <string name="message_force_update">จำเป็นต้องอัปเดต</string>
@@ -36,7 +36,7 @@
   <string name="message_translate_fixedarea_warn">คำเตือนแบตเตอรี่</string>
   <string name="message_translate_fixedarea_warn_detail">แบตเตอรี่อาจหมดอย่างรวดเร็ว</string>
   <string name="ad_gate_loading">กำลังเตรียมโฆษณา…</string>
-  <string name="ad_gate_reward_notice">ดูโฆษณาจนจบเพื่อใช้แอปแบบไม่มีโฆษณาจนกว่าคุณจะปิดแอป</string>
+  <string name="ad_gate_reward_notice">ดูโฆษณาจนจบ แล้วจะไม่มีโฆษณาแสดงอีกจนกว่าจะปิดแอป</string>
 
   <!-- SettingsActivity -->
   <string name="settings_title">การตั้งค่า</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">ป้อนคีย์ Claude API ของคุณเพื่อแปลด้วยโมเดล Claude</string>
   <string name="help_text_claude_own_key">ใช้คีย์ Claude API ส่วนตัวของคุณ</string>
   <string name="claude_key_signup_guide">สร้างคีย์ API ใน Anthropic Console การใช้งานจะถูกเรียกเก็บเงินไปยังบัญชี Anthropic ของคุณ</string>
+  <string name="settings_menu_how_to_use">วิธีใช้งาน</string>
+  <string name="ocr_model_preparing">กำลังเตรียมเอนจินแปลภาษา โปรดรอสักครู่</string>
 </resources>

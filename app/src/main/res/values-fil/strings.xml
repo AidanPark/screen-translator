@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Isalin sa</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Mga available na boses</string>
+    <string name="title_voice_list_view">Pumili ng boses ng TTS</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Kinakailangan ang update</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Babala sa baterya</string>
     <string name="message_translate_fixedarea_warn_detail">Maaaring mabilis maubos ang baterya.</string>
     <string name="ad_gate_loading">Inihahanda ang ad…</string>
-    <string name="ad_gate_reward_notice">Panoorin ang ad hanggang matapos para magamit ang app nang walang ad hanggang isara mo ito.</string>
+    <string name="ad_gate_reward_notice">Panoorin ang ad hanggang matapos at wala nang lalabas na ad hanggang isara mo ang app.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Mga Setting</string>
@@ -96,4 +96,6 @@
   <string name="claude_key_guide">Ilagay ang iyong Claude API key para magsalin gamit ang mga modelo ng Claude.</string>
   <string name="help_text_claude_own_key">Ginagamit ang iyong personal na Claude API key</string>
   <string name="claude_key_signup_guide">Gumawa ng API key sa Anthropic Console. Ang paggamit ay sinisingil sa iyong Anthropic account.</string>
+    <string name="settings_menu_how_to_use">Paano gamitin</string>
+    <string name="ocr_model_preparing">Inihahanda ang translation engine. Mangyaring maghintay sandali.</string>
 </resources>

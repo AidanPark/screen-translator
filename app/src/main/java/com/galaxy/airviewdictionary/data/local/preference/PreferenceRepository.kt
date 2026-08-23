@@ -75,6 +75,9 @@ class PreferenceRepository @Inject constructor(@ApplicationContext val context: 
         val TTS_SPEECH_RATE = floatPreferencesKey("tts_speech_rate")
         val TTS_ORDERED_VOICE_NAMES = stringPreferencesKey("tts_ordered_voice_names")
         val TTS_READ_TARGET = stringPreferencesKey("tts_read_target")
+        // 마지막 번역에 실제 사용된 소스 언어(auto 감지 결과 포함). 소스가 auto 일 때
+        // TTS 목소리 목록 정렬 등에서 기준 언어로 쓴다.
+        val LAST_USED_SOURCE_LANGUAGE_CODE = stringPreferencesKey("last_used_source_language_code")
 
         val SOURCE_LANGUAGE_CODE_HISTORY = stringPreferencesKey("source_language_code_history")
         val TARGET_LANGUAGE_CODE_HISTORY = stringPreferencesKey("target_language_code_history")
@@ -149,6 +152,11 @@ class PreferenceRepository @Inject constructor(@ApplicationContext val context: 
         Timber.tag(TAG).d(" preferences[TARGET_LANGUAGE_CODE] ${preferences[TARGET_LANGUAGE_CODE]}")
         // 기본 번역 대상은 사용자 시스템 언어. (소스는 auto → "아무 외국어 → 내 언어"가 기본이 된다)
         preferences[TARGET_LANGUAGE_CODE] ?: getCurrentLocale().language
+    }
+
+    // 마지막 번역에 실제 사용된 소스 언어. 번역 이력이 없으면 null.
+    val lastUsedSourceLanguageCodeFlow: Flow<String?> = preferenceFlow.map { preferences ->
+        preferences[LAST_USED_SOURCE_LANGUAGE_CODE]
     }
 
     val translationKitTypeFlow: Flow<TranslationKitType> = preferenceFlow.map { preferences ->

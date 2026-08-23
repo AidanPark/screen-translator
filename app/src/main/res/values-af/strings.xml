@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Vertaal na</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Beskikbare stemme</string>
+    <string name="title_voice_list_view">Kies TTS-stem</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Opdatering benodig</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Batterywaarskuwing</string>
     <string name="message_translate_fixedarea_warn_detail">Die battery kan vinnig leeg raak.</string>
     <string name="ad_gate_loading">Advertensie word voorberei…</string>
-    <string name="ad_gate_reward_notice">Kyk die advertensie tot die einde om die app advertensievry te gebruik totdat jy dit toemaak.</string>
+    <string name="ad_gate_reward_notice">Kyk die advertensie tot die einde en geen advertensies verskyn meer totdat jy die app toemaak nie.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Instellings</string>
@@ -95,6 +95,8 @@
   <string name="claude_key_guide">Voer jou Claude API-sleutel in om met Claude-modelle te vertaal.</string>
   <string name="help_text_claude_own_key">Gebruik jou persoonlike Claude API-sleutel</string>
   <string name="claude_key_signup_guide">Skep ’n API-sleutel in die Anthropic Console. Gebruik word aan jou Anthropic-rekening gefaktureer.</string>
+    <string name="settings_menu_how_to_use">Hoe om te gebruik</string>
+    <string name="ocr_model_preparing">Berei die vertaalenjin voor. Wag asseblief \'n oomblik.</string>
 </resources>
 
 

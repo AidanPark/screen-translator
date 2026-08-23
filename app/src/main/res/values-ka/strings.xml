@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">თარგმნე ამ ენაზე</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">ხელმისაწვდომი ხმები</string>
+    <string name="title_voice_list_view">აირჩიეთ TTS ხმა</string>
 
     <!-- Dialog -->
     <string name="message_force_update">განახლება აუცილებელია</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">ბატარეის გაფრთხილება</string>
     <string name="message_translate_fixedarea_warn_detail">ბატარეა შეიძლება სწრაფად დაიცალოს.</string>
     <string name="ad_gate_loading">რეკლამა მზადდება…</string>
-    <string name="ad_gate_reward_notice">უყურეთ რეკლამას ბოლომდე და გამოიყენეთ აპი რეკლამის გარეშე მის დახურვამდე.</string>
+    <string name="ad_gate_reward_notice">უყურეთ რეკლამას ბოლომდე და აპის დახურვამდე რეკლამა აღარ გამოჩნდება.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">პარამეტრები</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">შეიყვანეთ თქვენი Claude API გასაღები Claude მოდელებით სათარგმნად.</string>
   <string name="help_text_claude_own_key">იყენებს თქვენს პირად Claude API გასაღებს</string>
   <string name="claude_key_signup_guide">შექმენით API გასაღები Anthropic Console-ში. გამოყენება ერიცხება თქვენს Anthropic ანგარიშს.</string>
+    <string name="settings_menu_how_to_use">გამოყენების ინსტრუქცია</string>
+    <string name="ocr_model_preparing">თარგმნის ძრავა მზადდება. გთხოვთ, ცოტა ხანი მოიცადოთ.</string>
 </resources>

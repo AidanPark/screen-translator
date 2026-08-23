@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Versti į</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Galimi balsai</string>
+    <string name="title_voice_list_view">Pasirinkite TTS balsą</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Būtinas atnaujinimas</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Baterijos įspėjimas</string>
     <string name="message_translate_fixedarea_warn_detail">Baterija gali greitai išsikrauti.</string>
     <string name="ad_gate_loading">Ruošiama reklama…</string>
-    <string name="ad_gate_reward_notice">Žiūrėkite reklamą iki galo ir naudokitės programa be reklamų, kol ją uždarysite.</string>
+    <string name="ad_gate_reward_notice">Peržiūrėkite reklamą iki galo ir daugiau reklamų nebus rodoma, kol neuždarysite programos.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Nustatymai</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Įveskite savo Claude API raktą, kad galėtumėte versti su Claude modeliais.</string>
   <string name="help_text_claude_own_key">Naudoja jūsų asmeninį Claude API raktą</string>
   <string name="claude_key_signup_guide">Sukurkite API raktą Anthropic Console. Naudojimas apmokestinamas jūsų Anthropic paskyroje.</string>
+    <string name="settings_menu_how_to_use">Naudojimo instrukcija</string>
+    <string name="ocr_model_preparing">Ruošiamas vertimo variklis. Šiek tiek palaukite.</string>
 </resources>

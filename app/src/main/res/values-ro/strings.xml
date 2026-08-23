@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">Tradu în</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">Voci disponibile</string>
+    <string name="title_voice_list_view">Selectați vocea TTS</string>
 
     <!-- Dialog -->
     <string name="message_force_update">Actualizare necesară</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">Avertisment pentru baterie</string>
     <string name="message_translate_fixedarea_warn_detail">Bateria se poate descărca rapid.</string>
     <string name="ad_gate_loading">Se pregătește o reclamă…</string>
-    <string name="ad_gate_reward_notice">Urmărește reclama până la final pentru a folosi aplicația fără reclame până o închizi.</string>
+    <string name="ad_gate_reward_notice">Urmăriți reclama până la sfârșit și nu vor mai apărea reclame până când închideți aplicația.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">Setări</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Introduceți cheia dvs. Claude API pentru a traduce cu modele Claude.</string>
   <string name="help_text_claude_own_key">Utilizează cheia API Claude personală</string>
   <string name="claude_key_signup_guide">Creați o cheie API în Anthropic Console. Utilizarea este facturată în contul dvs. Anthropic.</string>
+    <string name="settings_menu_how_to_use">Mod de utilizare</string>
+    <string name="ocr_model_preparing">Se pregătește motorul de traducere. Așteptați un moment.</string>
 </resources>

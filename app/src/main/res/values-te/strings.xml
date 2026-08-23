@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">ఇందులోకి అనువదించు</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">లభ్యమైన వాయిస్‌లు</string>
+    <string name="title_voice_list_view">TTS వాయిస్‌ని ఎంచుకోండి</string>
 
     <!-- Dialog -->
     <string name="message_force_update">అప్‌డేట్ అవసరం</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">బ్యాటరీ హెచ్చరిక</string>
     <string name="message_translate_fixedarea_warn_detail">బ్యాటరీ త్వరగా ఖాళీ కావచ్చు.</string>
     <string name="ad_gate_loading">ప్రకటన సిద్ధమవుతోంది…</string>
-    <string name="ad_gate_reward_notice">ప్రకటనను చివరి వరకు చూసి, యాప్ మూసే వరకు ప్రకటనలు లేకుండా వాడండి.</string>
+    <string name="ad_gate_reward_notice">ప్రకటనను చివరి వరకు చూడండి, యాప్‌ను మూసివేసే వరకు మరో ప్రకటన కనిపించదు.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">సెట్టింగులు</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Claude మోడల్‌లతో అనువదించడానికి మీ Claude API కీని నమోదు చేయండి.</string>
   <string name="help_text_claude_own_key">మీ వ్యక్తిగత Claude API కీని ఉపయోగిస్తుంది</string>
   <string name="claude_key_signup_guide">Anthropic Console లో API కీని సృష్టించండి. వినియోగానికి మీ Anthropic ఖాతాకు బిల్లు వేయబడుతుంది.</string>
+    <string name="settings_menu_how_to_use">ఉపయోగించే విధానం</string>
+    <string name="ocr_model_preparing">అనువాద ఇంజిన్ సిద్ధమవుతోంది. దయచేసి కాసేపు వేచి ఉండండి.</string>
 </resources>

@@ -24,7 +24,7 @@
   <string name="title_language_list_view_target">Şuna çevir</string>
 
   <!-- VoiceListView -->
-  <string name="title_voice_list_view">Mevcut sesler</string>
+  <string name="title_voice_list_view">TTS sesi seçin</string>
 
   <!-- Dialog -->
   <string name="message_force_update">Güncelleme gerekli</string>
@@ -36,7 +36,7 @@
   <string name="message_translate_fixedarea_warn">Batarya uyarısı</string>
   <string name="message_translate_fixedarea_warn_detail">Batarya hızlı bir şekilde tükenebilir.</string>
   <string name="ad_gate_loading">Reklam hazırlanıyor…</string>
-  <string name="ad_gate_reward_notice">Reklamı sonuna kadar izleyin, uygulamayı kapatana dek reklamsız kullanın.</string>
+  <string name="ad_gate_reward_notice">Reklamı sonuna kadar izleyin, uygulamayı kapatana kadar başka reklam gösterilmez.</string>
 
   <!-- SettingsActivity -->
   <string name="settings_title">Ayarlar</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">Claude modelleriyle çeviri yapmak için Claude API anahtarınızı girin.</string>
   <string name="help_text_claude_own_key">Kişisel Claude API anahtarınızı kullanır</string>
   <string name="claude_key_signup_guide">Anthropic Console’da bir API anahtarı oluşturun. Kullanım, Anthropic hesabınıza faturalandırılır.</string>
+  <string name="settings_menu_how_to_use">Kullanım kılavuzu</string>
+  <string name="ocr_model_preparing">Çeviri motoru hazırlanıyor. Lütfen biraz bekleyin.</string>
 </resources>

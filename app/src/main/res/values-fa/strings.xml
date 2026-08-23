@@ -24,7 +24,7 @@
     <string name="title_language_list_view_target">ترجمه به</string>
 
     <!-- VoiceListView -->
-    <string name="title_voice_list_view">صداهای موجود</string>
+    <string name="title_voice_list_view">انتخاب صدای TTS</string>
 
     <!-- Dialog -->
     <string name="message_force_update">نیاز به به‌روزرسانی</string>
@@ -36,7 +36,7 @@
     <string name="message_translate_fixedarea_warn">هشدار باتری</string>
     <string name="message_translate_fixedarea_warn_detail">ممکن است باتری به‌سرعت خالی شود.</string>
     <string name="ad_gate_loading">در حال آماده‌سازی آگهی…</string>
-    <string name="ad_gate_reward_notice">آگهی را تا پایان تماشا کنید تا هنگام بستن برنامه بدون آگهی از آن استفاده کنید.</string>
+    <string name="ad_gate_reward_notice">تبلیغ را تا انتها تماشا کنید؛ تا زمانی که برنامه را ببندید دیگر تبلیغی نمایش داده نمی‌شود.</string>
 
     <!-- SettingsActivity -->
     <string name="settings_title">تنظیمات</string>
@@ -95,4 +95,6 @@
   <string name="claude_key_guide">برای ترجمه با مدل‌های Claude، کلید Claude API خود را وارد کنید.</string>
   <string name="help_text_claude_own_key">از کلید API شخصی Claude شما استفاده می‌کند</string>
   <string name="claude_key_signup_guide">یک کلید API در Anthropic Console بسازید. مصرف به حساب Anthropic شما صورت‌حساب می‌شود.</string>
+    <string name="settings_menu_how_to_use">راهنمای استفاده</string>
+    <string name="ocr_model_preparing">موتور ترجمه در حال آماده‌سازی است. لطفاً کمی صبر کنید.</string>
 </resources>

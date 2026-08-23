@@ -5,18 +5,20 @@ package com.galaxy.airviewdictionary.data.local.ads
  *
  * 정책:
  *  - 리워드 광고를 끝까지 시청하면 [adFreeSession] = true → 앱 종료까지 광고 없이 사용.
- *  - 광고를 스킵하거나 로드/표시에 실패하면 [grantWindow] 로 5분 사용권만 부여 → 만료되면 다시 광고.
+ *  - 광고 로드/표시 실패(오프라인, no-fill 등 기술적 사유)면 5분 사용권 부여 → 만료되면 다시 광고.
+ *    (유예가 없으면 오프라인 사용자는 앱을 쓸 수 없다)
+ *  - 사용자가 광고를 스킵(중간에 닫기·홈키 중단 등)하면 유예 없음 → 다음 번역 시 게이트가 다시 뜬다.
  */
 object AdGateState {
 
-    private const val SKIP_GRANT_MINUTES = 5
+    private const val FAILURE_GRANT_MINUTES = 5
 
     /** 광고 완주로 이번 세션 동안 광고 없이 사용 가능한 상태. */
     @Volatile
     var adFreeSession: Boolean = false
         private set
 
-    /** 스킵/실패로 부여된 임시 사용권 만료 시각(epoch millis). */
+    /** 로드/표시 실패로 부여된 임시 사용권 만료 시각(epoch millis). */
     @Volatile
     private var usableUntilMillis: Long = 0L
 
@@ -25,9 +27,9 @@ object AdGateState {
         adFreeSession = true
     }
 
-    /** 스킵/실패 → 5분 임시 사용권 부여. */
-    fun grantSkipWindow() {
-        usableUntilMillis = System.currentTimeMillis() + SKIP_GRANT_MINUTES * 60_000L
+    /** 광고 로드/표시 실패(기술적 사유) → 5분 임시 사용권 부여. */
+    fun grantFailureWindow() {
+        usableUntilMillis = System.currentTimeMillis() + FAILURE_GRANT_MINUTES * 60_000L
     }
 
     /** 지금 광고 없이 사용 가능한지. */
