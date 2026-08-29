@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">បង្កើតសោ API នៅក្នុង Anthropic Console។ ការប្រើប្រាស់ត្រូវបានគិតថ្លៃទៅគណនី Anthropic របស់អ្នក។</string>
     <string name="settings_menu_how_to_use">របៀបប្រើប្រាស់</string>
     <string name="ocr_model_preparing">កំពុងរៀបចំម៉ាស៊ីនបកប្រែ។ សូមរង់ចាំបន្តិច។</string>
+    <string name="error_translate_invalid_key">សោ API មិនត្រឹមត្រូវទេ។ ពិនិត្យវានៅក្នុងការកំណត់។</string>
+    <string name="error_translate_no_credit">គ្មានឥណទាននៅក្នុងគណនីទេ។ បញ្ចូលនៅក្នុងកុងសូលអ្នកផ្តល់សេវា។</string>
+    <string name="error_translate_rate_limited">បានដល់ដែនកំណត់ប្រើប្រាស់។ សូមព្យាយាមម្តងទៀតពេលក្រោយ។</string>
+    <string name="error_translate_model_unavailable">ម៉ូដែលបកប្រែនេះមិនអាចប្រើបានទេ។ សូមធ្វើបច្ចុប្បន្នភាពកម្មវិធី។</string>
+    <string name="error_translate_network">កំហុសបណ្តាញ។ ពិនិត្យការតភ្ជាប់របស់អ្នក។</string>
+    <string name="error_translate_generic">ការបកប្រែបរាជ័យ។ សូមព្យាយាមម្តងទៀត។</string>
+    <string name="key_saved_credit_hint">បានផ្ទៀងផ្ទាត់សោ។ ការបកប្រែក៏ត្រូវការឥណទាន ឬកូតាឥតគិតថ្លៃក្នុងគណនីដែរ។</string>
 </resources>

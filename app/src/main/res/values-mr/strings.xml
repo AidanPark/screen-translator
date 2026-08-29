@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Anthropic Console मध्ये API की तयार करा. वापराचे बिल तुमच्या Anthropic खात्यावर आकारले जाते.</string>
     <string name="settings_menu_how_to_use">वापरण्याची पद्धत</string>
     <string name="ocr_model_preparing">भाषांतर इंजिन तयार होत आहे. कृपया थोडी प्रतीक्षा करा.</string>
+    <string name="error_translate_invalid_key">API की अवैध आहे. सेटिंग्जमध्ये तपासा.</string>
+    <string name="error_translate_no_credit">खात्यात क्रेडिट शिल्लक नाही. प्रदात्याच्या कन्सोलमध्ये टॉप-अप करा.</string>
+    <string name="error_translate_rate_limited">वापर मर्यादा गाठली. नंतर पुन्हा प्रयत्न करा.</string>
+    <string name="error_translate_model_unavailable">हे भाषांतर मॉडेल उपलब्ध नाही. कृपया अॅप अपडेट करा.</string>
+    <string name="error_translate_network">नेटवर्क त्रुटी. कनेक्शन तपासा.</string>
+    <string name="error_translate_generic">भाषांतर अयशस्वी झाले. पुन्हा प्रयत्न करा.</string>
+    <string name="key_saved_credit_hint">की पडताळली. भाषांतरासाठी खात्यात क्रेडिट किंवा मोफत कोटाही लागतो.</string>
 </resources>

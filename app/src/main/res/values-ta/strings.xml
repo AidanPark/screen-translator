@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Anthropic Console இல் ஒரு API விசையை உருவாக்கவும். பயன்பாட்டிற்கு உங்கள் Anthropic கணக்கில் கட்டணம் விதிக்கப்படும்.</string>
     <string name="settings_menu_how_to_use">பயன்படுத்தும் முறை</string>
     <string name="ocr_model_preparing">மொழிபெயர்ப்பு இயந்திரம் தயாராகிறது. சிறிது காத்திருக்கவும்.</string>
+    <string name="error_translate_invalid_key">API சாவி செல்லாதது. அமைப்புகளில் சரிபார்க்கவும்.</string>
+    <string name="error_translate_no_credit">கணக்கில் கிரெடிட் இல்லை. வழங்குநர் கன்சோலில் நிரப்பவும்.</string>
+    <string name="error_translate_rate_limited">பயன்பாட்டு வரம்பை எட்டியது. பிறகு மீண்டும் முயலவும்.</string>
+    <string name="error_translate_model_unavailable">இந்த மொழிபெயர்ப்பு மாடல் கிடைக்கவில்லை. ஆப்ஸை புதுப்பிக்கவும்.</string>
+    <string name="error_translate_network">நெட்வொர்க் பிழை. இணைப்பைச் சரிபார்க்கவும்.</string>
+    <string name="error_translate_generic">மொழிபெயர்ப்பு தோல்வி. மீண்டும் முயலவும்.</string>
+    <string name="key_saved_credit_hint">சாவி சரிபார்க்கப்பட்டது. மொழிபெயர்க்க கணக்கில் கிரெடிட் அல்லது இலவச ஒதுக்கீடும் தேவை.</string>
 </resources>

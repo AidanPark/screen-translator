@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Luo API-avain Anthropic Consolessa. Käyttö laskutetaan Anthropic-tililtäsi.</string>
     <string name="settings_menu_how_to_use">Käyttöohje</string>
     <string name="ocr_model_preparing">Käännösmoottoria valmistellaan. Odota hetki.</string>
+    <string name="error_translate_invalid_key">API-avain ei kelpaa. Tarkista se asetuksista.</string>
+    <string name="error_translate_no_credit">Tilillä ei ole krediittejä. Lataa lisää palveluntarjoajan konsolissa.</string>
+    <string name="error_translate_rate_limited">Käyttöraja saavutettu. Yritä myöhemmin uudelleen.</string>
+    <string name="error_translate_model_unavailable">Tämä käännösmalli ei ole käytettävissä. Päivitä sovellus.</string>
+    <string name="error_translate_network">Verkkovirhe. Tarkista yhteytesi.</string>
+    <string name="error_translate_generic">Käännös epäonnistui. Yritä uudelleen.</string>
+    <string name="key_saved_credit_hint">Avain vahvistettu. Kääntäminen vaatii myös krediittejä tai ilmaiskiintiön tililläsi.</string>
 </resources>

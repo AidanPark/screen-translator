@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">在 Anthropic Console 中创建 API 密钥。用量将计入您的 Anthropic 账户。</string>
   <string name="settings_menu_how_to_use">使用方法</string>
   <string name="ocr_model_preparing">正在准备翻译引擎，请稍候。</string>
+  <string name="error_translate_invalid_key">API 密钥无效。请在设置中检查。</string>
+  <string name="error_translate_no_credit">账户余额不足。请在服务商控制台充值。</string>
+  <string name="error_translate_rate_limited">已达到使用上限。请稍后再试。</string>
+  <string name="error_translate_model_unavailable">此翻译模型不可用。请更新应用。</string>
+  <string name="error_translate_network">网络错误。请检查连接。</string>
+  <string name="error_translate_generic">翻译失败。请重试。</string>
+  <string name="key_saved_credit_hint">密钥已验证。翻译还需要账户中的余额或免费额度。</string>
 </resources>

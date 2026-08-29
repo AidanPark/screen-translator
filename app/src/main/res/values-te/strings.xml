@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Anthropic Console లో API కీని సృష్టించండి. వినియోగానికి మీ Anthropic ఖాతాకు బిల్లు వేయబడుతుంది.</string>
     <string name="settings_menu_how_to_use">ఉపయోగించే విధానం</string>
     <string name="ocr_model_preparing">అనువాద ఇంజిన్ సిద్ధమవుతోంది. దయచేసి కాసేపు వేచి ఉండండి.</string>
+    <string name="error_translate_invalid_key">API కీ చెల్లదు. సెట్టింగ్‌లలో తనిఖీ చేయండి.</string>
+    <string name="error_translate_no_credit">ఖాతాలో క్రెడిట్‌లు లేవు. ప్రొవైడర్ కన్సోల్‌లో టాప్-అప్ చేయండి.</string>
+    <string name="error_translate_rate_limited">వినియోగ పరిమితి చేరుకుంది. తర్వాత మళ్లీ ప్రయత్నించండి.</string>
+    <string name="error_translate_model_unavailable">ఈ అనువాద మోడల్ అందుబాటులో లేదు. యాప్‌ను అప్‌డేట్ చేయండి.</string>
+    <string name="error_translate_network">నెట్‌వర్క్ లోపం. కనెక్షన్ తనిఖీ చేయండి.</string>
+    <string name="error_translate_generic">అనువాదం విఫలమైంది. మళ్లీ ప్రయత్నించండి.</string>
+    <string name="key_saved_credit_hint">కీ ధృవీకరించబడింది. అనువాదానికి ఖాతాలో క్రెడిట్‌లు లేదా ఉచిత కోటా కూడా అవసరం.</string>
 </resources>

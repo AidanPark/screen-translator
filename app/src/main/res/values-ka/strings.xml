@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">შექმენით API გასაღები Anthropic Console-ში. გამოყენება ერიცხება თქვენს Anthropic ანგარიშს.</string>
     <string name="settings_menu_how_to_use">გამოყენების ინსტრუქცია</string>
     <string name="ocr_model_preparing">თარგმნის ძრავა მზადდება. გთხოვთ, ცოტა ხანი მოიცადოთ.</string>
+    <string name="error_translate_invalid_key">API გასაღები არასწორია. შეამოწმეთ პარამეტრებში.</string>
+    <string name="error_translate_no_credit">ანგარიშზე კრედიტები აღარ არის. შეავსეთ პროვაიდერის კონსოლში.</string>
+    <string name="error_translate_rate_limited">გამოყენების ლიმიტი ამოიწურა. სცადეთ მოგვიანებით.</string>
+    <string name="error_translate_model_unavailable">ეს თარგმნის მოდელი მიუწვდომელია. განაახლეთ აპი.</string>
+    <string name="error_translate_network">ქსელის შეცდომა. შეამოწმეთ კავშირი.</string>
+    <string name="error_translate_generic">თარგმნა ვერ მოხერხდა. სცადეთ ხელახლა.</string>
+    <string name="key_saved_credit_hint">გასაღები დადასტურდა. თარგმნას ასევე სჭირდება კრედიტები ან უფასო კვოტა ანგარიშზე.</string>
 </resources>

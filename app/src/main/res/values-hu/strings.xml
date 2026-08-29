@@ -97,6 +97,13 @@
   <string name="claude_key_signup_guide">Hozzon létre egy API-kulcsot az Anthropic Console-ban. A használatot az Anthropic-fiókján számlázzuk.</string>
     <string name="settings_menu_how_to_use">Használati útmutató</string>
     <string name="ocr_model_preparing">A fordítómotor előkészítése folyamatban. Kérjük, várjon egy pillanatot.</string>
+    <string name="error_translate_invalid_key">Az API-kulcs érvénytelen. Ellenőrizze a beállításokban.</string>
+    <string name="error_translate_no_credit">Nincs több kredit a fiókban. Töltse fel a szolgáltató konzoljában.</string>
+    <string name="error_translate_rate_limited">Elérte a használati korlátot. Próbálja később.</string>
+    <string name="error_translate_model_unavailable">Ez a fordítási modell nem érhető el. Frissítse az alkalmazást.</string>
+    <string name="error_translate_network">Hálózati hiba. Ellenőrizze a kapcsolatot.</string>
+    <string name="error_translate_generic">A fordítás nem sikerült. Próbálja újra.</string>
+    <string name="key_saved_credit_hint">Kulcs ellenőrizve. A fordításhoz kredit vagy ingyenes keret is szükséges a fiókban.</string>
 </resources>
 
 

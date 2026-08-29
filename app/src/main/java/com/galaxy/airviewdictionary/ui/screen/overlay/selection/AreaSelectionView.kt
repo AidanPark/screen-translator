@@ -46,9 +46,11 @@ import com.galaxy.airviewdictionary.data.local.vision.model.VisionResponse
 import com.galaxy.airviewdictionary.ui.screen.overlay.OverlayView
 import com.galaxy.airviewdictionary.ui.screen.overlay.targethandle.TargetHandleViewModel
 import com.galaxy.airviewdictionary.ui.screen.overlay.targethandle.TranslateStatus
+import com.galaxy.airviewdictionary.ui.screen.overlay.translation.TranslationErrorView
 import com.galaxy.airviewdictionary.ui.screen.overlay.translation.TranslationView
 import com.galaxy.airviewdictionary.ui.screen.permissions.ScreenCapturePermissionRequesterActivity
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import timber.log.Timber
 import javax.inject.Singleton
@@ -326,6 +328,12 @@ open class AreaSelectionView : OverlayView() {
     private fun requestTranslate(context: Context, selectedArea: Rect) {
         translateJob?.cancel()
         translateJob = launchInOverlayViewCoroutineScope {
+            // 남아 있는 실패 안내 창이 캡처에 찍히지 않도록 먼저 해제
+            if (TranslationErrorView.INSTANCE.isAttachedToWindow()) {
+                TranslationErrorView.INSTANCE.clear()
+                // removeView 는 다음 프레임에 반영되므로 캡처 전 잠시 대기 (requestCapture 와 동일)
+                delay(50)
+            }
             // 캡처 이미지
             val captureResponse: CaptureResponse = targetHandleViewModel.captureRepository.request()
             Timber.tag(TAG).d("captureResponse $captureResponse")

@@ -38,6 +38,7 @@ import com.galaxy.airviewdictionary.data.local.vision.model.Word
 import com.galaxy.airviewdictionary.data.remote.firebase.AnalyticsRepository
 import com.galaxy.airviewdictionary.data.remote.firebase.RemoteConfigRepository
 import com.galaxy.airviewdictionary.data.remote.translation.Transaction
+import com.galaxy.airviewdictionary.data.remote.translation.TranslationErrorMessages
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationKitType
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationRepository
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationResponse
@@ -52,6 +53,7 @@ import com.galaxy.airviewdictionary.ui.screen.overlay.dialog.DialogView
 import com.galaxy.airviewdictionary.ui.screen.overlay.menubar.MenuBarView
 import com.galaxy.airviewdictionary.ui.screen.overlay.translation.DismissRunningCommand
 import com.galaxy.airviewdictionary.ui.screen.overlay.translation.TTSStatus
+import com.galaxy.airviewdictionary.ui.screen.overlay.translation.TranslationErrorView
 import com.galaxy.airviewdictionary.ui.screen.overlay.translation.TranslationView
 import com.galaxy.airviewdictionary.ui.screen.overlay.visiontext.VisionTextView
 import com.galaxy.airviewdictionary.ui.screen.permissions.ScreenCapturePermissionRequesterActivity
@@ -349,9 +351,23 @@ class TargetHandleViewModel(
      * [TargetHandleView] 의 요청에 따라 화면캡처를 수행한다.
      * 캡처된 bitmap 의 OCR 을 요청한다.
      */
+    /**
+     * 제스처 세대. 새 캡처(=새 제스처)마다 증가하며,
+     * 이전 제스처의 늦은 번역 실패가 새 제스처 위에 표시되는 것을 막는 기준이 된다.
+     */
+    private var captureEpoch = 0
+
     private fun requestCapture() {
         startTime = System.nanoTime()
         Timber.tag(TAG).i("#### requestCapture() ####")
+
+        captureEpoch++
+
+        // 남아 있는 실패 안내 창은 새 제스처 시작 시 해제한다.
+        // (캡처 이미지에 안내 창이 찍혀 OCR 에 섞이는 것도 방지)
+        if (TranslationErrorView.INSTANCE.isAttachedToWindow()) {
+            TranslationErrorView.INSTANCE.clear()
+        }
 
         visionResultFlow.value = null
         captureStatusFlow.value = CaptureStatus.Requested
@@ -657,6 +673,8 @@ class TargetHandleViewModel(
                             val motionEventState = motionEventFlow.first()
                             Timber.tag(TAG).d("motionEventState $motionEventState")
                             if (motionEventState == MotionEvent.ACTION_DOWN || motionEventState == MotionEvent.ACTION_MOVE) {
+                                // 이 요청이 속한 제스처 세대 — 실패 안내의 낡음 판정에 쓴다.
+                                val requestEpoch = captureEpoch
                                 translationRepository.request(
                                     translationKitType,
                                     sourceLanguageCode,
@@ -664,6 +682,45 @@ class TargetHandleViewModel(
                                     pointerPositionedVisionText.representation,
                                 )
                                     .also {
+                                        // 실패 안내는 손을 뗀 뒤 응답이 도착해도 반드시 표시한다.
+                                        // 번역창 파이프라인(translationFlow)은 ACTION_UP 이후에는
+                                        // 컨텐츠를 발행하지 않으므로(dismiss 전용) 자체 플로우를 가진
+                                        // TranslationErrorView 가 번역창과 같은 위치에 사유를 띄운다.
+                                        if (it is TranslationResponse.Error) {
+                                            Timber.tag(TAG).d("Response Error ${it.t}")
+                                            translateStatusFlow.value = TranslateStatus.Translated
+                                            // 새 제스처가 이미 시작됐다면 낡은 실패 안내는 버린다.
+                                            // (다음 제스처 위·캡처 프레임에 이전 안내가 찍히는 것 방지)
+                                            if (requestEpoch != captureEpoch) {
+                                                return@also
+                                            }
+                                            // 리워드 광고 위에는 안내를 띄우지 않는다.
+                                            // (게이트가 열린 뒤 attach 되는 창은 hideTemporarily 로 못 가린다)
+                                            // 설정 화면은 제외하지 않는다 — 설정에서 키 입력 직후
+                                            // 그 자리에서 번역을 테스트하는 흐름이 많고, 성공 말풍선과
+                                            // 동일하게 실패 안내도 보여야 한다.
+                                            if (AdGateActivity.liveStateFlow.value) {
+                                                return@also
+                                            }
+                                            val errorTransaction = Transaction(
+                                                sourceLanguageCode = sourceLanguageCode,
+                                                targetLanguageCode = targetLanguageCode,
+                                                sourceText = pointerPositionedVisionText.representation,
+                                                translationKitType = translationKitType,
+                                                resultText = "⚠ " + TranslationErrorMessages.resolve(applicationContext, it.t),
+                                            )
+                                            // 닫기 지연시간을 따르되, 사유를 읽을 시간은 보장한다.
+                                            val closeDelay = preferenceRepository.translationCloseDelayFlow.first()
+                                                .coerceAtLeast(3500L)
+                                            TranslationErrorView.INSTANCE.cast(
+                                                applicationContext,
+                                                errorTransaction,
+                                                pointerPositionedVisionText,
+                                                closeDelay
+                                            )
+                                            return@also
+                                        }
+
                                         val motionEventState = motionEventFlow.first()
                                         if (motionEventState == MotionEvent.ACTION_DOWN || motionEventState == MotionEvent.ACTION_MOVE) {
                                             translateStatusFlow.value = TranslateStatus.Translated
@@ -689,9 +746,7 @@ class TargetHandleViewModel(
                                                     pointerPositionedTranslationFlow.value = transaction
                                                 }
 
-                                                is TranslationResponse.Error -> {
-                                                    Timber.tag(TAG).d("Response Error ${it.t}")
-                                                }
+                                                is TranslationResponse.Error -> Unit // 위에서 선처리(모션 가드와 무관하게 표시)
                                             }
                                         }
                                     }

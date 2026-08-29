@@ -97,6 +97,13 @@
   <string name="claude_key_signup_guide">Δημιουργήστε ένα κλειδί API στο Anthropic Console. Η χρήση χρεώνεται στον λογαριασμό σας Anthropic.</string>
     <string name="settings_menu_how_to_use">Οδηγίες χρήσης</string>
     <string name="ocr_model_preparing">Προετοιμασία της μηχανής μετάφρασης. Περιμένετε λίγο.</string>
+    <string name="error_translate_invalid_key">Το κλειδί API δεν είναι έγκυρο. Ελέγξτε το στις ρυθμίσεις.</string>
+    <string name="error_translate_no_credit">Δεν υπάρχουν μονάδες στον λογαριασμό. Κάντε ανανέωση στην κονσόλα του παρόχου.</string>
+    <string name="error_translate_rate_limited">Συμπληρώθηκε το όριο χρήσης. Δοκιμάστε ξανά αργότερα.</string>
+    <string name="error_translate_model_unavailable">Αυτό το μοντέλο μετάφρασης δεν είναι διαθέσιμο. Ενημερώστε την εφαρμογή.</string>
+    <string name="error_translate_network">Σφάλμα δικτύου. Ελέγξτε τη σύνδεσή σας.</string>
+    <string name="error_translate_generic">Η μετάφραση απέτυχε. Δοκιμάστε ξανά.</string>
+    <string name="key_saved_credit_hint">Το κλειδί επαληθεύτηκε. Η μετάφραση απαιτεί επίσης μονάδες ή δωρεάν όριο στον λογαριασμό.</string>
 </resources>
 
 

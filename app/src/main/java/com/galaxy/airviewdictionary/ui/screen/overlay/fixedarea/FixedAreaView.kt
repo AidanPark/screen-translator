@@ -52,6 +52,7 @@ import com.galaxy.airviewdictionary.data.local.ads.AdGateState
 import com.galaxy.airviewdictionary.data.local.vision.TextDetectMode
 import com.galaxy.airviewdictionary.data.local.vision.model.Transaction
 import com.galaxy.airviewdictionary.data.local.vision.model.VisionResponse
+import com.galaxy.airviewdictionary.data.remote.translation.TranslationErrorMessages
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationKitType
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationResponse
 import com.galaxy.airviewdictionary.extensions.isNetworkAvailable
@@ -517,10 +518,10 @@ open class FixedAreaView : OverlayView() {
 
         detectedString = visionResponseString
         Timber.tag(TAG).d("[detectedString] $detectedString")
-        requestTranslate(visionResponse.result, detectedString)
+        requestTranslate(context, visionResponse.result, detectedString)
     }
 
-    private suspend fun requestTranslate(visionResult: Transaction, sourceText: String) {
+    private suspend fun requestTranslate(context: Context, visionResult: Transaction, sourceText: String) {
         val translationKitType: TranslationKitType = targetHandleViewModel.preferenceRepository.translationKitTypeFlow.first()
         val sourceLanguageCode: String = visionResult.detectedLanguageCode
         val targetLanguageCode: String = targetHandleViewModel.preferenceRepository.targetLanguageCodeFlow.first()
@@ -556,6 +557,9 @@ open class FixedAreaView : OverlayView() {
 
                     is TranslationResponse.Error -> {
                         Timber.tag(TAG).d("Response Error ${it.t}")
+                        // 실패 원인을 고정 영역 결과창에 표시한다 (무소음 실패 방지)
+                        translationFlow.value =
+                            "⚠ " + TranslationErrorMessages.resolve(context, it.t)
                     }
                 }
             }

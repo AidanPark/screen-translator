@@ -44,6 +44,7 @@ import com.galaxy.airviewdictionary.data.local.ads.AdGateState
 import com.galaxy.airviewdictionary.data.remote.firebase.RemoteConfigRepository
 import com.galaxy.airviewdictionary.ui.screen.main.GoogleMobileAdsConsentManager
 import com.galaxy.airviewdictionary.ui.screen.overlay.targethandle.TargetHandleView
+import com.galaxy.airviewdictionary.ui.screen.overlay.translation.TranslationErrorView
 import com.galaxy.airviewdictionary.ui.screen.overlay.translation.TranslationView
 import com.galaxy.airviewdictionary.ui.screen.overlay.visiontext.VisionTextView
 import com.google.android.gms.ads.AdError
@@ -133,6 +134,7 @@ class AdGateActivity : ComponentActivity() {
         // 메뉴바(MenuBarView)는 자체 가시성 로직이 liveStateFlow 를 구독하여 스스로 숨긴다.
         TargetHandleView.INSTANCE.hideTemporarily()
         TranslationView.INSTANCE.hideTemporarily()
+        TranslationErrorView.INSTANCE.hideTemporarily()
         VisionTextView.INSTANCE.hideTemporarily()
 
         // 뒤로가기로 다이얼로그를 닫는 것은 광고 스킵과 동일 취급 (유예 없음)
@@ -285,6 +287,7 @@ class AdGateActivity : ComponentActivity() {
         // 숨겨둔 플로팅 오버레이 복원 (메뉴바는 liveStateFlow 변경으로 스스로 복원)
         TargetHandleView.INSTANCE.showFromTemporaryHide()
         TranslationView.INSTANCE.showFromTemporaryHide()
+        TranslationErrorView.INSTANCE.showFromTemporaryHide()
         VisionTextView.INSTANCE.showFromTemporaryHide()
         super.onDestroy()
     }
@@ -303,6 +306,7 @@ class AdGateActivity : ComponentActivity() {
                 listOf(
                     "BA6732E32C6CA0D01FB929ECC2FDA19F", // 개발 에뮬레이터
                     "D6702C0742CE9DD6BBA2193ED921D92E", // SM-G991N 실기기
+                    "DCD83E4C403226BC195BA6E28FD369EC", // SM-S947N 실기기
                 )
             ).build()
         )

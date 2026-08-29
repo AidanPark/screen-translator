@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Creescha ina clav API en l’Anthropic Console. L’utilisaziun vegn fatgurada a tes conto Anthropic.</string>
     <string name="settings_menu_how_to_use">Co utilisar</string>
     <string name="ocr_model_preparing">Il motor da translaziun vegn preparà. Spetgai in mument.</string>
+    <string name="error_translate_invalid_key">La clav API n\'è betg valida. Controllai ella en ils parameters.</string>
+    <string name="error_translate_no_credit">Nagins credits pli sin il conto. Chargiai en la consola dal purschider.</string>
+    <string name="error_translate_rate_limited">Cuntanschì la limita d\'utilisaziun. Empruvai pli tard.</string>
+    <string name="error_translate_model_unavailable">Quest model da translaziun n\'è betg disponibel. Actualisai l\'app.</string>
+    <string name="error_translate_network">Errur da rait. Controllai la connexiun.</string>
+    <string name="error_translate_generic">La translaziun n\'è betg reussida. Empruvai anc ina giada.</string>
+    <string name="key_saved_credit_hint">Clav verifitgada. La translaziun dovra er credits u in contingent gratuit sin il conto.</string>
 </resources>

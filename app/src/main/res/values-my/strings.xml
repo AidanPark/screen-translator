@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Anthropic Console တွင် API key တစ်ခု ဖန်တီးပါ။ အသုံးပြုမှုကို သင့် Anthropic အကောင့်သို့ ငွေတောင်းခံပါသည်။</string>
     <string name="settings_menu_how_to_use">အသုံးပြုနည်း</string>
     <string name="ocr_model_preparing">ဘာသာပြန်အင်ဂျင်ကို ပြင်ဆင်နေသည်။ ခဏစောင့်ပါ။</string>
+    <string name="error_translate_invalid_key">API ကီး မမှန်ကန်ပါ။ ဆက်တင်တွင် စစ်ဆေးပါ။</string>
+    <string name="error_translate_no_credit">အကောင့်တွင် ခရက်ဒစ် မကျန်ပါ။ ဝန်ဆောင်မှုပေးသူ၏ ကွန်ဆိုးလ်တွင် ဖြည့်ပါ။</string>
+    <string name="error_translate_rate_limited">အသုံးပြုမှု ကန့်သတ်ချက် ပြည့်သွားပါပြီ။ နောက်မှ ထပ်စမ်းပါ။</string>
+    <string name="error_translate_model_unavailable">ဤဘာသာပြန်မော်ဒယ်ကို အသုံးမပြုနိုင်ပါ။ အက်ပ်ကို အပ်ဒိတ်လုပ်ပါ။</string>
+    <string name="error_translate_network">ကွန်ရက် အမှား။ ချိတ်ဆက်မှုကို စစ်ပါ။</string>
+    <string name="error_translate_generic">ဘာသာပြန်ခြင်း မအောင်မြင်ပါ။ ထပ်စမ်းပါ။</string>
+    <string name="key_saved_credit_hint">ကီးကို အတည်ပြုပြီးပါပြီ။ ဘာသာပြန်ရန် အကောင့်တွင် ခရက်ဒစ် သို့မဟုတ် အခမဲ့ကိုတာလည်း လိုအပ်သည်။</string>
 </resources>

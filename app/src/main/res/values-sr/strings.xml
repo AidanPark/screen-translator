@@ -97,6 +97,13 @@
   <string name="claude_key_signup_guide">Направите API кључ у Anthropic Console. Коришћење се наплаћује на ваш Anthropic налог.</string>
     <string name="settings_menu_how_to_use">Како се користи</string>
     <string name="ocr_model_preparing">Припрема се преводилачки мотор. Сачекајте тренутак.</string>
+    <string name="error_translate_invalid_key">API кључ је неважећи. Проверите га у подешавањима.</string>
+    <string name="error_translate_no_credit">Нема кредита на налогу. Допуните у конзоли добављача.</string>
+    <string name="error_translate_rate_limited">Достигнут је лимит коришћења. Покушајте касније.</string>
+    <string name="error_translate_model_unavailable">Овај модел превођења није доступан. Ажурирајте апликацију.</string>
+    <string name="error_translate_network">Мрежна грешка. Проверите везу.</string>
+    <string name="error_translate_generic">Превођење није успело. Покушајте поново.</string>
+    <string name="key_saved_credit_hint">Кључ је потврђен. За превођење су потребни и кредити или бесплатна квота на налогу.</string>
 </resources>
 
 

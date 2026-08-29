@@ -97,6 +97,13 @@
   <string name="claude_key_signup_guide">Skep ’n API-sleutel in die Anthropic Console. Gebruik word aan jou Anthropic-rekening gefaktureer.</string>
     <string name="settings_menu_how_to_use">Hoe om te gebruik</string>
     <string name="ocr_model_preparing">Berei die vertaalenjin voor. Wag asseblief \'n oomblik.</string>
+    <string name="error_translate_invalid_key">Die API-sleutel is ongeldig. Kontroleer dit in Instellings.</string>
+    <string name="error_translate_no_credit">Geen krediete oor op jou rekening nie. Laai by in die verskaffer se konsole.</string>
+    <string name="error_translate_rate_limited">Gebruikslimiet bereik. Probeer later weer.</string>
+    <string name="error_translate_model_unavailable">Hierdie vertaalmodel is nie beskikbaar nie. Werk asseblief die app op.</string>
+    <string name="error_translate_network">Netwerkfout. Kontroleer jou verbinding.</string>
+    <string name="error_translate_generic">Vertaling het misluk. Probeer asseblief weer.</string>
+    <string name="key_saved_credit_hint">Sleutel bevestig. Vertaling benodig ook krediete of gratis kwota op jou rekening.</string>
 </resources>
 
 

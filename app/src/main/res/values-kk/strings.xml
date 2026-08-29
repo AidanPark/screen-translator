@@ -98,4 +98,11 @@
   <string name="claude_key_signup_guide">Anthropic Console-де API кілтін жасаңыз. Пайдалану Anthropic есептік жазбаңызға есептеледі.</string>
     <string name="settings_menu_how_to_use">Пайдалану нұсқаулығы</string>
     <string name="ocr_model_preparing">Аударма жүйесі дайындалуда. Сәл күте тұрыңыз.</string>
+    <string name="error_translate_invalid_key">API кілті жарамсыз. Оны параметрлерден тексеріңіз.</string>
+    <string name="error_translate_no_credit">Есептік жазбада кредит қалмады. Провайдер консолінде толтырыңыз.</string>
+    <string name="error_translate_rate_limited">Пайдалану шегіне жетті. Кейінірек қайталап көріңіз.</string>
+    <string name="error_translate_model_unavailable">Бұл аударма моделі қолжетімсіз. Қолданбаны жаңартыңыз.</string>
+    <string name="error_translate_network">Желі қатесі. Байланысты тексеріңіз.</string>
+    <string name="error_translate_generic">Аударма сәтсіз аяқталды. Қайталап көріңіз.</string>
+    <string name="key_saved_credit_hint">Кілт расталды. Аударма үшін есептік жазбада кредит немесе тегін квота да қажет.</string>
 </resources>

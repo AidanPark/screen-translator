@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Anthropic Console-ൽ ഒരു API കീ സൃഷ്‌ടിക്കുക. ഉപയോഗം നിങ്ങളുടെ Anthropic അക്കൗണ്ടിലേക്ക് ബില്ല് ചെയ്യുന്നു.</string>
     <string name="settings_menu_how_to_use">ഉപയോഗിക്കുന്ന വിധം</string>
     <string name="ocr_model_preparing">വിവർത്തന എൻജിൻ തയ്യാറാക്കുന്നു. അൽപ്പം കാത്തിരിക്കുക.</string>
+    <string name="error_translate_invalid_key">API കീ അസാധുവാണ്. ക്രമീകരണങ്ങളിൽ പരിശോധിക്കുക.</string>
+    <string name="error_translate_no_credit">അക്കൗണ്ടിൽ ക്രെഡിറ്റ് ബാക്കിയില്ല. ദാതാവിന്റെ കൺസോളിൽ ടോപ്പ്-അപ്പ് ചെയ്യുക.</string>
+    <string name="error_translate_rate_limited">ഉപയോഗ പരിധി എത്തി. പിന്നീട് വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="error_translate_model_unavailable">ഈ വിവർത്തന മോഡൽ ലഭ്യമല്ല. ആപ്പ് അപ്ഡേറ്റ് ചെയ്യുക.</string>
+    <string name="error_translate_network">നെറ്റ്‌വർക്ക് പിശക്. കണക്ഷൻ പരിശോധിക്കുക.</string>
+    <string name="error_translate_generic">വിവർത്തനം പരാജയപ്പെട്ടു. വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="key_saved_credit_hint">കീ സ്ഥിരീകരിച്ചു. വിവർത്തനത്തിന് അക്കൗണ്ടിൽ ക്രെഡിറ്റോ സൗജന്യ ക്വാട്ടയോ കൂടി വേണം.</string>
 </resources>

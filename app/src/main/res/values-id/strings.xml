@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Buat kunci API di Anthropic Console. Penggunaan ditagihkan ke akun Anthropic Anda.</string>
   <string name="settings_menu_how_to_use">Cara penggunaan</string>
   <string name="ocr_model_preparing">Menyiapkan mesin terjemahan. Harap tunggu sebentar.</string>
+  <string name="error_translate_invalid_key">Kunci API tidak valid. Periksa di Setelan.</string>
+  <string name="error_translate_no_credit">Kredit di akun habis. Isi ulang di konsol penyedia.</string>
+  <string name="error_translate_rate_limited">Batas penggunaan tercapai. Coba lagi nanti.</string>
+  <string name="error_translate_model_unavailable">Model terjemahan ini tidak tersedia. Perbarui aplikasi.</string>
+  <string name="error_translate_network">Kesalahan jaringan. Periksa koneksi Anda.</string>
+  <string name="error_translate_generic">Terjemahan gagal. Coba lagi.</string>
+  <string name="key_saved_credit_hint">Kunci terverifikasi. Menerjemahkan juga memerlukan kredit atau kuota gratis di akun.</string>
 </resources>

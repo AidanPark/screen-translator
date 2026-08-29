@@ -97,6 +97,13 @@
   <string name="claude_key_signup_guide">Ստեղծեք API բանալի Anthropic Console-ում։ Օգտագործումը գանձվում է ձեր Anthropic հաշվին։</string>
     <string name="settings_menu_how_to_use">Օգտագործման ուղեցույց</string>
     <string name="ocr_model_preparing">Թարգմանության շարժիչը պատրաստվում է։ Խնդրում ենք մի փոքր սպասել։</string>
+    <string name="error_translate_invalid_key">API բանալին անվավեր է։ Ստուգեք այն կարգավորումներում։</string>
+    <string name="error_translate_no_credit">Հաշվում կրեդիտներ չկան։ Համալրեք մատակարարի վահանակում։</string>
+    <string name="error_translate_rate_limited">Օգտագործման սահմանը սպառվել է։ Փորձեք ավելի ուշ։</string>
+    <string name="error_translate_model_unavailable">Այս թարգմանության մոդելը հասանելի չէ։ Թարմացրեք հավելվածը։</string>
+    <string name="error_translate_network">Ցանցի սխալ։ Ստուգեք կապը։</string>
+    <string name="error_translate_generic">Թարգմանությունը ձախողվեց։ Փորձեք նորից։</string>
+    <string name="key_saved_credit_hint">Բանալին հաստատվեց։ Թարգմանության համար նաև կրեդիտ կամ անվճար քվոտա է պետք հաշվում։</string>
 </resources>
 
 

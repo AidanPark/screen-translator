@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Sukurkite API raktą Anthropic Console. Naudojimas apmokestinamas jūsų Anthropic paskyroje.</string>
     <string name="settings_menu_how_to_use">Naudojimo instrukcija</string>
     <string name="ocr_model_preparing">Ruošiamas vertimo variklis. Šiek tiek palaukite.</string>
+    <string name="error_translate_invalid_key">API raktas negalioja. Patikrinkite jį nustatymuose.</string>
+    <string name="error_translate_no_credit">Paskyroje neliko kreditų. Papildykite tiekėjo konsolėje.</string>
+    <string name="error_translate_rate_limited">Pasiektas naudojimo limitas. Bandykite vėliau.</string>
+    <string name="error_translate_model_unavailable">Šis vertimo modelis nepasiekiamas. Atnaujinkite programą.</string>
+    <string name="error_translate_network">Tinklo klaida. Patikrinkite ryšį.</string>
+    <string name="error_translate_generic">Versti nepavyko. Bandykite dar kartą.</string>
+    <string name="key_saved_credit_hint">Raktas patvirtintas. Vertimui taip pat reikia kreditų arba nemokamos kvotos paskyroje.</string>
 </resources>

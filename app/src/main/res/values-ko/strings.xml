@@ -97,4 +97,14 @@
   <string name="help_text_claude_own_key">개인 Claude API 키로 동작합니다</string>
   <string name="claude_key_signup_guide">Anthropic Console에서 API 키를 생성하세요. 사용량은 Anthropic 계정으로 청구됩니다.</string>
     <string name="ocr_model_preparing">번역 엔진을 준비하고 있어요. 잠시만 기다려 주세요.</string>
+
+  <!-- 번역 API 실패 원인 안내 (무소음 실패 방지) -->
+  <string name="error_translate_invalid_key">API 키가 유효하지 않습니다. 설정에서 확인해 주세요.</string>
+  <string name="error_translate_no_credit">계정 크레딧이 부족합니다. 해당 서비스 콘솔에서 충전해 주세요.</string>
+  <string name="error_translate_rate_limited">사용량 한도에 도달했습니다. 잠시 후 다시 시도해 주세요.</string>
+  <string name="error_translate_model_unavailable">번역 모델을 사용할 수 없습니다. 앱을 업데이트해 주세요.</string>
+  <string name="error_translate_network">네트워크 오류입니다. 연결을 확인해 주세요.</string>
+  <string name="error_translate_generic">번역에 실패했습니다. 다시 시도해 주세요.</string>
+  <!-- LLM 키 저장 성공 시 기대치 안내 (키 유효 ≠ 크레딧 보유) -->
+  <string name="key_saved_credit_hint">키가 확인되었습니다. 번역 사용에는 계정의 크레딧 또는 무료 한도가 필요합니다.</string>
 </resources>

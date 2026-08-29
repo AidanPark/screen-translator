@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Стварыце ключ API у Anthropic Console. Выкарыстанне тарыфікуецца на ваш рахунак Anthropic.</string>
     <string name="settings_menu_how_to_use">Як карыстацца</string>
     <string name="ocr_model_preparing">Ідзе падрыхтоўка рухавіка перакладу. Калі ласка, пачакайце.</string>
+    <string name="error_translate_invalid_key">Ключ API несапраўдны. Праверце яго ў наладах.</string>
+    <string name="error_translate_no_credit">На рахунку не засталося крэдытаў. Папоўніце баланс у кансолі правайдара.</string>
+    <string name="error_translate_rate_limited">Дасягнуты ліміт выкарыстання. Паспрабуйце пазней.</string>
+    <string name="error_translate_model_unavailable">Гэтая мадэль перакладу недаступная. Абнавіце праграму.</string>
+    <string name="error_translate_network">Памылка сеткі. Праверце падключэнне.</string>
+    <string name="error_translate_generic">Пераклад не выкананы. Паспрабуйце яшчэ раз.</string>
+    <string name="key_saved_credit_hint">Ключ пацверджаны. Для перакладу таксама патрэбныя крэдыты або бясплатная квота на рахунку.</string>
 </resources>

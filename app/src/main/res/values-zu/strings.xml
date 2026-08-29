@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Dala ukhiye we-API ku-Anthropic Console. Ukusetshenziswa kukhokhiswa ku-akhawunti yakho ye-Anthropic.</string>
     <string name="settings_menu_how_to_use">Indlela yokusebenzisa</string>
     <string name="ocr_model_preparing">Kulungiswa injini yokuhumusha. Sicela ulinde isikhashana.</string>
+    <string name="error_translate_invalid_key">Ukhiye we-API awuvumelekile. Wuhlole kuzilungiselelo.</string>
+    <string name="error_translate_no_credit">Awunamakhredithi ku-akhawunti. Faka kukhonsoli yomhlinzeki.</string>
+    <string name="error_translate_rate_limited">Kufinyelelwe umkhawulo wokusebenzisa. Zama futhi kamuva.</string>
+    <string name="error_translate_model_unavailable">Le modeli yokuhumusha ayitholakali. Sicela ubuyekeze uhlelo lokusebenza.</string>
+    <string name="error_translate_network">Iphutha lenethiwekhi. Hlola uxhumano lwakho.</string>
+    <string name="error_translate_generic">Ukuhumusha kuhlulekile. Zama futhi.</string>
+    <string name="key_saved_credit_hint">Ukhiye uqinisekisiwe. Ukuhumusha kudinga futhi amakhredithi noma ikhotha yamahhala ku-akhawunti.</string>
 </resources>

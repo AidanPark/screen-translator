@@ -97,6 +97,13 @@
   <string name="claude_key_signup_guide">Vytvorte kľúč API v Anthropic Console. Používanie sa účtuje na váš účet Anthropic.</string>
     <string name="settings_menu_how_to_use">Návod na použitie</string>
     <string name="ocr_model_preparing">Pripravuje sa prekladový modul. Chvíľu počkajte, prosím.</string>
+    <string name="error_translate_invalid_key">Kľúč API je neplatný. Skontrolujte ho v nastaveniach.</string>
+    <string name="error_translate_no_credit">Na účte nie sú kredity. Dobite ich v konzole poskytovateľa.</string>
+    <string name="error_translate_rate_limited">Dosiahol sa limit používania. Skúste neskôr.</string>
+    <string name="error_translate_model_unavailable">Tento prekladový model nie je dostupný. Aktualizujte aplikáciu.</string>
+    <string name="error_translate_network">Chyba siete. Skontrolujte pripojenie.</string>
+    <string name="error_translate_generic">Preklad zlyhal. Skúste znova.</string>
+    <string name="key_saved_credit_hint">Kľúč overený. Preklad vyžaduje aj kredity alebo bezplatnú kvótu na účte.</string>
 </resources>
 
 

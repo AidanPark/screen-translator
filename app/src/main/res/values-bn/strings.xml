@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Anthropic Console-এ একটি API কী তৈরি করুন। ব্যবহারের বিল আপনার Anthropic অ্যাকাউন্টে করা হয়।</string>
     <string name="settings_menu_how_to_use">ব্যবহারের নিয়ম</string>
     <string name="ocr_model_preparing">অনুবাদ ইঞ্জিন প্রস্তুত করা হচ্ছে। অনুগ্রহ করে একটু অপেক্ষা করুন।</string>
+    <string name="error_translate_invalid_key">API কী অবৈধ। সেটিংসে এটি পরীক্ষা করুন।</string>
+    <string name="error_translate_no_credit">আপনার অ্যাকাউন্টে ক্রেডিট নেই। প্রদানকারীর কনসোলে রিচার্জ করুন।</string>
+    <string name="error_translate_rate_limited">ব্যবহারের সীমায় পৌঁছেছে। পরে আবার চেষ্টা করুন।</string>
+    <string name="error_translate_model_unavailable">এই অনুবাদ মডেলটি উপলব্ধ নয়। অ্যাপটি আপডেট করুন।</string>
+    <string name="error_translate_network">নেটওয়ার্ক ত্রুটি। আপনার সংযোগ পরীক্ষা করুন।</string>
+    <string name="error_translate_generic">অনুবাদ ব্যর্থ হয়েছে। আবার চেষ্টা করুন।</string>
+    <string name="key_saved_credit_hint">কী যাচাই হয়েছে। অনুবাদে অ্যাকাউন্টে ক্রেডিট বা বিনামূল্যের কোটাও প্রয়োজন।</string>
 </resources>

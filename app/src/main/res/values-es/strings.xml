@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Crea una clave API en Anthropic Console. El uso se factura a tu cuenta de Anthropic.</string>
   <string name="settings_menu_how_to_use">Cómo usar</string>
   <string name="ocr_model_preparing">Preparando el motor de traducción. Espera un momento.</string>
+  <string name="error_translate_invalid_key">La clave de API no es válida. Compruébala en Ajustes.</string>
+  <string name="error_translate_no_credit">No quedan créditos en tu cuenta. Recarga en la consola del proveedor.</string>
+  <string name="error_translate_rate_limited">Se alcanzó el límite de uso. Inténtalo más tarde.</string>
+  <string name="error_translate_model_unavailable">Este modelo de traducción no está disponible. Actualiza la aplicación.</string>
+  <string name="error_translate_network">Error de red. Comprueba tu conexión.</string>
+  <string name="error_translate_generic">La traducción falló. Inténtalo de nuevo.</string>
+  <string name="key_saved_credit_hint">Clave verificada. Traducir también requiere créditos o cuota gratuita en tu cuenta.</string>
 </resources>

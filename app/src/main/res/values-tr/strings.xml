@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Anthropic Console’da bir API anahtarı oluşturun. Kullanım, Anthropic hesabınıza faturalandırılır.</string>
   <string name="settings_menu_how_to_use">Kullanım kılavuzu</string>
   <string name="ocr_model_preparing">Çeviri motoru hazırlanıyor. Lütfen biraz bekleyin.</string>
+  <string name="error_translate_invalid_key">API anahtarı geçersiz. Ayarlardan kontrol edin.</string>
+  <string name="error_translate_no_credit">Hesabınızda kredi kalmadı. Sağlayıcının konsolundan yükleyin.</string>
+  <string name="error_translate_rate_limited">Kullanım sınırına ulaşıldı. Daha sonra tekrar deneyin.</string>
+  <string name="error_translate_model_unavailable">Bu çeviri modeli kullanılamıyor. Lütfen uygulamayı güncelleyin.</string>
+  <string name="error_translate_network">Ağ hatası. Bağlantınızı kontrol edin.</string>
+  <string name="error_translate_generic">Çeviri başarısız oldu. Tekrar deneyin.</string>
+  <string name="key_saved_credit_hint">Anahtar doğrulandı. Çeviri için hesapta kredi veya ücretsiz kota da gerekir.</string>
 </resources>

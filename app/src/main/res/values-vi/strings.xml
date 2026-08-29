@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Tạo khóa API trong Anthropic Console. Mức sử dụng được tính vào tài khoản Anthropic của bạn.</string>
   <string name="settings_menu_how_to_use">Hướng dẫn sử dụng</string>
   <string name="ocr_model_preparing">Đang chuẩn bị công cụ dịch. Vui lòng đợi một lát.</string>
+  <string name="error_translate_invalid_key">Khóa API không hợp lệ. Kiểm tra trong Cài đặt.</string>
+  <string name="error_translate_no_credit">Tài khoản đã hết tín dụng. Nạp thêm trong bảng điều khiển của nhà cung cấp.</string>
+  <string name="error_translate_rate_limited">Đã đạt giới hạn sử dụng. Thử lại sau.</string>
+  <string name="error_translate_model_unavailable">Mô hình dịch này không khả dụng. Vui lòng cập nhật ứng dụng.</string>
+  <string name="error_translate_network">Lỗi mạng. Kiểm tra kết nối của bạn.</string>
+  <string name="error_translate_generic">Dịch không thành công. Vui lòng thử lại.</string>
+  <string name="key_saved_credit_hint">Đã xác minh khóa. Việc dịch cũng cần tín dụng hoặc hạn mức miễn phí trong tài khoản.</string>
 </resources>

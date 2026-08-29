@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Anthropic Console で API キーを作成します。使用量は Anthropic アカウントに請求されます。</string>
   <string name="settings_menu_how_to_use">使い方</string>
   <string name="ocr_model_preparing">翻訳エンジンを準備しています。しばらくお待ちください。</string>
+  <string name="error_translate_invalid_key">APIキーが無効です。設定で確認してください。</string>
+  <string name="error_translate_no_credit">アカウントのクレジットがありません。提供元のコンソールでチャージしてください。</string>
+  <string name="error_translate_rate_limited">利用上限に達しました。しばらくしてからお試しください。</string>
+  <string name="error_translate_model_unavailable">この翻訳モデルは利用できません。アプリを更新してください。</string>
+  <string name="error_translate_network">ネットワークエラーです。接続を確認してください。</string>
+  <string name="error_translate_generic">翻訳に失敗しました。もう一度お試しください。</string>
+  <string name="key_saved_credit_hint">キーを確認しました。翻訳にはアカウントのクレジットまたは無料枠も必要です。</string>
 </resources>

@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Krijoni një çelës API në Anthropic Console. Përdorimi faturohet në llogarinë tuaj Anthropic.</string>
     <string name="settings_menu_how_to_use">Si të përdoret</string>
     <string name="ocr_model_preparing">Motori i përkthimit po përgatitet. Ju lutemi prisni pak.</string>
+    <string name="error_translate_invalid_key">Çelësi API është i pavlefshëm. Kontrollojeni te cilësimet.</string>
+    <string name="error_translate_no_credit">Nuk kanë mbetur kredite në llogari. Rimbushni në konsolën e ofruesit.</string>
+    <string name="error_translate_rate_limited">U arrit kufiri i përdorimit. Provoni më vonë.</string>
+    <string name="error_translate_model_unavailable">Ky model përkthimi nuk është i disponueshëm. Përditësoni aplikacionin.</string>
+    <string name="error_translate_network">Gabim rrjeti. Kontrolloni lidhjen.</string>
+    <string name="error_translate_generic">Përkthimi dështoi. Provoni përsëri.</string>
+    <string name="key_saved_credit_hint">Çelësi u verifikua. Përkthimi kërkon edhe kredite ose kuotë falas në llogari.</string>
 </resources>

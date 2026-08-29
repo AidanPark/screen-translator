@@ -97,6 +97,13 @@
   <string name="claude_key_signup_guide">أنشئ مفتاح API في Anthropic Console. تتم محاسبة الاستخدام على حساب Anthropic الخاص بك.</string>
   <string name="settings_menu_how_to_use">طريقة الاستخدام</string>
   <string name="ocr_model_preparing">جارٍ تجهيز محرك الترجمة. يُرجى الانتظار قليلًا.</string>
+  <string name="error_translate_invalid_key">مفتاح API غير صالح. تحقق منه في الإعدادات.</string>
+  <string name="error_translate_no_credit">لا يوجد رصيد في حسابك. أعد الشحن من لوحة تحكم المزوّد.</string>
+  <string name="error_translate_rate_limited">تم بلوغ حد الاستخدام. يُرجى المحاولة لاحقًا.</string>
+  <string name="error_translate_model_unavailable">نموذج الترجمة هذا غير متاح. يُرجى تحديث التطبيق.</string>
+  <string name="error_translate_network">خطأ في الشبكة. تحقق من الاتصال.</string>
+  <string name="error_translate_generic">فشلت الترجمة. يُرجى المحاولة مرة أخرى.</string>
+  <string name="key_saved_credit_hint">تم التحقق من المفتاح. تتطلب الترجمة أيضًا رصيدًا أو حصة مجانية في حسابك.</string>
 </resources>
 
 

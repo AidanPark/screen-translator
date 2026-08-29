@@ -97,6 +97,13 @@
   <string name="claude_key_signup_guide">Skapa en API-nyckel i Anthropic Console. Användning faktureras till ditt Anthropic-konto.</string>
     <string name="settings_menu_how_to_use">Så här använder du appen</string>
     <string name="ocr_model_preparing">Förbereder översättningsmotorn. Vänta ett ögonblick.</string>
+    <string name="error_translate_invalid_key">API-nyckeln är ogiltig. Kontrollera den i inställningarna.</string>
+    <string name="error_translate_no_credit">Inga krediter kvar på kontot. Fyll på i leverantörens konsol.</string>
+    <string name="error_translate_rate_limited">Användningsgränsen har nåtts. Försök igen senare.</string>
+    <string name="error_translate_model_unavailable">Denna översättningsmodell är inte tillgänglig. Uppdatera appen.</string>
+    <string name="error_translate_network">Nätverksfel. Kontrollera anslutningen.</string>
+    <string name="error_translate_generic">Översättningen misslyckades. Försök igen.</string>
+    <string name="key_saved_credit_hint">Nyckeln är verifierad. Översättning kräver även krediter eller gratis kvot på kontot.</string>
 </resources>
 
 

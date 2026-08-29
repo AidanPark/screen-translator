@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Sortu API gako bat Anthropic Console-n. Erabilera zure Anthropic kontuan fakturatzen da.</string>
     <string name="settings_menu_how_to_use">Nola erabili</string>
     <string name="ocr_model_preparing">Itzulpen-motorra prestatzen ari da. Itxaron une bat.</string>
+    <string name="error_translate_invalid_key">API gakoa ez da baliozkoa. Egiaztatu ezarpenetan.</string>
+    <string name="error_translate_no_credit">Ez dago krediturik kontuan. Kargatu hornitzailearen kontsolan.</string>
+    <string name="error_translate_rate_limited">Erabilera-mugara iritsi da. Saiatu berriro geroago.</string>
+    <string name="error_translate_model_unavailable">Itzulpen-eredu hau ez dago erabilgarri. Eguneratu aplikazioa.</string>
+    <string name="error_translate_network">Sareko errorea. Egiaztatu konexioa.</string>
+    <string name="error_translate_generic">Itzulpenak huts egin du. Saiatu berriro.</string>
+    <string name="key_saved_credit_hint">Gakoa egiaztatuta. Itzultzeko kredituak edo doako kuota ere behar dira kontuan.</string>
 </resources>

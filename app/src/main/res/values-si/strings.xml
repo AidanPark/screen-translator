@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Anthropic Console හි API යතුරක් සාදන්න. භාවිතය ඔබගේ Anthropic ගිණුමට බිල් කෙරේ.</string>
     <string name="settings_menu_how_to_use">භාවිත ක්‍රමය</string>
     <string name="ocr_model_preparing">පරිවර්තන එන්ජිම සූදානම් වෙමින් පවතී. කරුණාකර මොහොතක් රැඳී සිටින්න.</string>
+    <string name="error_translate_invalid_key">API යතුර වලංගු නැත. සැකසීම්වල පරීක්ෂා කරන්න.</string>
+    <string name="error_translate_no_credit">ගිණුමේ ණය ඉතිරි නැත. සපයන්නාගේ කොන්සෝලයෙන් පුරවන්න.</string>
+    <string name="error_translate_rate_limited">භාවිත සීමාවට ළඟා විය. පසුව නැවත උත්සාහ කරන්න.</string>
+    <string name="error_translate_model_unavailable">මෙම පරිවර්තන ආකෘතිය නොමැත. යෙදුම යාවත්කාලීන කරන්න.</string>
+    <string name="error_translate_network">ජාල දෝෂයකි. සම්බන්ධතාව පරීක්ෂා කරන්න.</string>
+    <string name="error_translate_generic">පරිවර්තනය අසාර්ථකයි. නැවත උත්සාහ කරන්න.</string>
+    <string name="key_saved_credit_hint">යතුර තහවුරු විය. පරිවර්තනයට ගිණුමේ ණය හෝ නොමිලේ කෝටාවක්ද අවශ්‍යයි.</string>
 </resources>

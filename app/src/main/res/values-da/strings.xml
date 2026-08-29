@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Opret en API-nøgle i Anthropic Console. Forbrug faktureres til din Anthropic-konto.</string>
     <string name="settings_menu_how_to_use">Sådan bruges appen</string>
     <string name="ocr_model_preparing">Oversættelsesmotoren forberedes. Vent et øjeblik.</string>
+    <string name="error_translate_invalid_key">API-nøglen er ugyldig. Tjek den i Indstillinger.</string>
+    <string name="error_translate_no_credit">Ingen kreditter tilbage på kontoen. Tank op i udbyderens konsol.</string>
+    <string name="error_translate_rate_limited">Forbrugsgrænsen er nået. Prøv igen senere.</string>
+    <string name="error_translate_model_unavailable">Denne oversættelsesmodel er ikke tilgængelig. Opdater appen.</string>
+    <string name="error_translate_network">Netværksfejl. Tjek din forbindelse.</string>
+    <string name="error_translate_generic">Oversættelsen mislykkedes. Prøv igen.</string>
+    <string name="key_saved_credit_hint">Nøglen er bekræftet. Oversættelse kræver også kreditter eller gratis kvote på kontoen.</string>
 </resources>

@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">צרו מפתח API ב-Anthropic Console. השימוש מחויב לחשבון ה-Anthropic שלכם.</string>
   <string name="settings_menu_how_to_use">הוראות שימוש</string>
   <string name="ocr_model_preparing">מנוע התרגום בהכנה. נא להמתין רגע.</string>
+  <string name="error_translate_invalid_key">מפתח ה-API לא תקין. בדקו אותו בהגדרות.</string>
+  <string name="error_translate_no_credit">לא נותרו קרדיטים בחשבון. טענו מחדש בקונסולת הספק.</string>
+  <string name="error_translate_rate_limited">הגעתם למגבלת השימוש. נסו שוב מאוחר יותר.</string>
+  <string name="error_translate_model_unavailable">מודל התרגום הזה אינו זמין. עדכנו את האפליקציה.</string>
+  <string name="error_translate_network">שגיאת רשת. בדקו את החיבור.</string>
+  <string name="error_translate_generic">התרגום נכשל. נסו שוב.</string>
+  <string name="key_saved_credit_hint">המפתח אומת. תרגום דורש גם קרדיטים או מכסה חינמית בחשבון.</string>
 </resources>

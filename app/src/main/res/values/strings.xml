@@ -104,4 +104,14 @@
     <string name="detect_mode_description_word">Point at a word to translate it instantly.</string>
     <string name="detect_mode_description_fixed_area">You can continuously translate fixed areas, such as movie subtitles.</string>
     <string name="ocr_model_preparing">Preparing the translation engine. Please wait a moment.</string>
+
+    <!-- 번역 API 실패 원인 안내 (무소음 실패 방지) -->
+    <string name="error_translate_invalid_key">API key is invalid. Check it in Settings.</string>
+    <string name="error_translate_no_credit">No credits left on your account. Top up in the provider\'s console.</string>
+    <string name="error_translate_rate_limited">Usage limit reached. Please try again later.</string>
+    <string name="error_translate_model_unavailable">This translation model is unavailable. Please update the app.</string>
+    <string name="error_translate_network">Network error. Check your connection.</string>
+    <string name="error_translate_generic">Translation failed. Please try again.</string>
+    <!-- LLM 키 저장 성공 시 기대치 안내 (키 유효 ≠ 크레딧 보유) -->
+    <string name="key_saved_credit_hint">Key verified. Translation also requires credits or free quota on your account.</string>
 </resources>

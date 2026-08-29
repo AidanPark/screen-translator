@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Anthropic Console में एक API कुंजी बनाएं। उपयोग का बिल आपके Anthropic खाते में भेजा जाता है।</string>
   <string name="settings_menu_how_to_use">उपयोग विधि</string>
   <string name="ocr_model_preparing">अनुवाद इंजन तैयार हो रहा है। कृपया थोड़ी प्रतीक्षा करें।</string>
+  <string name="error_translate_invalid_key">API कुंजी अमान्य है। सेटिंग्स में जाँचें।</string>
+  <string name="error_translate_no_credit">खाते में क्रेडिट नहीं बचा। प्रदाता के कंसोल में रिचार्ज करें।</string>
+  <string name="error_translate_rate_limited">उपयोग सीमा पूरी हो गई। बाद में फिर प्रयास करें।</string>
+  <string name="error_translate_model_unavailable">यह अनुवाद मॉडल उपलब्ध नहीं है। कृपया ऐप अपडेट करें।</string>
+  <string name="error_translate_network">नेटवर्क त्रुटि। कनेक्शन जाँचें।</string>
+  <string name="error_translate_generic">अनुवाद विफल रहा। फिर से प्रयास करें।</string>
+  <string name="key_saved_credit_hint">कुंजी सत्यापित। अनुवाद के लिए खाते में क्रेडिट या मुफ़्त कोटा भी चाहिए।</string>
 </resources>

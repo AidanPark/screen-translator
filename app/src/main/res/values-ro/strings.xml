@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Creați o cheie API în Anthropic Console. Utilizarea este facturată în contul dvs. Anthropic.</string>
     <string name="settings_menu_how_to_use">Mod de utilizare</string>
     <string name="ocr_model_preparing">Se pregătește motorul de traducere. Așteptați un moment.</string>
+    <string name="error_translate_invalid_key">Cheia API nu este validă. Verificați-o în setări.</string>
+    <string name="error_translate_no_credit">Nu mai aveți credite în cont. Reîncărcați în consola furnizorului.</string>
+    <string name="error_translate_rate_limited">Limita de utilizare a fost atinsă. Încercați mai târziu.</string>
+    <string name="error_translate_model_unavailable">Acest model de traducere nu este disponibil. Actualizați aplicația.</string>
+    <string name="error_translate_network">Eroare de rețea. Verificați conexiunea.</string>
+    <string name="error_translate_generic">Traducerea a eșuat. Încercați din nou.</string>
+    <string name="key_saved_credit_hint">Cheie verificată. Traducerea necesită și credite sau cotă gratuită în cont.</string>
 </resources>

@@ -2080,6 +2080,8 @@ class SettingsActivity : AVDActivity() {
                 when (OpenAiKit.validateApiKey(trimmedKey)) {
                     OpenAiKit.KeyValidationResult.VALID -> {
                         OpenAiKit.storeApiKey(context, trimmedKey)
+                        // 키 유효 ≠ 크레딧 보유 — 기대치를 미리 맞춰 "앱 고장" 오해를 줄인다
+                        Toast.makeText(context, context.getString(R.string.key_saved_credit_hint), Toast.LENGTH_LONG).show()
                         onDismissRequest()
                     }
 
@@ -2297,6 +2299,8 @@ class SettingsActivity : AVDActivity() {
                 when (GeminiKit.validateApiKey(trimmedKey)) {
                     GeminiKit.KeyValidationResult.VALID -> {
                         GeminiKit.storeApiKey(context, trimmedKey)
+                        // 키 유효 ≠ 크레딧 보유 — 기대치를 미리 맞춰 "앱 고장" 오해를 줄인다
+                        Toast.makeText(context, context.getString(R.string.key_saved_credit_hint), Toast.LENGTH_LONG).show()
                         onDismissRequest()
                     }
 
@@ -2514,6 +2518,8 @@ class SettingsActivity : AVDActivity() {
                 when (ClaudeKit.validateApiKey(trimmedKey)) {
                     ClaudeKit.KeyValidationResult.VALID -> {
                         ClaudeKit.storeApiKey(context, trimmedKey)
+                        // 키 유효 ≠ 크레딧 보유 — 기대치를 미리 맞춰 "앱 고장" 오해를 줄인다
+                        Toast.makeText(context, context.getString(R.string.key_saved_credit_hint), Toast.LENGTH_LONG).show()
                         onDismissRequest()
                     }
 

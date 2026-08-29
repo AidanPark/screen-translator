@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Crea una clau API a l’Anthropic Console. L’ús es factura al teu compte d’Anthropic.</string>
     <string name="settings_menu_how_to_use">Com s\'utilitza</string>
     <string name="ocr_model_preparing">S\'està preparant el motor de traducció. Espereu un moment.</string>
+    <string name="error_translate_invalid_key">La clau API no és vàlida. Comprova-la a la configuració.</string>
+    <string name="error_translate_no_credit">No queden crèdits al compte. Recarrega a la consola del proveïdor.</string>
+    <string name="error_translate_rate_limited">S\'ha arribat al límit d\'ús. Torna-ho a provar més tard.</string>
+    <string name="error_translate_model_unavailable">Aquest model de traducció no està disponible. Actualitza l\'aplicació.</string>
+    <string name="error_translate_network">Error de xarxa. Comprova la connexió.</string>
+    <string name="error_translate_generic">La traducció ha fallat. Torna-ho a provar.</string>
+    <string name="key_saved_credit_hint">Clau verificada. La traducció també requereix crèdits o quota gratuïta al compte.</string>
 </resources>

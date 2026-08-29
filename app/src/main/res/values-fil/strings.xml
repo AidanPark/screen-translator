@@ -98,4 +98,11 @@
   <string name="claude_key_signup_guide">Gumawa ng API key sa Anthropic Console. Ang paggamit ay sinisingil sa iyong Anthropic account.</string>
     <string name="settings_menu_how_to_use">Paano gamitin</string>
     <string name="ocr_model_preparing">Inihahanda ang translation engine. Mangyaring maghintay sandali.</string>
+    <string name="error_translate_invalid_key">Hindi valid ang API key. Suriin ito sa Settings.</string>
+    <string name="error_translate_no_credit">Wala nang credits sa iyong account. Mag-top up sa console ng provider.</string>
+    <string name="error_translate_rate_limited">Naabot na ang limitasyon sa paggamit. Subukang muli mamaya.</string>
+    <string name="error_translate_model_unavailable">Hindi available ang translation model na ito. Paki-update ang app.</string>
+    <string name="error_translate_network">May error sa network. Suriin ang iyong koneksyon.</string>
+    <string name="error_translate_generic">Nabigo ang pagsasalin. Subukang muli.</string>
+    <string name="key_saved_credit_hint">Na-verify ang key. Kailangan din ng credits o libreng quota sa account para makapagsalin.</string>
 </resources>

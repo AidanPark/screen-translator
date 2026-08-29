@@ -97,4 +97,11 @@
   <string name="claude_key_signup_guide">Utwórz klucz API w Anthropic Console. Użycie jest rozliczane na Twoim koncie Anthropic.</string>
   <string name="settings_menu_how_to_use">Instrukcja obsługi</string>
   <string name="ocr_model_preparing">Przygotowywanie silnika tłumaczenia. Poczekaj chwilę.</string>
+  <string name="error_translate_invalid_key">Klucz API jest nieprawidłowy. Sprawdź go w ustawieniach.</string>
+  <string name="error_translate_no_credit">Brak środków na koncie. Doładuj w konsoli dostawcy.</string>
+  <string name="error_translate_rate_limited">Osiągnięto limit użycia. Spróbuj później.</string>
+  <string name="error_translate_model_unavailable">Ten model tłumaczenia jest niedostępny. Zaktualizuj aplikację.</string>
+  <string name="error_translate_network">Błąd sieci. Sprawdź połączenie.</string>
+  <string name="error_translate_generic">Tłumaczenie nie powiodło się. Spróbuj ponownie.</string>
+  <string name="key_saved_credit_hint">Klucz zweryfikowany. Tłumaczenie wymaga też środków lub darmowego limitu na koncie.</string>
 </resources>
