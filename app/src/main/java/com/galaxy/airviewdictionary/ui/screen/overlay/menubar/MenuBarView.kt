@@ -329,8 +329,12 @@ class MenuBarView private constructor() : OverlayView() {
                         if (!settingsActivityLiveState) {
                             view?.let {
                                 val screenInfo: ScreenInfo = ScreenInfoHolder.get()
-                                layoutParams.x = (layoutParams.x + dragAmount.x.toInt()).coerceIn(-(screenInfo.width / 2 - it.width / 2), screenInfo.width / 2 - it.width / 2)
-                                layoutParams.y = (layoutParams.y + dragAmount.y.toInt()).coerceIn(0, screenInfo.height - it.height)
+                                // 메뉴바가 화면보다 크거나(작은 화면·회전 직후 stale 값) 화면 정보가
+                                // 아직 0 인 순간에는 coerceIn 범위가 뒤집혀 크래시하므로 하한을 0 으로 막는다.
+                                val xBound = (screenInfo.width / 2 - it.width / 2).coerceAtLeast(0)
+                                val yMax = (screenInfo.height - it.height).coerceAtLeast(0)
+                                layoutParams.x = (layoutParams.x + dragAmount.x.toInt()).coerceIn(-xBound, xBound)
+                                layoutParams.y = (layoutParams.y + dragAmount.y.toInt()).coerceIn(0, yMax)
                                 updateLayout(context)
                             }
                             menuBarDragState.value = MenuBarDragStates.Handling

@@ -17,10 +17,22 @@ abstract class AVDRepository {
 
     fun acquire() {
         synchronized(lock) {
-            if (referenceCount == 0) {
+            val wasZero = referenceCount == 0
+            if (wasZero) {
                 avdCoroutineScope = CoroutineScope(Dispatchers.IO + Job()) // 스코프 재생성
             }
             referenceCount++
+            if (wasZero) {
+                // 참조가 0 -> 1 로 되살아날 때의 훅.
+                // onZeroReferences 에서 해제한 자원을 하위 클래스가 재초기화할 수 있게 한다.
+                onFirstReference()
+            }
+        }
+    }
+
+    protected fun hasActiveReferences(): Boolean {
+        synchronized(lock) {
+            return referenceCount > 0
         }
     }
 
@@ -44,6 +56,11 @@ abstract class AVDRepository {
 
     // 자원 해제 등 비동기 작업 수행
     protected open fun onZeroReferences() {
+
+    }
+
+    // 참조가 0 -> 1 로 되살아날 때(재사용 시작) 동기 호출. 자원 재초기화 용.
+    protected open fun onFirstReference() {
 
     }
 

@@ -153,9 +153,20 @@ class TTSRepository @Inject constructor(
         tts?.stop()
     }
 
+    /** clearTTS 로 엔진이 해제된 상태인지. 재사용 시작 시 재초기화 판단 기준. */
+    @Volatile
+    private var ttsCleared = false
+
     private fun clearTTS() {
+        // onZeroReferences 는 비동기로 실행되므로, 그 사이 서비스가 재시작해
+        // 참조가 되살아났다면 살아있는 엔진을 죽이지 않는다.
+        if (hasActiveReferences()) {
+            Timber.tag(TAG).i("clearTTS skipped — references re-acquired")
+            return
+        }
         Timber.tag(TAG).i("------------ clearTTS --------------")
         ttsStatusFlow.value = TTSStatus.Uninitialized
+        ttsCleared = true
         try {
             tts?.stop()
         } catch (_: Exception) {
@@ -171,6 +182,20 @@ class TTSRepository @Inject constructor(
         try {
             ttsForText?.shutdown()
         } catch (_: Exception) {
+        }
+    }
+
+    /**
+     * 서비스 재시작 등으로 저장소가 재사용될 때 TTS 를 재초기화한다.
+     * (shutdown 된 TextToSpeech 인스턴스는 엔진에 다시 바인딩되지 않아
+     * 이후 모든 speak/setVoice 가 "not bound to TTS engine" 으로 무음 실패한다)
+     */
+    override fun onFirstReference() {
+        if (ttsCleared) {
+            ttsCleared = false
+            Timber.tag(TAG).i("onFirstReference — reinitializing TTS after clear")
+            initTTS(getCurrentLocale())
+            initTTSForText()
         }
     }
 

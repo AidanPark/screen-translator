@@ -59,6 +59,18 @@ fun Context.vibrate(durationMillis: Long = 10) {
 }
 
 /**
+ * 처리할 앱이 없어도(브라우저 미설치·비활성 기기 등) 크래시하지 않는 startActivity.
+ * 외부 URL 등 기기 구성에 따라 리졸브가 보장되지 않는 인텐트에 사용한다.
+ */
+fun Context.startActivitySafely(intent: Intent) {
+    try {
+        startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+        Timber.w("startActivitySafely: no activity to handle $intent")
+    }
+}
+
+/**
  * 스토어 이동
  */
 fun Context.gotoStore(
@@ -76,7 +88,7 @@ fun Context.gotoStore(
         startActivity(playStoreIntent)
     } catch (e: ActivityNotFoundException) {
         if (newTask) webIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(webIntent)
+        startActivitySafely(webIntent)
     }
 
     if (finishService) finishService()

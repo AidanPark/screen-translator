@@ -140,6 +140,7 @@ import com.galaxy.airviewdictionary.data.remote.translation.gemini.GeminiKit
 import com.galaxy.airviewdictionary.data.remote.translation.openai.OpenAiKit
 import com.galaxy.airviewdictionary.extensions.finishService
 import com.galaxy.airviewdictionary.extensions.gotoStore
+import com.galaxy.airviewdictionary.extensions.startActivitySafely
 import com.galaxy.airviewdictionary.extensions.toPx
 import com.galaxy.airviewdictionary.extensions.vibrate
 import com.galaxy.airviewdictionary.ui.common.AutoRefreshEveryMinute
@@ -1503,7 +1504,7 @@ class SettingsActivity : AVDActivity() {
                                 menuItemPosition = MenuItemPosition.Top,
                                 onClick = {
                                     val guideIntent = Intent(Intent.ACTION_VIEW, HOW_TO_USE_GUIDE_URL.toUri())
-                                    context.startActivity(guideIntent)
+                                    context.startActivitySafely(guideIntent)
                                     viewModel.analyticsRepository.screenViewReport("HowToUseGuide")
                                 },
                             ) {
@@ -1573,7 +1574,7 @@ class SettingsActivity : AVDActivity() {
                                 menuItemPosition = MenuItemPosition.Bottom,
                                 onClick = {
                                     val githubIntent = Intent(Intent.ACTION_VIEW, GITHUB_REPO_URL.toUri())
-                                    context.startActivity(githubIntent)
+                                    context.startActivitySafely(githubIntent)
                                     viewModel.analyticsRepository.screenViewReport("GitHub")
                                 },
                             ) {
@@ -1895,7 +1896,7 @@ class SettingsActivity : AVDActivity() {
                 style = MaterialTheme.typography.bodySmall.copy(fontSize = 13.sp),
                 modifier = Modifier
                     .clickable {
-                        context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+                        context.startActivitySafely(Intent(Intent.ACTION_VIEW, url.toUri()))
                     }
                     .padding(vertical = 6.dp),
             )
@@ -2108,7 +2109,7 @@ class SettingsActivity : AVDActivity() {
                 style = MaterialTheme.typography.bodySmall.copy(fontSize = 13.sp),
                 modifier = Modifier
                     .clickable {
-                        context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+                        context.startActivitySafely(Intent(Intent.ACTION_VIEW, url.toUri()))
                     }
                     .padding(vertical = 6.dp),
             )
@@ -2327,7 +2328,7 @@ class SettingsActivity : AVDActivity() {
                 style = MaterialTheme.typography.bodySmall.copy(fontSize = 13.sp),
                 modifier = Modifier
                     .clickable {
-                        context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+                        context.startActivitySafely(Intent(Intent.ACTION_VIEW, url.toUri()))
                     }
                     .padding(vertical = 6.dp),
             )
@@ -2546,7 +2547,7 @@ class SettingsActivity : AVDActivity() {
                 style = MaterialTheme.typography.bodySmall.copy(fontSize = 13.sp),
                 modifier = Modifier
                     .clickable {
-                        context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+                        context.startActivitySafely(Intent(Intent.ACTION_VIEW, url.toUri()))
                     }
                     .padding(vertical = 6.dp),
             )
