@@ -261,7 +261,7 @@ app/src/main/java/com/galaxy/airviewdictionary/
 
 ## License
 
-This project is provided for **educational and reference purposes**. See [LICENSE](LICENSE) for details.
+Licensed under the [Apache License 2.0](LICENSE) — you are free to use, modify, and redistribute this code, commercially or not, as long as you keep the attribution (the copyright notice and the [NOTICE](NOTICE) file).
 
 ---
 
