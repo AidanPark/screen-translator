@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="How to use Screen Translate: OCR & Live — permissions, translation modes, AI engines, read-aloud, and troubleshooting.">
+<title>How to Use — Screen Translate: OCR &amp; Live</title>
+<link rel="alternate" hreflang="x-default" href="https://aidanpark.github.io/screen-translator/guide/">
+<link rel="alternate" hreflang="en" href="https://aidanpark.github.io/screen-translator/guide/">
+<link rel="alternate" hreflang="ko" href="https://aidanpark.github.io/screen-translator/guide/ko/">
+<link rel="alternate" hreflang="ja" href="https://aidanpark.github.io/screen-translator/guide/ja/">
+<link rel="alternate" hreflang="zh-CN" href="https://aidanpark.github.io/screen-translator/guide/zh-CN/">
+<link rel="alternate" hreflang="zh-TW" href="https://aidanpark.github.io/screen-translator/guide/zh-TW/">
+<link rel="alternate" hreflang="es" href="https://aidanpark.github.io/screen-translator/guide/es/">
+<link rel="alternate" hreflang="pt-BR" href="https://aidanpark.github.io/screen-translator/guide/pt-BR/">
+<link rel="alternate" hreflang="fr" href="https://aidanpark.github.io/screen-translator/guide/fr/">
+<link rel="alternate" hreflang="de" href="https://aidanpark.github.io/screen-translator/guide/de/">
+<link rel="alternate" hreflang="ru" href="https://aidanpark.github.io/screen-translator/guide/ru/">
+<link rel="alternate" hreflang="id" href="https://aidanpark.github.io/screen-translator/guide/id/">
+<link rel="alternate" hreflang="vi" href="https://aidanpark.github.io/screen-translator/guide/vi/">
+<link rel="alternate" hreflang="th" href="https://aidanpark.github.io/screen-translator/guide/th/">
+<link rel="alternate" hreflang="tr" href="https://aidanpark.github.io/screen-translator/guide/tr/">
+<link rel="alternate" hreflang="ar" href="https://aidanpark.github.io/screen-translator/guide/ar/">
+<link rel="alternate" hreflang="hi" href="https://aidanpark.github.io/screen-translator/guide/hi/">
+<style>
+  :root { color-scheme: light dark; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+    line-height: 1.65; background: #fafafa; color: #1a1a1a;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: #111; color: #eee; }
+    .card, .step, .faq details { background: #1c1c1e !important; }
+    .badge { background: #333 !important; }
+    .langsel { background: #1c1c1e; color: #eee; border-color: #444; }
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
+  a { color: #01875f; }
+  h1 { font-size: 1.7rem; margin: .8rem 0 .3rem; }
+  .sub { opacity: .7; margin-bottom: 2rem; }
+  h2 { font-size: 1.25rem; margin: 2.4rem 0 .8rem; }
+  p { margin-bottom: .7rem; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .backlink { font-size: .9rem; }
+  .langsel {
+    font-size: .85rem; padding: .25rem .5rem; border-radius: 8px;
+    border: 1px solid #ccc; background: #fff; color: inherit;
+  }
+  .store {
+    display: inline-block; background: #01875f; color: #fff; text-decoration: none;
+    padding: .55rem 1.2rem; border-radius: 24px; font-weight: 600; font-size: .95rem; margin-top: .6rem;
+  }
+  .step {
+    background: #fff; border-radius: 14px; padding: 1rem 1.2rem; margin-bottom: .8rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07); display: flex; gap: .9rem; align-items: flex-start;
+  }
+  .num {
+    flex: 0 0 auto; width: 1.8rem; height: 1.8rem; border-radius: 50%;
+    background: #01875f; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  }
+  .card {
+    background: #fff; border-radius: 14px; padding: 1.1rem 1.2rem; margin-bottom: 1rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07);
+  }
+  .mode { display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap; }
+  .mode video {
+    flex: 0 0 200px; width: 200px; max-width: 100%; border-radius: 10px; background: #000;
+  }
+  .mode .txt { flex: 1 1 260px; }
+  .mode h3 { font-size: 1.05rem; margin-bottom: .3rem; }
+  .badge {
+    display: inline-block; font-size: .75rem; background: #e8f3ef; border-radius: 8px;
+    padding: .1rem .5rem; margin-left: .4rem; vertical-align: middle; opacity: .9;
+  }
+  ul, ol { padding-left: 1.3rem; margin-bottom: .7rem; }
+  li { margin-bottom: .3rem; }
+  .faq details {
+    background: #fff; border-radius: 12px; padding: .8rem 1.1rem; margin-bottom: .6rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07);
+  }
+  .faq summary { cursor: pointer; font-weight: 600; }
+  .faq details p, .faq details ul { margin-top: .5rem; }
+  footer { margin-top: 3rem; font-size: .85rem; opacity: .6; }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <div class="topbar">
+    <p class="backlink"><a href="https://aidanpark.github.io/">&larr; BoxBee</a></p>
+    <select class="langsel" id="langSel" aria-label="Language"><option value="en" selected>English</option><option value="ko">한국어</option><option value="ja">日本語</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="es">Español</option><option value="pt-BR">Português (Brasil)</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="ru">Русский</option><option value="id">Bahasa Indonesia</option><option value="vi">Tiếng Việt</option><option value="th">ไทย</option><option value="tr">Türkçe</option><option value="ar">العربية</option><option value="hi">हिन्दी</option></select>
+  </div>
+  <h1>How to Use Screen Translate</h1>
+  <p class="sub">Translate any text on your screen in real time — games, chats, comics, apps.</p>
+
+  <h2>🚀 Quick Start</h2>
+  <div class="step"><div class="num">1</div><div><strong>Grant two permissions.</strong> On first launch the app asks for <em>Display over other apps</em> (for the floating bubble) and <em>Screen capture</em> (to read text on screen). On Android 14+, choose <em>&ldquo;Entire screen&rdquo;</em> when prompted.</div></div>
+  <div class="step"><div class="num">2</div><div><strong>Watch one short ad.</strong> A single rewarded ad unlocks the app <em>ad-free until you close it</em>. If you skip the ad, the gate simply reopens on your next translation.</div></div>
+  <div class="step"><div class="num">3</div><div><strong>Drag the pointer onto text.</strong> A floating bubble appears on your screen. Drag it — a pointer follows your finger. Point at any text and release: the translation pops up right there.</div></div>
+
+  <h2>📌 The Floating Menu Bar</h2>
+  <div class="card">
+    <p>The <strong>menu bar</strong> floats on your screen at all times — the app&rsquo;s control center. It only hides briefly during capture (while you hold the pointer) and while a translation window is on screen. It does more than most people realize:</p>
+    <ul>
+      <li><strong>Detect-mode icon</strong> (left) — switch between Word / Sentence / Paragraph / Select Area / Fixed Area.</li>
+      <li><strong>Source language</strong> — <em>Auto</em> detects it for you; tap to pin a specific language instead.</li>
+      <li><strong>⇄ Swap</strong> — flip source and target with one tap.</li>
+      <li><strong>Target language</strong> — tap to pick from 110+ languages.</li>
+      <li><strong>Engine icon</strong> (right) — tap to switch the translation engine: Google, DeepL, GPT, Gemini, Claude.</li>
+    </ul>
+    <p>The bar can be dragged anywhere. If you rarely switch these options and the bar feels in the way, adjust its transparency and layout in Settings — or hide it entirely with <em>Show menu bar</em>.</p>
+  </div>
+
+  <h2>🎯 Five Translation Modes</h2>
+  <p>Switch modes with the detect-mode icon on the floating <strong>menu bar</strong>.</p>
+
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="media/word.jpg" src="media/word.mp4"></video>
+    <div class="txt"><h3>Word</h3>
+    <p>Point at a single word to translate just that word. Great for language learning — includes tap-to-hear pronunciation (TTS).</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="media/sentence.jpg" src="media/sentence.mp4"></video>
+    <div class="txt"><h3>Sentence</h3>
+    <p>Point anywhere in a sentence to translate the whole sentence. The most popular mode for chats and social media.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="media/paragraph.jpg" src="media/paragraph.mp4"></video>
+    <div class="txt"><h3>Paragraph</h3>
+    <p>Point at a block of text to translate the entire paragraph at once — ideal for articles and documents.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="media/select.jpg" src="media/select.mp4"></video>
+    <div class="txt"><h3>Select Area</h3>
+    <p>Drag to draw a box around exactly what you want translated. Perfect when the layout is busy.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="media/fixed_area.jpg" src="media/fixed_area.mp4"></video>
+    <div class="txt"><h3>Fixed Area <span class="badge">for games &amp; subtitles</span></h3>
+    <p>Pin a region of the screen — the app re-translates it automatically whenever its content changes. Made for game dialogue and video subtitles.</p></div>
+  </div>
+
+  <h2>🌐 Languages</h2>
+  <p>110+ languages. The source language is <strong>detected automatically</strong>; pick the target language from the menu bar. Swap them any time.</p>
+
+  <h2>🤖 AI Translation (optional)</h2>
+  <div class="card">
+    <p>The built-in Google engine is free and needs no setup. Prefer AI translation? Connect your own API key:</p>
+    <ul>
+      <li><strong>DeepL</strong> — free tier available at deepl.com</li>
+      <li><strong>OpenAI (GPT)</strong> — key from the OpenAI dashboard</li>
+      <li><strong>Gemini</strong> — free tier via Google AI Studio</li>
+      <li><strong>Claude</strong> — key from the Anthropic Console</li>
+    </ul>
+    <p>Menu bar → <em>translation engine</em> → choose an engine → paste your key. Usage is billed to <em>your</em> account with that provider; the app adds no markup.</p>
+    <p>If a translation fails, the app shows the reason right on screen — invalid API key, out-of-credit account, rate limit, or network error. Note: a valid key alone is not enough — the provider account also needs credit or an active free tier.</p>
+  </div>
+
+  <h2>🔊 Read-Aloud &amp; TTS Voices</h2>
+  <div class="card">
+    <p>The app can read text aloud: tap the speaker icon on a translation, or turn on <em>Auto read-aloud</em> in Settings. The <em>Read target</em> setting chooses whether the original text or the translation is read.</p>
+    <p>Pick a voice under Settings → <em>TTS voice</em>: voices are grouped by language, and tapping one plays a short preview so you can compare before you choose.</p>
+  </div>
+
+  <h2>💬 Replying in Chats</h2>
+  <div class="card">
+    <p>Translated a chat message? Tap the <strong>reply icon</strong> at the bottom right of the translation window, then type your answer in your own language — it is instantly translated into the other person&rsquo;s language.</p>
+    <p>Tap <strong>copy</strong>, paste it into the chat, and send. You can hold a whole conversation without ever leaving the chat app.</p>
+  </div>
+
+  <h2>❓ FAQ &amp; Troubleshooting</h2>
+  <div class="faq">
+    <details><summary>The floating bubble disappeared</summary>
+      <p>Open the app again to restart the service. If it keeps happening, check that <em>Display over other apps</em> is still allowed, and exclude the app from battery optimization (Settings → Battery → Unrestricted).</p></details>
+    <details><summary>First translation is slow or says &ldquo;preparing&rdquo;</summary>
+      <p>On first use the OCR model is downloaded once through Google Play services. After that, recognition is instant and works offline for OCR.</p></details>
+    <details><summary>Nothing happens on some screens</summary>
+      <p>Apps that block screenshots (banking apps, DRM video players) can&rsquo;t be captured — Android hides their content from every capture app.</p></details>
+    <details><summary>Why do I see an ad?</summary>
+      <p>One short ad per session keeps every core feature free. After the ad, the app stays completely ad-free until you close it.</p></details>
+    <details><summary>A ⚠ message says the translation failed</summary>
+      <p>The message tells you why. <em>Invalid API key</em>: re-check the key in Settings. <em>Out of credit</em>: top up on the provider&rsquo;s console — a valid key still needs credit. <em>Rate limit</em>: wait a moment and retry. <em>Network error</em>: check your connection.</p></details>
+    <details><summary>Translation quality seems off</summary>
+      <p>Try the Sentence or Paragraph mode (more context = better translation), or connect an AI engine (DeepL/GPT/Gemini/Claude) for the best quality.</p></details>
+  </div>
+
+  <h2>💻 Open Source</h2>
+  <div class="card">
+    <p>Screen Translate is open source — the full source code lives on <a href="https://github.com/AidanPark/android-screen-translator">GitHub</a>. Anyone is welcome to explore the code, modify it however they like, and build their own version. It is licensed under Apache-2.0, so please keep the attribution (copyright notice) when you reuse it.</p>
+  </div>
+
+  <h2>📮 Still stuck?</h2>
+  <p>Email us at <a href="mailto:handwritingdictionary@gmail.com">handwritingdictionary@gmail.com</a> — we read everything.</p>
+  <a class="store" href="https://play.google.com/store/apps/details?id=com.galaxy.airviewdictionary">Get it on Google Play</a>
+
+  <footer>© 2026 BoxBee Corp.</footer>
+</main>
+<script>
+(function () {
+  var sel = document.getElementById('langSel');
+  sel.addEventListener('change', function () {
+    var v = sel.value;
+    try { localStorage.setItem('guideLang', v); } catch (e) {}
+    location.href = v === 'en' ? '/screen-translator/guide/' : '/screen-translator/guide/' + v + '/';
+  });
+  var GUIDE_PATH_JS = '/screen-translator/guide/';
+  // 첫 방문 시 브라우저 언어에 맞는 번역 페이지로 이동 (언어를 직접 고르면 그 선택을 기억)
+  var LANGS = {"ko":1,"ja":1,"zh-CN":1,"zh-TW":1,"es":1,"pt-BR":1,"fr":1,"de":1,"ru":1,"id":1,"vi":1,"th":1,"tr":1,"ar":1,"hi":1};
+  var saved = null;
+  try { saved = localStorage.getItem('guideLang'); } catch (e) {}
+  if (saved === 'en') return;
+  if (saved && LANGS[saved]) { location.replace(GUIDE_PATH_JS + saved + '/'); return; }
+  if (saved) return;
+  var nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+  var t = null;
+  if (LANGS[nav]) t = nav;
+  else {
+    var b = nav.split('-')[0];
+    if (b === 'zh') t = (/tw|hk|mo|hant/i.test(nav)) ? 'zh-TW' : 'zh-CN';
+    else if (b === 'pt') t = 'pt-BR';
+    else if (LANGS[b]) t = b;
+  }
+  if (t) location.replace(GUIDE_PATH_JS + t + '/');
+})();
+</script>
+</body>
+</html>

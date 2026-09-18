@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Cách dùng Screen Translate: OCR & Live — quyền, các chế độ dịch, công cụ AI, đọc to và khắc phục sự cố.">
+<title>Hướng dẫn sử dụng — Screen Translate: OCR &amp; Live</title>
+<link rel="alternate" hreflang="x-default" href="https://aidanpark.github.io/screen-translator/guide/">
+<link rel="alternate" hreflang="en" href="https://aidanpark.github.io/screen-translator/guide/">
+<link rel="alternate" hreflang="ko" href="https://aidanpark.github.io/screen-translator/guide/ko/">
+<link rel="alternate" hreflang="ja" href="https://aidanpark.github.io/screen-translator/guide/ja/">
+<link rel="alternate" hreflang="zh-CN" href="https://aidanpark.github.io/screen-translator/guide/zh-CN/">
+<link rel="alternate" hreflang="zh-TW" href="https://aidanpark.github.io/screen-translator/guide/zh-TW/">
+<link rel="alternate" hreflang="es" href="https://aidanpark.github.io/screen-translator/guide/es/">
+<link rel="alternate" hreflang="pt-BR" href="https://aidanpark.github.io/screen-translator/guide/pt-BR/">
+<link rel="alternate" hreflang="fr" href="https://aidanpark.github.io/screen-translator/guide/fr/">
+<link rel="alternate" hreflang="de" href="https://aidanpark.github.io/screen-translator/guide/de/">
+<link rel="alternate" hreflang="ru" href="https://aidanpark.github.io/screen-translator/guide/ru/">
+<link rel="alternate" hreflang="id" href="https://aidanpark.github.io/screen-translator/guide/id/">
+<link rel="alternate" hreflang="vi" href="https://aidanpark.github.io/screen-translator/guide/vi/">
+<link rel="alternate" hreflang="th" href="https://aidanpark.github.io/screen-translator/guide/th/">
+<link rel="alternate" hreflang="tr" href="https://aidanpark.github.io/screen-translator/guide/tr/">
+<link rel="alternate" hreflang="ar" href="https://aidanpark.github.io/screen-translator/guide/ar/">
+<link rel="alternate" hreflang="hi" href="https://aidanpark.github.io/screen-translator/guide/hi/">
+<style>
+  :root { color-scheme: light dark; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+    line-height: 1.65; background: #fafafa; color: #1a1a1a;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: #111; color: #eee; }
+    .card, .step, .faq details { background: #1c1c1e !important; }
+    .badge { background: #333 !important; }
+    .langsel { background: #1c1c1e; color: #eee; border-color: #444; }
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
+  a { color: #01875f; }
+  h1 { font-size: 1.7rem; margin: .8rem 0 .3rem; }
+  .sub { opacity: .7; margin-bottom: 2rem; }
+  h2 { font-size: 1.25rem; margin: 2.4rem 0 .8rem; }
+  p { margin-bottom: .7rem; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .backlink { font-size: .9rem; }
+  .langsel {
+    font-size: .85rem; padding: .25rem .5rem; border-radius: 8px;
+    border: 1px solid #ccc; background: #fff; color: inherit;
+  }
+  .store {
+    display: inline-block; background: #01875f; color: #fff; text-decoration: none;
+    padding: .55rem 1.2rem; border-radius: 24px; font-weight: 600; font-size: .95rem; margin-top: .6rem;
+  }
+  .step {
+    background: #fff; border-radius: 14px; padding: 1rem 1.2rem; margin-bottom: .8rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07); display: flex; gap: .9rem; align-items: flex-start;
+  }
+  .num {
+    flex: 0 0 auto; width: 1.8rem; height: 1.8rem; border-radius: 50%;
+    background: #01875f; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  }
+  .card {
+    background: #fff; border-radius: 14px; padding: 1.1rem 1.2rem; margin-bottom: 1rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07);
+  }
+  .mode { display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap; }
+  .mode video {
+    flex: 0 0 200px; width: 200px; max-width: 100%; border-radius: 10px; background: #000;
+  }
+  .mode .txt { flex: 1 1 260px; }
+  .mode h3 { font-size: 1.05rem; margin-bottom: .3rem; }
+  .badge {
+    display: inline-block; font-size: .75rem; background: #e8f3ef; border-radius: 8px;
+    padding: .1rem .5rem; margin-left: .4rem; vertical-align: middle; opacity: .9;
+  }
+  ul, ol { padding-left: 1.3rem; margin-bottom: .7rem; }
+  li { margin-bottom: .3rem; }
+  .faq details {
+    background: #fff; border-radius: 12px; padding: .8rem 1.1rem; margin-bottom: .6rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07);
+  }
+  .faq summary { cursor: pointer; font-weight: 600; }
+  .faq details p, .faq details ul { margin-top: .5rem; }
+  footer { margin-top: 3rem; font-size: .85rem; opacity: .6; }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <div class="topbar">
+    <p class="backlink"><a href="https://aidanpark.github.io/">&larr; BoxBee</a></p>
+    <select class="langsel" id="langSel" aria-label="Language"><option value="en">English</option><option value="ko">한국어</option><option value="ja">日本語</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="es">Español</option><option value="pt-BR">Português (Brasil)</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="ru">Русский</option><option value="id">Bahasa Indonesia</option><option value="vi" selected>Tiếng Việt</option><option value="th">ไทย</option><option value="tr">Türkçe</option><option value="ar">العربية</option><option value="hi">हिन्दी</option></select>
+  </div>
+  <h1>Cách dùng Screen Translate</h1>
+  <p class="sub">Dịch mọi văn bản trên màn hình theo thời gian thực — game, chat, truyện tranh, ứng dụng.</p>
+
+  <h2>🚀 Bắt đầu nhanh</h2>
+  <div class="step"><div class="num">1</div><div><strong>Cấp hai quyền.</strong> Lần mở đầu tiên, ứng dụng xin quyền <em>Hiển thị trên ứng dụng khác</em> (cho bong bóng nổi) và <em>Chụp màn hình</em> (để đọc chữ trên màn hình). Trên Android 14+, hãy chọn <em>“Toàn bộ màn hình”</em> khi được hỏi.</div></div>
+  <div class="step"><div class="num">2</div><div><strong>Xem một quảng cáo ngắn.</strong> Chỉ một quảng cáo có thưởng là ứng dụng <em>không còn quảng cáo cho đến khi bạn đóng</em>. Nếu bỏ qua quảng cáo, màn hình quảng cáo sẽ mở lại ở lần dịch tiếp theo.</div></div>
+  <div class="step"><div class="num">3</div><div><strong>Kéo con trỏ đến chữ.</strong> Một bong bóng nổi xuất hiện trên màn hình. Kéo nó — con trỏ đi theo ngón tay bạn. Chỉ vào chữ bất kỳ rồi thả tay: bản dịch hiện ra ngay tại đó.</div></div>
+
+  <h2>📌 Thanh menu nổi</h2>
+  <div class="card">
+    <p><strong>Thanh menu</strong> luôn nổi trên màn hình — trung tâm điều khiển của ứng dụng. Nó chỉ tạm ẩn trong lúc chụp (khi bạn giữ con trỏ) và khi cửa sổ dịch đang hiển thị. Nó làm được nhiều hơn bạn nghĩ:</p>
+    <ul>
+      <li><strong>Biểu tượng chế độ nhận diện</strong> (bên trái) — chuyển giữa Từ / Câu / Đoạn văn / Chọn vùng / Vùng cố định.</li>
+      <li><strong>Ngôn ngữ nguồn</strong> — <em>Auto</em> tự nhận diện; chạm để ghim một ngôn ngữ cụ thể.</li>
+      <li><strong>⇄ Hoán đổi</strong> — đảo ngôn ngữ nguồn và đích trong một chạm.</li>
+      <li><strong>Ngôn ngữ đích</strong> — chạm để chọn trong hơn 110 ngôn ngữ.</li>
+      <li><strong>Biểu tượng công cụ dịch</strong> (bên phải) — mỗi lần chạm sẽ đổi công cụ dịch: Google, DeepL, GPT, Gemini, Claude.</li>
+    </ul>
+    <p>Thanh menu có thể kéo đến bất kỳ đâu. Nếu bạn ít thay đổi các tùy chọn này và thấy vướng, hãy chỉnh độ trong suốt, bố cục trong Cài đặt — hoặc ẩn hẳn bằng <em>Hiện thanh menu</em>.</p>
+  </div>
+
+  <h2>🎯 Năm chế độ dịch</h2>
+  <p>Chuyển chế độ bằng biểu tượng chế độ nhận diện trên <strong>thanh menu</strong> nổi.</p>
+
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/word.jpg" src="../media/word.mp4"></video>
+    <div class="txt"><h3>Từ</h3>
+    <p>Chỉ vào một từ để dịch riêng từ đó. Tuyệt vời để học ngoại ngữ — chạm để nghe phát âm (TTS).</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/sentence.jpg" src="../media/sentence.mp4"></video>
+    <div class="txt"><h3>Câu</h3>
+    <p>Chỉ vào bất kỳ chỗ nào trong câu để dịch cả câu. Chế độ phổ biến nhất cho chat và mạng xã hội.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/paragraph.jpg" src="../media/paragraph.mp4"></video>
+    <div class="txt"><h3>Đoạn văn</h3>
+    <p>Chỉ vào một khối văn bản để dịch cả đoạn cùng lúc — lý tưởng cho bài báo và tài liệu.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/select.jpg" src="../media/select.mp4"></video>
+    <div class="txt"><h3>Chọn vùng</h3>
+    <p>Kéo để vẽ khung quanh đúng phần bạn muốn dịch. Hoàn hảo khi bố cục rối.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/fixed_area.jpg" src="../media/fixed_area.mp4"></video>
+    <div class="txt"><h3>Vùng cố định <span class="badge">cho game &amp; phụ đề</span></h3>
+    <p>Ghim một vùng màn hình — ứng dụng tự động dịch lại mỗi khi nội dung thay đổi. Sinh ra cho hội thoại game và phụ đề video.</p></div>
+  </div>
+
+  <h2>🌐 Ngôn ngữ</h2>
+  <p>Hơn 110 ngôn ngữ. Ngôn ngữ nguồn được <strong>tự động nhận diện</strong>; chỉ cần chọn ngôn ngữ đích trên thanh menu. Đổi bất cứ lúc nào.</p>
+
+  <h2>🤖 Dịch bằng AI (tùy chọn)</h2>
+  <div class="card">
+    <p>Công cụ Google tích hợp miễn phí và không cần cài đặt. Muốn dịch bằng AI? Kết nối khóa API của riêng bạn:</p>
+    <ul>
+      <li><strong>DeepL</strong> — gói miễn phí tại deepl.com</li>
+      <li><strong>OpenAI (GPT)</strong> — lấy khóa từ bảng điều khiển OpenAI</li>
+      <li><strong>Gemini</strong> — bậc miễn phí qua Google AI Studio</li>
+      <li><strong>Claude</strong> — lấy khóa từ Anthropic Console</li>
+    </ul>
+    <p>Thanh menu → <em>công cụ dịch</em> → chọn công cụ → dán khóa. Chi phí tính vào tài khoản <em>của bạn</em> ở nhà cung cấp đó; ứng dụng không thu thêm.</p>
+    <p>Nếu dịch thất bại, ứng dụng hiển thị lý do ngay trên màn hình — khóa API không hợp lệ, hết tín dụng, chạm giới hạn dùng, hoặc lỗi mạng. Lưu ý: khóa hợp lệ thôi chưa đủ — tài khoản ở nhà cung cấp còn cần có tín dụng hoặc bậc miễn phí đang hoạt động.</p>
+  </div>
+
+  <h2>🔊 Đọc to &amp; giọng TTS</h2>
+  <div class="card">
+    <p>Ứng dụng có thể đọc to văn bản: chạm biểu tượng loa trên bản dịch, hoặc bật <em>tự động đọc</em> trong Cài đặt. Mục <em>Đối tượng đọc</em> chọn đọc văn bản gốc hay bản dịch.</p>
+    <p>Chọn giọng trong Cài đặt → <em>Giọng TTS</em>: giọng được nhóm theo ngôn ngữ, chạm vào một giọng sẽ phát đoạn nghe thử ngắn để so sánh trước khi chọn.</p>
+  </div>
+
+  <h2>💬 Trả lời trong chat</h2>
+  <div class="card">
+    <p>Đã dịch tin nhắn chat? Chạm <strong>biểu tượng trả lời</strong> ở góc dưới bên phải cửa sổ dịch, rồi gõ câu trả lời bằng ngôn ngữ của bạn — nó được dịch ngay sang ngôn ngữ của đối phương.</p>
+    <p>Chạm <strong>sao chép</strong>, dán vào chat và gửi. Bạn có thể trò chuyện trọn vẹn mà không cần rời ứng dụng chat.</p>
+  </div>
+
+  <h2>❓ Hỏi đáp &amp; khắc phục sự cố</h2>
+  <div class="faq">
+    <details><summary>Bong bóng nổi biến mất</summary>
+      <p>Mở lại ứng dụng để khởi động lại dịch vụ. Nếu lặp lại, kiểm tra quyền <em>Hiển thị trên ứng dụng khác</em> còn bật không, và loại ứng dụng khỏi tối ưu pin (Cài đặt → Pin → Không hạn chế).</p></details>
+    <details><summary>Lần dịch đầu chậm hoặc báo “đang chuẩn bị”</summary>
+      <p>Lần dùng đầu tiên, mô hình OCR được tải một lần qua dịch vụ Google Play. Sau đó nhận diện tức thì và OCR hoạt động ngoại tuyến.</p></details>
+    <details><summary>Một số màn hình không có phản ứng gì</summary>
+      <p>Ứng dụng chặn chụp màn hình (app ngân hàng, trình phát video DRM) không thể bị chụp — Android ẩn nội dung của chúng khỏi mọi ứng dụng chụp.</p></details>
+    <details><summary>Sao tôi thấy quảng cáo?</summary>
+      <p>Một quảng cáo ngắn mỗi phiên giúp mọi tính năng cốt lõi miễn phí. Sau quảng cáo, ứng dụng hoàn toàn không quảng cáo cho đến khi bạn đóng.</p></details>
+    <details><summary>Có thông báo ⚠ nói dịch thất bại</summary>
+      <p>Thông báo cho biết lý do. <em>Khóa API không hợp lệ</em>: kiểm tra lại khóa trong Cài đặt. <em>Hết tín dụng</em>: nạp thêm trên bảng điều khiển nhà cung cấp — khóa hợp lệ vẫn cần tín dụng. <em>Giới hạn dùng</em>: đợi chút rồi thử lại. <em>Lỗi mạng</em>: kiểm tra kết nối.</p></details>
+    <details><summary>Chất lượng dịch có vẻ không ổn</summary>
+      <p>Thử chế độ Câu hoặc Đoạn văn (nhiều ngữ cảnh = dịch tốt hơn), hoặc kết nối công cụ AI (DeepL/GPT/Gemini/Claude) để có chất lượng tốt nhất.</p></details>
+  </div>
+
+  <h2>💻 Mã nguồn mở</h2>
+  <div class="card">
+    <p>Screen Translate là mã nguồn mở — toàn bộ mã nguồn nằm trên <a href="https://github.com/AidanPark/android-screen-translator">GitHub</a>. Ai cũng có thể xem mã, chỉnh sửa tùy ý và tự dựng phiên bản của riêng mình. Giấy phép là Apache-2.0 — vui lòng giữ ghi công (thông báo bản quyền) khi sử dụng.</p>
+  </div>
+
+  <h2>📮 Vẫn chưa xử lý được?</h2>
+  <p>Gửi email cho chúng tôi tại <a href="mailto:handwritingdictionary@gmail.com">handwritingdictionary@gmail.com</a> — chúng tôi đọc tất cả.</p>
+  <a class="store" href="https://play.google.com/store/apps/details?id=com.galaxy.airviewdictionary">Tải trên Google Play</a>
+
+  <footer>© 2026 BoxBee Corp.</footer>
+</main>
+<script>
+(function () {
+  var sel = document.getElementById('langSel');
+  sel.addEventListener('change', function () {
+    var v = sel.value;
+    try { localStorage.setItem('guideLang', v); } catch (e) {}
+    location.href = v === 'en' ? '/screen-translator/guide/' : '/screen-translator/guide/' + v + '/';
+  });
+})();
+</script>
+</body>
+</html>

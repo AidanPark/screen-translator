@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Cara menggunakan Screen Translate: OCR & Live — izin, mode terjemahan, mesin AI, baca nyaring, dan pemecahan masalah.">
+<title>Panduan — Screen Translate: OCR &amp; Live</title>
+<link rel="alternate" hreflang="x-default" href="https://aidanpark.github.io/screen-translator/guide/">
+<link rel="alternate" hreflang="en" href="https://aidanpark.github.io/screen-translator/guide/">
+<link rel="alternate" hreflang="ko" href="https://aidanpark.github.io/screen-translator/guide/ko/">
+<link rel="alternate" hreflang="ja" href="https://aidanpark.github.io/screen-translator/guide/ja/">
+<link rel="alternate" hreflang="zh-CN" href="https://aidanpark.github.io/screen-translator/guide/zh-CN/">
+<link rel="alternate" hreflang="zh-TW" href="https://aidanpark.github.io/screen-translator/guide/zh-TW/">
+<link rel="alternate" hreflang="es" href="https://aidanpark.github.io/screen-translator/guide/es/">
+<link rel="alternate" hreflang="pt-BR" href="https://aidanpark.github.io/screen-translator/guide/pt-BR/">
+<link rel="alternate" hreflang="fr" href="https://aidanpark.github.io/screen-translator/guide/fr/">
+<link rel="alternate" hreflang="de" href="https://aidanpark.github.io/screen-translator/guide/de/">
+<link rel="alternate" hreflang="ru" href="https://aidanpark.github.io/screen-translator/guide/ru/">
+<link rel="alternate" hreflang="id" href="https://aidanpark.github.io/screen-translator/guide/id/">
+<link rel="alternate" hreflang="vi" href="https://aidanpark.github.io/screen-translator/guide/vi/">
+<link rel="alternate" hreflang="th" href="https://aidanpark.github.io/screen-translator/guide/th/">
+<link rel="alternate" hreflang="tr" href="https://aidanpark.github.io/screen-translator/guide/tr/">
+<link rel="alternate" hreflang="ar" href="https://aidanpark.github.io/screen-translator/guide/ar/">
+<link rel="alternate" hreflang="hi" href="https://aidanpark.github.io/screen-translator/guide/hi/">
+<style>
+  :root { color-scheme: light dark; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+    line-height: 1.65; background: #fafafa; color: #1a1a1a;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: #111; color: #eee; }
+    .card, .step, .faq details { background: #1c1c1e !important; }
+    .badge { background: #333 !important; }
+    .langsel { background: #1c1c1e; color: #eee; border-color: #444; }
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
+  a { color: #01875f; }
+  h1 { font-size: 1.7rem; margin: .8rem 0 .3rem; }
+  .sub { opacity: .7; margin-bottom: 2rem; }
+  h2 { font-size: 1.25rem; margin: 2.4rem 0 .8rem; }
+  p { margin-bottom: .7rem; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .backlink { font-size: .9rem; }
+  .langsel {
+    font-size: .85rem; padding: .25rem .5rem; border-radius: 8px;
+    border: 1px solid #ccc; background: #fff; color: inherit;
+  }
+  .store {
+    display: inline-block; background: #01875f; color: #fff; text-decoration: none;
+    padding: .55rem 1.2rem; border-radius: 24px; font-weight: 600; font-size: .95rem; margin-top: .6rem;
+  }
+  .step {
+    background: #fff; border-radius: 14px; padding: 1rem 1.2rem; margin-bottom: .8rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07); display: flex; gap: .9rem; align-items: flex-start;
+  }
+  .num {
+    flex: 0 0 auto; width: 1.8rem; height: 1.8rem; border-radius: 50%;
+    background: #01875f; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  }
+  .card {
+    background: #fff; border-radius: 14px; padding: 1.1rem 1.2rem; margin-bottom: 1rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07);
+  }
+  .mode { display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap; }
+  .mode video {
+    flex: 0 0 200px; width: 200px; max-width: 100%; border-radius: 10px; background: #000;
+  }
+  .mode .txt { flex: 1 1 260px; }
+  .mode h3 { font-size: 1.05rem; margin-bottom: .3rem; }
+  .badge {
+    display: inline-block; font-size: .75rem; background: #e8f3ef; border-radius: 8px;
+    padding: .1rem .5rem; margin-left: .4rem; vertical-align: middle; opacity: .9;
+  }
+  ul, ol { padding-left: 1.3rem; margin-bottom: .7rem; }
+  li { margin-bottom: .3rem; }
+  .faq details {
+    background: #fff; border-radius: 12px; padding: .8rem 1.1rem; margin-bottom: .6rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07);
+  }
+  .faq summary { cursor: pointer; font-weight: 600; }
+  .faq details p, .faq details ul { margin-top: .5rem; }
+  footer { margin-top: 3rem; font-size: .85rem; opacity: .6; }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <div class="topbar">
+    <p class="backlink"><a href="https://aidanpark.github.io/">&larr; BoxBee</a></p>
+    <select class="langsel" id="langSel" aria-label="Language"><option value="en">English</option><option value="ko">한국어</option><option value="ja">日本語</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="es">Español</option><option value="pt-BR">Português (Brasil)</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="ru">Русский</option><option value="id" selected>Bahasa Indonesia</option><option value="vi">Tiếng Việt</option><option value="th">ไทย</option><option value="tr">Türkçe</option><option value="ar">العربية</option><option value="hi">हिन्दी</option></select>
+  </div>
+  <h1>Cara Menggunakan Screen Translate</h1>
+  <p class="sub">Terjemahkan teks apa pun di layar secara real-time — game, chat, komik, aplikasi.</p>
+
+  <h2>🚀 Mulai Cepat</h2>
+  <div class="step"><div class="num">1</div><div><strong>Berikan dua izin.</strong> Saat pertama dibuka, aplikasi meminta <em>Tampil di atas aplikasi lain</em> (untuk gelembung mengambang) dan <em>Perekaman layar</em> (untuk membaca teks di layar). Di Android 14+, pilih <em>“Seluruh layar”</em> saat diminta.</div></div>
+  <div class="step"><div class="num">2</div><div><strong>Tonton satu iklan singkat.</strong> Satu iklan berhadiah membuat aplikasi <em>bebas iklan sampai Anda menutupnya</em>. Jika iklan dilewati, layar iklan hanya akan terbuka lagi pada terjemahan berikutnya.</div></div>
+  <div class="step"><div class="num">3</div><div><strong>Seret penunjuk ke teks.</strong> Gelembung mengambang muncul di layar. Seret — penunjuk mengikuti jari Anda. Arahkan ke teks mana pun lalu lepaskan: terjemahan langsung muncul di sana.</div></div>
+
+  <h2>📌 Bilah Menu Mengambang</h2>
+  <div class="card">
+    <p><strong>Bilah menu</strong> selalu mengambang di layar — pusat kendali aplikasi. Ia hanya bersembunyi sebentar saat penangkapan (selagi Anda menahan penunjuk) dan selama jendela terjemahan tampil. Fungsinya lebih banyak dari yang dikira:</p>
+    <ul>
+      <li><strong>Ikon mode deteksi</strong> (kiri) — berpindah antara Kata / Kalimat / Paragraf / Pilih Area / Area Tetap.</li>
+      <li><strong>Bahasa sumber</strong> — <em>Auto</em> mendeteksinya untuk Anda; ketuk untuk mengunci bahasa tertentu.</li>
+      <li><strong>⇄ Tukar</strong> — membalik bahasa sumber dan tujuan sekali ketuk.</li>
+      <li><strong>Bahasa tujuan</strong> — ketuk untuk memilih dari 110+ bahasa.</li>
+      <li><strong>Ikon mesin</strong> (kanan) — ketuk untuk berganti mesin terjemahan: Google, DeepL, GPT, Gemini, Claude.</li>
+    </ul>
+    <p>Bilahnya bisa diseret ke mana saja. Jika Anda jarang mengubah opsi ini dan merasa terganggu, atur transparansi dan susunannya di Setelan — atau sembunyikan sepenuhnya lewat <em>Tampilkan bilah menu</em>.</p>
+  </div>
+
+  <h2>🎯 Lima Mode Terjemahan</h2>
+  <p>Ganti mode lewat ikon mode deteksi di <strong>bilah menu</strong> mengambang.</p>
+
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/word.jpg" src="../media/word.mp4"></video>
+    <div class="txt"><h3>Kata</h3>
+    <p>Arahkan ke satu kata untuk menerjemahkan kata itu saja. Bagus untuk belajar bahasa — ada pengucapan dengan ketukan (TTS).</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/sentence.jpg" src="../media/sentence.mp4"></video>
+    <div class="txt"><h3>Kalimat</h3>
+    <p>Arahkan ke bagian mana pun dari kalimat untuk menerjemahkan seluruh kalimat. Mode paling populer untuk chat dan media sosial.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/paragraph.jpg" src="../media/paragraph.mp4"></video>
+    <div class="txt"><h3>Paragraf</h3>
+    <p>Arahkan ke blok teks untuk menerjemahkan seluruh paragraf sekaligus — ideal untuk artikel dan dokumen.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/select.jpg" src="../media/select.mp4"></video>
+    <div class="txt"><h3>Pilih Area</h3>
+    <p>Seret untuk menggambar kotak tepat di bagian yang ingin diterjemahkan. Sempurna saat tata letak ramai.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/fixed_area.jpg" src="../media/fixed_area.mp4"></video>
+    <div class="txt"><h3>Area Tetap <span class="badge">untuk game &amp; subtitle</span></h3>
+    <p>Sematkan satu area layar — aplikasi menerjemahkannya ulang secara otomatis setiap kali isinya berubah. Dibuat untuk dialog game dan subtitle video.</p></div>
+  </div>
+
+  <h2>🌐 Bahasa</h2>
+  <p>Lebih dari 110 bahasa. Bahasa sumber <strong>terdeteksi otomatis</strong>; pilih bahasa tujuan dari bilah menu. Ganti kapan saja.</p>
+
+  <h2>🤖 Terjemahan AI (opsional)</h2>
+  <div class="card">
+    <p>Mesin Google bawaan gratis dan tanpa pengaturan. Lebih suka terjemahan AI? Hubungkan kunci API Anda sendiri:</p>
+    <ul>
+      <li><strong>DeepL</strong> — paket gratis tersedia di deepl.com</li>
+      <li><strong>OpenAI (GPT)</strong> — kunci dari dasbor OpenAI</li>
+      <li><strong>Gemini</strong> — tingkat gratis via Google AI Studio</li>
+      <li><strong>Claude</strong> — kunci dari Anthropic Console</li>
+    </ul>
+    <p>Bilah menu → <em>mesin terjemahan</em> → pilih mesin → tempel kunci Anda. Pemakaian ditagihkan ke akun <em>Anda</em> di penyedia tersebut; aplikasi tidak menambah biaya.</p>
+    <p>Jika terjemahan gagal, aplikasi menampilkan alasannya langsung di layar — kunci API tidak valid, kredit habis, batas pemakaian, atau kesalahan jaringan. Catatan: kunci yang valid saja tidak cukup — akun di penyedia juga perlu kredit atau tingkat gratis yang aktif.</p>
+  </div>
+
+  <h2>🔊 Baca Nyaring &amp; Suara TTS</h2>
+  <div class="card">
+    <p>Aplikasi bisa membacakan teks: ketuk ikon pengeras suara pada terjemahan, atau aktifkan <em>baca otomatis</em> di Setelan. Setelan <em>Target baca</em> memilih apakah teks asli atau terjemahan yang dibacakan.</p>
+    <p>Pilih suara di Setelan → <em>Suara TTS</em>: suara dikelompokkan per bahasa, dan mengetuk salah satunya memutar pratinjau singkat agar bisa membandingkan sebelum memilih.</p>
+  </div>
+
+  <h2>💬 Membalas di Chat</h2>
+  <div class="card">
+    <p>Sudah menerjemahkan pesan chat? Ketuk <strong>ikon balas</strong> di kanan bawah jendela terjemahan, lalu ketik balasan dalam bahasa Anda — langsung diterjemahkan ke bahasa lawan bicara.</p>
+    <p>Ketuk <strong>salin</strong>, tempel ke chat, dan kirim. Anda bisa mengobrol panjang tanpa meninggalkan aplikasi chat.</p>
+  </div>
+
+  <h2>❓ FAQ &amp; Pemecahan Masalah</h2>
+  <div class="faq">
+    <details><summary>Gelembung mengambang hilang</summary>
+      <p>Buka lagi aplikasinya untuk memulai ulang layanan. Jika terus terjadi, pastikan izin <em>Tampil di atas aplikasi lain</em> masih aktif, dan keluarkan aplikasi dari optimasi baterai (Setelan → Baterai → Tanpa batasan).</p></details>
+    <details><summary>Terjemahan pertama lambat atau tertulis “menyiapkan”</summary>
+      <p>Pada penggunaan pertama, model OCR diunduh sekali lewat layanan Google Play. Setelah itu pengenalan instan dan OCR bekerja offline.</p></details>
+    <details><summary>Tidak terjadi apa-apa di layar tertentu</summary>
+      <p>Aplikasi yang memblokir tangkapan layar (aplikasi bank, pemutar video DRM) tidak bisa ditangkap — Android menyembunyikan kontennya dari semua aplikasi perekam.</p></details>
+    <details><summary>Kenapa ada iklan?</summary>
+      <p>Satu iklan singkat per sesi membuat semua fitur inti tetap gratis. Setelah iklan, aplikasi sepenuhnya bebas iklan sampai Anda menutupnya.</p></details>
+    <details><summary>Muncul pesan ⚠ bahwa terjemahan gagal</summary>
+      <p>Pesannya memberi tahu alasannya. <em>Kunci API tidak valid</em>: periksa lagi kuncinya di Setelan. <em>Kredit habis</em>: isi ulang di konsol penyedia — kunci valid tetap butuh kredit. <em>Batas pemakaian</em>: tunggu sebentar lalu coba lagi. <em>Kesalahan jaringan</em>: periksa koneksi Anda.</p></details>
+    <details><summary>Kualitas terjemahan terasa aneh</summary>
+      <p>Coba mode Kalimat atau Paragraf (konteks lebih banyak = terjemahan lebih baik), atau hubungkan mesin AI (DeepL/GPT/Gemini/Claude) untuk kualitas terbaik.</p></details>
+  </div>
+
+  <h2>💻 Open Source</h2>
+  <div class="card">
+    <p>Screen Translate bersifat open source — seluruh kode sumbernya ada di <a href="https://github.com/AidanPark/android-screen-translator">GitHub</a>. Siapa pun boleh menelusuri kodenya, memodifikasinya sesuka hati, dan membangun versinya sendiri. Lisensinya Apache-2.0 — mohon pertahankan atribusi (pemberitahuan hak cipta) saat menggunakannya.</p>
+  </div>
+
+  <h2>📮 Masih buntu?</h2>
+  <p>Email kami di <a href="mailto:handwritingdictionary@gmail.com">handwritingdictionary@gmail.com</a> — semua kami baca.</p>
+  <a class="store" href="https://play.google.com/store/apps/details?id=com.galaxy.airviewdictionary">Dapatkan di Google Play</a>
+
+  <footer>© 2026 BoxBee Corp.</footer>
+</main>
+<script>
+(function () {
+  var sel = document.getElementById('langSel');
+  sel.addEventListener('change', function () {
+    var v = sel.value;
+    try { localStorage.setItem('guideLang', v); } catch (e) {}
+    location.href = v === 'en' ? '/screen-translator/guide/' : '/screen-translator/guide/' + v + '/';
+  });
+})();
+</script>
+</body>
+</html>

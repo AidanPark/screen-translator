@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="화면 번역 사용법 — 권한 설정, 번역 모드, AI 엔진, 읽어주기, 문제 해결.">
+<title>사용법 안내 — 화면 번역 (Screen Translate)</title>
+<link rel="alternate" hreflang="x-default" href="https://aidanpark.github.io/screen-translator/guide/">
+<link rel="alternate" hreflang="en" href="https://aidanpark.github.io/screen-translator/guide/">
+<link rel="alternate" hreflang="ko" href="https://aidanpark.github.io/screen-translator/guide/ko/">
+<link rel="alternate" hreflang="ja" href="https://aidanpark.github.io/screen-translator/guide/ja/">
+<link rel="alternate" hreflang="zh-CN" href="https://aidanpark.github.io/screen-translator/guide/zh-CN/">
+<link rel="alternate" hreflang="zh-TW" href="https://aidanpark.github.io/screen-translator/guide/zh-TW/">
+<link rel="alternate" hreflang="es" href="https://aidanpark.github.io/screen-translator/guide/es/">
+<link rel="alternate" hreflang="pt-BR" href="https://aidanpark.github.io/screen-translator/guide/pt-BR/">
+<link rel="alternate" hreflang="fr" href="https://aidanpark.github.io/screen-translator/guide/fr/">
+<link rel="alternate" hreflang="de" href="https://aidanpark.github.io/screen-translator/guide/de/">
+<link rel="alternate" hreflang="ru" href="https://aidanpark.github.io/screen-translator/guide/ru/">
+<link rel="alternate" hreflang="id" href="https://aidanpark.github.io/screen-translator/guide/id/">
+<link rel="alternate" hreflang="vi" href="https://aidanpark.github.io/screen-translator/guide/vi/">
+<link rel="alternate" hreflang="th" href="https://aidanpark.github.io/screen-translator/guide/th/">
+<link rel="alternate" hreflang="tr" href="https://aidanpark.github.io/screen-translator/guide/tr/">
+<link rel="alternate" hreflang="ar" href="https://aidanpark.github.io/screen-translator/guide/ar/">
+<link rel="alternate" hreflang="hi" href="https://aidanpark.github.io/screen-translator/guide/hi/">
+<style>
+  :root { color-scheme: light dark; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+    line-height: 1.65; background: #fafafa; color: #1a1a1a;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: #111; color: #eee; }
+    .card, .step, .faq details { background: #1c1c1e !important; }
+    .badge { background: #333 !important; }
+    .langsel { background: #1c1c1e; color: #eee; border-color: #444; }
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
+  a { color: #01875f; }
+  h1 { font-size: 1.7rem; margin: .8rem 0 .3rem; }
+  .sub { opacity: .7; margin-bottom: 2rem; }
+  h2 { font-size: 1.25rem; margin: 2.4rem 0 .8rem; }
+  p { margin-bottom: .7rem; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .backlink { font-size: .9rem; }
+  .langsel {
+    font-size: .85rem; padding: .25rem .5rem; border-radius: 8px;
+    border: 1px solid #ccc; background: #fff; color: inherit;
+  }
+  .store {
+    display: inline-block; background: #01875f; color: #fff; text-decoration: none;
+    padding: .55rem 1.2rem; border-radius: 24px; font-weight: 600; font-size: .95rem; margin-top: .6rem;
+  }
+  .step {
+    background: #fff; border-radius: 14px; padding: 1rem 1.2rem; margin-bottom: .8rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07); display: flex; gap: .9rem; align-items: flex-start;
+  }
+  .num {
+    flex: 0 0 auto; width: 1.8rem; height: 1.8rem; border-radius: 50%;
+    background: #01875f; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  }
+  .card {
+    background: #fff; border-radius: 14px; padding: 1.1rem 1.2rem; margin-bottom: 1rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07);
+  }
+  .mode { display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap; }
+  .mode video {
+    flex: 0 0 200px; width: 200px; max-width: 100%; border-radius: 10px; background: #000;
+  }
+  .mode .txt { flex: 1 1 260px; }
+  .mode h3 { font-size: 1.05rem; margin-bottom: .3rem; }
+  .badge {
+    display: inline-block; font-size: .75rem; background: #e8f3ef; border-radius: 8px;
+    padding: .1rem .5rem; margin-left: .4rem; vertical-align: middle; opacity: .9;
+  }
+  ul, ol { padding-left: 1.3rem; margin-bottom: .7rem; }
+  li { margin-bottom: .3rem; }
+  .faq details {
+    background: #fff; border-radius: 12px; padding: .8rem 1.1rem; margin-bottom: .6rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07);
+  }
+  .faq summary { cursor: pointer; font-weight: 600; }
+  .faq details p, .faq details ul { margin-top: .5rem; }
+  footer { margin-top: 3rem; font-size: .85rem; opacity: .6; }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <div class="topbar">
+    <p class="backlink"><a href="https://aidanpark.github.io/">&larr; BoxBee</a></p>
+    <select class="langsel" id="langSel" aria-label="Language"><option value="en">English</option><option value="ko" selected>한국어</option><option value="ja">日本語</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="es">Español</option><option value="pt-BR">Português (Brasil)</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="ru">Русский</option><option value="id">Bahasa Indonesia</option><option value="vi">Tiếng Việt</option><option value="th">ไทย</option><option value="tr">Türkçe</option><option value="ar">العربية</option><option value="hi">हिन्दी</option></select>
+  </div>
+  <h1>화면 번역 사용법</h1>
+  <p class="sub">게임, 채팅, 만화, 앱 — 화면의 모든 텍스트를 실시간으로 번역하세요.</p>
+
+  <h2>🚀 빠른 시작</h2>
+  <div class="step"><div class="num">1</div><div><strong>두 가지 권한을 허용하세요.</strong> 첫 실행 시 <em>다른 앱 위에 표시</em>(플로팅 버블용)와 <em>화면 캡처</em>(화면 텍스트 인식용) 권한을 요청합니다. Android 14 이상에서는 <em>&ldquo;전체 화면&rdquo;</em>을 선택하세요.</div></div>
+  <div class="step"><div class="num">2</div><div><strong>짧은 광고 한 편을 시청하세요.</strong> 보상형 광고 한 편이면 <em>앱을 닫을 때까지 광고 없이</em> 사용할 수 있습니다. 광고를 건너뛰면 다음 번역 때 광고 화면이 다시 열립니다.</div></div>
+  <div class="step"><div class="num">3</div><div><strong>포인터를 텍스트 위로 끌어다 놓으세요.</strong> 화면에 플로팅 버블이 나타납니다. 버블을 끌면 포인터가 손가락을 따라옵니다. 텍스트를 가리키고 손을 떼면 그 자리에 번역이 나타납니다.</div></div>
+
+  <h2>📌 플로팅 메뉴바</h2>
+  <div class="card">
+    <p><strong>메뉴바</strong>는 화면에 항상 떠 있는 앱의 컨트롤 센터입니다. 핸들을 눌러 캡처하는 동안과 번역창이 보여지는 동안에만 잠시 숨겨집니다. 생각보다 많은 일을 할 수 있어요:</p>
+    <ul>
+      <li><strong>감지 모드 아이콘</strong>(왼쪽) — 단어 / 문장 / 문단 / 영역 선택 / 고정 영역 모드를 전환합니다.</li>
+      <li><strong>원문 언어</strong> — <em>Auto</em>가 자동으로 감지해 주며, 탭하면 특정 언어로 고정할 수도 있습니다.</li>
+      <li><strong>⇄ 스왑</strong> — 원문·번역 언어를 한 번에 맞바꿉니다.</li>
+      <li><strong>번역 언어</strong> — 탭해서 110개 이상의 언어 중에서 고릅니다.</li>
+      <li><strong>엔진 아이콘</strong>(오른쪽) — 탭할 때마다 번역 엔진이 전환됩니다: Google, DeepL, GPT, Gemini, Claude.</li>
+    </ul>
+    <p>메뉴바는 화면 어디로든 드래그할 수 있습니다. 설정을 자주 바꾸지 않아 메뉴바가 거슬린다면, 설정에서 투명도와 구성을 조절하거나 <em>메뉴바 보이기</em>를 꺼서 아예 숨길 수 있습니다.</p>
+  </div>
+
+  <h2>🎯 다섯 가지 번역 모드</h2>
+  <p>플로팅 <strong>메뉴바</strong>의 감지 모드 아이콘으로 모드를 전환하세요.</p>
+
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/word.jpg" src="../media/word.mp4"></video>
+    <div class="txt"><h3>단어</h3>
+    <p>단어 하나를 가리키면 그 단어만 번역합니다. 어학 학습에 좋고, 탭하면 발음(TTS)도 들을 수 있습니다.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/sentence.jpg" src="../media/sentence.mp4"></video>
+    <div class="txt"><h3>문장</h3>
+    <p>문장 아무 곳이나 가리키면 문장 전체를 번역합니다. 채팅과 SNS에서 가장 많이 쓰는 모드입니다.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/paragraph.jpg" src="../media/paragraph.mp4"></video>
+    <div class="txt"><h3>문단</h3>
+    <p>텍스트 덩어리를 가리키면 문단 전체를 한 번에 번역합니다. 기사나 문서에 적합합니다.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/select.jpg" src="../media/select.mp4"></video>
+    <div class="txt"><h3>영역 선택</h3>
+    <p>원하는 부분만 상자로 그려서 번역합니다. 화면 구성이 복잡할 때 좋습니다.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/fixed_area.jpg" src="../media/fixed_area.mp4"></video>
+    <div class="txt"><h3>고정 영역 <span class="badge">게임·자막용</span></h3>
+    <p>화면의 한 영역을 고정하면 내용이 바뀔 때마다 자동으로 다시 번역합니다. 게임 대사와 영상 자막을 위해 만들었습니다.</p></div>
+  </div>
+
+  <h2>🌐 지원 언어</h2>
+  <p>110개 이상의 언어를 지원합니다. 원문 언어는 <strong>자동으로 감지</strong>되며, 번역될 언어만 메뉴바에서 고르면 됩니다. 언제든 바꿀 수 있습니다.</p>
+
+  <h2>🤖 AI 번역 (선택)</h2>
+  <div class="card">
+    <p>기본 Google 엔진은 무료이며 설정이 필요 없습니다. AI 번역을 쓰고 싶다면 본인의 API 키를 연결하세요:</p>
+    <ul>
+      <li><strong>DeepL</strong> — deepl.com 에서 무료 플랜 제공</li>
+      <li><strong>OpenAI (GPT)</strong> — OpenAI 대시보드에서 키 발급</li>
+      <li><strong>Gemini</strong> — Google AI Studio 에서 무료 등급 제공</li>
+      <li><strong>Claude</strong> — Anthropic Console 에서 키 발급</li>
+    </ul>
+    <p>메뉴바 → <em>번역 엔진</em> → 엔진 선택 → 키 붙여넣기. 사용량은 해당 서비스의 <em>본인</em> 계정으로 청구되며, 앱은 수수료를 받지 않습니다.</p>
+    <p>번역이 실패하면 이유가 화면에 바로 표시됩니다 — 잘못된 API 키, 크레딧 부족, 사용량 한도, 네트워크 오류. 참고: 키가 유효해도 그것만으로는 부족합니다 — 해당 서비스 계정에 크레딧(또는 활성화된 무료 등급)이 있어야 합니다.</p>
+  </div>
+
+  <h2>🔊 읽어주기 &amp; TTS 목소리</h2>
+  <div class="card">
+    <p>앱이 텍스트를 소리 내어 읽어줍니다. 번역창의 스피커 아이콘을 탭하거나, 설정에서 <em>번역 자동 읽기</em>를 켜세요. <em>읽기 대상</em> 설정으로 원문을 읽을지 번역문을 읽을지 고를 수 있습니다.</p>
+    <p>설정 → <em>TTS 목소리</em>에서 목소리를 고르세요. 목소리는 언어별로 묶여 있고, 항목을 탭하면 짧은 미리듣기가 재생되어 비교하며 고를 수 있습니다.</p>
+  </div>
+
+  <h2>💬 채팅에서 답장하기</h2>
+  <div class="card">
+    <p>채팅 메시지를 번역했다면, 번역창 오른쪽 아래의 <strong>답장 아이콘</strong>을 눌러 보세요. 내 언어로 답장을 입력하면 상대방의 언어로 바로 번역됩니다.</p>
+    <p><strong>복사</strong>를 누른 뒤 채팅에 붙여넣어 보내면 끝. 채팅 앱을 벗어나지 않고도 대화를 이어갈 수 있습니다.</p>
+  </div>
+
+  <h2>❓ 자주 묻는 질문 &amp; 문제 해결</h2>
+  <div class="faq">
+    <details><summary>플로팅 버블이 사라졌어요</summary>
+      <p>앱을 다시 열어 서비스를 재시작하세요. 반복된다면 <em>다른 앱 위에 표시</em> 권한이 유지되어 있는지 확인하고, 배터리 최적화에서 앱을 제외하세요 (설정 → 배터리 → 제한 없음).</p></details>
+    <details><summary>첫 번역이 느리거나 &ldquo;준비 중&rdquo;이라고 나와요</summary>
+      <p>처음 사용할 때 Google Play 서비스를 통해 OCR 모델을 한 번 다운로드합니다. 이후에는 인식이 즉시 되며, OCR은 오프라인에서도 작동합니다.</p></details>
+    <details><summary>일부 화면에서는 아무 일도 일어나지 않아요</summary>
+      <p>스크린샷을 차단하는 앱(은행 앱, DRM 영상 플레이어)은 캡처할 수 없습니다 — Android가 모든 캡처 앱으로부터 해당 콘텐츠를 숨깁니다.</p></details>
+    <details><summary>왜 광고가 나오나요?</summary>
+      <p>세션당 짧은 광고 한 편으로 모든 핵심 기능이 무료로 유지됩니다. 광고를 본 뒤에는 앱을 닫을 때까지 광고가 전혀 나오지 않습니다.</p></details>
+    <details><summary>⚠ 표시와 함께 번역이 실패했다고 나와요</summary>
+      <p>메시지가 이유를 알려줍니다. <em>API 키 오류</em>: 설정에서 키를 다시 확인하세요. <em>크레딧 부족</em>: 해당 서비스 콘솔에서 충전하세요 — 키가 유효해도 크레딧은 별도로 필요합니다. <em>사용량 한도</em>: 잠시 후 다시 시도하세요. <em>네트워크 오류</em>: 연결 상태를 확인하세요.</p></details>
+    <details><summary>번역 품질이 이상해요</summary>
+      <p>문장·문단 모드를 써 보세요(문맥이 많을수록 번역이 좋아집니다). 최고 품질을 원하면 AI 엔진(DeepL/GPT/Gemini/Claude)을 연결하세요.</p></details>
+  </div>
+
+  <h2>💻 오픈소스</h2>
+  <div class="card">
+    <p>화면 번역은 오픈소스입니다 — 전체 소스 코드가 <a href="https://github.com/AidanPark/android-screen-translator">GitHub</a> 에 공개되어 있습니다. 누구나 코드를 살펴보고 원하는 대로 수정해 자신만의 버전을 만들어 사용할 수 있습니다. 라이선스는 Apache-2.0 이며, 사용 시 출처(저작권 고지)를 유지해 주세요.</p>
+  </div>
+
+  <h2>📮 그래도 해결이 안 되나요?</h2>
+  <p><a href="mailto:handwritingdictionary@gmail.com">handwritingdictionary@gmail.com</a> 으로 메일을 보내주세요 — 모든 메일을 읽습니다.</p>
+  <a class="store" href="https://play.google.com/store/apps/details?id=com.galaxy.airviewdictionary">Google Play 에서 받기</a>
+
+  <footer>© 2026 BoxBee Corp.</footer>
+</main>
+<script>
+(function () {
+  var sel = document.getElementById('langSel');
+  sel.addEventListener('change', function () {
+    var v = sel.value;
+    try { localStorage.setItem('guideLang', v); } catch (e) {}
+    location.href = v === 'en' ? '/screen-translator/guide/' : '/screen-translator/guide/' + v + '/';
+  });
+})();
+</script>
+</body>
+</html>

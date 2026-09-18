@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Como usar o Screen Translate: OCR & Live — permissões, modos de tradução, motores de IA, leitura em voz alta e solução de problemas.">
+<title>Guia de uso — Screen Translate: OCR &amp; Live</title>
+<link rel="alternate" hreflang="x-default" href="https://aidanpark.github.io/screen-translator/guide/">
+<link rel="alternate" hreflang="en" href="https://aidanpark.github.io/screen-translator/guide/">
+<link rel="alternate" hreflang="ko" href="https://aidanpark.github.io/screen-translator/guide/ko/">
+<link rel="alternate" hreflang="ja" href="https://aidanpark.github.io/screen-translator/guide/ja/">
+<link rel="alternate" hreflang="zh-CN" href="https://aidanpark.github.io/screen-translator/guide/zh-CN/">
+<link rel="alternate" hreflang="zh-TW" href="https://aidanpark.github.io/screen-translator/guide/zh-TW/">
+<link rel="alternate" hreflang="es" href="https://aidanpark.github.io/screen-translator/guide/es/">
+<link rel="alternate" hreflang="pt-BR" href="https://aidanpark.github.io/screen-translator/guide/pt-BR/">
+<link rel="alternate" hreflang="fr" href="https://aidanpark.github.io/screen-translator/guide/fr/">
+<link rel="alternate" hreflang="de" href="https://aidanpark.github.io/screen-translator/guide/de/">
+<link rel="alternate" hreflang="ru" href="https://aidanpark.github.io/screen-translator/guide/ru/">
+<link rel="alternate" hreflang="id" href="https://aidanpark.github.io/screen-translator/guide/id/">
+<link rel="alternate" hreflang="vi" href="https://aidanpark.github.io/screen-translator/guide/vi/">
+<link rel="alternate" hreflang="th" href="https://aidanpark.github.io/screen-translator/guide/th/">
+<link rel="alternate" hreflang="tr" href="https://aidanpark.github.io/screen-translator/guide/tr/">
+<link rel="alternate" hreflang="ar" href="https://aidanpark.github.io/screen-translator/guide/ar/">
+<link rel="alternate" hreflang="hi" href="https://aidanpark.github.io/screen-translator/guide/hi/">
+<style>
+  :root { color-scheme: light dark; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+    line-height: 1.65; background: #fafafa; color: #1a1a1a;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: #111; color: #eee; }
+    .card, .step, .faq details { background: #1c1c1e !important; }
+    .badge { background: #333 !important; }
+    .langsel { background: #1c1c1e; color: #eee; border-color: #444; }
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
+  a { color: #01875f; }
+  h1 { font-size: 1.7rem; margin: .8rem 0 .3rem; }
+  .sub { opacity: .7; margin-bottom: 2rem; }
+  h2 { font-size: 1.25rem; margin: 2.4rem 0 .8rem; }
+  p { margin-bottom: .7rem; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .backlink { font-size: .9rem; }
+  .langsel {
+    font-size: .85rem; padding: .25rem .5rem; border-radius: 8px;
+    border: 1px solid #ccc; background: #fff; color: inherit;
+  }
+  .store {
+    display: inline-block; background: #01875f; color: #fff; text-decoration: none;
+    padding: .55rem 1.2rem; border-radius: 24px; font-weight: 600; font-size: .95rem; margin-top: .6rem;
+  }
+  .step {
+    background: #fff; border-radius: 14px; padding: 1rem 1.2rem; margin-bottom: .8rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07); display: flex; gap: .9rem; align-items: flex-start;
+  }
+  .num {
+    flex: 0 0 auto; width: 1.8rem; height: 1.8rem; border-radius: 50%;
+    background: #01875f; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  }
+  .card {
+    background: #fff; border-radius: 14px; padding: 1.1rem 1.2rem; margin-bottom: 1rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07);
+  }
+  .mode { display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap; }
+  .mode video {
+    flex: 0 0 200px; width: 200px; max-width: 100%; border-radius: 10px; background: #000;
+  }
+  .mode .txt { flex: 1 1 260px; }
+  .mode h3 { font-size: 1.05rem; margin-bottom: .3rem; }
+  .badge {
+    display: inline-block; font-size: .75rem; background: #e8f3ef; border-radius: 8px;
+    padding: .1rem .5rem; margin-left: .4rem; vertical-align: middle; opacity: .9;
+  }
+  ul, ol { padding-left: 1.3rem; margin-bottom: .7rem; }
+  li { margin-bottom: .3rem; }
+  .faq details {
+    background: #fff; border-radius: 12px; padding: .8rem 1.1rem; margin-bottom: .6rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07);
+  }
+  .faq summary { cursor: pointer; font-weight: 600; }
+  .faq details p, .faq details ul { margin-top: .5rem; }
+  footer { margin-top: 3rem; font-size: .85rem; opacity: .6; }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <div class="topbar">
+    <p class="backlink"><a href="https://aidanpark.github.io/">&larr; BoxBee</a></p>
+    <select class="langsel" id="langSel" aria-label="Language"><option value="en">English</option><option value="ko">한국어</option><option value="ja">日本語</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="es">Español</option><option value="pt-BR" selected>Português (Brasil)</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="ru">Русский</option><option value="id">Bahasa Indonesia</option><option value="vi">Tiếng Việt</option><option value="th">ไทย</option><option value="tr">Türkçe</option><option value="ar">العربية</option><option value="hi">हिन्दी</option></select>
+  </div>
+  <h1>Como usar o Screen Translate</h1>
+  <p class="sub">Traduza qualquer texto da sua tela em tempo real — jogos, chats, quadrinhos, apps.</p>
+
+  <h2>🚀 Início rápido</h2>
+  <div class="step"><div class="num">1</div><div><strong>Conceda duas permissões.</strong> Na primeira abertura, o app pede <em>Sobrepor a outros apps</em> (para a bolha flutuante) e <em>Captura de tela</em> (para ler o texto na tela). No Android 14+, escolha <em>“Tela inteira”</em> quando solicitado.</div></div>
+  <div class="step"><div class="num">2</div><div><strong>Assista a um anúncio curto.</strong> Um único anúncio premiado deixa o app <em>sem anúncios até você fechá-lo</em>. Se você pular o anúncio, a tela de anúncio simplesmente reabre na próxima tradução.</div></div>
+  <div class="step"><div class="num">3</div><div><strong>Arraste o ponteiro até o texto.</strong> Uma bolha flutuante aparece na tela. Arraste-a — um ponteiro segue seu dedo. Aponte para qualquer texto e solte: a tradução aparece ali mesmo.</div></div>
+
+  <h2>📌 A barra de menu flutuante</h2>
+  <div class="card">
+    <p>A <strong>barra de menu</strong> flutua na tela o tempo todo — é o centro de controle do app. Ela só se esconde brevemente durante a captura (enquanto você segura o ponteiro) e enquanto uma janela de tradução está visível. Ela faz mais do que a maioria imagina:</p>
+    <ul>
+      <li><strong>Ícone do modo de detecção</strong> (esquerda) — alterna entre Palavra / Frase / Parágrafo / Selecionar área / Área fixa.</li>
+      <li><strong>Idioma de origem</strong> — <em>Auto</em> detecta para você; toque para fixar um idioma específico.</li>
+      <li><strong>⇄ Trocar</strong> — inverte origem e destino com um toque.</li>
+      <li><strong>Idioma de destino</strong> — toque para escolher entre mais de 110 idiomas.</li>
+      <li><strong>Ícone do motor</strong> (direita) — toque para trocar o motor de tradução: Google, DeepL, GPT, Gemini, Claude.</li>
+    </ul>
+    <p>A barra pode ser arrastada para qualquer lugar. Se você raramente muda essas opções e ela incomoda, ajuste a transparência e o layout nas Configurações — ou oculte-a por completo em <em>Mostrar barra de menu</em>.</p>
+  </div>
+
+  <h2>🎯 Cinco modos de tradução</h2>
+  <p>Troque de modo pelo ícone de modo de detecção na <strong>barra de menu</strong> flutuante.</p>
+
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/word.jpg" src="../media/word.mp4"></video>
+    <div class="txt"><h3>Palavra</h3>
+    <p>Aponte para uma única palavra para traduzir só ela. Ótimo para aprender idiomas — inclui pronúncia ao tocar (TTS).</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/sentence.jpg" src="../media/sentence.mp4"></video>
+    <div class="txt"><h3>Frase</h3>
+    <p>Aponte para qualquer parte de uma frase para traduzi-la inteira. O modo mais popular para chats e redes sociais.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/paragraph.jpg" src="../media/paragraph.mp4"></video>
+    <div class="txt"><h3>Parágrafo</h3>
+    <p>Aponte para um bloco de texto para traduzir o parágrafo inteiro de uma vez — ideal para artigos e documentos.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/select.jpg" src="../media/select.mp4"></video>
+    <div class="txt"><h3>Selecionar área</h3>
+    <p>Arraste para desenhar uma caixa exatamente sobre o que você quer traduzir. Perfeito quando o layout é confuso.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/fixed_area.jpg" src="../media/fixed_area.mp4"></video>
+    <div class="txt"><h3>Área fixa <span class="badge">para jogos e legendas</span></h3>
+    <p>Fixe uma região da tela — o app a retraduz automaticamente sempre que o conteúdo muda. Feito para diálogos de jogos e legendas de vídeo.</p></div>
+  </div>
+
+  <h2>🌐 Idiomas</h2>
+  <p>Mais de 110 idiomas. O idioma de origem é <strong>detectado automaticamente</strong>; escolha o idioma de destino na barra de menu. Troque quando quiser.</p>
+
+  <h2>🤖 Tradução com IA (opcional)</h2>
+  <div class="card">
+    <p>O motor Google integrado é gratuito e não precisa de configuração. Prefere tradução com IA? Conecte sua própria chave de API:</p>
+    <ul>
+      <li><strong>DeepL</strong> — plano gratuito disponível em deepl.com</li>
+      <li><strong>OpenAI (GPT)</strong> — chave no painel da OpenAI</li>
+      <li><strong>Gemini</strong> — nível gratuito via Google AI Studio</li>
+      <li><strong>Claude</strong> — chave no Console da Anthropic</li>
+    </ul>
+    <p>Barra de menu → <em>motor de tradução</em> → escolha um motor → cole sua chave. O uso é cobrado na <em>sua</em> conta com o provedor; o app não cobra nada a mais.</p>
+    <p>Se uma tradução falhar, o app mostra o motivo na tela — chave de API inválida, conta sem crédito, limite de uso ou erro de rede. Atenção: uma chave válida sozinha não basta — a conta no provedor também precisa de crédito ou de um nível gratuito ativo.</p>
+  </div>
+
+  <h2>🔊 Leitura em voz alta e vozes TTS</h2>
+  <div class="card">
+    <p>O app pode ler o texto em voz alta: toque no ícone de alto-falante em uma tradução ou ative a <em>leitura automática</em> nas Configurações. Em <em>Alvo da leitura</em> você escolhe se ele lê o texto original ou a tradução.</p>
+    <p>Escolha a voz em Configurações → <em>Voz TTS</em>: as vozes são agrupadas por idioma e, ao tocar em uma, toca uma prévia curta para você comparar antes de escolher.</p>
+  </div>
+
+  <h2>💬 Respondendo em chats</h2>
+  <div class="card">
+    <p>Traduziu uma mensagem de chat? Toque no <strong>ícone de resposta</strong> no canto inferior direito da janela de tradução e digite sua resposta no seu idioma — ela é traduzida na hora para o idioma da outra pessoa.</p>
+    <p>Toque em <strong>copiar</strong>, cole no chat e envie. Dá para manter uma conversa inteira sem sair do app de mensagens.</p>
+  </div>
+
+  <h2>❓ Perguntas frequentes e solução de problemas</h2>
+  <div class="faq">
+    <details><summary>A bolha flutuante sumiu</summary>
+      <p>Abra o app novamente para reiniciar o serviço. Se continuar acontecendo, verifique se <em>Sobrepor a outros apps</em> continua permitido e exclua o app da otimização de bateria (Configurações → Bateria → Sem restrições).</p></details>
+    <details><summary>A primeira tradução é lenta ou diz “preparando”</summary>
+      <p>No primeiro uso, o modelo de OCR é baixado uma vez pelos serviços do Google Play. Depois disso, o reconhecimento é instantâneo e o OCR funciona offline.</p></details>
+    <details><summary>Em algumas telas nada acontece</summary>
+      <p>Apps que bloqueiam capturas de tela (apps de banco, players com DRM) não podem ser capturados — o Android esconde o conteúdo deles de todos os apps de captura.</p></details>
+    <details><summary>Por que vejo um anúncio?</summary>
+      <p>Um anúncio curto por sessão mantém todos os recursos principais gratuitos. Depois do anúncio, o app fica totalmente sem anúncios até você fechá-lo.</p></details>
+    <details><summary>Uma mensagem ⚠ diz que a tradução falhou</summary>
+      <p>A mensagem diz o porquê. <em>Chave de API inválida</em>: confira a chave nas Configurações. <em>Sem crédito</em>: recarregue no console do provedor — chave válida ainda precisa de crédito. <em>Limite de uso</em>: aguarde um momento e tente de novo. <em>Erro de rede</em>: verifique sua conexão.</p></details>
+    <details><summary>A qualidade da tradução parece estranha</summary>
+      <p>Experimente o modo Frase ou Parágrafo (mais contexto = tradução melhor), ou conecte um motor de IA (DeepL/GPT/Gemini/Claude) para a melhor qualidade.</p></details>
+  </div>
+
+  <h2>💻 Código aberto</h2>
+  <div class="card">
+    <p>O Screen Translate é de código aberto — todo o código-fonte está no <a href="https://github.com/AidanPark/android-screen-translator">GitHub</a>. Qualquer pessoa pode explorar o código, modificá-lo como quiser e compilar a própria versão. A licença é Apache-2.0; mantenha a atribuição (aviso de copyright) ao reutilizá-lo.</p>
+  </div>
+
+  <h2>📮 Ainda com problemas?</h2>
+  <p>Escreva para <a href="mailto:handwritingdictionary@gmail.com">handwritingdictionary@gmail.com</a> — lemos tudo.</p>
+  <a class="store" href="https://play.google.com/store/apps/details?id=com.galaxy.airviewdictionary">Baixar no Google Play</a>
+
+  <footer>© 2026 BoxBee Corp.</footer>
+</main>
+<script>
+(function () {
+  var sel = document.getElementById('langSel');
+  sel.addEventListener('change', function () {
+    var v = sel.value;
+    try { localStorage.setItem('guideLang', v); } catch (e) {}
+    location.href = v === 'en' ? '/screen-translator/guide/' : '/screen-translator/guide/' + v + '/';
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="วิธีใช้ Screen Translate: OCR & Live — สิทธิ์การเข้าถึง โหมดการแปล เอนจิน AI การอ่านออกเสียง และการแก้ปัญหา">
+<title>วิธีใช้งาน — Screen Translate: OCR &amp; Live</title>
+<link rel="alternate" hreflang="x-default" href="https://aidanpark.github.io/screen-translator/guide/">
+<link rel="alternate" hreflang="en" href="https://aidanpark.github.io/screen-translator/guide/">
+<link rel="alternate" hreflang="ko" href="https://aidanpark.github.io/screen-translator/guide/ko/">
+<link rel="alternate" hreflang="ja" href="https://aidanpark.github.io/screen-translator/guide/ja/">
+<link rel="alternate" hreflang="zh-CN" href="https://aidanpark.github.io/screen-translator/guide/zh-CN/">
+<link rel="alternate" hreflang="zh-TW" href="https://aidanpark.github.io/screen-translator/guide/zh-TW/">
+<link rel="alternate" hreflang="es" href="https://aidanpark.github.io/screen-translator/guide/es/">
+<link rel="alternate" hreflang="pt-BR" href="https://aidanpark.github.io/screen-translator/guide/pt-BR/">
+<link rel="alternate" hreflang="fr" href="https://aidanpark.github.io/screen-translator/guide/fr/">
+<link rel="alternate" hreflang="de" href="https://aidanpark.github.io/screen-translator/guide/de/">
+<link rel="alternate" hreflang="ru" href="https://aidanpark.github.io/screen-translator/guide/ru/">
+<link rel="alternate" hreflang="id" href="https://aidanpark.github.io/screen-translator/guide/id/">
+<link rel="alternate" hreflang="vi" href="https://aidanpark.github.io/screen-translator/guide/vi/">
+<link rel="alternate" hreflang="th" href="https://aidanpark.github.io/screen-translator/guide/th/">
+<link rel="alternate" hreflang="tr" href="https://aidanpark.github.io/screen-translator/guide/tr/">
+<link rel="alternate" hreflang="ar" href="https://aidanpark.github.io/screen-translator/guide/ar/">
+<link rel="alternate" hreflang="hi" href="https://aidanpark.github.io/screen-translator/guide/hi/">
+<style>
+  :root { color-scheme: light dark; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+    line-height: 1.65; background: #fafafa; color: #1a1a1a;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: #111; color: #eee; }
+    .card, .step, .faq details { background: #1c1c1e !important; }
+    .badge { background: #333 !important; }
+    .langsel { background: #1c1c1e; color: #eee; border-color: #444; }
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
+  a { color: #01875f; }
+  h1 { font-size: 1.7rem; margin: .8rem 0 .3rem; }
+  .sub { opacity: .7; margin-bottom: 2rem; }
+  h2 { font-size: 1.25rem; margin: 2.4rem 0 .8rem; }
+  p { margin-bottom: .7rem; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .backlink { font-size: .9rem; }
+  .langsel {
+    font-size: .85rem; padding: .25rem .5rem; border-radius: 8px;
+    border: 1px solid #ccc; background: #fff; color: inherit;
+  }
+  .store {
+    display: inline-block; background: #01875f; color: #fff; text-decoration: none;
+    padding: .55rem 1.2rem; border-radius: 24px; font-weight: 600; font-size: .95rem; margin-top: .6rem;
+  }
+  .step {
+    background: #fff; border-radius: 14px; padding: 1rem 1.2rem; margin-bottom: .8rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07); display: flex; gap: .9rem; align-items: flex-start;
+  }
+  .num {
+    flex: 0 0 auto; width: 1.8rem; height: 1.8rem; border-radius: 50%;
+    background: #01875f; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  }
+  .card {
+    background: #fff; border-radius: 14px; padding: 1.1rem 1.2rem; margin-bottom: 1rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07);
+  }
+  .mode { display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap; }
+  .mode video {
+    flex: 0 0 200px; width: 200px; max-width: 100%; border-radius: 10px; background: #000;
+  }
+  .mode .txt { flex: 1 1 260px; }
+  .mode h3 { font-size: 1.05rem; margin-bottom: .3rem; }
+  .badge {
+    display: inline-block; font-size: .75rem; background: #e8f3ef; border-radius: 8px;
+    padding: .1rem .5rem; margin-left: .4rem; vertical-align: middle; opacity: .9;
+  }
+  ul, ol { padding-left: 1.3rem; margin-bottom: .7rem; }
+  li { margin-bottom: .3rem; }
+  .faq details {
+    background: #fff; border-radius: 12px; padding: .8rem 1.1rem; margin-bottom: .6rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07);
+  }
+  .faq summary { cursor: pointer; font-weight: 600; }
+  .faq details p, .faq details ul { margin-top: .5rem; }
+  footer { margin-top: 3rem; font-size: .85rem; opacity: .6; }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <div class="topbar">
+    <p class="backlink"><a href="https://aidanpark.github.io/">&larr; BoxBee</a></p>
+    <select class="langsel" id="langSel" aria-label="Language"><option value="en">English</option><option value="ko">한국어</option><option value="ja">日本語</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="es">Español</option><option value="pt-BR">Português (Brasil)</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="ru">Русский</option><option value="id">Bahasa Indonesia</option><option value="vi">Tiếng Việt</option><option value="th" selected>ไทย</option><option value="tr">Türkçe</option><option value="ar">العربية</option><option value="hi">हिन्दी</option></select>
+  </div>
+  <h1>วิธีใช้ Screen Translate</h1>
+  <p class="sub">แปลข้อความบนหน้าจอแบบเรียลไทม์ — เกม แชท การ์ตูน แอปต่างๆ</p>
+
+  <h2>🚀 เริ่มต้นอย่างรวดเร็ว</h2>
+  <div class="step"><div class="num">1</div><div><strong>ให้สิทธิ์ 2 อย่าง</strong> เมื่อเปิดครั้งแรก แอปจะขอสิทธิ์ <em>แสดงทับแอปอื่น</em> (สำหรับฟองลอย) และ <em>บันทึกหน้าจอ</em> (เพื่ออ่านข้อความบนจอ) บน Android 14 ขึ้นไป ให้เลือก <em>“ทั้งหน้าจอ”</em> เมื่อระบบถาม</div></div>
+  <div class="step"><div class="num">2</div><div><strong>ดูโฆษณาสั้น 1 ครั้ง</strong> โฆษณาแบบมีรางวัลเพียงครั้งเดียวทำให้แอป <em>ไร้โฆษณาจนกว่าคุณจะปิดแอป</em> ถ้าข้ามโฆษณา หน้าโฆษณาจะเปิดขึ้นอีกครั้งในการแปลครั้งถัดไป</div></div>
+  <div class="step"><div class="num">3</div><div><strong>ลากตัวชี้ไปที่ข้อความ</strong> ฟองลอยจะปรากฏบนหน้าจอ ลากมัน — ตัวชี้จะตามนิ้วคุณ ชี้ที่ข้อความใดก็ได้แล้วปล่อย: คำแปลจะเด้งขึ้นตรงนั้นทันที</div></div>
+
+  <h2>📌 แถบเมนูลอย</h2>
+  <div class="card">
+    <p><strong>แถบเมนู</strong>ลอยอยู่บนหน้าจอตลอดเวลา — ศูนย์ควบคุมของแอป จะซ่อนชั่วคราวเฉพาะตอนจับภาพ (ขณะกดตัวชี้ค้าง) และตอนที่หน้าต่างคำแปลแสดงอยู่เท่านั้น ทำได้มากกว่าที่คิด:</p>
+    <ul>
+      <li><strong>ไอคอนโหมดตรวจจับ</strong> (ซ้าย) — สลับระหว่าง คำ / ประโยค / ย่อหน้า / เลือกพื้นที่ / พื้นที่คงที่</li>
+      <li><strong>ภาษาต้นทาง</strong> — <em>Auto</em> ตรวจจับให้อัตโนมัติ แตะเพื่อปักหมุดเป็นภาษาใดภาษาหนึ่งก็ได้</li>
+      <li><strong>⇄ สลับ</strong> — สลับภาษาต้นทางกับปลายทางในแตะเดียว</li>
+      <li><strong>ภาษาปลายทาง</strong> — แตะเพื่อเลือกจากกว่า 110 ภาษา</li>
+      <li><strong>ไอคอนเอนจิน</strong> (ขวา) — แตะเพื่อสลับเอนจินการแปล: Google, DeepL, GPT, Gemini, Claude</li>
+    </ul>
+    <p>ตัวแถบเมนูลากไปวางตรงไหนก็ได้ ถ้าคุณแทบไม่เปลี่ยนตัวเลือกเหล่านี้และรู้สึกเกะกะ ปรับความโปร่งใสและเลย์เอาต์ได้ในการตั้งค่า — หรือปิด<em>แสดงแถบเมนู</em>เพื่อซ่อนไปเลย</p>
+  </div>
+
+  <h2>🎯 โหมดการแปล 5 แบบ</h2>
+  <p>สลับโหมดด้วยไอคอนโหมดตรวจจับบน<strong>แถบเมนู</strong>ลอย</p>
+
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/word.jpg" src="../media/word.mp4"></video>
+    <div class="txt"><h3>คำ</h3>
+    <p>ชี้ที่คำเดียวเพื่อแปลเฉพาะคำนั้น เหมาะกับการเรียนภาษา — แตะเพื่อฟังการออกเสียง (TTS) ได้ด้วย</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/sentence.jpg" src="../media/sentence.mp4"></video>
+    <div class="txt"><h3>ประโยค</h3>
+    <p>ชี้ที่ตรงไหนก็ได้ในประโยคเพื่อแปลทั้งประโยค โหมดยอดนิยมสำหรับแชทและโซเชียลมีเดีย</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/paragraph.jpg" src="../media/paragraph.mp4"></video>
+    <div class="txt"><h3>ย่อหน้า</h3>
+    <p>ชี้ที่บล็อกข้อความเพื่อแปลทั้งย่อหน้าในครั้งเดียว — เหมาะกับบทความและเอกสาร</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/select.jpg" src="../media/select.mp4"></video>
+    <div class="txt"><h3>เลือกพื้นที่</h3>
+    <p>ลากวาดกรอบรอบส่วนที่ต้องการแปลพอดี เหมาะมากเมื่อเลย์เอาต์ซับซ้อน</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/fixed_area.jpg" src="../media/fixed_area.mp4"></video>
+    <div class="txt"><h3>พื้นที่คงที่ <span class="badge">สำหรับเกมและซับไตเติล</span></h3>
+    <p>ปักหมุดพื้นที่หนึ่งบนหน้าจอ — แอปจะแปลใหม่อัตโนมัติทุกครั้งที่เนื้อหาเปลี่ยน สร้างมาเพื่อบทสนทนาในเกมและซับไตเติลวิดีโอ</p></div>
+  </div>
+
+  <h2>🌐 ภาษา</h2>
+  <p>รองรับกว่า 110 ภาษา ภาษาต้นทาง<strong>ตรวจจับอัตโนมัติ</strong> เพียงเลือกภาษาปลายทางจากแถบเมนู สลับได้ทุกเมื่อ</p>
+
+  <h2>🤖 การแปลด้วย AI (ไม่บังคับ)</h2>
+  <div class="card">
+    <p>เอนจิน Google ในตัวฟรีและไม่ต้องตั้งค่า อยากใช้การแปลด้วย AI? เชื่อมต่อคีย์ API ของคุณเอง:</p>
+    <ul>
+      <li><strong>DeepL</strong> — มีแผนฟรีที่ deepl.com</li>
+      <li><strong>OpenAI (GPT)</strong> — รับคีย์จากแดชบอร์ด OpenAI</li>
+      <li><strong>Gemini</strong> — ระดับฟรีผ่าน Google AI Studio</li>
+      <li><strong>Claude</strong> — รับคีย์จาก Anthropic Console</li>
+    </ul>
+    <p>แถบเมนู → <em>เอนจินการแปล</em> → เลือกเอนจิน → วางคีย์ ค่าใช้จ่ายเรียกเก็บจากบัญชี<em>ของคุณ</em>กับผู้ให้บริการนั้น แอปไม่บวกเพิ่ม</p>
+    <p>ถ้าการแปลล้มเหลว แอปจะแสดงสาเหตุบนหน้าจอทันที — คีย์ API ไม่ถูกต้อง เครดิตหมด ถึงขีดจำกัดการใช้งาน หรือข้อผิดพลาดเครือข่าย หมายเหตุ: มีคีย์ที่ใช้ได้อย่างเดียวยังไม่พอ — บัญชีกับผู้ให้บริการต้องมีเครดิตหรือระดับฟรีที่ใช้งานได้ด้วย</p>
+  </div>
+
+  <h2>🔊 อ่านออกเสียงและเสียง TTS</h2>
+  <div class="card">
+    <p>แอปอ่านข้อความออกเสียงได้: แตะไอคอนลำโพงบนคำแปล หรือเปิด<em>อ่านออกเสียงอัตโนมัติ</em>ในการตั้งค่า ตัวเลือก<em>เป้าหมายการอ่าน</em>ใช้เลือกว่าจะอ่านต้นฉบับหรือคำแปล</p>
+    <p>เลือกเสียงได้ที่ การตั้งค่า → <em>เสียง TTS</em>: เสียงจัดกลุ่มตามภาษา แตะเสียงใดก็จะเล่นตัวอย่างสั้นๆ ให้เทียบก่อนเลือก</p>
+  </div>
+
+  <h2>💬 ตอบกลับในแชท</h2>
+  <div class="card">
+    <p>แปลข้อความแชทแล้ว? แตะ<strong>ไอคอนตอบกลับ</strong>ที่มุมขวาล่างของหน้าต่างคำแปล แล้วพิมพ์คำตอบเป็นภาษาของคุณ — ระบบจะแปลเป็นภาษาของอีกฝ่ายทันที</p>
+    <p>แตะ<strong>คัดลอก</strong> วางในแชทแล้วส่งได้เลย คุยกันได้ทั้งบทสนทนาโดยไม่ต้องออกจากแอปแชท</p>
+  </div>
+
+  <h2>❓ คำถามที่พบบ่อยและการแก้ปัญหา</h2>
+  <div class="faq">
+    <details><summary>ฟองลอยหายไป</summary>
+      <p>เปิดแอปอีกครั้งเพื่อรีสตาร์ทบริการ ถ้าเกิดซ้ำ ตรวจสอบว่าสิทธิ์ <em>แสดงทับแอปอื่น</em> ยังเปิดอยู่ และยกเว้นแอปจากการเพิ่มประสิทธิภาพแบตเตอรี่ (การตั้งค่า → แบตเตอรี่ → ไม่จำกัด)</p></details>
+    <details><summary>การแปลครั้งแรกช้าหรือขึ้นว่า “กำลังเตรียม”</summary>
+      <p>การใช้ครั้งแรกจะดาวน์โหลดโมเดล OCR หนึ่งครั้งผ่านบริการ Google Play หลังจากนั้นการรู้จำจะทันทีและ OCR ทำงานออฟไลน์ได้</p></details>
+    <details><summary>บางหน้าจอไม่มีอะไรเกิดขึ้น</summary>
+      <p>แอปที่บล็อกการจับภาพหน้าจอ (แอปธนาคาร เครื่องเล่นวิดีโอ DRM) ไม่สามารถจับภาพได้ — Android ซ่อนเนื้อหาเหล่านั้นจากแอปจับภาพทุกตัว</p></details>
+    <details><summary>ทำไมถึงเห็นโฆษณา?</summary>
+      <p>โฆษณาสั้น 1 ครั้งต่อเซสชันทำให้ฟีเจอร์หลักทั้งหมดฟรี หลังดูโฆษณาแล้ว แอปจะไร้โฆษณาโดยสมบูรณ์จนกว่าคุณจะปิด</p></details>
+    <details><summary>มีข้อความ ⚠ บอกว่าการแปลล้มเหลว</summary>
+      <p>ข้อความจะบอกสาเหตุ <em>คีย์ API ไม่ถูกต้อง</em>: ตรวจคีย์ในการตั้งค่าอีกครั้ง <em>เครดิตหมด</em>: เติมเงินที่คอนโซลของผู้ให้บริการ — คีย์ที่ใช้ได้ก็ยังต้องมีเครดิต <em>ถึงขีดจำกัด</em>: รอสักครู่แล้วลองใหม่ <em>ข้อผิดพลาดเครือข่าย</em>: ตรวจสอบการเชื่อมต่อ</p></details>
+    <details><summary>คุณภาพการแปลดูแปลกๆ</summary>
+      <p>ลองโหมดประโยคหรือย่อหน้า (บริบทมากขึ้น = แปลดีขึ้น) หรือเชื่อมต่อเอนจิน AI (DeepL/GPT/Gemini/Claude) เพื่อคุณภาพที่ดีที่สุด</p></details>
+  </div>
+
+  <h2>💻 โอเพนซอร์ส</h2>
+  <div class="card">
+    <p>Screen Translate เป็นโอเพนซอร์ส — ซอร์สโค้ดทั้งหมดอยู่บน <a href="https://github.com/AidanPark/android-screen-translator">GitHub</a> ใครก็สามารถศึกษาโค้ด แก้ไขได้ตามใจ และบิลด์เวอร์ชันของตัวเองมาใช้ได้ สัญญาอนุญาตคือ Apache-2.0 — โปรดคงการให้เครดิต (ประกาศลิขสิทธิ์) เมื่อนำไปใช้</p>
+  </div>
+
+  <h2>📮 ยังติดอยู่ไหม?</h2>
+  <p>อีเมลหาเราที่ <a href="mailto:handwritingdictionary@gmail.com">handwritingdictionary@gmail.com</a> — เราอ่านทุกฉบับ</p>
+  <a class="store" href="https://play.google.com/store/apps/details?id=com.galaxy.airviewdictionary">ดาวน์โหลดใน Google Play</a>
+
+  <footer>© 2026 BoxBee Corp.</footer>
+</main>
+<script>
+(function () {
+  var sel = document.getElementById('langSel');
+  sel.addEventListener('change', function () {
+    var v = sel.value;
+    try { localStorage.setItem('guideLang', v); } catch (e) {}
+    location.href = v === 'en' ? '/screen-translator/guide/' : '/screen-translator/guide/' + v + '/';
+  });
+})();
+</script>
+</body>
+</html>

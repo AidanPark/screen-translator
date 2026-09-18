@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Screen Translate: OCR & Live nasıl kullanılır — izinler, çeviri modları, yapay zekâ motorları, sesli okuma ve sorun giderme.">
+<title>Kullanım Kılavuzu — Screen Translate: OCR &amp; Live</title>
+<link rel="alternate" hreflang="x-default" href="https://aidanpark.github.io/screen-translator/guide/">
+<link rel="alternate" hreflang="en" href="https://aidanpark.github.io/screen-translator/guide/">
+<link rel="alternate" hreflang="ko" href="https://aidanpark.github.io/screen-translator/guide/ko/">
+<link rel="alternate" hreflang="ja" href="https://aidanpark.github.io/screen-translator/guide/ja/">
+<link rel="alternate" hreflang="zh-CN" href="https://aidanpark.github.io/screen-translator/guide/zh-CN/">
+<link rel="alternate" hreflang="zh-TW" href="https://aidanpark.github.io/screen-translator/guide/zh-TW/">
+<link rel="alternate" hreflang="es" href="https://aidanpark.github.io/screen-translator/guide/es/">
+<link rel="alternate" hreflang="pt-BR" href="https://aidanpark.github.io/screen-translator/guide/pt-BR/">
+<link rel="alternate" hreflang="fr" href="https://aidanpark.github.io/screen-translator/guide/fr/">
+<link rel="alternate" hreflang="de" href="https://aidanpark.github.io/screen-translator/guide/de/">
+<link rel="alternate" hreflang="ru" href="https://aidanpark.github.io/screen-translator/guide/ru/">
+<link rel="alternate" hreflang="id" href="https://aidanpark.github.io/screen-translator/guide/id/">
+<link rel="alternate" hreflang="vi" href="https://aidanpark.github.io/screen-translator/guide/vi/">
+<link rel="alternate" hreflang="th" href="https://aidanpark.github.io/screen-translator/guide/th/">
+<link rel="alternate" hreflang="tr" href="https://aidanpark.github.io/screen-translator/guide/tr/">
+<link rel="alternate" hreflang="ar" href="https://aidanpark.github.io/screen-translator/guide/ar/">
+<link rel="alternate" hreflang="hi" href="https://aidanpark.github.io/screen-translator/guide/hi/">
+<style>
+  :root { color-scheme: light dark; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+    line-height: 1.65; background: #fafafa; color: #1a1a1a;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: #111; color: #eee; }
+    .card, .step, .faq details { background: #1c1c1e !important; }
+    .badge { background: #333 !important; }
+    .langsel { background: #1c1c1e; color: #eee; border-color: #444; }
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 2rem 1.2rem 4rem; }
+  a { color: #01875f; }
+  h1 { font-size: 1.7rem; margin: .8rem 0 .3rem; }
+  .sub { opacity: .7; margin-bottom: 2rem; }
+  h2 { font-size: 1.25rem; margin: 2.4rem 0 .8rem; }
+  p { margin-bottom: .7rem; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .backlink { font-size: .9rem; }
+  .langsel {
+    font-size: .85rem; padding: .25rem .5rem; border-radius: 8px;
+    border: 1px solid #ccc; background: #fff; color: inherit;
+  }
+  .store {
+    display: inline-block; background: #01875f; color: #fff; text-decoration: none;
+    padding: .55rem 1.2rem; border-radius: 24px; font-weight: 600; font-size: .95rem; margin-top: .6rem;
+  }
+  .step {
+    background: #fff; border-radius: 14px; padding: 1rem 1.2rem; margin-bottom: .8rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07); display: flex; gap: .9rem; align-items: flex-start;
+  }
+  .num {
+    flex: 0 0 auto; width: 1.8rem; height: 1.8rem; border-radius: 50%;
+    background: #01875f; color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  }
+  .card {
+    background: #fff; border-radius: 14px; padding: 1.1rem 1.2rem; margin-bottom: 1rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07);
+  }
+  .mode { display: flex; gap: 1rem; align-items: flex-start; flex-wrap: wrap; }
+  .mode video {
+    flex: 0 0 200px; width: 200px; max-width: 100%; border-radius: 10px; background: #000;
+  }
+  .mode .txt { flex: 1 1 260px; }
+  .mode h3 { font-size: 1.05rem; margin-bottom: .3rem; }
+  .badge {
+    display: inline-block; font-size: .75rem; background: #e8f3ef; border-radius: 8px;
+    padding: .1rem .5rem; margin-left: .4rem; vertical-align: middle; opacity: .9;
+  }
+  ul, ol { padding-left: 1.3rem; margin-bottom: .7rem; }
+  li { margin-bottom: .3rem; }
+  .faq details {
+    background: #fff; border-radius: 12px; padding: .8rem 1.1rem; margin-bottom: .6rem;
+    box-shadow: 0 1px 8px rgba(0,0,0,.07);
+  }
+  .faq summary { cursor: pointer; font-weight: 600; }
+  .faq details p, .faq details ul { margin-top: .5rem; }
+  footer { margin-top: 3rem; font-size: .85rem; opacity: .6; }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <div class="topbar">
+    <p class="backlink"><a href="https://aidanpark.github.io/">&larr; BoxBee</a></p>
+    <select class="langsel" id="langSel" aria-label="Language"><option value="en">English</option><option value="ko">한국어</option><option value="ja">日本語</option><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="es">Español</option><option value="pt-BR">Português (Brasil)</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="ru">Русский</option><option value="id">Bahasa Indonesia</option><option value="vi">Tiếng Việt</option><option value="th">ไทย</option><option value="tr" selected>Türkçe</option><option value="ar">العربية</option><option value="hi">हिन्दी</option></select>
+  </div>
+  <h1>Screen Translate Nasıl Kullanılır</h1>
+  <p class="sub">Ekranınızdaki her metni gerçek zamanlı çevirin — oyunlar, sohbetler, çizgi romanlar, uygulamalar.</p>
+
+  <h2>🚀 Hızlı Başlangıç</h2>
+  <div class="step"><div class="num">1</div><div><strong>İki izin verin.</strong> İlk açılışta uygulama <em>Diğer uygulamaların üzerinde göster</em> (yüzen baloncuk için) ve <em>Ekran yakalama</em> (ekrandaki metni okumak için) izinlerini ister. Android 14+ sürümünde sorulduğunda <em>“Tüm ekran”</em> seçin.</div></div>
+  <div class="step"><div class="num">2</div><div><strong>Kısa bir reklam izleyin.</strong> Tek bir ödüllü reklam, uygulamayı <em>siz kapatana kadar reklamsız</em> yapar. Reklamı atlarsanız, reklam ekranı bir sonraki çeviride yeniden açılır.</div></div>
+  <div class="step"><div class="num">3</div><div><strong>İşaretçiyi metnin üzerine sürükleyin.</strong> Ekranda yüzen bir baloncuk belirir. Sürükleyin — işaretçi parmağınızı izler. Herhangi bir metni işaret edip bırakın: çeviri hemen orada belirir.</div></div>
+
+  <h2>📌 Yüzen Menü Çubuğu</h2>
+  <div class="card">
+    <p><strong>Menü çubuğu</strong> ekranda her zaman yüzer — uygulamanın kontrol merkezidir. Yalnızca yakalama sırasında (işaretçiyi basılı tutarken) ve bir çeviri penceresi görünürken kısa süreliğine gizlenir. Sanılandan fazlasını yapar:</p>
+    <ul>
+      <li><strong>Algılama modu simgesi</strong> (solda) — Kelime / Cümle / Paragraf / Alan Seç / Sabit Alan arasında geçiş yapar.</li>
+      <li><strong>Kaynak dil</strong> — <em>Auto</em> sizin için algılar; belirli bir dile sabitlemek için dokunun.</li>
+      <li><strong>⇄ Değiştir</strong> — kaynak ve hedefi tek dokunuşla ters çevirir.</li>
+      <li><strong>Hedef dil</strong> — dokunup 110'dan fazla dil arasından seçin.</li>
+      <li><strong>Motor simgesi</strong> (sağda) — her dokunuş çeviri motorunu değiştirir: Google, DeepL, GPT, Gemini, Claude.</li>
+    </ul>
+    <p>Çubuk istediğiniz yere sürüklenebilir. Bu seçenekleri nadiren değiştiriyor ve çubuk gözünüze batıyorsa, Ayarlar'dan saydamlığını ve düzenini ayarlayın — ya da <em>Menü çubuğunu göster</em> ile tamamen gizleyin.</p>
+  </div>
+
+  <h2>🎯 Beş Çeviri Modu</h2>
+  <p>Modları, yüzen <strong>menü çubuğundaki</strong> algılama modu simgesiyle değiştirin.</p>
+
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/word.jpg" src="../media/word.mp4"></video>
+    <div class="txt"><h3>Kelime</h3>
+    <p>Tek bir kelimeyi işaret ederek yalnızca o kelimeyi çevirin. Dil öğrenmek için harika — dokununca telaffuz da dinlenir (TTS).</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/sentence.jpg" src="../media/sentence.mp4"></video>
+    <div class="txt"><h3>Cümle</h3>
+    <p>Cümlenin herhangi bir yerini işaret ederek cümlenin tamamını çevirin. Sohbet ve sosyal medya için en popüler mod.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/paragraph.jpg" src="../media/paragraph.mp4"></video>
+    <div class="txt"><h3>Paragraf</h3>
+    <p>Bir metin bloğunu işaret ederek tüm paragrafı tek seferde çevirin — makale ve belgeler için ideal.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/select.jpg" src="../media/select.mp4"></video>
+    <div class="txt"><h3>Alan Seç</h3>
+    <p>Çevrilmesini istediğiniz kısmın etrafına sürükleyerek kutu çizin. Karmaşık düzenlerde mükemmel.</p></div>
+  </div>
+  <div class="card mode">
+    <video muted autoplay loop playsinline preload="metadata" poster="../media/fixed_area.jpg" src="../media/fixed_area.mp4"></video>
+    <div class="txt"><h3>Sabit Alan <span class="badge">oyunlar ve altyazılar için</span></h3>
+    <p>Ekranda bir bölgeyi sabitleyin — içerik her değiştiğinde uygulama otomatik olarak yeniden çevirir. Oyun diyalogları ve video altyazıları için yapıldı.</p></div>
+  </div>
+
+  <h2>🌐 Diller</h2>
+  <p>110'dan fazla dil. Kaynak dil <strong>otomatik algılanır</strong>; hedef dili menü çubuğundan seçin. İstediğiniz zaman değiştirin.</p>
+
+  <h2>🤖 Yapay Zekâ Çevirisi (isteğe bağlı)</h2>
+  <div class="card">
+    <p>Yerleşik Google motoru ücretsizdir ve kurulum gerektirmez. Yapay zekâ çevirisi mi istiyorsunuz? Kendi API anahtarınızı bağlayın:</p>
+    <ul>
+      <li><strong>DeepL</strong> — deepl.com'da ücretsiz plan var</li>
+      <li><strong>OpenAI (GPT)</strong> — anahtar OpenAI panelinden</li>
+      <li><strong>Gemini</strong> — Google AI Studio üzerinden ücretsiz katman</li>
+      <li><strong>Claude</strong> — anahtar Anthropic Console'dan</li>
+    </ul>
+    <p>Menü çubuğu → <em>çeviri motoru</em> → motor seçin → anahtarınızı yapıştırın. Kullanım, o sağlayıcıdaki <em>kendi</em> hesabınıza faturalandırılır; uygulama üzerine bir şey eklemez.</p>
+    <p>Bir çeviri başarısız olursa uygulama nedenini ekranda gösterir — geçersiz API anahtarı, kredisi bitmiş hesap, kullanım sınırı veya ağ hatası. Not: Geçerli anahtar tek başına yetmez — sağlayıcı hesabında da kredi veya etkin bir ücretsiz katman olmalı.</p>
+  </div>
+
+  <h2>🔊 Sesli Okuma ve TTS Sesleri</h2>
+  <div class="card">
+    <p>Uygulama metni sesli okuyabilir: çevirideki hoparlör simgesine dokunun veya Ayarlar'dan <em>otomatik sesli okuma</em>yı açın. <em>Okuma hedefi</em> ayarı, orijinal metnin mi çevirinin mi okunacağını belirler.</p>
+    <p>Sesi Ayarlar → <em>TTS sesi</em> bölümünden seçin: sesler dile göre gruplanmıştır ve birine dokununca kısa bir önizleme çalar, seçmeden önce karşılaştırabilirsiniz.</p>
+  </div>
+
+  <h2>💬 Sohbetlerde Yanıtlama</h2>
+  <div class="card">
+    <p>Bir sohbet mesajını çevirdiniz mi? Çeviri penceresinin sağ altındaki <strong>yanıt simgesine</strong> dokunun ve yanıtınızı kendi dilinizde yazın — anında karşı tarafın diline çevrilir.</p>
+    <p><strong>Kopyala</strong>ya dokunun, sohbete yapıştırıp gönderin. Sohbet uygulamasından hiç çıkmadan koca bir konuşmayı sürdürebilirsiniz.</p>
+  </div>
+
+  <h2>❓ SSS ve Sorun Giderme</h2>
+  <div class="faq">
+    <details><summary>Yüzen baloncuk kayboldu</summary>
+      <p>Hizmeti yeniden başlatmak için uygulamayı tekrar açın. Devam ederse <em>Diğer uygulamaların üzerinde göster</em> izninin hâlâ açık olduğunu kontrol edin ve uygulamayı pil optimizasyonundan hariç tutun (Ayarlar → Pil → Kısıtlanmamış).</p></details>
+    <details><summary>İlk çeviri yavaş veya “hazırlanıyor” diyor</summary>
+      <p>İlk kullanımda OCR modeli Google Play hizmetleri üzerinden bir kez indirilir. Sonrasında tanıma anındadır ve OCR çevrimdışı çalışır.</p></details>
+    <details><summary>Bazı ekranlarda hiçbir şey olmuyor</summary>
+      <p>Ekran görüntüsünü engelleyen uygulamalar (banka uygulamaları, DRM'li video oynatıcılar) yakalanamaz — Android, içeriklerini tüm yakalama uygulamalarından gizler.</p></details>
+    <details><summary>Neden reklam görüyorum?</summary>
+      <p>Oturum başına tek kısa reklam, tüm temel özellikleri ücretsiz tutar. Reklamdan sonra uygulama siz kapatana kadar tamamen reklamsız kalır.</p></details>
+    <details><summary>⚠ işaretiyle çevirinin başarısız olduğu yazıyor</summary>
+      <p>Mesaj nedenini söyler. <em>Geçersiz API anahtarı</em>: Ayarlar'dan anahtarı yeniden kontrol edin. <em>Kredi bitti</em>: sağlayıcının konsolundan yükleyin — geçerli anahtarın yine de krediye ihtiyacı var. <em>Kullanım sınırı</em>: biraz bekleyip yeniden deneyin. <em>Ağ hatası</em>: bağlantınızı kontrol edin.</p></details>
+    <details><summary>Çeviri kalitesi tuhaf görünüyor</summary>
+      <p>Cümle veya Paragraf modunu deneyin (daha çok bağlam = daha iyi çeviri), ya da en iyi kalite için bir yapay zekâ motoru (DeepL/GPT/Gemini/Claude) bağlayın.</p></details>
+  </div>
+
+  <h2>💻 Açık Kaynak</h2>
+  <div class="card">
+    <p>Screen Translate açık kaynaklıdır — tüm kaynak kodu <a href="https://github.com/AidanPark/android-screen-translator">GitHub</a> üzerindedir. Herkes kodu inceleyebilir, dilediği gibi değiştirebilir ve kendi sürümünü derleyebilir. Lisans Apache-2.0'dır; yeniden kullanırken kaynak bildirimini (telif hakkı notunu) koruyun.</p>
+  </div>
+
+  <h2>📮 Hâlâ takıldınız mı?</h2>
+  <p>Bize <a href="mailto:handwritingdictionary@gmail.com">handwritingdictionary@gmail.com</a> adresinden yazın — her şeyi okuyoruz.</p>
+  <a class="store" href="https://play.google.com/store/apps/details?id=com.galaxy.airviewdictionary">Google Play'den edinin</a>
+
+  <footer>© 2026 BoxBee Corp.</footer>
+</main>
+<script>
+(function () {
+  var sel = document.getElementById('langSel');
+  sel.addEventListener('change', function () {
+    var v = sel.value;
+    try { localStorage.setItem('guideLang', v); } catch (e) {}
+    location.href = v === 'en' ? '/screen-translator/guide/' : '/screen-translator/guide/' + v + '/';
+  });
+})();
+</script>
+</body>
+</html>
