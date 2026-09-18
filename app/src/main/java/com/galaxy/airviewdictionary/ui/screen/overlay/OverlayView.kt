@@ -10,7 +10,9 @@ import android.os.IBinder
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.CallSuper
+import androidx.compose.material3.LocalRippleConfiguration
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.ComposeView
 import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
@@ -24,6 +26,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
+import com.galaxy.airviewdictionary.extensions.finishService
 import timber.log.Timber
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.coroutines.resume
@@ -72,7 +75,14 @@ abstract class OverlayView : OverlayServiceEventListener {
         Timber.tag(TAG).i("#### cast ####")
         avdCoroutineScope = CoroutineScope(Dispatchers.IO + Job())
         overlayViewCoroutineScope = CoroutineScope(Dispatchers.Main + Job())
-        overlayService = getOverlayService(applicationContext)
+        overlayService = try {
+            getOverlayService(applicationContext)
+        } catch (e: Exception) {
+            // 바인딩 실패(프로세스 종료 중 등)면 오버레이를 띄울 수 없다.
+            // overlayViewCoroutineScope 에는 예외 핸들러가 없어 그대로 두면 앱이 죽는다.
+            Timber.tag(TAG).w(e, "OverlayService 바인딩 실패 — cast 중단")
+            return
+        }
 
         launchInOverlayViewCoroutineScope {
             val oldView = if (reattach && view?.isAttachedToWindow == true) view else null
@@ -80,7 +90,17 @@ abstract class OverlayView : OverlayServiceEventListener {
                 view = ComposeView(overlayService).apply {
                     setViewTreeLifecycleOwner(overlayService)
                     setViewTreeSavedStateRegistryOwner(overlayService)
-                    setContent(composable)
+                    // 오버레이는 ripple 을 쓰지 않는다.
+                    // Compose 의 ripple 은 플랫폼 RippleDrawable 을 거치는데,
+                    // AOSP RippleForeground 가 pending 애니메이터에 타깃을 두 번 설정해
+                    // IllegalStateException("Target already set!") 로 죽는 버그가 있다.
+                    // 이 크래시의 88% 가 오버레이(백그라운드 상태)에서 발생했고,
+                    // M3 컴포넌트는 ripple() 을 직접 쓰므로 LocalIndication 으로는 막을 수 없다.
+                    setContent {
+                        CompositionLocalProvider(LocalRippleConfiguration provides null) {
+                            composable()
+                        }
+                    }
                     touchListener(overlayService.applicationContext)?.let {
                         setOnTouchListener(it)
                     }
@@ -131,6 +151,13 @@ abstract class OverlayView : OverlayServiceEventListener {
                         }
                     } catch (_: IllegalStateException) {
                         // 이미 윈도우에 추가된 경우 발생할 수 있는 예외 처리
+                    } catch (e: WindowManager.BadTokenException) {
+                        // 서비스가 도는 도중 '다른 앱 위에 표시' 권한이 회수되면
+                        // addView 가 "permission denied for window type 2038" 으로 실패한다.
+                        // 오버레이를 띄울 수 없는 상태이므로 크래시 대신 서비스를 정리하고,
+                        // 사용자가 앱을 다시 켤 때 권한 요청 흐름을 타게 한다.
+                        Timber.tag(TAG).w(e, "overlay addView 실패(권한 회수 추정) — 서비스 종료")
+                        overlayService.applicationContext.finishService()
                     }
                 }
             }
@@ -321,8 +348,10 @@ class ServiceConnector<T : Service>(
                 val service = localBinder?.getService() as? T
                 if (service != null) {
                     onConnected(service)
-                    continuation.resume(service)
-                } else {
+                    // 서비스가 재연결되면 onServiceConnected 가 다시 불린다.
+                    // 이미 완료된 continuation 을 또 resume 하면 IllegalStateException 이 난다.
+                    if (continuation.isActive) continuation.resume(service)
+                } else if (continuation.isActive) {
                     continuation.resumeWithException(IllegalStateException("Failed to bind service"))
                 }
             }
@@ -332,7 +361,11 @@ class ServiceConnector<T : Service>(
             }
         }
 
-        context.bindService(intent, connection!!, Context.BIND_AUTO_CREATE)
+        val bound = context.bindService(intent, connection!!, Context.BIND_AUTO_CREATE)
+        if (!bound && continuation.isActive) {
+            // false 면 onServiceConnected 가 오지 않아 코루틴이 영원히 매달린다.
+            continuation.resumeWithException(IllegalStateException("bindService returned false"))
+        }
     }
 
     fun unbind() {

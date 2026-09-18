@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.pager.HorizontalPager
@@ -51,6 +50,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.galaxy.airviewdictionary.data.local.preference.PreferenceRepository
 import com.galaxy.airviewdictionary.data.local.vision.TextDetectMode
 import com.galaxy.airviewdictionary.ui.common.MP4Player
+import com.galaxy.airviewdictionary.ui.common.safeSystemBarsPadding
 import com.galaxy.airviewdictionary.ui.screen.intro.SplashActivity
 import com.galaxy.airviewdictionary.ui.theme.ScreenTranslatorTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -120,7 +120,7 @@ class OnBoardingActivity : ComponentActivity() {
                 .fillMaxSize()
                 .background(backgroundColor) // 🔹 전체 배경색 적용
                 .padding(24.dp)
-                .systemBarsPadding(), // ✨ 상태바 + 내비게이션바 패딩
+                .safeSystemBarsPadding(), // ✨ 상태바 + 내비게이션바 패딩 (위장 프레임워크 기기 우회 포함)
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             HorizontalPager(

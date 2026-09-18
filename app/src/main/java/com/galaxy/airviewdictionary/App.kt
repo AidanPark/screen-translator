@@ -1,10 +1,11 @@
 package com.galaxy.airviewdictionary
 
+import android.app.Activity
 import android.app.Application
 import android.os.Build
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.WindowInsets
 import android.widget.Toast
 import com.google.android.gms.common.moduleinstall.InstallStatusListener
 import com.google.android.gms.common.moduleinstall.ModuleInstall
@@ -25,6 +26,7 @@ import com.google.firebase.appcheck.appCheck
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
 import com.google.firebase.crashlytics.crashlytics
 import com.google.firebase.initialize
+import com.galaxy.airviewdictionary.ui.screen.ads.AdGateActivity
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -65,7 +67,7 @@ class App : Application() {
             // 위장 프레임워크 관측: SDK_INT 는 34+ 라면서 API 34 필수 메서드가 없는
             // 가상/개조 기기(에뮬레이터·클라우드폰)를 크래시와 애널리틱스에서 분류한다.
             // (2.6.1 의 WindowInsetsCompat systemOverlays NoSuchMethodError 가 이 부류)
-            val integrity = frameworkIntegrityLabel()
+            val integrity = FrameworkIntegrity.label
             Firebase.crashlytics.apply {
                 setCustomKey("framework_integrity", integrity)
                 setCustomKey("build_fingerprint", Build.FINGERPRINT)
@@ -82,6 +84,49 @@ class App : Application() {
         CoroutineScope(Dispatchers.IO).launch {
             prefetchOcrModels()
         }
+
+        registerAdGateBackgroundCleanup()
+    }
+
+    /**
+     * 앱의 모든 액티비티가 stop 되면(=사용자가 앱을 떠나면) 살아 있는 광고 게이트를 정리한다.
+     *
+     * 게이트는 onCreate 에서 플로팅 오버레이를 숨기고 onDestroy 에서 복원하는데,
+     * 광고 도중/직후에 홈키로 나가면 stop 만 되고 destroy 는 되지 않아 핸들과 메뉴바가
+     * 숨겨진 채 남는다. lifecycle-process 의존성 없이 started 액티비티 수를 세어 판정한다.
+     *
+     * 전면 광고(AdActivity)도 우리 프로세스의 액티비티라, 광고가 떠 있는 동안에는
+     * 카운트가 0 이 되지 않는다 → 광고 위에 오버레이가 노출될 일은 없다.
+     */
+    private fun registerAdGateBackgroundCleanup() {
+        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+            private var startedCount = 0
+
+            override fun onActivityStarted(activity: Activity) {
+                startedCount++
+                // 백그라운드 -> 전면 복귀. 게이트가 살아 있으면 오버레이를 도로 숨긴다
+                // (광고 클릭 후 복귀 시 핸들이 광고 위에 뜨지 않도록).
+                if (startedCount == 1) {
+                    AdGateActivity.hideOverlaysIfGateAlive()
+                }
+            }
+
+            override fun onActivityStopped(activity: Activity) {
+                startedCount--
+                if (startedCount > 0) return
+                startedCount = 0
+                // 구성 변경(회전 등)으로 인한 재생성 중에는 카운트가 순간 0 이 된다.
+                // 이때 게이트를 닫으면 회전만으로 광고가 스킵되므로 제외한다.
+                if (activity.isChangingConfigurations) return
+                AdGateActivity.finishIfAppBackgrounded()
+            }
+
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) = Unit
+            override fun onActivityResumed(activity: Activity) = Unit
+            override fun onActivityPaused(activity: Activity) = Unit
+            override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) = Unit
+            override fun onActivityDestroyed(activity: Activity) = Unit
+        })
     }
 
     /**
@@ -150,21 +195,6 @@ class App : Application() {
                 moduleInstall.installModules(request)
                     .addOnCompleteListener { recognizers.forEach { it.close() } }
             }
-    }
-
-    /**
-     * 기기 신분(SDK_INT)과 실제 프레임워크의 일치 여부를 확인한다.
-     * API 34+ 를 자칭하면 반드시 있어야 하는 WindowInsets.Type.systemOverlays() 가 없으면
-     * 빌드 속성을 위장한 가상 안드로이드(에뮬레이터/클라우드폰/개조 ROM)로 판정한다.
-     */
-    private fun frameworkIntegrityLabel(): String {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) return "ok"
-        return try {
-            WindowInsets.Type::class.java.getMethod("systemOverlays")
-            "ok"
-        } catch (t: Throwable) {
-            "spoofed_api34"
-        }
     }
 
     private fun showToast(message: String) {

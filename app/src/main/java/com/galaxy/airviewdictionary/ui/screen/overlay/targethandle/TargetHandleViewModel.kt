@@ -339,8 +339,13 @@ class TargetHandleViewModel(
                         ) {
                             requestCapture()
                         }
-                    } else if (motionEvent == MotionEvent.ACTION_UP) {
-                        Timber.tag(TAG).i("#### TargetHandle motionEvent MotionEvent.ACTION_UP ####")
+                    } else if (motionEvent == MotionEvent.ACTION_UP
+                        || motionEvent == MotionEvent.ACTION_CANCEL
+                    ) {
+                        // ACTION_CANCEL 은 시스템이 제스처를 가져갔을 때 온다(삼성 엣지 뒤로가기 등).
+                        // 여기서 정리하지 않으면 captureStatus 가 Requested 로 남아
+                        // 핸들이 alpha 0.01 인 채 "사라진" 것처럼 보인다.
+                        Timber.tag(TAG).i("#### TargetHandle motionEvent $motionEvent (UP/CANCEL) ####")
                         cancelCapture()
                     }
                 }
@@ -391,6 +396,10 @@ class TargetHandleViewModel(
                 if (motionEventState == MotionEvent.ACTION_DOWN || motionEventState == MotionEvent.ACTION_MOVE) {
                     captureStatusFlow.value = CaptureStatus.Captured
                     requestVision(captureResponse.bitmap)
+                } else {
+                    // 캡처가 돌아오기 전에 제스처가 끝났거나 취소된 경우.
+                    // 되돌리지 않으면 Requested 로 남아 핸들이 계속 투명하다.
+                    cancelCapture()
                 }
             } else if (captureResponse is CaptureResponse.Error) {
                 Timber.tag(TAG).d("CaptureResponse.Error ${captureResponse.t.toString()}")
@@ -403,10 +412,15 @@ class TargetHandleViewModel(
                     )
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     applicationContext.startActivity(intent)
-                } else if (captureResponse.t is CapturePreventedException) {
-                    // 캡처 방지 알림
-                    // Timber.tag(TAG).e("CapturePreventedException: 캡처 방지 알림")
-                    // captureResponse.t.checkerBitmap 처리
+                } else {
+                    if (captureResponse.t is CapturePreventedException) {
+                        // 캡처 방지 알림
+                        // Timber.tag(TAG).e("CapturePreventedException: 캡처 방지 알림")
+                        // captureResponse.t.checkerBitmap 처리
+                    }
+                    // 권한 요청이 아닌 모든 실패는 상태를 되돌린다.
+                    // (되돌리지 않으면 핸들이 투명한 채로 남는다)
+                    cancelCapture()
                 }
             }
         }

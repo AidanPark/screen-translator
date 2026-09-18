@@ -258,10 +258,13 @@ class TargetHandleView private constructor() : OverlayView() {
                         .graphicsLayer {
                             if (isWritingRtl.value) rotationY = 180f
                         },
+                    // 표적은 제스처가 진행 중일 때만 보인다.
+                    // UP 만 제외하는 방식이면 ACTION_CANCEL(시스템이 제스처를 가로챈 경우)에서
+                    // 표적이 화면에 남는다. 보일 상태를 명시하는 쪽이 안전하다.
                     alpha = if (
-                        motionEventState == MotionEvent.INVALID_POINTER_ID
-                        || motionEventState == MotionEvent.ACTION_UP
-                    ) 0.0f else 1.0f,
+                        motionEventState == MotionEvent.ACTION_DOWN
+                        || motionEventState == MotionEvent.ACTION_MOVE
+                    ) 1.0f else 0.0f,
                     colorFilter = if (areaSelecting) {
                         if (textDetectMode == TextDetectMode.SELECT) ColorFilter.tint(Color(0x883B6FDB)) else ColorFilter.tint(Color(0x88006600))
                     } else null
@@ -304,7 +307,11 @@ class TargetHandleView private constructor() : OverlayView() {
             if (menuOperatingState) {
                 cancelDockDragHandle()
             } else {
-                if (motionEventState == MotionEvent.ACTION_UP && translationState == null) {
+                // ACTION_CANCEL 도 제스처 종료다. UP 만 보면 취소된 뒤 핸들이 도킹되지 않는다.
+                if ((motionEventState == MotionEvent.ACTION_UP
+                            || motionEventState == MotionEvent.ACTION_CANCEL)
+                    && translationState == null
+                ) {
                     val loc = IntArray(2)
                     view?.getLocationOnScreen(loc)
                     val posX = loc[0]
@@ -358,8 +365,9 @@ class TargetHandleView private constructor() : OverlayView() {
             override fun onTouch(v: View, event: MotionEvent): Boolean {
                 tapDetector.onTouchEvent(event)
 
-                viewModel.motionEventFlow.value = event.action
-                when (event.action) {
+                // actionMasked 를 써야 멀티터치의 포인터 인덱스 비트에 분기가 어긋나지 않는다.
+                viewModel.motionEventFlow.value = event.actionMasked
+                when (event.actionMasked) {
                     MotionEvent.ACTION_DOWN -> {
                         if (applicationContext.isNetworkAvailable()) {
                             touchStartX = event.rawX
@@ -417,7 +425,9 @@ class TargetHandleView private constructor() : OverlayView() {
                         viewModel.pointerPositionFlow.value = Point(x, y) // 포인터 위치 업데이트
                     }
 
-                    MotionEvent.ACTION_UP -> {
+                    // 삼성 엣지 뒤로가기 제스처처럼 시스템이 터치를 가로채면 ACTION_UP 대신
+                    // ACTION_CANCEL 이 온다. 이때도 UP 과 똑같이 정리해야 한다.
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                         repositionWithinScreen(applicationContext)
                     }
                 }

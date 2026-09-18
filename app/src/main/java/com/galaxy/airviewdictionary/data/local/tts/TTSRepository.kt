@@ -36,7 +36,12 @@ class TTSRepository @Inject constructor(
 
     private fun initTTS(locale: Locale, attempts: Int = 0) {
         Timber.tag(TAG).i("=========================== initTTS ========================== $locale $attempts")
-        tts?.shutdown()
+        // 이미 shutdown 된 인스턴스를 또 shutdown 하면 내부 unbindService 가
+        // IllegalArgumentException("Service not registered") 를 던진다.
+        try {
+            tts?.shutdown()
+        } catch (_: Exception) {
+        }
         tts = null
 
         tts = TextToSpeech(context) { status ->
@@ -90,7 +95,10 @@ class TTSRepository @Inject constructor(
 
     private fun initTTSForText(attempts: Int = 0) {
         Timber.tag(TAG).i("=========================== initTTSForText ==========================")
-        ttsForText?.shutdown()
+        try {
+            ttsForText?.shutdown()
+        } catch (_: Exception) {
+        }
         ttsForText = null
 
         ttsForText = TextToSpeech(context) { status ->
@@ -183,6 +191,10 @@ class TTSRepository @Inject constructor(
             ttsForText?.shutdown()
         } catch (_: Exception) {
         }
+        // shutdown 된 인스턴스는 다시 바인딩되지 않는다. 참조를 남겨두면
+        // 재사용 시 initTTS 가 죽은 인스턴스를 또 shutdown 하려다 크래시한다.
+        tts = null
+        ttsForText = null
     }
 
     /**

@@ -63,6 +63,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.lang.ref.WeakReference
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -87,6 +88,46 @@ class AdGateActivity : ComponentActivity() {
 
         /** 광고 게이트가 떠 있는지 여부 (중복 실행 방지 + 오버레이 가시성 제어용) */
         val liveStateFlow = MutableStateFlow(false)
+
+        /** 현재 살아 있는 게이트. 앱이 백그라운드로 내려갔을 때 정리하기 위해 들고 있는다. */
+        private var liveInstance: WeakReference<AdGateActivity>? = null
+
+        /**
+         * 앱 전체가 백그라운드로 내려갔을 때 살아 있는 게이트를 스킵으로 종료한다.
+         *
+         * 게이트는 onCreate 에서 플로팅 오버레이를 숨기고 onDestroy 에서 복원하는데,
+         * 광고 도중/직후에 홈키로 나가면 stop 만 되고 destroy 는 되지 않아
+         * 핸들과 메뉴바가 숨겨진 채로 영영 남는다. 여기서 정리하면 기존 onDestroy
+         * 경로를 그대로 타서 복원된다. (홈키 중단은 원래 스킵 취급이다)
+         *
+         * 광고가 화면에 떠 있는 동안에는 우리 액티비티가 started 상태라 호출되지 않으므로,
+         * 핸들이 광고 위에 노출될 일은 없다.
+         */
+        fun finishIfAppBackgrounded() {
+            val activity = liveInstance?.get() ?: return
+            if (activity.isFinishing || activity.isDestroyed) return
+            if (activity.adShown) {
+                // 광고가 이미 표시된 뒤의 이탈은 "광고 클릭 → 광고주 페이지"일 수 있다.
+                // 여기서 게이트를 닫아버리면 돌아와 광고를 마저 봐도 보상을 받지 못한다.
+                // 게이트는 살려두고 숨겨둔 오버레이만 되돌려, 홈 화면에서 핸들이 사라진 채
+                // 남는 것만 막는다. 앱으로 돌아오면 [hideOverlaysIfGateAlive] 가 다시 숨긴다.
+                Timber.tag(activity.TAG).i("App backgrounded during ad; keeping gate, restoring overlays")
+                activity.runOnUiThread { activity.restoreFloatingOverlays() }
+                return
+            }
+            Timber.tag(activity.TAG).i("App backgrounded before ad; finishing gate as skip")
+            activity.runOnUiThread { activity.finishAsSkip() }
+        }
+
+        /**
+         * 앱이 다시 전면으로 올라올 때, 게이트가 살아 있으면 오버레이를 도로 숨긴다.
+         * (광고 클릭 후 복귀 시 핸들이 광고 위에 뜨는 것을 막는다)
+         */
+        fun hideOverlaysIfGateAlive() {
+            val activity = liveInstance?.get() ?: return
+            if (activity.isFinishing || activity.isDestroyed) return
+            activity.runOnUiThread { activity.hideFloatingOverlays() }
+        }
 
         private val isMobileAdsInitializeCalled = AtomicBoolean(false)
 
@@ -123,6 +164,7 @@ class AdGateActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         liveStateFlow.value = true
+        liveInstance = WeakReference(this)
 
         // 뒤 화면 전체를 어둡게 덮는다 (SplashActivity 와 동일한 검증된 패턴: 윈도우 레벨 dim)
         val layoutParams = window.attributes
@@ -132,10 +174,7 @@ class AdGateActivity : ComponentActivity() {
 
         // 광고 게이트~광고 종료 동안 플로팅 오버레이(핸들/번역창/인식 하이라이트)가 광고 위에 떠 있지 않도록 숨긴다.
         // 메뉴바(MenuBarView)는 자체 가시성 로직이 liveStateFlow 를 구독하여 스스로 숨긴다.
-        TargetHandleView.INSTANCE.hideTemporarily()
-        TranslationView.INSTANCE.hideTemporarily()
-        TranslationErrorView.INSTANCE.hideTemporarily()
-        VisionTextView.INSTANCE.hideTemporarily()
+        hideFloatingOverlays()
 
         // 뒤로가기로 다이얼로그를 닫는 것은 광고 스킵과 동일 취급 (유예 없음)
         onBackPressedDispatcher.addCallback(this) {
@@ -283,13 +322,27 @@ class AdGateActivity : ComponentActivity() {
 
     override fun onDestroy() {
         liveStateFlow.value = false
+        if (liveInstance?.get() === this) liveInstance = null
         timeoutJob?.cancel()
         // 숨겨둔 플로팅 오버레이 복원 (메뉴바는 liveStateFlow 변경으로 스스로 복원)
+        restoreFloatingOverlays()
+        super.onDestroy()
+    }
+
+    /** 게이트/광고가 화면에 있는 동안 플로팅 오버레이가 그 위에 뜨지 않도록 숨긴다. */
+    private fun hideFloatingOverlays() {
+        TargetHandleView.INSTANCE.hideTemporarily()
+        TranslationView.INSTANCE.hideTemporarily()
+        TranslationErrorView.INSTANCE.hideTemporarily()
+        VisionTextView.INSTANCE.hideTemporarily()
+    }
+
+    /** [hideFloatingOverlays] 로 숨긴 오버레이를 되돌린다. */
+    private fun restoreFloatingOverlays() {
         TargetHandleView.INSTANCE.showFromTemporaryHide()
         TranslationView.INSTANCE.showFromTemporaryHide()
         TranslationErrorView.INSTANCE.showFromTemporaryHide()
         VisionTextView.INSTANCE.showFromTemporaryHide()
-        super.onDestroy()
     }
 
     private fun initializeMobileAdsSdk() {

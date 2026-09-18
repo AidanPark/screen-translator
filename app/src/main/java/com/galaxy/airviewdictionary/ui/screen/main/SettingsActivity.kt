@@ -145,6 +145,7 @@ import com.galaxy.airviewdictionary.extensions.toPx
 import com.galaxy.airviewdictionary.extensions.vibrate
 import com.galaxy.airviewdictionary.ui.common.AutoRefreshEveryMinute
 import com.galaxy.airviewdictionary.ui.common.fontDimensionResource
+import com.galaxy.airviewdictionary.ui.common.safeScaffoldContentWindowInsets
 import com.galaxy.airviewdictionary.ui.screen.AVDActivity
 import com.galaxy.airviewdictionary.ui.screen.intro.SplashActivity
 import com.galaxy.airviewdictionary.ui.screen.overlay.dialog.DialogView
@@ -188,7 +189,7 @@ class SettingsActivity : AVDActivity() {
         private const val GITHUB_REPO_URL = "https://github.com/AidanPark/android-screen-translator"
 
         // 웹 사용 가이드 (모드별 데모 영상 + FAQ)
-        private const val HOW_TO_USE_GUIDE_URL = "https://aidanpark.github.io/guide/"
+        private const val HOW_TO_USE_GUIDE_URL = "https://aidanpark.github.io/screen-translator/guide/"
 
         fun start(context: Context) {
             val intent = Intent(context, SettingsActivity::class.java)
@@ -255,6 +256,9 @@ class SettingsActivity : AVDActivity() {
 //                    }
 
                     Scaffold(
+                        // 기본값(ScaffoldDefaults.contentWindowInsets)은 Compose 인셋을 읽어
+                        // 위장 프레임워크 기기에서 NoSuchMethodError 를 일으킨다.
+                        contentWindowInsets = safeScaffoldContentWindowInsets,
                         snackbarHost = { SnackbarHost(hostState = snackBarHostState) }
                     ) { _paddingValues: PaddingValues ->
                         val paddingValues = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {

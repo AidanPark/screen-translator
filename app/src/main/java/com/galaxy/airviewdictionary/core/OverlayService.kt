@@ -385,7 +385,10 @@ class OverlayService : LifecycleService(), SavedStateRegistryOwner, ViewModelSto
 
         // Notification 생성
         return NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID) // NotificationChannel을 사용하여 Notification 생성
-//            .setContentTitle(application.resources.getString(R.string.app_name)) // Notification의 제목 설정
+            // 제목을 비우면 일부 OEM ROM(예: ACE France Buzz 4 Ultra/Android 13)의 알림 인플레이트가
+            // null 제목에 CharSequence.length()를 호출하다 NPE → BadForegroundServiceNotificationException
+            // 으로 앱이 강제 종료된다. 항상 제목을 채운다.
+            .setContentTitle(application.resources.getString(R.string.app_name)) // Notification의 제목 설정
             .setContentText(application.resources.getString(R.string.notification_foreground_service))
             .setSmallIcon(R.drawable.outline_translate_white_24) // Notification의 아이콘 설정
             .setContentIntent(settingsPendingIntent) // Notification을 탭할 때 실행할 PendingIntent 설정

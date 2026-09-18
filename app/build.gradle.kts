@@ -24,8 +24,8 @@ android {
         applicationId = "com.galaxy.airviewdictionary"
         minSdk = 26
         targetSdk = 36
-        versionCode = 20604
-        versionName = "2.6.4"
+        versionCode = 20605
+        versionName = "2.6.5"
         manifestPlaceholders["ADMOB_APP_ID"] = admobAppId
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
