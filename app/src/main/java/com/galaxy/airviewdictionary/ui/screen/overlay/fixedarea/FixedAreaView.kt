@@ -425,6 +425,9 @@ open class FixedAreaView : OverlayView() {
             gravity = Gravity.TOP or Gravity.START
         }
         super.cast(applicationContext)
+        // 바인딩 실패로 cast 가 중단되면 onServiceConnected 가 불리지 않아
+        // targetHandleViewModel 이 미초기화 상태다(2.6.5 회귀).
+        if (!isRunning.get()) return
         targetHandleViewModel.areaSelectingStateFlow.value = true
     }
 

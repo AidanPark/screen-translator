@@ -80,6 +80,11 @@ abstract class OverlayView : OverlayServiceEventListener {
         } catch (e: Exception) {
             // 바인딩 실패(프로세스 종료 중 등)면 오버레이를 띄울 수 없다.
             // overlayViewCoroutineScope 에는 예외 핸들러가 없어 그대로 두면 앱이 죽는다.
+            //
+            // 주의 — 여기서 조용히 반환하므로 onServiceConnected 가 호출되지 않는다.
+            // 즉 서브클래스의 lateinit 프로퍼티(targetHandleViewModel 등)가 미초기화로 남는다.
+            // cast 를 호출한 쪽은 반환만 보고 성공을 단정하면 안 되고,
+            // 성공 경로 끝에서만 true 가 되는 isRunning 으로 확인해야 한다.
             Timber.tag(TAG).w(e, "OverlayService 바인딩 실패 — cast 중단")
             return
         }
