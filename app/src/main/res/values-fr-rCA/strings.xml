@@ -104,4 +104,19 @@
     <string name="error_translate_network">Erreur réseau. Vérifiez votre connexion.</string>
     <string name="error_translate_generic">Échec de la traduction. Veuillez réessayer.</string>
     <string name="key_saved_credit_hint">Clé vérifiée. La traduction requiert aussi des crédits ou un quota gratuit sur le compte.</string>
+    <string name="translation_context_label">Contexte</string>
+    <string name="translation_context_off">Désactivé</string>
+    <string name="translation_context_nearby">Phrases voisines</string>
+    <string name="translation_context_screen">Écran entier</string>
+    <string name="translation_context_guide">Envoie le texte environnant pour lever l\'ambiguïté des pronoms et des mots. Consomme plus de jetons.</string>
+    <string name="translation_strength_label">Style de traduction</string>
+    <string name="translation_strength_literal">Littéral</string>
+    <string name="translation_strength_natural">Naturel</string>
+    <string name="translation_strength_free">Libre</string>
+    <string name="translation_domain_label">Domaine</string>
+    <string name="translation_domain_general">Général</string>
+    <string name="translation_domain_game">Jeu</string>
+    <string name="translation_domain_comic">Bande dessinée</string>
+    <string name="translation_domain_tech">Technique</string>
+    <string name="translation_domain_business">Professionnel</string>
 </resources>

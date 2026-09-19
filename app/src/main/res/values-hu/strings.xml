@@ -104,6 +104,21 @@
     <string name="error_translate_network">Hálózati hiba. Ellenőrizze a kapcsolatot.</string>
     <string name="error_translate_generic">A fordítás nem sikerült. Próbálja újra.</string>
     <string name="key_saved_credit_hint">Kulcs ellenőrizve. A fordításhoz kredit vagy ingyenes keret is szükséges a fiókban.</string>
+    <string name="translation_context_label">Kontextus</string>
+    <string name="translation_context_off">Ki</string>
+    <string name="translation_context_nearby">Környező mondatok</string>
+    <string name="translation_context_screen">Teljes képernyő</string>
+    <string name="translation_context_guide">Elküldi a környező szöveget, hogy a névmások és a többértelmű szavak értelmezhetők legyenek. Több tokent használ.</string>
+    <string name="translation_strength_label">Fordítási stílus</string>
+    <string name="translation_strength_literal">Szó szerinti</string>
+    <string name="translation_strength_natural">Természetes</string>
+    <string name="translation_strength_free">Szabad</string>
+    <string name="translation_domain_label">Terület</string>
+    <string name="translation_domain_general">Általános</string>
+    <string name="translation_domain_game">Játék</string>
+    <string name="translation_domain_comic">Képregény</string>
+    <string name="translation_domain_tech">Műszaki</string>
+    <string name="translation_domain_business">Üzleti</string>
 </resources>
 
 

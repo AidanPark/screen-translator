@@ -39,6 +39,7 @@ import com.galaxy.airviewdictionary.data.remote.firebase.AnalyticsRepository
 import com.galaxy.airviewdictionary.data.remote.firebase.RemoteConfigRepository
 import com.galaxy.airviewdictionary.data.remote.translation.Transaction
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationErrorMessages
+import com.galaxy.airviewdictionary.data.remote.translation.TranslationContextMode
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationKitType
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationRepository
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationResponse
@@ -125,6 +126,9 @@ class TargetHandleViewModel(
 ) : ViewModel() {
 
     private val TAG = javaClass.simpleName
+
+    /** 문맥으로 보낼 최대 글자 수. 토큰 폭증과 지연을 막는 상한. */
+    private val MAX_CONTEXT_CHARS = 4000
 
     private var startTime = System.nanoTime()
 
@@ -450,6 +454,39 @@ class TargetHandleViewModel(
     /**
      * 캡처된 bitmap 의 OCR 을 요청한다.
      */
+    /**
+     * 번역 대상 주변의 화면 텍스트를 문맥으로 모은다.
+     *
+     * 설정이 [TranslationContextMode.OFF] 이거나 문맥이 대상과 같으면 null 을 돌려 보내
+     * 기존과 동일하게 대상 문장만 번역되도록 한다. 문맥을 쓰지 않는 엔진은 이 값을 무시한다.
+     */
+    private suspend fun buildContextText(
+        kitType: TranslationKitType,
+        transaction: com.galaxy.airviewdictionary.data.local.vision.model.Transaction,
+        target: com.galaxy.airviewdictionary.data.local.vision.model.VisionText,
+    ): String? {
+        val mode = preferenceRepository.contextModeFlow(kitType).first()
+        if (mode == TranslationContextMode.OFF) return null
+
+        val paragraphs = transaction.paragraphs
+        if (paragraphs.isEmpty()) return null
+
+        val sources = when (mode) {
+            TranslationContextMode.SCREEN -> paragraphs
+            // 대상이 속한 문단(= 주변 문장). 어느 문단에도 걸치지 않으면 문맥 없이 보낸다.
+            TranslationContextMode.NEARBY ->
+                paragraphs.filter { android.graphics.Rect.intersects(it.boundingBox, target.boundingBox) }
+            TranslationContextMode.OFF -> emptyList()
+        }
+
+        val context = sources.joinToString("\n") { it.representation }
+            .trim()
+            .take(MAX_CONTEXT_CHARS)
+
+        // 문맥이 대상 문장 그 자체뿐이면 보낼 이유가 없다(토큰만 늘어난다).
+        return context.takeIf { it.isNotBlank() && it != target.representation.trim() }
+    }
+
     private suspend fun requestVision(capturedBitmap: Bitmap) {
         startTime = System.nanoTime()
         Timber.tag(TAG).i("#### requestVision() ####")
@@ -694,6 +731,11 @@ class TargetHandleViewModel(
                                     sourceLanguageCode,
                                     targetLanguageCode,
                                     pointerPositionedVisionText.representation,
+                                    buildContextText(
+                                        kitType = translationKitType,
+                                        transaction = visionResultTransaction,
+                                        target = pointerPositionedVisionText,
+                                    ),
                                 )
                                     .also {
                                         // 실패 안내는 손을 뗀 뒤 응답이 도착해도 반드시 표시한다.

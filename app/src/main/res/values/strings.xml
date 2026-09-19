@@ -65,6 +65,21 @@
     <string name="openai_key_link_keys">Get your API key</string>
     <string name="openai_key_link_billing">Billing and usage</string>
     <string name="openai_model_label">Model</string>
+    <string name="translation_context_label">Context</string>
+    <string name="translation_context_off">Off</string>
+    <string name="translation_context_nearby">Nearby sentences</string>
+    <string name="translation_context_screen">Whole screen</string>
+    <string name="translation_context_guide">Sends surrounding text so the model can resolve pronouns and ambiguous words. Uses more tokens.</string>
+    <string name="translation_strength_label">Translation style</string>
+    <string name="translation_strength_literal">Literal</string>
+    <string name="translation_strength_natural">Natural</string>
+    <string name="translation_strength_free">Liberal</string>
+    <string name="translation_domain_label">Subject</string>
+    <string name="translation_domain_general">General</string>
+    <string name="translation_domain_game">Game</string>
+    <string name="translation_domain_comic">Comic</string>
+    <string name="translation_domain_tech">Technical</string>
+    <string name="translation_domain_business">Business</string>
     <string name="settings_menu_gemini_api_key" translatable="false">Gemini</string>
     <string name="gemini_key_guide">Enter your Gemini API key to translate with Gemini models.</string>
     <string name="gemini_key_signup_guide">Create an API key in Google AI Studio. A free tier is available.</string>

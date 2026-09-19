@@ -104,4 +104,19 @@
   <string name="error_translate_network">Tīkla kļūda. Pārbaudiet savienojumu.</string>
   <string name="error_translate_generic">Tulkošana neizdevās. Mēģiniet vēlreiz.</string>
   <string name="key_saved_credit_hint">Atslēga apstiprināta. Tulkošanai vajadzīgi arī kredīti vai bezmaksas kvota kontā.</string>
+    <string name="translation_context_label">Konteksts</string>
+    <string name="translation_context_off">Izslēgts</string>
+    <string name="translation_context_nearby">Tuvumā esošie teikumi</string>
+    <string name="translation_context_screen">Viss ekrāns</string>
+    <string name="translation_context_guide">Nosūta apkārtējo tekstu, lai noskaidrotu vietniekvārdus un daudznozīmīgus vārdus. Patērē vairāk marķieru.</string>
+    <string name="translation_strength_label">Tulkojuma stils</string>
+    <string name="translation_strength_literal">Burtisks</string>
+    <string name="translation_strength_natural">Dabisks</string>
+    <string name="translation_strength_free">Brīvs</string>
+    <string name="translation_domain_label">Joma</string>
+    <string name="translation_domain_general">Vispārīga</string>
+    <string name="translation_domain_game">Spēles</string>
+    <string name="translation_domain_comic">Komiksi</string>
+    <string name="translation_domain_tech">Tehniska</string>
+    <string name="translation_domain_business">Bizness</string>
 </resources>

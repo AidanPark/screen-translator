@@ -104,4 +104,19 @@
     <string name="error_translate_network">నెట్‌వర్క్ లోపం. కనెక్షన్ తనిఖీ చేయండి.</string>
     <string name="error_translate_generic">అనువాదం విఫలమైంది. మళ్లీ ప్రయత్నించండి.</string>
     <string name="key_saved_credit_hint">కీ ధృవీకరించబడింది. అనువాదానికి ఖాతాలో క్రెడిట్‌లు లేదా ఉచిత కోటా కూడా అవసరం.</string>
+    <string name="translation_context_label">సందర్భం</string>
+    <string name="translation_context_off">ఆఫ్</string>
+    <string name="translation_context_nearby">సమీప వాక్యాలు</string>
+    <string name="translation_context_screen">మొత్తం స్క్రీన్</string>
+    <string name="translation_context_guide">సర్వనామాలు, ద్వంద్వార్థ పదాలను గుర్తించేందుకు చుట్టుపక్కల వచనాన్ని కూడా పంపుతుంది. ఎక్కువ టోకెన్లు ఖర్చవుతాయి.</string>
+    <string name="translation_strength_label">అనువాద శైలి</string>
+    <string name="translation_strength_literal">పదానుపదం</string>
+    <string name="translation_strength_natural">సహజం</string>
+    <string name="translation_strength_free">భావానువాదం</string>
+    <string name="translation_domain_label">రంగం</string>
+    <string name="translation_domain_general">సాధారణం</string>
+    <string name="translation_domain_game">గేమ్</string>
+    <string name="translation_domain_comic">కామిక్</string>
+    <string name="translation_domain_tech">సాంకేతికం</string>
+    <string name="translation_domain_business">వ్యాపారం</string>
 </resources>

@@ -104,6 +104,21 @@
     <string name="error_translate_network">Şəbəkə xətası. Bağlantınızı yoxlayın.</string>
     <string name="error_translate_generic">Tərcümə alınmadı. Yenidən cəhd edin.</string>
     <string name="key_saved_credit_hint">Açar təsdiqləndi. Tərcümə üçün hesabınızda kredit və ya pulsuz kvota da lazımdır.</string>
+    <string name="translation_context_label">Kontekst</string>
+    <string name="translation_context_off">Söndürülüb</string>
+    <string name="translation_context_nearby">Yaxınlıqdakı cümlələr</string>
+    <string name="translation_context_screen">Bütün ekran</string>
+    <string name="translation_context_guide">Əvəzlikləri və çoxmənalı sözləri anlamaq üçün ətrafdakı mətni də göndərir. Daha çox token sərf edir.</string>
+    <string name="translation_strength_label">Tərcümə üslubu</string>
+    <string name="translation_strength_literal">Hərfi</string>
+    <string name="translation_strength_natural">Təbii</string>
+    <string name="translation_strength_free">Sərbəst</string>
+    <string name="translation_domain_label">Sahə</string>
+    <string name="translation_domain_general">Ümumi</string>
+    <string name="translation_domain_game">Oyun</string>
+    <string name="translation_domain_comic">Komiks</string>
+    <string name="translation_domain_tech">Texniki</string>
+    <string name="translation_domain_business">Biznes</string>
 </resources>
 
 

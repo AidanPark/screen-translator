@@ -38,6 +38,19 @@ abstract class TranslationKit {
         sourceText: String
     ): TranslationResponse
 
+    /**
+     * 주변 텍스트를 문맥으로 함께 받는 번역 요청.
+     *
+     * 프롬프트 개념이 있는 AI 엔진만 [contextText] 를 활용한다.
+     * 나머지 엔진은 기본 구현대로 문맥을 무시하고 대상 문장만 번역한다.
+     */
+    open suspend fun request(
+        sourceLanguageCode: String,
+        targetLanguageCode: String,
+        sourceText: String,
+        contextText: String?,
+    ): TranslationResponse = request(sourceLanguageCode, targetLanguageCode, sourceText)
+
 }
 
 

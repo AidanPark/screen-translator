@@ -104,5 +104,20 @@
     <string name="error_translate_network">የአውታረ መረብ ስህተት። ግንኙነትዎን ያረጋግጡ።</string>
     <string name="error_translate_generic">ትርጉም አልተሳካም። እባክዎ እንደገና ይሞክሩ።</string>
     <string name="key_saved_credit_hint">ቁልፉ ተረጋግጧል። ትርጉም በመለያዎ ላይ ክሬዲት ወይም ነፃ ኮታ ይፈልጋል።</string>
+    <string name="translation_context_label">አውድ</string>
+    <string name="translation_context_off">ጠፍቷል</string>
+    <string name="translation_context_nearby">በአቅራቢያ ያሉ ዓረፍተ ነገሮች</string>
+    <string name="translation_context_screen">ሙሉ ማያ ገጽ</string>
+    <string name="translation_context_guide">ተውላጠ ስሞችንና ሁለት ትርጉም ያላቸውን ቃላት ለመረዳት በዙሪያው ያለውን ጽሑፍ አብሮ ይልካል። ተጨማሪ ቶከን ይጠቀማል።</string>
+    <string name="translation_strength_label">የትርጉም ዘይቤ</string>
+    <string name="translation_strength_literal">ቃል በቃል</string>
+    <string name="translation_strength_natural">ተፈጥሯዊ</string>
+    <string name="translation_strength_free">ነጻ</string>
+    <string name="translation_domain_label">መስክ</string>
+    <string name="translation_domain_general">አጠቃላይ</string>
+    <string name="translation_domain_game">ጨዋታ</string>
+    <string name="translation_domain_comic">ኮሚክ</string>
+    <string name="translation_domain_tech">ቴክኒካዊ</string>
+    <string name="translation_domain_business">ንግድ</string>
 </resources>
 

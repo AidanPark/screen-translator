@@ -104,4 +104,19 @@
     <string name="error_translate_network">Netwerkfout. Controleer je verbinding.</string>
     <string name="error_translate_generic">Vertalen mislukt. Probeer het opnieuw.</string>
     <string name="key_saved_credit_hint">Sleutel geverifieerd. Vertalen vereist ook tegoed of een gratis quotum op je account.</string>
+    <string name="translation_context_label">Context</string>
+    <string name="translation_context_off">Uit</string>
+    <string name="translation_context_nearby">Omliggende zinnen</string>
+    <string name="translation_context_screen">Hele scherm</string>
+    <string name="translation_context_guide">Stuurt de omringende tekst mee om voornaamwoorden en dubbelzinnige woorden te duiden. Gebruikt meer tokens.</string>
+    <string name="translation_strength_label">Vertaalstijl</string>
+    <string name="translation_strength_literal">Letterlijk</string>
+    <string name="translation_strength_natural">Natuurlijk</string>
+    <string name="translation_strength_free">Vrij</string>
+    <string name="translation_domain_label">Vakgebied</string>
+    <string name="translation_domain_general">Algemeen</string>
+    <string name="translation_domain_game">Game</string>
+    <string name="translation_domain_comic">Strip</string>
+    <string name="translation_domain_tech">Technisch</string>
+    <string name="translation_domain_business">Zakelijk</string>
 </resources>

@@ -104,4 +104,19 @@
     <string name="error_translate_network">Errur da rait. Controllai la connexiun.</string>
     <string name="error_translate_generic">La translaziun n\'è betg reussida. Empruvai anc ina giada.</string>
     <string name="key_saved_credit_hint">Clav verifitgada. La translaziun dovra er credits u in contingent gratuit sin il conto.</string>
+    <string name="translation_context_label">Context</string>
+    <string name="translation_context_off">Deactivà</string>
+    <string name="translation_context_nearby">Frasas datiers</string>
+    <string name="translation_context_screen">Tut il visur</string>
+    <string name="translation_context_guide">Tramet il text dintuorn per chapir pronoms e pleds ambivalents. Dovra dapli tokens.</string>
+    <string name="translation_strength_label">Stil da translaziun</string>
+    <string name="translation_strength_literal">Litteral</string>
+    <string name="translation_strength_natural">Natiral</string>
+    <string name="translation_strength_free">Liber</string>
+    <string name="translation_domain_label">Sectur</string>
+    <string name="translation_domain_general">General</string>
+    <string name="translation_domain_game">Gieus</string>
+    <string name="translation_domain_comic">Comic</string>
+    <string name="translation_domain_tech">Tecnic</string>
+    <string name="translation_domain_business">Affars</string>
 </resources>

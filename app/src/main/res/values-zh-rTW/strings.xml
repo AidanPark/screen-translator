@@ -104,4 +104,19 @@
     <string name="error_translate_network">網路錯誤。請檢查連線。</string>
     <string name="error_translate_generic">翻譯失敗。請再試一次。</string>
     <string name="key_saved_credit_hint">金鑰已驗證。翻譯還需要帳戶中的額度或免費配額。</string>
+    <string name="translation_context_label">上下文</string>
+    <string name="translation_context_off">關閉</string>
+    <string name="translation_context_nearby">鄰近句子</string>
+    <string name="translation_context_screen">整個螢幕</string>
+    <string name="translation_context_guide">同時傳送周圍文字，以便解析代名詞和多義詞。會消耗更多權杖。</string>
+    <string name="translation_strength_label">翻譯風格</string>
+    <string name="translation_strength_literal">直譯</string>
+    <string name="translation_strength_natural">自然</string>
+    <string name="translation_strength_free">意譯</string>
+    <string name="translation_domain_label">領域</string>
+    <string name="translation_domain_general">一般</string>
+    <string name="translation_domain_game">遊戲</string>
+    <string name="translation_domain_comic">漫畫</string>
+    <string name="translation_domain_tech">技術</string>
+    <string name="translation_domain_business">商務</string>
 </resources>

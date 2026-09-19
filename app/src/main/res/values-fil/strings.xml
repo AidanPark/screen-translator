@@ -105,4 +105,19 @@
     <string name="error_translate_network">May error sa network. Suriin ang iyong koneksyon.</string>
     <string name="error_translate_generic">Nabigo ang pagsasalin. Subukang muli.</string>
     <string name="key_saved_credit_hint">Na-verify ang key. Kailangan din ng credits o libreng quota sa account para makapagsalin.</string>
+    <string name="translation_context_label">Konteksto</string>
+    <string name="translation_context_off">Naka-off</string>
+    <string name="translation_context_nearby">Mga katabing pangungusap</string>
+    <string name="translation_context_screen">Buong screen</string>
+    <string name="translation_context_guide">Ipinapadala ang nakapaligid na teksto para maunawaan ang mga panghalip at malabong salita. Mas maraming token ang nagagamit.</string>
+    <string name="translation_strength_label">Istilo ng pagsasalin</string>
+    <string name="translation_strength_literal">Literal</string>
+    <string name="translation_strength_natural">Natural</string>
+    <string name="translation_strength_free">Malaya</string>
+    <string name="translation_domain_label">Paksa</string>
+    <string name="translation_domain_general">Pangkalahatan</string>
+    <string name="translation_domain_game">Laro</string>
+    <string name="translation_domain_comic">Komiks</string>
+    <string name="translation_domain_tech">Teknikal</string>
+    <string name="translation_domain_business">Negosyo</string>
 </resources>

@@ -104,6 +104,21 @@
     <string name="error_translate_network">Ցանցի սխալ։ Ստուգեք կապը։</string>
     <string name="error_translate_generic">Թարգմանությունը ձախողվեց։ Փորձեք նորից։</string>
     <string name="key_saved_credit_hint">Բանալին հաստատվեց։ Թարգմանության համար նաև կրեդիտ կամ անվճար քվոտա է պետք հաշվում։</string>
+    <string name="translation_context_label">Համատեքստ</string>
+    <string name="translation_context_off">Անջատված</string>
+    <string name="translation_context_nearby">Հարակից նախադասություններ</string>
+    <string name="translation_context_screen">Ամբողջ էկրանը</string>
+    <string name="translation_context_guide">Ուղարկում է շրջապատող տեքստը՝ դերանուններն ու բազմիմաստ բառերը հասկանալու համար։ Ծախսում է ավելի շատ թոքեն։</string>
+    <string name="translation_strength_label">Թարգմանության ոճ</string>
+    <string name="translation_strength_literal">Բառացի</string>
+    <string name="translation_strength_natural">Բնական</string>
+    <string name="translation_strength_free">Ազատ</string>
+    <string name="translation_domain_label">Ոլորտ</string>
+    <string name="translation_domain_general">Ընդհանուր</string>
+    <string name="translation_domain_game">Խաղեր</string>
+    <string name="translation_domain_comic">Կոմիքս</string>
+    <string name="translation_domain_tech">Տեխնիկական</string>
+    <string name="translation_domain_business">Բիզնես</string>
 </resources>
 
 

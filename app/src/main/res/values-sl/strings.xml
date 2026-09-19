@@ -104,6 +104,21 @@
     <string name="error_translate_network">Omrežna napaka. Preverite povezavo.</string>
     <string name="error_translate_generic">Prevajanje ni uspelo. Poskusite znova.</string>
     <string name="key_saved_credit_hint">Ključ preverjen. Prevajanje zahteva tudi dobroimetje ali brezplačno kvoto na računu.</string>
+    <string name="translation_context_label">Kontekst</string>
+    <string name="translation_context_off">Izklopljeno</string>
+    <string name="translation_context_nearby">Bližnji stavki</string>
+    <string name="translation_context_screen">Celoten zaslon</string>
+    <string name="translation_context_guide">Pošlje okoliško besedilo, da razreši zaimke in večpomenske besede. Porabi več žetonov.</string>
+    <string name="translation_strength_label">Slog prevoda</string>
+    <string name="translation_strength_literal">Dobesedno</string>
+    <string name="translation_strength_natural">Naravno</string>
+    <string name="translation_strength_free">Prosto</string>
+    <string name="translation_domain_label">Področje</string>
+    <string name="translation_domain_general">Splošno</string>
+    <string name="translation_domain_game">Igre</string>
+    <string name="translation_domain_comic">Strip</string>
+    <string name="translation_domain_tech">Tehnika</string>
+    <string name="translation_domain_business">Poslovno</string>
 </resources>
 
 

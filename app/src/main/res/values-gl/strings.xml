@@ -104,4 +104,19 @@
     <string name="error_translate_network">Erro de rede. Comproba a conexión.</string>
     <string name="error_translate_generic">A tradución fallou. Téntao de novo.</string>
     <string name="key_saved_credit_hint">Clave verificada. Traducir tamén require créditos ou cota gratuíta na conta.</string>
+    <string name="translation_context_label">Contexto</string>
+    <string name="translation_context_off">Desactivado</string>
+    <string name="translation_context_nearby">Frases próximas</string>
+    <string name="translation_context_screen">Toda a pantalla</string>
+    <string name="translation_context_guide">Envía o texto do arredor para resolver pronomes e palabras ambiguas. Consome máis tokens.</string>
+    <string name="translation_strength_label">Estilo de tradución</string>
+    <string name="translation_strength_literal">Literal</string>
+    <string name="translation_strength_natural">Natural</string>
+    <string name="translation_strength_free">Libre</string>
+    <string name="translation_domain_label">Ámbito</string>
+    <string name="translation_domain_general">Xeral</string>
+    <string name="translation_domain_game">Xogos</string>
+    <string name="translation_domain_comic">Cómic</string>
+    <string name="translation_domain_tech">Técnico</string>
+    <string name="translation_domain_business">Negocios</string>
 </resources>

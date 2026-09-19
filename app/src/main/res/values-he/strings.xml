@@ -104,4 +104,19 @@
   <string name="error_translate_network">שגיאת רשת. בדקו את החיבור.</string>
   <string name="error_translate_generic">התרגום נכשל. נסו שוב.</string>
   <string name="key_saved_credit_hint">המפתח אומת. תרגום דורש גם קרדיטים או מכסה חינמית בחשבון.</string>
+    <string name="translation_context_label">הקשר</string>
+    <string name="translation_context_off">כבוי</string>
+    <string name="translation_context_nearby">משפטים סמוכים</string>
+    <string name="translation_context_screen">כל המסך</string>
+    <string name="translation_context_guide">שולח את הטקסט שמסביב כדי לפענח כינויי גוף ומילים דו-משמעיות. צורך יותר טוקנים.</string>
+    <string name="translation_strength_label">סגנון תרגום</string>
+    <string name="translation_strength_literal">מילולי</string>
+    <string name="translation_strength_natural">טבעי</string>
+    <string name="translation_strength_free">חופשי</string>
+    <string name="translation_domain_label">תחום</string>
+    <string name="translation_domain_general">כללי</string>
+    <string name="translation_domain_game">משחקים</string>
+    <string name="translation_domain_comic">קומיקס</string>
+    <string name="translation_domain_tech">טכני</string>
+    <string name="translation_domain_business">עסקי</string>
 </resources>

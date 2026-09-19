@@ -104,4 +104,19 @@
     <string name="error_translate_network">Error de xarxa. Comprova la connexió.</string>
     <string name="error_translate_generic">La traducció ha fallat. Torna-ho a provar.</string>
     <string name="key_saved_credit_hint">Clau verificada. La traducció també requereix crèdits o quota gratuïta al compte.</string>
+    <string name="translation_context_label">Context</string>
+    <string name="translation_context_off">Desactivat</string>
+    <string name="translation_context_nearby">Frases properes</string>
+    <string name="translation_context_screen">Tota la pantalla</string>
+    <string name="translation_context_guide">Envia el text del voltant per resoldre pronoms i paraules ambigües. Consumeix més tokens.</string>
+    <string name="translation_strength_label">Estil de traducció</string>
+    <string name="translation_strength_literal">Literal</string>
+    <string name="translation_strength_natural">Natural</string>
+    <string name="translation_strength_free">Lliure</string>
+    <string name="translation_domain_label">Àmbit</string>
+    <string name="translation_domain_general">General</string>
+    <string name="translation_domain_game">Jocs</string>
+    <string name="translation_domain_comic">Còmic</string>
+    <string name="translation_domain_tech">Tècnic</string>
+    <string name="translation_domain_business">Negocis</string>
 </resources>

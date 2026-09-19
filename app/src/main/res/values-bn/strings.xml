@@ -104,4 +104,19 @@
     <string name="error_translate_network">নেটওয়ার্ক ত্রুটি। আপনার সংযোগ পরীক্ষা করুন।</string>
     <string name="error_translate_generic">অনুবাদ ব্যর্থ হয়েছে। আবার চেষ্টা করুন।</string>
     <string name="key_saved_credit_hint">কী যাচাই হয়েছে। অনুবাদে অ্যাকাউন্টে ক্রেডিট বা বিনামূল্যের কোটাও প্রয়োজন।</string>
+    <string name="translation_context_label">প্রসঙ্গ</string>
+    <string name="translation_context_off">বন্ধ</string>
+    <string name="translation_context_nearby">আশপাশের বাক্য</string>
+    <string name="translation_context_screen">পুরো স্ক্রিন</string>
+    <string name="translation_context_guide">সর্বনাম ও দ্ব্যর্থক শব্দ বোঝার জন্য আশপাশের লেখাও পাঠায়। বেশি টোকেন খরচ হয়।</string>
+    <string name="translation_strength_label">অনুবাদের ধরন</string>
+    <string name="translation_strength_literal">আক্ষরিক</string>
+    <string name="translation_strength_natural">স্বাভাবিক</string>
+    <string name="translation_strength_free">ভাবানুবাদ</string>
+    <string name="translation_domain_label">বিষয়</string>
+    <string name="translation_domain_general">সাধারণ</string>
+    <string name="translation_domain_game">গেম</string>
+    <string name="translation_domain_comic">কমিক</string>
+    <string name="translation_domain_tech">কারিগরি</string>
+    <string name="translation_domain_business">ব্যবসা</string>
 </resources>

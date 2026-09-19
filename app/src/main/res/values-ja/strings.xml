@@ -104,4 +104,19 @@
   <string name="error_translate_network">ネットワークエラーです。接続を確認してください。</string>
   <string name="error_translate_generic">翻訳に失敗しました。もう一度お試しください。</string>
   <string name="key_saved_credit_hint">キーを確認しました。翻訳にはアカウントのクレジットまたは無料枠も必要です。</string>
+    <string name="translation_context_label">文脈</string>
+    <string name="translation_context_off">使用しない</string>
+    <string name="translation_context_nearby">周辺の文</string>
+    <string name="translation_context_screen">画面全体</string>
+    <string name="translation_context_guide">周囲のテキストも送信して、代名詞や多義語を解釈できるようにします。トークンを多く消費します。</string>
+    <string name="translation_strength_label">翻訳スタイル</string>
+    <string name="translation_strength_literal">直訳</string>
+    <string name="translation_strength_natural">自然な訳</string>
+    <string name="translation_strength_free">意訳</string>
+    <string name="translation_domain_label">分野</string>
+    <string name="translation_domain_general">一般</string>
+    <string name="translation_domain_game">ゲーム</string>
+    <string name="translation_domain_comic">マンガ</string>
+    <string name="translation_domain_tech">技術</string>
+    <string name="translation_domain_business">ビジネス</string>
 </resources>

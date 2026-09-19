@@ -104,4 +104,19 @@
     <string name="error_translate_network">Verkkovirhe. Tarkista yhteytesi.</string>
     <string name="error_translate_generic">Käännös epäonnistui. Yritä uudelleen.</string>
     <string name="key_saved_credit_hint">Avain vahvistettu. Kääntäminen vaatii myös krediittejä tai ilmaiskiintiön tililläsi.</string>
+    <string name="translation_context_label">Konteksti</string>
+    <string name="translation_context_off">Pois</string>
+    <string name="translation_context_nearby">Lähilauseet</string>
+    <string name="translation_context_screen">Koko näyttö</string>
+    <string name="translation_context_guide">Lähettää ympäröivän tekstin, jotta pronominit ja monimerkityksiset sanat tulkitaan oikein. Kuluttaa enemmän tokeneita.</string>
+    <string name="translation_strength_label">Käännöstyyli</string>
+    <string name="translation_strength_literal">Sanatarkka</string>
+    <string name="translation_strength_natural">Luonteva</string>
+    <string name="translation_strength_free">Vapaa</string>
+    <string name="translation_domain_label">Ala</string>
+    <string name="translation_domain_general">Yleinen</string>
+    <string name="translation_domain_game">Peli</string>
+    <string name="translation_domain_comic">Sarjakuva</string>
+    <string name="translation_domain_tech">Tekninen</string>
+    <string name="translation_domain_business">Liiketoiminta</string>
 </resources>

@@ -104,4 +104,19 @@
     <string name="error_translate_network">Erro de rede. Verifique a ligação.</string>
     <string name="error_translate_generic">A tradução falhou. Tente novamente.</string>
     <string name="key_saved_credit_hint">Chave verificada. Traduzir também requer créditos ou quota gratuita na conta.</string>
+    <string name="translation_context_label">Contexto</string>
+    <string name="translation_context_off">Desativado</string>
+    <string name="translation_context_nearby">Frases próximas</string>
+    <string name="translation_context_screen">Ecrã inteiro</string>
+    <string name="translation_context_guide">Envia o texto circundante para resolver pronomes e palavras ambíguas. Usa mais tokens.</string>
+    <string name="translation_strength_label">Estilo de tradução</string>
+    <string name="translation_strength_literal">Literal</string>
+    <string name="translation_strength_natural">Natural</string>
+    <string name="translation_strength_free">Livre</string>
+    <string name="translation_domain_label">Área</string>
+    <string name="translation_domain_general">Geral</string>
+    <string name="translation_domain_game">Jogos</string>
+    <string name="translation_domain_comic">Banda desenhada</string>
+    <string name="translation_domain_tech">Técnico</string>
+    <string name="translation_domain_business">Negócios</string>
 </resources>

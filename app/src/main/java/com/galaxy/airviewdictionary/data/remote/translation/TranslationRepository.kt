@@ -141,11 +141,13 @@ class TranslationRepository @Inject constructor(
         sourceLanguageCode: String,
         targetLanguageCode: String,
         sourceText: String,
+        contextText: String? = null,
     ): TranslationResponse {
         return getTranslationKit(translationKitType).request(
             sourceLanguageCode,
             targetLanguageCode,
-            sourceText
+            sourceText,
+            contextText,
         )
     }
 

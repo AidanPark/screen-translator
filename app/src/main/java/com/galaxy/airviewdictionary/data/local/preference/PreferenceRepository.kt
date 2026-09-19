@@ -20,7 +20,11 @@ import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import com.galaxy.airviewdictionary.data.remote.translation.TranslationContextMode
+import com.galaxy.airviewdictionary.data.remote.translation.TranslationDomain
+import com.galaxy.airviewdictionary.data.remote.translation.TranslationStrength
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -57,6 +61,16 @@ class PreferenceRepository @Inject constructor(@ApplicationContext val context: 
         val TRANSLATION_KIT_TYPE = stringPreferencesKey("translation_kit_type")
         // OpenAI 번역에 사용할 모델. 미설정이면 OpenAiKit 이 Remote Config 후보의 첫 번째로 폴백한다.
         val OPENAI_MODEL = stringPreferencesKey("openai_model")
+        // OpenAI 번역의 문맥/스타일 옵션. 값은 TranslationContextMode/Strength/Domain 의 enum 이름.
+        val OPENAI_CONTEXT_MODE = stringPreferencesKey("openai_context_mode")
+        val OPENAI_TRANSLATION_STRENGTH = stringPreferencesKey("openai_translation_strength")
+        val OPENAI_TRANSLATION_DOMAIN = stringPreferencesKey("openai_translation_domain")
+        val GEMINI_CONTEXT_MODE = stringPreferencesKey("gemini_context_mode")
+        val GEMINI_TRANSLATION_STRENGTH = stringPreferencesKey("gemini_translation_strength")
+        val GEMINI_TRANSLATION_DOMAIN = stringPreferencesKey("gemini_translation_domain")
+        val CLAUDE_CONTEXT_MODE = stringPreferencesKey("claude_context_mode")
+        val CLAUDE_TRANSLATION_STRENGTH = stringPreferencesKey("claude_translation_strength")
+        val CLAUDE_TRANSLATION_DOMAIN = stringPreferencesKey("claude_translation_domain")
         // Gemini 번역에 사용할 모델. 미설정이면 GeminiKit 이 Remote Config 후보의 첫 번째로 폴백한다.
         val GEMINI_MODEL = stringPreferencesKey("gemini_model")
         // Claude 번역에 사용할 모델. 미설정이면 ClaudeKit 이 Remote Config 후보의 첫 번째로 폴백한다.
@@ -167,6 +181,58 @@ class PreferenceRepository @Inject constructor(@ApplicationContext val context: 
     // OpenAI 번역 모델 선택값. 미설정이면 null (OpenAiKit 이 Remote Config 후보로 폴백).
     val openAiModelFlow: Flow<String?> = preferenceFlow.map { preferences ->
         preferences[OPENAI_MODEL]
+    }
+
+    // OpenAI 번역의 문맥 범위. 미설정이면 기본값(주변 문장).
+    val openAiContextModeFlow: Flow<TranslationContextMode> = preferenceFlow.map { preferences ->
+        TranslationContextMode.from(preferences[OPENAI_CONTEXT_MODE])
+    }
+
+    // OpenAI 번역의 번역 강도. 미설정이면 기본값(직역).
+    val openAiTranslationStrengthFlow: Flow<TranslationStrength> = preferenceFlow.map { preferences ->
+        TranslationStrength.from(preferences[OPENAI_TRANSLATION_STRENGTH])
+    }
+
+    // OpenAI 번역의 분야. 미설정이면 기본값(일반).
+    val openAiTranslationDomainFlow: Flow<TranslationDomain> = preferenceFlow.map { preferences ->
+        TranslationDomain.from(preferences[OPENAI_TRANSLATION_DOMAIN])
+    }
+
+    val geminiContextModeFlow: Flow<TranslationContextMode> = preferenceFlow.map { preferences ->
+        TranslationContextMode.from(preferences[GEMINI_CONTEXT_MODE])
+    }
+
+    val geminiTranslationStrengthFlow: Flow<TranslationStrength> = preferenceFlow.map { preferences ->
+        TranslationStrength.from(preferences[GEMINI_TRANSLATION_STRENGTH])
+    }
+
+    val geminiTranslationDomainFlow: Flow<TranslationDomain> = preferenceFlow.map { preferences ->
+        TranslationDomain.from(preferences[GEMINI_TRANSLATION_DOMAIN])
+    }
+
+    val claudeContextModeFlow: Flow<TranslationContextMode> = preferenceFlow.map { preferences ->
+        TranslationContextMode.from(preferences[CLAUDE_CONTEXT_MODE])
+    }
+
+    val claudeTranslationStrengthFlow: Flow<TranslationStrength> = preferenceFlow.map { preferences ->
+        TranslationStrength.from(preferences[CLAUDE_TRANSLATION_STRENGTH])
+    }
+
+    val claudeTranslationDomainFlow: Flow<TranslationDomain> = preferenceFlow.map { preferences ->
+        TranslationDomain.from(preferences[CLAUDE_TRANSLATION_DOMAIN])
+    }
+
+    /**
+     * 현재 번역 엔진의 문맥 설정.
+     *
+     * 문맥은 프롬프트가 있는 AI 엔진에만 의미가 있으므로, 나머지 엔진은 항상 [TranslationContextMode.OFF] 다.
+     * (문맥 수집 자체를 건너뛰어 불필요한 작업을 막는다)
+     */
+    fun contextModeFlow(kitType: TranslationKitType): Flow<TranslationContextMode> = when (kitType) {
+        TranslationKitType.OPENAI -> openAiContextModeFlow
+        TranslationKitType.GEMINI -> geminiContextModeFlow
+        TranslationKitType.CLAUDE -> claudeContextModeFlow
+        else -> flowOf(TranslationContextMode.OFF)
     }
 
     // Gemini 번역 모델 선택값. 미설정이면 null (GeminiKit 이 Remote Config 후보로 폴백).

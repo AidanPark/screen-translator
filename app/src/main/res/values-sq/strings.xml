@@ -104,4 +104,19 @@
     <string name="error_translate_network">Gabim rrjeti. Kontrolloni lidhjen.</string>
     <string name="error_translate_generic">Përkthimi dështoi. Provoni përsëri.</string>
     <string name="key_saved_credit_hint">Çelësi u verifikua. Përkthimi kërkon edhe kredite ose kuotë falas në llogari.</string>
+    <string name="translation_context_label">Konteksti</string>
+    <string name="translation_context_off">Joaktiv</string>
+    <string name="translation_context_nearby">Fjalitë përreth</string>
+    <string name="translation_context_screen">I gjithë ekrani</string>
+    <string name="translation_context_guide">Dërgon tekstin përreth që të kuptohen përemrat dhe fjalët e paqarta. Përdor më shumë token.</string>
+    <string name="translation_strength_label">Stili i përkthimit</string>
+    <string name="translation_strength_literal">Fjalë për fjalë</string>
+    <string name="translation_strength_natural">Natyral</string>
+    <string name="translation_strength_free">I lirë</string>
+    <string name="translation_domain_label">Fusha</string>
+    <string name="translation_domain_general">E përgjithshme</string>
+    <string name="translation_domain_game">Lojëra</string>
+    <string name="translation_domain_comic">Komik</string>
+    <string name="translation_domain_tech">Teknike</string>
+    <string name="translation_domain_business">Biznes</string>
 </resources>

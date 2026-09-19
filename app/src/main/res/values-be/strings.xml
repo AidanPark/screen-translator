@@ -104,4 +104,19 @@
     <string name="error_translate_network">Памылка сеткі. Праверце падключэнне.</string>
     <string name="error_translate_generic">Пераклад не выкананы. Паспрабуйце яшчэ раз.</string>
     <string name="key_saved_credit_hint">Ключ пацверджаны. Для перакладу таксама патрэбныя крэдыты або бясплатная квота на рахунку.</string>
+    <string name="translation_context_label">Кантэкст</string>
+    <string name="translation_context_off">Выключана</string>
+    <string name="translation_context_nearby">Суседнія сказы</string>
+    <string name="translation_context_screen">Увесь экран</string>
+    <string name="translation_context_guide">Дасылае навакольны тэкст, каб распазнаць займеннікі і мнагазначныя словы. Расходуе больш токенаў.</string>
+    <string name="translation_strength_label">Стыль перакладу</string>
+    <string name="translation_strength_literal">Даслоўны</string>
+    <string name="translation_strength_natural">Натуральны</string>
+    <string name="translation_strength_free">Вольны</string>
+    <string name="translation_domain_label">Тэматыка</string>
+    <string name="translation_domain_general">Агульная</string>
+    <string name="translation_domain_game">Гульні</string>
+    <string name="translation_domain_comic">Коміксы</string>
+    <string name="translation_domain_tech">Тэхніка</string>
+    <string name="translation_domain_business">Бізнес</string>
 </resources>

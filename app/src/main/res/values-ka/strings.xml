@@ -104,4 +104,19 @@
     <string name="error_translate_network">ქსელის შეცდომა. შეამოწმეთ კავშირი.</string>
     <string name="error_translate_generic">თარგმნა ვერ მოხერხდა. სცადეთ ხელახლა.</string>
     <string name="key_saved_credit_hint">გასაღები დადასტურდა. თარგმნას ასევე სჭირდება კრედიტები ან უფასო კვოტა ანგარიშზე.</string>
+    <string name="translation_context_label">კონტექსტი</string>
+    <string name="translation_context_off">გამორთული</string>
+    <string name="translation_context_nearby">მეზობელი წინადადებები</string>
+    <string name="translation_context_screen">მთელი ეკრანი</string>
+    <string name="translation_context_guide">აგზავნის გარშემო არსებულ ტექსტს, რომ ნაცვალსახელები და ორაზროვანი სიტყვები გაირკვეს. მეტ ტოკენს ხარჯავს.</string>
+    <string name="translation_strength_label">თარგმანის სტილი</string>
+    <string name="translation_strength_literal">სიტყვასიტყვითი</string>
+    <string name="translation_strength_natural">ბუნებრივი</string>
+    <string name="translation_strength_free">თავისუფალი</string>
+    <string name="translation_domain_label">სფერო</string>
+    <string name="translation_domain_general">ზოგადი</string>
+    <string name="translation_domain_game">თამაშები</string>
+    <string name="translation_domain_comic">კომიქსი</string>
+    <string name="translation_domain_tech">ტექნიკური</string>
+    <string name="translation_domain_business">ბიზნესი</string>
 </resources>

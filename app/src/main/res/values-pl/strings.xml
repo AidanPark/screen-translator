@@ -104,4 +104,19 @@
   <string name="error_translate_network">Błąd sieci. Sprawdź połączenie.</string>
   <string name="error_translate_generic">Tłumaczenie nie powiodło się. Spróbuj ponownie.</string>
   <string name="key_saved_credit_hint">Klucz zweryfikowany. Tłumaczenie wymaga też środków lub darmowego limitu na koncie.</string>
+    <string name="translation_context_label">Kontekst</string>
+    <string name="translation_context_off">Wyłączony</string>
+    <string name="translation_context_nearby">Sąsiednie zdania</string>
+    <string name="translation_context_screen">Cały ekran</string>
+    <string name="translation_context_guide">Wysyła otaczający tekst, aby rozpoznać zaimki i wyrazy wieloznaczne. Zużywa więcej tokenów.</string>
+    <string name="translation_strength_label">Styl tłumaczenia</string>
+    <string name="translation_strength_literal">Dosłowne</string>
+    <string name="translation_strength_natural">Naturalne</string>
+    <string name="translation_strength_free">Swobodne</string>
+    <string name="translation_domain_label">Dziedzina</string>
+    <string name="translation_domain_general">Ogólne</string>
+    <string name="translation_domain_game">Gry</string>
+    <string name="translation_domain_comic">Komiks</string>
+    <string name="translation_domain_tech">Techniczne</string>
+    <string name="translation_domain_business">Biznes</string>
 </resources>

@@ -104,6 +104,21 @@
     <string name="error_translate_network">Netwerkfout. Kontroleer jou verbinding.</string>
     <string name="error_translate_generic">Vertaling het misluk. Probeer asseblief weer.</string>
     <string name="key_saved_credit_hint">Sleutel bevestig. Vertaling benodig ook krediete of gratis kwota op jou rekening.</string>
+    <string name="translation_context_label">Konteks</string>
+    <string name="translation_context_off">Af</string>
+    <string name="translation_context_nearby">Nabygeleë sinne</string>
+    <string name="translation_context_screen">Hele skerm</string>
+    <string name="translation_context_guide">Stuur die omliggende teks saam sodat voornaamwoorde en dubbelsinnige woorde verstaan kan word. Gebruik meer tokens.</string>
+    <string name="translation_strength_label">Vertaalstyl</string>
+    <string name="translation_strength_literal">Letterlik</string>
+    <string name="translation_strength_natural">Natuurlik</string>
+    <string name="translation_strength_free">Vry</string>
+    <string name="translation_domain_label">Vakgebied</string>
+    <string name="translation_domain_general">Algemeen</string>
+    <string name="translation_domain_game">Speletjies</string>
+    <string name="translation_domain_comic">Strokiesprent</string>
+    <string name="translation_domain_tech">Tegnies</string>
+    <string name="translation_domain_business">Besigheid</string>
 </resources>
 
 

@@ -104,6 +104,21 @@
     <string name="error_translate_network">Võrguviga. Kontrolli ühendust.</string>
     <string name="error_translate_generic">Tõlkimine ebaõnnestus. Proovi uuesti.</string>
     <string name="key_saved_credit_hint">Võti kinnitatud. Tõlkimiseks on vaja ka krediiti või tasuta kvooti kontol.</string>
+    <string name="translation_context_label">Kontekst</string>
+    <string name="translation_context_off">Väljas</string>
+    <string name="translation_context_nearby">Lähedased laused</string>
+    <string name="translation_context_screen">Kogu ekraan</string>
+    <string name="translation_context_guide">Saadab ümbritseva teksti, et tuvastada asesõnad ja mitmetähenduslikud sõnad. Kulutab rohkem tokeneid.</string>
+    <string name="translation_strength_label">Tõlkestiil</string>
+    <string name="translation_strength_literal">Sõnasõnaline</string>
+    <string name="translation_strength_natural">Loomulik</string>
+    <string name="translation_strength_free">Vaba</string>
+    <string name="translation_domain_label">Valdkond</string>
+    <string name="translation_domain_general">Üldine</string>
+    <string name="translation_domain_game">Mängud</string>
+    <string name="translation_domain_comic">Koomiks</string>
+    <string name="translation_domain_tech">Tehniline</string>
+    <string name="translation_domain_business">Äri</string>
 </resources>
 
 

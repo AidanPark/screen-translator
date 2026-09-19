@@ -49,6 +49,19 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.foundation.ScrollState
+import androidx.compose.ui.semantics.Role
+import com.galaxy.airviewdictionary.data.remote.translation.TranslationContextMode
+import com.galaxy.airviewdictionary.data.remote.translation.TranslationDomain
+import com.galaxy.airviewdictionary.data.remote.translation.TranslationStrength
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AllInclusive
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -1762,6 +1775,101 @@ class SettingsActivity : AVDActivity() {
      * API 키 다이얼로그의 번역 모델 선택 필드. 라디오 그룹 대신 드롭다운으로 처리해 팝업 높이를 줄여,
      * 상단 오버레이 메뉴바에 가려지지 않도록 한다.
      */
+    /**
+     * 세로 스크롤 영역 오른쪽에 스크롤바를 그린다.
+     *
+     * 다이얼로그를 키우지 않고 옵션을 넣으려면 내용이 잘릴 수밖에 없어서,
+     * "아래에 더 있다"는 신호가 필요하다. 스크롤이 필요 없을 때는 그리지 않는다.
+     */
+    private fun Modifier.verticalScrollbar(
+        scrollState: ScrollState,
+        color: Color,
+        width: Dp = 3.dp,
+    ): Modifier = drawWithContent {
+        drawContent()
+        val maxValue = scrollState.maxValue
+        if (maxValue <= 0) return@drawWithContent
+
+        val viewportHeight = size.height
+        val totalHeight = viewportHeight + maxValue
+        val thumbHeight = (viewportHeight / totalHeight * viewportHeight)
+            .coerceAtLeast(24.dp.toPx())
+        val travel = viewportHeight - thumbHeight
+        val thumbOffsetY = travel * (scrollState.value.toFloat() / maxValue)
+        val thumbWidth = width.toPx()
+
+        drawRoundRect(
+            color = color,
+            topLeft = Offset(size.width - thumbWidth, thumbOffsetY),
+            size = Size(thumbWidth, thumbHeight),
+            cornerRadius = CornerRadius(thumbWidth / 2, thumbWidth / 2),
+        )
+    }
+
+    /**
+     * 라디오 버튼 한 줄로 고르는 옵션 그룹.
+     * 항목 수가 적고 값이 배타적이라 드롭다운보다 한눈에 들어온다.
+     */
+    @Composable
+    private fun <T> RadioOptionGroup(
+        label: String,
+        options: List<T>,
+        selected: T?,
+        enabled: Boolean,
+        labelOf: (T) -> String,
+        titleColor: Color,
+        contentColor: Color,
+        linkColor: Color,
+        onSelected: (T) -> Unit,
+        description: String? = null,
+    ) {
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = label,
+            color = titleColor,
+            style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp),
+            fontWeight = FontWeight.Bold,
+        )
+        if (description != null) {
+            Spacer(modifier = Modifier.height(2.dp))
+            Text(
+                text = description,
+                color = contentColor.copy(alpha = 0.7f),
+                style = MaterialTheme.typography.bodySmall.copy(fontSize = 12.sp),
+            )
+        }
+        Spacer(modifier = Modifier.height(2.dp))
+        options.forEach { option ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .selectable(
+                        selected = option == selected,
+                        enabled = enabled,
+                        role = Role.RadioButton,
+                        onClick = { onSelected(option) },
+                    )
+                    .padding(vertical = 2.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                RadioButton(
+                    selected = option == selected,
+                    onClick = null,
+                    enabled = enabled,
+                    colors = RadioButtonDefaults.colors(
+                        selectedColor = linkColor,
+                        unselectedColor = contentColor.copy(alpha = 0.6f),
+                    ),
+                )
+                Text(
+                    text = labelOf(option),
+                    color = contentColor,
+                    style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp),
+                )
+            }
+        }
+    }
+
     @Composable
     private fun ModelDropdownField(
         label: String,
@@ -2040,6 +2148,7 @@ class SettingsActivity : AVDActivity() {
         var isValidating by remember { mutableStateOf(false) }
         var showInvalidKeyError by remember { mutableStateOf(false) }
         val coroutineScope = rememberCoroutineScope()
+        val scrollState = rememberScrollState()
 
         // 번역 모델 후보(Remote Config)와 현재 선택값
         val models = remember { viewModel.remoteConfigRepository.getOpenAiTranslateModels() }
@@ -2058,6 +2167,24 @@ class SettingsActivity : AVDActivity() {
             }
         }
 
+        // 문맥/스타일 옵션. 저장값이 없으면 각 enum 의 기본값(주변 문장 / 직역 / 일반).
+        var contextMode by remember { mutableStateOf(TranslationContextMode.DEFAULT) }
+        var strength by remember { mutableStateOf(TranslationStrength.DEFAULT) }
+        var domain by remember { mutableStateOf(TranslationDomain.DEFAULT) }
+        LaunchedEffect(Unit) {
+            contextMode = viewModel.preferenceRepository.openAiContextModeFlow.first()
+            strength = viewModel.preferenceRepository.openAiTranslationStrengthFlow.first()
+            domain = viewModel.preferenceRepository.openAiTranslationDomainFlow.first()
+        }
+
+        fun persistOptions() {
+            coroutineScope.launch {
+                viewModel.preferenceRepository.update(PreferenceRepository.OPENAI_CONTEXT_MODE, contextMode.name)
+                viewModel.preferenceRepository.update(PreferenceRepository.OPENAI_TRANSLATION_STRENGTH, strength.name)
+                viewModel.preferenceRepository.update(PreferenceRepository.OPENAI_TRANSLATION_DOMAIN, domain.name)
+            }
+        }
+
         /**
          * 저장 처리.
          * - 빈 값: 검증 없이 키 삭제(비활성화). 선택된 엔진이 OpenAI 면 Google 로 되돌린다.
@@ -2067,6 +2194,7 @@ class SettingsActivity : AVDActivity() {
          */
         fun saveApiKey() {
             persistModel()
+            persistOptions()
             val trimmedKey = apiKeyInput.trim()
             if (trimmedKey.isEmpty()) {
                 OpenAiKit.storeApiKey(context, "")
@@ -2144,6 +2272,15 @@ class SettingsActivity : AVDActivity() {
                     )
                 }
 
+                // 다이얼로그를 키우지 않기 위해 본문만 스크롤시킨다.
+                // 오른쪽 스크롤바가 "아래에 더 있다"는 신호가 된다.
+                Column(
+                    modifier = Modifier
+                        .heightIn(max = 340.dp)
+                        .verticalScrollbar(scrollState, contentColor.copy(alpha = 0.35f))
+                        .verticalScroll(scrollState)
+                        .padding(end = 8.dp),
+                ) {
                 Spacer(modifier = Modifier.height(18.dp))
 
                 Text(
@@ -2159,7 +2296,6 @@ class SettingsActivity : AVDActivity() {
                     color = contentColor,
                     style = MaterialTheme.typography.bodySmall.copy(fontSize = 13.sp),
                 )
-
                 Spacer(modifier = Modifier.height(10.dp))
 
                 LinkText(
@@ -2216,6 +2352,44 @@ class SettingsActivity : AVDActivity() {
                     )
                 }
 
+                    RadioOptionGroup(
+                        label = getString(R.string.translation_context_label),
+                        description = getString(R.string.translation_context_guide),
+                        options = TranslationContextMode.entries,
+                        selected = contextMode,
+                        enabled = !isValidating,
+                        labelOf = { getString(it.labelResourceId) },
+                        titleColor = titleColor,
+                        contentColor = contentColor,
+                        linkColor = linkColor,
+                        onSelected = { contextMode = it },
+                    )
+
+                    RadioOptionGroup(
+                        label = getString(R.string.translation_strength_label),
+                        options = TranslationStrength.entries,
+                        selected = strength,
+                        enabled = !isValidating,
+                        labelOf = { getString(it.labelResourceId) },
+                        titleColor = titleColor,
+                        contentColor = contentColor,
+                        linkColor = linkColor,
+                        onSelected = { strength = it },
+                    )
+
+                    RadioOptionGroup(
+                        label = getString(R.string.translation_domain_label),
+                        options = TranslationDomain.entries,
+                        selected = domain,
+                        enabled = !isValidating,
+                        labelOf = { getString(it.labelResourceId) },
+                        titleColor = titleColor,
+                        contentColor = contentColor,
+                        linkColor = linkColor,
+                        onSelected = { domain = it },
+                    )
+                }
+
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Row(
@@ -2267,6 +2441,7 @@ class SettingsActivity : AVDActivity() {
         var isValidating by remember { mutableStateOf(false) }
         var showInvalidKeyError by remember { mutableStateOf(false) }
         val coroutineScope = rememberCoroutineScope()
+        val scrollState = rememberScrollState()
 
         // 번역 모델 후보(Remote Config)와 현재 선택값
         val models = remember { viewModel.remoteConfigRepository.getGeminiTranslateModels() }
@@ -2284,8 +2459,27 @@ class SettingsActivity : AVDActivity() {
             }
         }
 
+        // 문맥/스타일 옵션. 저장값이 없으면 각 enum 의 기본값(주변 문장 / 직역 / 일반).
+        var contextMode by remember { mutableStateOf(TranslationContextMode.DEFAULT) }
+        var strength by remember { mutableStateOf(TranslationStrength.DEFAULT) }
+        var domain by remember { mutableStateOf(TranslationDomain.DEFAULT) }
+        LaunchedEffect(Unit) {
+            contextMode = viewModel.preferenceRepository.geminiContextModeFlow.first()
+            strength = viewModel.preferenceRepository.geminiTranslationStrengthFlow.first()
+            domain = viewModel.preferenceRepository.geminiTranslationDomainFlow.first()
+        }
+
+        fun persistOptions() {
+            coroutineScope.launch {
+                viewModel.preferenceRepository.update(PreferenceRepository.GEMINI_CONTEXT_MODE, contextMode.name)
+                viewModel.preferenceRepository.update(PreferenceRepository.GEMINI_TRANSLATION_STRENGTH, strength.name)
+                viewModel.preferenceRepository.update(PreferenceRepository.GEMINI_TRANSLATION_DOMAIN, domain.name)
+            }
+        }
+
         fun saveApiKey() {
             persistModel()
+            persistOptions()
             val trimmedKey = apiKeyInput.trim()
             if (trimmedKey.isEmpty()) {
                 GeminiKit.storeApiKey(context, "")
@@ -2363,6 +2557,15 @@ class SettingsActivity : AVDActivity() {
                     )
                 }
 
+                // 다이얼로그를 키우지 않기 위해 본문만 스크롤시킨다.
+                // 오른쪽 스크롤바가 "아래에 더 있다"는 신호가 된다.
+                Column(
+                    modifier = Modifier
+                        .heightIn(max = 340.dp)
+                        .verticalScrollbar(scrollState, contentColor.copy(alpha = 0.35f))
+                        .verticalScroll(scrollState)
+                        .padding(end = 8.dp),
+                ) {
                 Spacer(modifier = Modifier.height(18.dp))
 
                 Text(
@@ -2435,6 +2638,44 @@ class SettingsActivity : AVDActivity() {
                     )
                 }
 
+                    RadioOptionGroup(
+                        label = getString(R.string.translation_context_label),
+                        description = getString(R.string.translation_context_guide),
+                        options = TranslationContextMode.entries,
+                        selected = contextMode,
+                        enabled = !isValidating,
+                        labelOf = { getString(it.labelResourceId) },
+                        titleColor = titleColor,
+                        contentColor = contentColor,
+                        linkColor = linkColor,
+                        onSelected = { contextMode = it },
+                    )
+
+                    RadioOptionGroup(
+                        label = getString(R.string.translation_strength_label),
+                        options = TranslationStrength.entries,
+                        selected = strength,
+                        enabled = !isValidating,
+                        labelOf = { getString(it.labelResourceId) },
+                        titleColor = titleColor,
+                        contentColor = contentColor,
+                        linkColor = linkColor,
+                        onSelected = { strength = it },
+                    )
+
+                    RadioOptionGroup(
+                        label = getString(R.string.translation_domain_label),
+                        options = TranslationDomain.entries,
+                        selected = domain,
+                        enabled = !isValidating,
+                        labelOf = { getString(it.labelResourceId) },
+                        titleColor = titleColor,
+                        contentColor = contentColor,
+                        linkColor = linkColor,
+                        onSelected = { domain = it },
+                    )
+                }
+
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Row(
@@ -2486,6 +2727,7 @@ class SettingsActivity : AVDActivity() {
         var isValidating by remember { mutableStateOf(false) }
         var showInvalidKeyError by remember { mutableStateOf(false) }
         val coroutineScope = rememberCoroutineScope()
+        val scrollState = rememberScrollState()
 
         // 번역 모델 후보(Remote Config)와 현재 선택값
         val models = remember { viewModel.remoteConfigRepository.getClaudeTranslateModels() }
@@ -2503,8 +2745,27 @@ class SettingsActivity : AVDActivity() {
             }
         }
 
+        // 문맥/스타일 옵션. 저장값이 없으면 각 enum 의 기본값(주변 문장 / 직역 / 일반).
+        var contextMode by remember { mutableStateOf(TranslationContextMode.DEFAULT) }
+        var strength by remember { mutableStateOf(TranslationStrength.DEFAULT) }
+        var domain by remember { mutableStateOf(TranslationDomain.DEFAULT) }
+        LaunchedEffect(Unit) {
+            contextMode = viewModel.preferenceRepository.claudeContextModeFlow.first()
+            strength = viewModel.preferenceRepository.claudeTranslationStrengthFlow.first()
+            domain = viewModel.preferenceRepository.claudeTranslationDomainFlow.first()
+        }
+
+        fun persistOptions() {
+            coroutineScope.launch {
+                viewModel.preferenceRepository.update(PreferenceRepository.CLAUDE_CONTEXT_MODE, contextMode.name)
+                viewModel.preferenceRepository.update(PreferenceRepository.CLAUDE_TRANSLATION_STRENGTH, strength.name)
+                viewModel.preferenceRepository.update(PreferenceRepository.CLAUDE_TRANSLATION_DOMAIN, domain.name)
+            }
+        }
+
         fun saveApiKey() {
             persistModel()
+            persistOptions()
             val trimmedKey = apiKeyInput.trim()
             if (trimmedKey.isEmpty()) {
                 ClaudeKit.storeApiKey(context, "")
@@ -2582,6 +2843,15 @@ class SettingsActivity : AVDActivity() {
                     )
                 }
 
+                // 다이얼로그를 키우지 않기 위해 본문만 스크롤시킨다.
+                // 오른쪽 스크롤바가 "아래에 더 있다"는 신호가 된다.
+                Column(
+                    modifier = Modifier
+                        .heightIn(max = 340.dp)
+                        .verticalScrollbar(scrollState, contentColor.copy(alpha = 0.35f))
+                        .verticalScroll(scrollState)
+                        .padding(end = 8.dp),
+                ) {
                 Spacer(modifier = Modifier.height(18.dp))
 
                 Text(
@@ -2651,6 +2921,44 @@ class SettingsActivity : AVDActivity() {
                         contentColor = contentColor,
                         linkColor = linkColor,
                         onModelSelected = { selectedModel = it },
+                    )
+                }
+
+                    RadioOptionGroup(
+                        label = getString(R.string.translation_context_label),
+                        description = getString(R.string.translation_context_guide),
+                        options = TranslationContextMode.entries,
+                        selected = contextMode,
+                        enabled = !isValidating,
+                        labelOf = { getString(it.labelResourceId) },
+                        titleColor = titleColor,
+                        contentColor = contentColor,
+                        linkColor = linkColor,
+                        onSelected = { contextMode = it },
+                    )
+
+                    RadioOptionGroup(
+                        label = getString(R.string.translation_strength_label),
+                        options = TranslationStrength.entries,
+                        selected = strength,
+                        enabled = !isValidating,
+                        labelOf = { getString(it.labelResourceId) },
+                        titleColor = titleColor,
+                        contentColor = contentColor,
+                        linkColor = linkColor,
+                        onSelected = { strength = it },
+                    )
+
+                    RadioOptionGroup(
+                        label = getString(R.string.translation_domain_label),
+                        options = TranslationDomain.entries,
+                        selected = domain,
+                        enabled = !isValidating,
+                        labelOf = { getString(it.labelResourceId) },
+                        titleColor = titleColor,
+                        contentColor = contentColor,
+                        linkColor = linkColor,
+                        onSelected = { domain = it },
                     )
                 }
 

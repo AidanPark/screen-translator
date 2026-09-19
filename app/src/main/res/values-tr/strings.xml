@@ -104,4 +104,19 @@
   <string name="error_translate_network">Ağ hatası. Bağlantınızı kontrol edin.</string>
   <string name="error_translate_generic">Çeviri başarısız oldu. Tekrar deneyin.</string>
   <string name="key_saved_credit_hint">Anahtar doğrulandı. Çeviri için hesapta kredi veya ücretsiz kota da gerekir.</string>
+    <string name="translation_context_label">Bağlam</string>
+    <string name="translation_context_off">Kapalı</string>
+    <string name="translation_context_nearby">Yakındaki cümleler</string>
+    <string name="translation_context_screen">Tüm ekran</string>
+    <string name="translation_context_guide">Zamirleri ve belirsiz sözcükleri çözebilmesi için çevredeki metni de gönderir. Daha fazla token harcar.</string>
+    <string name="translation_strength_label">Çeviri stili</string>
+    <string name="translation_strength_literal">Birebir</string>
+    <string name="translation_strength_natural">Doğal</string>
+    <string name="translation_strength_free">Serbest</string>
+    <string name="translation_domain_label">Alan</string>
+    <string name="translation_domain_general">Genel</string>
+    <string name="translation_domain_game">Oyun</string>
+    <string name="translation_domain_comic">Çizgi roman</string>
+    <string name="translation_domain_tech">Teknik</string>
+    <string name="translation_domain_business">İş</string>
 </resources>

@@ -104,4 +104,19 @@
     <string name="error_translate_network">Мрежова грешка. Проверете връзката си.</string>
     <string name="error_translate_generic">Преводът не бе успешен. Опитайте отново.</string>
     <string name="key_saved_credit_hint">Ключът е потвърден. За превод са нужни и кредити или безплатна квота в акаунта.</string>
+    <string name="translation_context_label">Контекст</string>
+    <string name="translation_context_off">Изключено</string>
+    <string name="translation_context_nearby">Съседни изречения</string>
+    <string name="translation_context_screen">Целият екран</string>
+    <string name="translation_context_guide">Изпраща околния текст, за да разпознае местоименията и многозначните думи. Използва повече токени.</string>
+    <string name="translation_strength_label">Стил на превод</string>
+    <string name="translation_strength_literal">Буквален</string>
+    <string name="translation_strength_natural">Естествен</string>
+    <string name="translation_strength_free">Свободен</string>
+    <string name="translation_domain_label">Област</string>
+    <string name="translation_domain_general">Общо</string>
+    <string name="translation_domain_game">Игри</string>
+    <string name="translation_domain_comic">Комикси</string>
+    <string name="translation_domain_tech">Техника</string>
+    <string name="translation_domain_business">Бизнес</string>
 </resources>

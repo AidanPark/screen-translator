@@ -104,4 +104,19 @@
     <string name="error_translate_network">Помилка мережі. Перевірте з\'єднання.</string>
     <string name="error_translate_generic">Не вдалося перекласти. Спробуйте ще раз.</string>
     <string name="key_saved_credit_hint">Ключ підтверджено. Для перекладу також потрібні кредити або безкоштовна квота на рахунку.</string>
+    <string name="translation_context_label">Контекст</string>
+    <string name="translation_context_off">Вимкнено</string>
+    <string name="translation_context_nearby">Сусідні речення</string>
+    <string name="translation_context_screen">Увесь екран</string>
+    <string name="translation_context_guide">Надсилає навколишній текст, щоб розпізнати займенники та багатозначні слова. Витрачає більше токенів.</string>
+    <string name="translation_strength_label">Стиль перекладу</string>
+    <string name="translation_strength_literal">Дослівний</string>
+    <string name="translation_strength_natural">Природний</string>
+    <string name="translation_strength_free">Вільний</string>
+    <string name="translation_domain_label">Тематика</string>
+    <string name="translation_domain_general">Загальна</string>
+    <string name="translation_domain_game">Ігри</string>
+    <string name="translation_domain_comic">Комікси</string>
+    <string name="translation_domain_tech">Техніка</string>
+    <string name="translation_domain_business">Бізнес</string>
 </resources>

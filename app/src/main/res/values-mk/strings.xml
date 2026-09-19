@@ -105,4 +105,19 @@
   <string name="error_translate_network">Мрежна грешка. Проверете ја врската.</string>
   <string name="error_translate_generic">Преводот не успеа. Обидете се повторно.</string>
   <string name="key_saved_credit_hint">Клучот е потврден. За превод се потребни и кредити или бесплатна квота на сметката.</string>
+    <string name="translation_context_label">Контекст</string>
+    <string name="translation_context_off">Исклучено</string>
+    <string name="translation_context_nearby">Соседни реченици</string>
+    <string name="translation_context_screen">Целиот екран</string>
+    <string name="translation_context_guide">Го испраќа околниот текст за да се разрешат заменките и повеќезначните зборови. Троши повеќе токени.</string>
+    <string name="translation_strength_label">Стил на превод</string>
+    <string name="translation_strength_literal">Буквален</string>
+    <string name="translation_strength_natural">Природен</string>
+    <string name="translation_strength_free">Слободен</string>
+    <string name="translation_domain_label">Област</string>
+    <string name="translation_domain_general">Општо</string>
+    <string name="translation_domain_game">Игри</string>
+    <string name="translation_domain_comic">Стрип</string>
+    <string name="translation_domain_tech">Технички</string>
+    <string name="translation_domain_business">Бизнис</string>
 </resources>

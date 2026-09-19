@@ -104,4 +104,19 @@
   <string name="error_translate_network">网络错误。请检查连接。</string>
   <string name="error_translate_generic">翻译失败。请重试。</string>
   <string name="key_saved_credit_hint">密钥已验证。翻译还需要账户中的余额或免费额度。</string>
+    <string name="translation_context_label">上下文</string>
+    <string name="translation_context_off">关闭</string>
+    <string name="translation_context_nearby">邻近句子</string>
+    <string name="translation_context_screen">整个屏幕</string>
+    <string name="translation_context_guide">同时发送周围文本，以便解析代词和多义词。会消耗更多令牌。</string>
+    <string name="translation_strength_label">翻译风格</string>
+    <string name="translation_strength_literal">直译</string>
+    <string name="translation_strength_natural">自然</string>
+    <string name="translation_strength_free">意译</string>
+    <string name="translation_domain_label">领域</string>
+    <string name="translation_domain_general">通用</string>
+    <string name="translation_domain_game">游戏</string>
+    <string name="translation_domain_comic">漫画</string>
+    <string name="translation_domain_tech">技术</string>
+    <string name="translation_domain_business">商务</string>
 </resources>

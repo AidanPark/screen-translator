@@ -104,4 +104,19 @@
     <string name="error_translate_network">Iphutha lenethiwekhi. Hlola uxhumano lwakho.</string>
     <string name="error_translate_generic">Ukuhumusha kuhlulekile. Zama futhi.</string>
     <string name="key_saved_credit_hint">Ukhiye uqinisekisiwe. Ukuhumusha kudinga futhi amakhredithi noma ikhotha yamahhala ku-akhawunti.</string>
+    <string name="translation_context_label">Umongo</string>
+    <string name="translation_context_off">Valiwe</string>
+    <string name="translation_context_nearby">Imisho eseduze</string>
+    <string name="translation_context_screen">Isikrini sonke</string>
+    <string name="translation_context_guide">Ithumela umbhalo ozungezile ukuze kuqondwe izabizwana namagama angacacile. Isebenzisa amathokheni amaningi.</string>
+    <string name="translation_strength_label">Isitayela sokuhumusha</string>
+    <string name="translation_strength_literal">Ngokwezwi nezwi</string>
+    <string name="translation_strength_natural">Okwemvelo</string>
+    <string name="translation_strength_free">Okukhululekile</string>
+    <string name="translation_domain_label">Isihloko</string>
+    <string name="translation_domain_general">Okujwayelekile</string>
+    <string name="translation_domain_game">Umdlalo</string>
+    <string name="translation_domain_comic">Ikhomikhi</string>
+    <string name="translation_domain_tech">Ubuchwepheshe</string>
+    <string name="translation_domain_business">Ibhizinisi</string>
 </resources>

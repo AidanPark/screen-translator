@@ -104,4 +104,19 @@
     <string name="error_translate_network">ਨੈੱਟਵਰਕ ਗਲਤੀ। ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ।</string>
     <string name="error_translate_generic">ਅਨੁਵਾਦ ਅਸਫਲ ਰਿਹਾ। ਫੇਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
     <string name="key_saved_credit_hint">ਕੁੰਜੀ ਪੁਸ਼ਟੀ ਹੋਈ। ਅਨੁਵਾਦ ਲਈ ਖਾਤੇ ਵਿੱਚ ਕ੍ਰੈਡਿਟ ਜਾਂ ਮੁਫ਼ਤ ਕੋਟਾ ਵੀ ਚਾਹੀਦਾ ਹੈ।</string>
+    <string name="translation_context_label">ਪ੍ਰਸੰਗ</string>
+    <string name="translation_context_off">ਬੰਦ</string>
+    <string name="translation_context_nearby">ਨੇੜਲੇ ਵਾਕ</string>
+    <string name="translation_context_screen">ਪੂਰੀ ਸਕ੍ਰੀਨ</string>
+    <string name="translation_context_guide">ਪੜਨਾਂਵ ਅਤੇ ਦੁਵਿਧਾ ਵਾਲੇ ਸ਼ਬਦ ਸਮਝਣ ਲਈ ਆਲੇ-ਦੁਆਲੇ ਦਾ ਲਿਖਤ ਵੀ ਭੇਜਦਾ ਹੈ। ਵਧੇਰੇ ਟੋਕਨ ਵਰਤਦਾ ਹੈ।</string>
+    <string name="translation_strength_label">ਅਨੁਵਾਦ ਸ਼ੈਲੀ</string>
+    <string name="translation_strength_literal">ਸ਼ਾਬਦਿਕ</string>
+    <string name="translation_strength_natural">ਕੁਦਰਤੀ</string>
+    <string name="translation_strength_free">ਖੁੱਲ੍ਹਾ</string>
+    <string name="translation_domain_label">ਖੇਤਰ</string>
+    <string name="translation_domain_general">ਆਮ</string>
+    <string name="translation_domain_game">ਗੇਮ</string>
+    <string name="translation_domain_comic">ਕਾਮਿਕ</string>
+    <string name="translation_domain_tech">ਤਕਨੀਕੀ</string>
+    <string name="translation_domain_business">ਕਾਰੋਬਾਰ</string>
 </resources>

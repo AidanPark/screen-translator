@@ -104,4 +104,19 @@
     <string name="error_translate_network">نیٹ ورک کی خرابی۔ کنکشن چیک کریں۔</string>
     <string name="error_translate_generic">ترجمہ ناکام ہوا۔ دوبارہ کوشش کریں۔</string>
     <string name="key_saved_credit_hint">کلید کی تصدیق ہو گئی۔ ترجمے کے لیے اکاؤنٹ میں کریڈٹ یا مفت کوٹا بھی درکار ہے۔</string>
+    <string name="translation_context_label">سیاق</string>
+    <string name="translation_context_off">بند</string>
+    <string name="translation_context_nearby">قریبی جملے</string>
+    <string name="translation_context_screen">پوری اسکرین</string>
+    <string name="translation_context_guide">ضمائر اور مبہم الفاظ سمجھنے کے لیے ارد گرد کا متن بھی بھیجتا ہے۔ زیادہ ٹوکن خرچ ہوتے ہیں۔</string>
+    <string name="translation_strength_label">ترجمے کا انداز</string>
+    <string name="translation_strength_literal">لفظی</string>
+    <string name="translation_strength_natural">فطری</string>
+    <string name="translation_strength_free">آزاد</string>
+    <string name="translation_domain_label">شعبہ</string>
+    <string name="translation_domain_general">عام</string>
+    <string name="translation_domain_game">گیم</string>
+    <string name="translation_domain_comic">کامک</string>
+    <string name="translation_domain_tech">تکنیکی</string>
+    <string name="translation_domain_business">کاروبار</string>
 </resources>

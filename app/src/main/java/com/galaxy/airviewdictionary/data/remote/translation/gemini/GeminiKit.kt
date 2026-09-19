@@ -9,6 +9,10 @@ import com.galaxy.airviewdictionary.data.remote.translation.Language
 import com.galaxy.airviewdictionary.data.remote.translation.Transaction
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationKit
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationKitType
+import com.galaxy.airviewdictionary.data.remote.translation.TranslationDomain
+import com.galaxy.airviewdictionary.data.remote.translation.TranslationStrength
+import com.galaxy.airviewdictionary.data.remote.translation.buildTranslationSystemPrompt
+import com.galaxy.airviewdictionary.data.remote.translation.buildTranslationUserMessage
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationResponse
 import com.galaxy.airviewdictionary.data.remote.translation.goolge.GoogleWebKit
 import com.galaxy.airviewdictionary.di.GeminiRetrofit
@@ -82,19 +86,19 @@ class GeminiKit @Inject constructor(
                 isSupportedAsTarget(sourceLanguageCode, targetLanguageCode)
     }
 
-    private fun buildSystemPrompt(sourceLanguageCode: String, targetLanguageCode: String): String {
-        val targetName = Language(targetLanguageCode).displayName
-        val fromClause = if (sourceLanguageCode == "auto") {
-            "Detect the source language and translate the user's text into $targetName."
-        } else {
-            val sourceName = Language(sourceLanguageCode).displayName
-            "Translate the user's text from $sourceName into $targetName."
-        }
-        return "You are a professional translation engine. $fromClause " +
-                "Output ONLY the translated text — no quotes, no explanations, no notes, and no source text. " +
-                "Preserve the original meaning, tone, and line breaks. " +
-                "If the text is already in $targetName, return it unchanged."
-    }
+    private fun buildSystemPrompt(
+        sourceLanguageCode: String,
+        targetLanguageCode: String,
+        strength: TranslationStrength,
+        domain: TranslationDomain,
+        hasContext: Boolean,
+    ): String = buildTranslationSystemPrompt(
+        sourceLanguageName = if (sourceLanguageCode == "auto") null else Language(sourceLanguageCode).displayName,
+        targetLanguageName = Language(targetLanguageCode).displayName,
+        strength = strength,
+        domain = domain,
+        hasContext = hasContext,
+    )
 
     /**
      * 사용할 모델. 설정에서 고른 값이 있고 현재 후보에 있으면 그것을, 아니면 후보의 첫 번째를, 그마저 없으면 기본값.
@@ -113,16 +117,41 @@ class GeminiKit @Inject constructor(
         sourceLanguageCode: String,
         targetLanguageCode: String,
         sourceText: String
+    ): TranslationResponse = request(sourceLanguageCode, targetLanguageCode, sourceText, null)
+
+    override suspend fun request(
+        sourceLanguageCode: String,
+        targetLanguageCode: String,
+        sourceText: String,
+        contextText: String?,
     ): TranslationResponse {
         return try {
             val apiKey = getStoredApiKey(context) ?: throw IllegalStateException("Gemini API key is not set.")
             val model = resolveModel()
+            val strength = preferenceRepository.geminiTranslationStrengthFlow.first()
+            val domain = preferenceRepository.geminiTranslationDomainFlow.first()
+            val effectiveContext = contextText?.takeIf { it.isNotBlank() }
             val requestBody = mapOf(
                 "systemInstruction" to mapOf(
-                    "parts" to listOf(mapOf("text" to buildSystemPrompt(sourceLanguageCode, targetLanguageCode)))
+                    "parts" to listOf(
+                        mapOf(
+                            "text" to buildSystemPrompt(
+                                sourceLanguageCode = sourceLanguageCode,
+                                targetLanguageCode = targetLanguageCode,
+                                strength = strength,
+                                domain = domain,
+                                hasContext = effectiveContext != null,
+                            )
+                        )
+                    )
                 ),
                 "contents" to listOf(
-                    mapOf("role" to "user", "parts" to listOf(mapOf("text" to sourceText)))
+                    mapOf(
+                        "role" to "user",
+                        "parts" to listOf(
+                            mapOf("text" to buildTranslationUserMessage(sourceText, effectiveContext))
+                        ),
+                    )
                 ),
                 "generationConfig" to mapOf("temperature" to 0),
             )

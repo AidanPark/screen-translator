@@ -104,4 +104,19 @@
     <string name="error_translate_network">નેટવર્ક ભૂલ. તમારું કનેક્શન તપાસો.</string>
     <string name="error_translate_generic">અનુવાદ નિષ્ફળ ગયો. ફરી પ્રયાસ કરો.</string>
     <string name="key_saved_credit_hint">કી ચકાસાઈ. અનુવાદ માટે એકાઉન્ટમાં ક્રેડિટ અથવા મફત ક્વોટા પણ જરૂરી છે.</string>
+    <string name="translation_context_label">સંદર્ભ</string>
+    <string name="translation_context_off">બંધ</string>
+    <string name="translation_context_nearby">નજીકના વાક્યો</string>
+    <string name="translation_context_screen">આખી સ્ક્રીન</string>
+    <string name="translation_context_guide">સર્વનામ અને દ્વિઅર્થી શબ્દો સમજવા માટે આસપાસનું લખાણ પણ મોકલે છે. વધુ ટોકન વપરાય છે.</string>
+    <string name="translation_strength_label">અનુવાદ શૈલી</string>
+    <string name="translation_strength_literal">શબ્દશઃ</string>
+    <string name="translation_strength_natural">સ્વાભાવિક</string>
+    <string name="translation_strength_free">ભાવાનુવાદ</string>
+    <string name="translation_domain_label">વિષય</string>
+    <string name="translation_domain_general">સામાન્ય</string>
+    <string name="translation_domain_game">ગેમ</string>
+    <string name="translation_domain_comic">કોમિક</string>
+    <string name="translation_domain_tech">ટેકનિકલ</string>
+    <string name="translation_domain_business">વ્યવસાય</string>
 </resources>

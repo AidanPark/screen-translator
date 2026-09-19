@@ -104,4 +104,19 @@
     <string name="error_translate_network">កំហុសបណ្តាញ។ ពិនិត្យការតភ្ជាប់របស់អ្នក។</string>
     <string name="error_translate_generic">ការបកប្រែបរាជ័យ។ សូមព្យាយាមម្តងទៀត។</string>
     <string name="key_saved_credit_hint">បានផ្ទៀងផ្ទាត់សោ។ ការបកប្រែក៏ត្រូវការឥណទាន ឬកូតាឥតគិតថ្លៃក្នុងគណនីដែរ។</string>
+    <string name="translation_context_label">បរិបទ</string>
+    <string name="translation_context_off">បិទ</string>
+    <string name="translation_context_nearby">ប្រយោគនៅជិត</string>
+    <string name="translation_context_screen">អេក្រង់ទាំងមូល</string>
+    <string name="translation_context_guide">ផ្ញើអត្ថបទជុំវិញ ដើម្បីបកស្រាយសព្វនាម និងពាក្យមិនច្បាស់លាស់។ ប្រើថូខឹនច្រើនជាង។</string>
+    <string name="translation_strength_label">រចនាបថបកប្រែ</string>
+    <string name="translation_strength_literal">តាមព្យញ្ជនៈ</string>
+    <string name="translation_strength_natural">ធម្មជាតិ</string>
+    <string name="translation_strength_free">សេរី</string>
+    <string name="translation_domain_label">វិស័យ</string>
+    <string name="translation_domain_general">ទូទៅ</string>
+    <string name="translation_domain_game">ហ្គេម</string>
+    <string name="translation_domain_comic">រឿងតុក្កតា</string>
+    <string name="translation_domain_tech">បច្ចេកទេស</string>
+    <string name="translation_domain_business">អាជីវកម្ម</string>
 </resources>

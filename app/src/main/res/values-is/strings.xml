@@ -104,6 +104,21 @@
     <string name="error_translate_network">Netvilla. Athugaðu tenginguna.</string>
     <string name="error_translate_generic">Þýðing mistókst. Reyndu aftur.</string>
     <string name="key_saved_credit_hint">Lykill staðfestur. Þýðing krefst einnig inneignar eða fríkvóta á reikningnum.</string>
+    <string name="translation_context_label">Samhengi</string>
+    <string name="translation_context_off">Slökkt</string>
+    <string name="translation_context_nearby">Nálægar setningar</string>
+    <string name="translation_context_screen">Allur skjárinn</string>
+    <string name="translation_context_guide">Sendir textann í kring svo hægt sé að ráða í fornöfn og margræð orð. Notar fleiri tóka.</string>
+    <string name="translation_strength_label">Þýðingarstíll</string>
+    <string name="translation_strength_literal">Orðrétt</string>
+    <string name="translation_strength_natural">Eðlilegt</string>
+    <string name="translation_strength_free">Frjálst</string>
+    <string name="translation_domain_label">Svið</string>
+    <string name="translation_domain_general">Almennt</string>
+    <string name="translation_domain_game">Leikir</string>
+    <string name="translation_domain_comic">Myndasaga</string>
+    <string name="translation_domain_tech">Tæknilegt</string>
+    <string name="translation_domain_business">Viðskipti</string>
 </resources>
 
 

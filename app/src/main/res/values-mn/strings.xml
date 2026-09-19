@@ -104,4 +104,19 @@
     <string name="error_translate_network">Сүлжээний алдаа. Холболтоо шалгана уу.</string>
     <string name="error_translate_generic">Орчуулга амжилтгүй боллоо. Дахин оролдоно уу.</string>
     <string name="key_saved_credit_hint">Түлхүүр баталгаажлаа. Орчуулгад данснд кредит эсвэл үнэгүй квот бас хэрэгтэй.</string>
+    <string name="translation_context_label">Агуулга</string>
+    <string name="translation_context_off">Унтраасан</string>
+    <string name="translation_context_nearby">Ойролцоох өгүүлбэрүүд</string>
+    <string name="translation_context_screen">Дэлгэц бүхэлдээ</string>
+    <string name="translation_context_guide">Төлөөний үг болон олон утгатай үгсийг ойлгохын тулд эргэн тойрны текстийг мөн илгээнэ. Илүү олон токен зарцуулна.</string>
+    <string name="translation_strength_label">Орчуулгын хэв маяг</string>
+    <string name="translation_strength_literal">Үгчилсэн</string>
+    <string name="translation_strength_natural">Байгалийн</string>
+    <string name="translation_strength_free">Чөлөөт</string>
+    <string name="translation_domain_label">Салбар</string>
+    <string name="translation_domain_general">Ерөнхий</string>
+    <string name="translation_domain_game">Тоглоом</string>
+    <string name="translation_domain_comic">Комик</string>
+    <string name="translation_domain_tech">Техникийн</string>
+    <string name="translation_domain_business">Бизнес</string>
 </resources>

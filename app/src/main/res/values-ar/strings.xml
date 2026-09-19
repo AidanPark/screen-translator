@@ -104,6 +104,21 @@
   <string name="error_translate_network">خطأ في الشبكة. تحقق من الاتصال.</string>
   <string name="error_translate_generic">فشلت الترجمة. يُرجى المحاولة مرة أخرى.</string>
   <string name="key_saved_credit_hint">تم التحقق من المفتاح. تتطلب الترجمة أيضًا رصيدًا أو حصة مجانية في حسابك.</string>
+    <string name="translation_context_label">السياق</string>
+    <string name="translation_context_off">إيقاف</string>
+    <string name="translation_context_nearby">الجمل المجاورة</string>
+    <string name="translation_context_screen">الشاشة بأكملها</string>
+    <string name="translation_context_guide">يرسل النص المحيط لتوضيح الضمائر والكلمات الغامضة. يستهلك رموزًا أكثر.</string>
+    <string name="translation_strength_label">أسلوب الترجمة</string>
+    <string name="translation_strength_literal">حرفي</string>
+    <string name="translation_strength_natural">طبيعي</string>
+    <string name="translation_strength_free">حر</string>
+    <string name="translation_domain_label">المجال</string>
+    <string name="translation_domain_general">عام</string>
+    <string name="translation_domain_game">ألعاب</string>
+    <string name="translation_domain_comic">قصص مصورة</string>
+    <string name="translation_domain_tech">تقني</string>
+    <string name="translation_domain_business">أعمال</string>
 </resources>
 
 

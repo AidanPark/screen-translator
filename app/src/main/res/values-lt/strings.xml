@@ -104,4 +104,19 @@
     <string name="error_translate_network">Tinklo klaida. Patikrinkite ryšį.</string>
     <string name="error_translate_generic">Versti nepavyko. Bandykite dar kartą.</string>
     <string name="key_saved_credit_hint">Raktas patvirtintas. Vertimui taip pat reikia kreditų arba nemokamos kvotos paskyroje.</string>
+    <string name="translation_context_label">Kontekstas</string>
+    <string name="translation_context_off">Išjungta</string>
+    <string name="translation_context_nearby">Gretimi sakiniai</string>
+    <string name="translation_context_screen">Visas ekranas</string>
+    <string name="translation_context_guide">Siunčia aplinkinį tekstą, kad būtų galima nustatyti įvardžius ir daugiareikšmius žodžius. Sunaudoja daugiau žetonų.</string>
+    <string name="translation_strength_label">Vertimo stilius</string>
+    <string name="translation_strength_literal">Pažodinis</string>
+    <string name="translation_strength_natural">Natūralus</string>
+    <string name="translation_strength_free">Laisvas</string>
+    <string name="translation_domain_label">Sritis</string>
+    <string name="translation_domain_general">Bendra</string>
+    <string name="translation_domain_game">Žaidimai</string>
+    <string name="translation_domain_comic">Komiksai</string>
+    <string name="translation_domain_tech">Techninė</string>
+    <string name="translation_domain_business">Verslas</string>
 </resources>

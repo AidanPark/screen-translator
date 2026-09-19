@@ -104,4 +104,19 @@
     <string name="error_translate_network">خطای شبکه. اتصال خود را بررسی کنید.</string>
     <string name="error_translate_generic">ترجمه ناموفق بود. دوباره تلاش کنید.</string>
     <string name="key_saved_credit_hint">کلید تأیید شد. ترجمه به اعتبار یا سهمیه رایگان در حساب شما هم نیاز دارد.</string>
+    <string name="translation_context_label">زمینه</string>
+    <string name="translation_context_off">خاموش</string>
+    <string name="translation_context_nearby">جمله‌های اطراف</string>
+    <string name="translation_context_screen">کل صفحه</string>
+    <string name="translation_context_guide">متن اطراف را هم می‌فرستد تا ضمیرها و واژه‌های مبهم روشن شوند. توکن بیشتری مصرف می‌کند.</string>
+    <string name="translation_strength_label">سبک ترجمه</string>
+    <string name="translation_strength_literal">تحت‌اللفظی</string>
+    <string name="translation_strength_natural">روان</string>
+    <string name="translation_strength_free">آزاد</string>
+    <string name="translation_domain_label">حوزه</string>
+    <string name="translation_domain_general">عمومی</string>
+    <string name="translation_domain_game">بازی</string>
+    <string name="translation_domain_comic">کمیک</string>
+    <string name="translation_domain_tech">فنی</string>
+    <string name="translation_domain_business">کسب‌وکار</string>
 </resources>

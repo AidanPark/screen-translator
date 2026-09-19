@@ -104,4 +104,19 @@
     <string name="error_translate_network">Nettverksfeil. Sjekk tilkoblingen.</string>
     <string name="error_translate_generic">Oversettelsen mislyktes. Prøv igjen.</string>
     <string name="key_saved_credit_hint">Nøkkelen er bekreftet. Oversettelse krever også kreditter eller gratis kvote på kontoen.</string>
+    <string name="translation_context_label">Kontekst</string>
+    <string name="translation_context_off">Av</string>
+    <string name="translation_context_nearby">Nærliggende setninger</string>
+    <string name="translation_context_screen">Hele skjermen</string>
+    <string name="translation_context_guide">Sender med teksten rundt slik at pronomen og flertydige ord kan tolkes. Bruker flere tokens.</string>
+    <string name="translation_strength_label">Oversettelsesstil</string>
+    <string name="translation_strength_literal">Ordrett</string>
+    <string name="translation_strength_natural">Naturlig</string>
+    <string name="translation_strength_free">Fri</string>
+    <string name="translation_domain_label">Område</string>
+    <string name="translation_domain_general">Generelt</string>
+    <string name="translation_domain_game">Spill</string>
+    <string name="translation_domain_comic">Tegneserie</string>
+    <string name="translation_domain_tech">Teknisk</string>
+    <string name="translation_domain_business">Forretning</string>
 </resources>

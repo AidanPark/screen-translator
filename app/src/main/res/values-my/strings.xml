@@ -104,4 +104,19 @@
     <string name="error_translate_network">ကွန်ရက် အမှား။ ချိတ်ဆက်မှုကို စစ်ပါ။</string>
     <string name="error_translate_generic">ဘာသာပြန်ခြင်း မအောင်မြင်ပါ။ ထပ်စမ်းပါ။</string>
     <string name="key_saved_credit_hint">ကီးကို အတည်ပြုပြီးပါပြီ။ ဘာသာပြန်ရန် အကောင့်တွင် ခရက်ဒစ် သို့မဟုတ် အခမဲ့ကိုတာလည်း လိုအပ်သည်။</string>
+    <string name="translation_context_label">အကြောင်းအရာ</string>
+    <string name="translation_context_off">ပိတ်</string>
+    <string name="translation_context_nearby">အနီးအနားရှိ ဝါကျများ</string>
+    <string name="translation_context_screen">မျက်နှာပြင်တစ်ခုလုံး</string>
+    <string name="translation_context_guide">နာမ်စားများနှင့် အဓိပ္ပာယ်နှစ်ခွဖြစ်သော စကားလုံးများကို နားလည်စေရန် ပတ်ဝန်းကျင်စာသားကိုပါ ပို့ပါသည်။ တိုကင် ပိုသုံးပါသည်။</string>
+    <string name="translation_strength_label">ဘာသာပြန်ပုံစံ</string>
+    <string name="translation_strength_literal">စာသားအတိုင်း</string>
+    <string name="translation_strength_natural">သဘာဝကျ</string>
+    <string name="translation_strength_free">လွတ်လပ်</string>
+    <string name="translation_domain_label">နယ်ပယ်</string>
+    <string name="translation_domain_general">အထွေထွေ</string>
+    <string name="translation_domain_game">ဂိမ်း</string>
+    <string name="translation_domain_comic">ကာတွန်း</string>
+    <string name="translation_domain_tech">နည်းပညာ</string>
+    <string name="translation_domain_business">စီးပွားရေး</string>
 </resources>

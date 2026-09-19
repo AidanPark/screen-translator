@@ -104,6 +104,21 @@
     <string name="error_translate_network">Σφάλμα δικτύου. Ελέγξτε τη σύνδεσή σας.</string>
     <string name="error_translate_generic">Η μετάφραση απέτυχε. Δοκιμάστε ξανά.</string>
     <string name="key_saved_credit_hint">Το κλειδί επαληθεύτηκε. Η μετάφραση απαιτεί επίσης μονάδες ή δωρεάν όριο στον λογαριασμό.</string>
+    <string name="translation_context_label">Συμφραζόμενα</string>
+    <string name="translation_context_off">Ανενεργό</string>
+    <string name="translation_context_nearby">Γειτονικές προτάσεις</string>
+    <string name="translation_context_screen">Ολόκληρη η οθόνη</string>
+    <string name="translation_context_guide">Στέλνει το γύρω κείμενο ώστε να αποσαφηνίζονται αντωνυμίες και διφορούμενες λέξεις. Καταναλώνει περισσότερα tokens.</string>
+    <string name="translation_strength_label">Στυλ μετάφρασης</string>
+    <string name="translation_strength_literal">Κατά λέξη</string>
+    <string name="translation_strength_natural">Φυσικό</string>
+    <string name="translation_strength_free">Ελεύθερο</string>
+    <string name="translation_domain_label">Τομέας</string>
+    <string name="translation_domain_general">Γενικά</string>
+    <string name="translation_domain_game">Παιχνίδια</string>
+    <string name="translation_domain_comic">Κόμικς</string>
+    <string name="translation_domain_tech">Τεχνικά</string>
+    <string name="translation_domain_business">Επιχειρήσεις</string>
 </resources>
 
 

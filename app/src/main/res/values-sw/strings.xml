@@ -104,6 +104,21 @@
     <string name="error_translate_network">Hitilafu ya mtandao. Kagua muunganisho wako.</string>
     <string name="error_translate_generic">Tafsiri imeshindikana. Jaribu tena.</string>
     <string name="key_saved_credit_hint">Ufunguo umethibitishwa. Kutafsiri kunahitaji pia salio au mgawo wa bure kwenye akaunti.</string>
+    <string name="translation_context_label">Muktadha</string>
+    <string name="translation_context_off">Imezimwa</string>
+    <string name="translation_context_nearby">Sentensi za jirani</string>
+    <string name="translation_context_screen">Skrini nzima</string>
+    <string name="translation_context_guide">Hutuma maandishi yanayozunguka ili kufafanua viwakilishi na maneno yenye maana nyingi. Hutumia tokeni zaidi.</string>
+    <string name="translation_strength_label">Mtindo wa tafsiri</string>
+    <string name="translation_strength_literal">Neno kwa neno</string>
+    <string name="translation_strength_natural">Asilia</string>
+    <string name="translation_strength_free">Huru</string>
+    <string name="translation_domain_label">Uwanja</string>
+    <string name="translation_domain_general">Kwa jumla</string>
+    <string name="translation_domain_game">Michezo</string>
+    <string name="translation_domain_comic">Katuni</string>
+    <string name="translation_domain_tech">Kiufundi</string>
+    <string name="translation_domain_business">Biashara</string>
 </resources>
 
 

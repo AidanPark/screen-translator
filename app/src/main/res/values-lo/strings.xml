@@ -104,4 +104,19 @@
   <string name="error_translate_network">ຜິດພາດເຄືອຂ່າຍ. ກວດການເຊື່ອມຕໍ່.</string>
   <string name="error_translate_generic">ການແປລົ້ມເຫຼວ. ລອງໃໝ່ອີກຄັ້ງ.</string>
   <string name="key_saved_credit_hint">ຢືນຢັນກະແຈແລ້ວ. ການແປຍັງຕ້ອງມີເຄຣດິດ ຫຼືໂຄຕາຟຣີໃນບັນຊີ.</string>
+    <string name="translation_context_label">ບໍລິບົດ</string>
+    <string name="translation_context_off">ປິດ</string>
+    <string name="translation_context_nearby">ປະໂຫຍກໃກ້ຄຽງ</string>
+    <string name="translation_context_screen">ໜ້າຈໍທັງໝົດ</string>
+    <string name="translation_context_guide">ສົ່ງຂໍ້ຄວາມອ້ອມຂ້າງໄປນຳເພື່ອຕີຄວາມສັບພະນາມ ແລະ ຄຳກຳກວມ. ໃຊ້ໂທເຄັນຫຼາຍຂຶ້ນ.</string>
+    <string name="translation_strength_label">ຮູບແບບການແປ</string>
+    <string name="translation_strength_literal">ແປຕາມຕົວ</string>
+    <string name="translation_strength_natural">ເປັນທຳມະຊາດ</string>
+    <string name="translation_strength_free">ແປອິດສະຫຼະ</string>
+    <string name="translation_domain_label">ສາຂາ</string>
+    <string name="translation_domain_general">ທົ່ວໄປ</string>
+    <string name="translation_domain_game">ເກມ</string>
+    <string name="translation_domain_comic">ກາຕູນ</string>
+    <string name="translation_domain_tech">ເຕັກນິກ</string>
+    <string name="translation_domain_business">ທຸລະກິດ</string>
 </resources>

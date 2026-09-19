@@ -104,4 +104,19 @@
     <string name="error_translate_network">Sareko errorea. Egiaztatu konexioa.</string>
     <string name="error_translate_generic">Itzulpenak huts egin du. Saiatu berriro.</string>
     <string name="key_saved_credit_hint">Gakoa egiaztatuta. Itzultzeko kredituak edo doako kuota ere behar dira kontuan.</string>
+    <string name="translation_context_label">Testuingurua</string>
+    <string name="translation_context_off">Desaktibatuta</string>
+    <string name="translation_context_nearby">Inguruko esaldiak</string>
+    <string name="translation_context_screen">Pantaila osoa</string>
+    <string name="translation_context_guide">Inguruko testua ere bidaltzen du izenordainak eta hitz anbiguoak argitzeko. Token gehiago erabiltzen ditu.</string>
+    <string name="translation_strength_label">Itzulpen-estiloa</string>
+    <string name="translation_strength_literal">Hitzez hitz</string>
+    <string name="translation_strength_natural">Naturala</string>
+    <string name="translation_strength_free">Librea</string>
+    <string name="translation_domain_label">Arloa</string>
+    <string name="translation_domain_general">Orokorra</string>
+    <string name="translation_domain_game">Jokoak</string>
+    <string name="translation_domain_comic">Komikia</string>
+    <string name="translation_domain_tech">Teknikoa</string>
+    <string name="translation_domain_business">Negozioak</string>
 </resources>

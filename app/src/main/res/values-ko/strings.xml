@@ -107,4 +107,19 @@
   <string name="error_translate_generic">번역에 실패했습니다. 다시 시도해 주세요.</string>
   <!-- LLM 키 저장 성공 시 기대치 안내 (키 유효 ≠ 크레딧 보유) -->
   <string name="key_saved_credit_hint">키가 확인되었습니다. 번역 사용에는 계정의 크레딧 또는 무료 한도가 필요합니다.</string>
+    <string name="translation_context_label">문맥</string>
+    <string name="translation_context_off">사용 안 함</string>
+    <string name="translation_context_nearby">주변 문장</string>
+    <string name="translation_context_screen">화면 전체</string>
+    <string name="translation_context_guide">주변 텍스트를 함께 보내 대명사와 중의적인 단어를 해석하게 합니다. 토큰을 더 사용합니다.</string>
+    <string name="translation_strength_label">번역 스타일</string>
+    <string name="translation_strength_literal">직역</string>
+    <string name="translation_strength_natural">자연스럽게</string>
+    <string name="translation_strength_free">의역</string>
+    <string name="translation_domain_label">분야</string>
+    <string name="translation_domain_general">일반</string>
+    <string name="translation_domain_game">게임</string>
+    <string name="translation_domain_comic">만화</string>
+    <string name="translation_domain_tech">기술</string>
+    <string name="translation_domain_business">비즈니스</string>
 </resources>

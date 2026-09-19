@@ -104,4 +104,19 @@
     <string name="error_translate_network">Ошибка сети. Проверьте подключение.</string>
     <string name="error_translate_generic">Не удалось перевести. Повторите попытку.</string>
     <string name="key_saved_credit_hint">Ключ подтверждён. Для перевода также нужны кредиты или бесплатная квота на счёте.</string>
+    <string name="translation_context_label">Контекст</string>
+    <string name="translation_context_off">Выключено</string>
+    <string name="translation_context_nearby">Соседние предложения</string>
+    <string name="translation_context_screen">Весь экран</string>
+    <string name="translation_context_guide">Отправляет окружающий текст, чтобы разрешить местоимения и многозначные слова. Расходует больше токенов.</string>
+    <string name="translation_strength_label">Стиль перевода</string>
+    <string name="translation_strength_literal">Дословный</string>
+    <string name="translation_strength_natural">Естественный</string>
+    <string name="translation_strength_free">Вольный</string>
+    <string name="translation_domain_label">Тематика</string>
+    <string name="translation_domain_general">Общая</string>
+    <string name="translation_domain_game">Игры</string>
+    <string name="translation_domain_comic">Комиксы</string>
+    <string name="translation_domain_tech">Техника</string>
+    <string name="translation_domain_business">Бизнес</string>
 </resources>

@@ -104,4 +104,19 @@
     <string name="error_translate_network">நெட்வொர்க் பிழை. இணைப்பைச் சரிபார்க்கவும்.</string>
     <string name="error_translate_generic">மொழிபெயர்ப்பு தோல்வி. மீண்டும் முயலவும்.</string>
     <string name="key_saved_credit_hint">சாவி சரிபார்க்கப்பட்டது. மொழிபெயர்க்க கணக்கில் கிரெடிட் அல்லது இலவச ஒதுக்கீடும் தேவை.</string>
+    <string name="translation_context_label">சூழல்</string>
+    <string name="translation_context_off">அணை</string>
+    <string name="translation_context_nearby">அருகிலுள்ள வாக்கியங்கள்</string>
+    <string name="translation_context_screen">முழுத் திரை</string>
+    <string name="translation_context_guide">பிரதிப்பெயர்கள், இருபொருள் சொற்களைப் புரிந்துகொள்ள சுற்றியுள்ள உரையையும் அனுப்பும். அதிக டோக்கன்களைப் பயன்படுத்தும்.</string>
+    <string name="translation_strength_label">மொழிபெயர்ப்பு நடை</string>
+    <string name="translation_strength_literal">சொல்லுக்குச் சொல்</string>
+    <string name="translation_strength_natural">இயல்பானது</string>
+    <string name="translation_strength_free">தழுவல்</string>
+    <string name="translation_domain_label">துறை</string>
+    <string name="translation_domain_general">பொதுவானது</string>
+    <string name="translation_domain_game">விளையாட்டு</string>
+    <string name="translation_domain_comic">காமிக்</string>
+    <string name="translation_domain_tech">தொழில்நுட்பம்</string>
+    <string name="translation_domain_business">வணிகம்</string>
 </resources>

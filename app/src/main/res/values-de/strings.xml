@@ -104,4 +104,19 @@
   <string name="error_translate_network">Netzwerkfehler. Prüfe deine Verbindung.</string>
   <string name="error_translate_generic">Übersetzung fehlgeschlagen. Bitte erneut versuchen.</string>
   <string name="key_saved_credit_hint">Schlüssel bestätigt. Für Übersetzungen sind zudem Guthaben oder ein Gratiskontingent nötig.</string>
+    <string name="translation_context_label">Kontext</string>
+    <string name="translation_context_off">Aus</string>
+    <string name="translation_context_nearby">Umliegende Sätze</string>
+    <string name="translation_context_screen">Gesamter Bildschirm</string>
+    <string name="translation_context_guide">Sendet den umgebenden Text, damit Pronomen und mehrdeutige Wörter aufgelöst werden. Verbraucht mehr Tokens.</string>
+    <string name="translation_strength_label">Übersetzungsstil</string>
+    <string name="translation_strength_literal">Wörtlich</string>
+    <string name="translation_strength_natural">Natürlich</string>
+    <string name="translation_strength_free">Frei</string>
+    <string name="translation_domain_label">Fachgebiet</string>
+    <string name="translation_domain_general">Allgemein</string>
+    <string name="translation_domain_game">Spiel</string>
+    <string name="translation_domain_comic">Comic</string>
+    <string name="translation_domain_tech">Technik</string>
+    <string name="translation_domain_business">Business</string>
 </resources>

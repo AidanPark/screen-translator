@@ -104,4 +104,19 @@
     <string name="error_translate_network">Mrežna pogreška. Provjerite vezu.</string>
     <string name="error_translate_generic">Prijevod nije uspio. Pokušajte ponovno.</string>
     <string name="key_saved_credit_hint">Ključ je potvrđen. Za prevođenje su potrebni i krediti ili besplatna kvota na računu.</string>
+    <string name="translation_context_label">Kontekst</string>
+    <string name="translation_context_off">Isključeno</string>
+    <string name="translation_context_nearby">Okolne rečenice</string>
+    <string name="translation_context_screen">Cijeli zaslon</string>
+    <string name="translation_context_guide">Šalje okolni tekst kako bi se razriješile zamjenice i višeznačne riječi. Troši više tokena.</string>
+    <string name="translation_strength_label">Stil prijevoda</string>
+    <string name="translation_strength_literal">Doslovno</string>
+    <string name="translation_strength_natural">Prirodno</string>
+    <string name="translation_strength_free">Slobodno</string>
+    <string name="translation_domain_label">Područje</string>
+    <string name="translation_domain_general">Općenito</string>
+    <string name="translation_domain_game">Igre</string>
+    <string name="translation_domain_comic">Strip</string>
+    <string name="translation_domain_tech">Tehnika</string>
+    <string name="translation_domain_business">Poslovno</string>
 </resources>

@@ -104,4 +104,19 @@
     <string name="error_translate_network">Ralat rangkaian. Semak sambungan anda.</string>
     <string name="error_translate_generic">Terjemahan gagal. Cuba lagi.</string>
     <string name="key_saved_credit_hint">Kunci disahkan. Terjemahan juga memerlukan kredit atau kuota percuma dalam akaun.</string>
+    <string name="translation_context_label">Konteks</string>
+    <string name="translation_context_off">Mati</string>
+    <string name="translation_context_nearby">Ayat berdekatan</string>
+    <string name="translation_context_screen">Seluruh skrin</string>
+    <string name="translation_context_guide">Menghantar teks sekeliling supaya kata ganti dan perkataan taksa dapat difahami. Menggunakan lebih banyak token.</string>
+    <string name="translation_strength_label">Gaya terjemahan</string>
+    <string name="translation_strength_literal">Harfiah</string>
+    <string name="translation_strength_natural">Semula jadi</string>
+    <string name="translation_strength_free">Bebas</string>
+    <string name="translation_domain_label">Bidang</string>
+    <string name="translation_domain_general">Umum</string>
+    <string name="translation_domain_game">Permainan</string>
+    <string name="translation_domain_comic">Komik</string>
+    <string name="translation_domain_tech">Teknikal</string>
+    <string name="translation_domain_business">Perniagaan</string>
 </resources>

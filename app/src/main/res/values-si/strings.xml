@@ -104,4 +104,19 @@
     <string name="error_translate_network">ජාල දෝෂයකි. සම්බන්ධතාව පරීක්ෂා කරන්න.</string>
     <string name="error_translate_generic">පරිවර්තනය අසාර්ථකයි. නැවත උත්සාහ කරන්න.</string>
     <string name="key_saved_credit_hint">යතුර තහවුරු විය. පරිවර්තනයට ගිණුමේ ණය හෝ නොමිලේ කෝටාවක්ද අවශ්‍යයි.</string>
+    <string name="translation_context_label">සන්දර්භය</string>
+    <string name="translation_context_off">ක්‍රියාවිරහිත</string>
+    <string name="translation_context_nearby">ආසන්න වාක්‍ය</string>
+    <string name="translation_context_screen">මුළු තිරය</string>
+    <string name="translation_context_guide">සර්වනාම සහ අපැහැදිලි වචන තේරුම් ගැනීමට අවට පෙළද යවයි. වැඩි ටෝකන ප්‍රමාණයක් භාවිත වේ.</string>
+    <string name="translation_strength_label">පරිවර්තන ශෛලිය</string>
+    <string name="translation_strength_literal">වචනාර්ථ</string>
+    <string name="translation_strength_natural">ස්වාභාවික</string>
+    <string name="translation_strength_free">නිදහස්</string>
+    <string name="translation_domain_label">ක්ෂේත්‍රය</string>
+    <string name="translation_domain_general">සාමාන්‍ය</string>
+    <string name="translation_domain_game">ක්‍රීඩා</string>
+    <string name="translation_domain_comic">විකට</string>
+    <string name="translation_domain_tech">තාක්ෂණික</string>
+    <string name="translation_domain_business">ව්‍යාපාරික</string>
 </resources>

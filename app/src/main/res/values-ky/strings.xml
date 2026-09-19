@@ -104,4 +104,19 @@
     <string name="error_translate_network">Тармак катасы. Байланышты текшериңиз.</string>
     <string name="error_translate_generic">Котормо ишке ашкан жок. Кайра аракет кылыңыз.</string>
     <string name="key_saved_credit_hint">Ачкыч ырасталды. Котормо үчүн аккаунтта кредит же акысыз квота да керек.</string>
+    <string name="translation_context_label">Контекст</string>
+    <string name="translation_context_off">Өчүк</string>
+    <string name="translation_context_nearby">Жанындагы сүйлөмдөр</string>
+    <string name="translation_context_screen">Бүт экран</string>
+    <string name="translation_context_guide">Ат атоочторду жана көп маанилүү сөздөрдү түшүнүү үчүн айланадагы текстти да жөнөтөт. Көбүрөөк токен коротот.</string>
+    <string name="translation_strength_label">Котормо стили</string>
+    <string name="translation_strength_literal">Сөзмө-сөз</string>
+    <string name="translation_strength_natural">Табигый</string>
+    <string name="translation_strength_free">Эркин</string>
+    <string name="translation_domain_label">Тармак</string>
+    <string name="translation_domain_general">Жалпы</string>
+    <string name="translation_domain_game">Оюн</string>
+    <string name="translation_domain_comic">Комикс</string>
+    <string name="translation_domain_tech">Техникалык</string>
+    <string name="translation_domain_business">Бизнес</string>
 </resources>

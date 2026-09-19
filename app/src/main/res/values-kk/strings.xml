@@ -105,4 +105,19 @@
     <string name="error_translate_network">Желі қатесі. Байланысты тексеріңіз.</string>
     <string name="error_translate_generic">Аударма сәтсіз аяқталды. Қайталап көріңіз.</string>
     <string name="key_saved_credit_hint">Кілт расталды. Аударма үшін есептік жазбада кредит немесе тегін квота да қажет.</string>
+    <string name="translation_context_label">Контекст</string>
+    <string name="translation_context_off">Өшірулі</string>
+    <string name="translation_context_nearby">Маңайдағы сөйлемдер</string>
+    <string name="translation_context_screen">Бүкіл экран</string>
+    <string name="translation_context_guide">Есімдіктер мен көп мағыналы сөздерді анықтау үшін айналадағы мәтінді де жібереді. Көбірек токен жұмсайды.</string>
+    <string name="translation_strength_label">Аударма стилі</string>
+    <string name="translation_strength_literal">Сөзбе-сөз</string>
+    <string name="translation_strength_natural">Табиғи</string>
+    <string name="translation_strength_free">Еркін</string>
+    <string name="translation_domain_label">Сала</string>
+    <string name="translation_domain_general">Жалпы</string>
+    <string name="translation_domain_game">Ойын</string>
+    <string name="translation_domain_comic">Комикс</string>
+    <string name="translation_domain_tech">Техникалық</string>
+    <string name="translation_domain_business">Бизнес</string>
 </resources>

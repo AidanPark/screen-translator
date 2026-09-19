@@ -104,4 +104,19 @@
     <string name="error_translate_network">Eroare de rețea. Verificați conexiunea.</string>
     <string name="error_translate_generic">Traducerea a eșuat. Încercați din nou.</string>
     <string name="key_saved_credit_hint">Cheie verificată. Traducerea necesită și credite sau cotă gratuită în cont.</string>
+    <string name="translation_context_label">Context</string>
+    <string name="translation_context_off">Dezactivat</string>
+    <string name="translation_context_nearby">Propoziții din apropiere</string>
+    <string name="translation_context_screen">Tot ecranul</string>
+    <string name="translation_context_guide">Trimite textul din jur pentru a rezolva pronumele și cuvintele ambigue. Consumă mai multe tokenuri.</string>
+    <string name="translation_strength_label">Stil de traducere</string>
+    <string name="translation_strength_literal">Literal</string>
+    <string name="translation_strength_natural">Natural</string>
+    <string name="translation_strength_free">Liber</string>
+    <string name="translation_domain_label">Domeniu</string>
+    <string name="translation_domain_general">General</string>
+    <string name="translation_domain_game">Jocuri</string>
+    <string name="translation_domain_comic">Benzi desenate</string>
+    <string name="translation_domain_tech">Tehnic</string>
+    <string name="translation_domain_business">Afaceri</string>
 </resources>

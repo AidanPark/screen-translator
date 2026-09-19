@@ -104,6 +104,21 @@
     <string name="error_translate_network">Мрежна грешка. Проверите везу.</string>
     <string name="error_translate_generic">Превођење није успело. Покушајте поново.</string>
     <string name="key_saved_credit_hint">Кључ је потврђен. За превођење су потребни и кредити или бесплатна квота на налогу.</string>
+    <string name="translation_context_label">Контекст</string>
+    <string name="translation_context_off">Искључено</string>
+    <string name="translation_context_nearby">Околне реченице</string>
+    <string name="translation_context_screen">Цео екран</string>
+    <string name="translation_context_guide">Шаље околни текст како би се разрешиле заменице и вишезначне речи. Троши више токена.</string>
+    <string name="translation_strength_label">Стил превода</string>
+    <string name="translation_strength_literal">Дословно</string>
+    <string name="translation_strength_natural">Природно</string>
+    <string name="translation_strength_free">Слободно</string>
+    <string name="translation_domain_label">Област</string>
+    <string name="translation_domain_general">Опште</string>
+    <string name="translation_domain_game">Игре</string>
+    <string name="translation_domain_comic">Стрип</string>
+    <string name="translation_domain_tech">Техника</string>
+    <string name="translation_domain_business">Пословно</string>
 </resources>
 
 

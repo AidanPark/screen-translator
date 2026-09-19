@@ -104,4 +104,19 @@
     <string name="error_translate_network">നെറ്റ്‌വർക്ക് പിശക്. കണക്ഷൻ പരിശോധിക്കുക.</string>
     <string name="error_translate_generic">വിവർത്തനം പരാജയപ്പെട്ടു. വീണ്ടും ശ്രമിക്കുക.</string>
     <string name="key_saved_credit_hint">കീ സ്ഥിരീകരിച്ചു. വിവർത്തനത്തിന് അക്കൗണ്ടിൽ ക്രെഡിറ്റോ സൗജന്യ ക്വാട്ടയോ കൂടി വേണം.</string>
+    <string name="translation_context_label">സന്ദർഭം</string>
+    <string name="translation_context_off">ഓഫ്</string>
+    <string name="translation_context_nearby">സമീപ വാക്യങ്ങൾ</string>
+    <string name="translation_context_screen">സ്ക്രീൻ മുഴുവൻ</string>
+    <string name="translation_context_guide">സർവനാമങ്ങളും ദ്വയാർത്ഥ പദങ്ങളും മനസ്സിലാക്കാൻ ചുറ്റുമുള്ള വാചകവും അയയ്ക്കുന്നു. കൂടുതൽ ടോക്കൺ ഉപയോഗിക്കുന്നു.</string>
+    <string name="translation_strength_label">വിവർത്തന ശൈലി</string>
+    <string name="translation_strength_literal">പദാനുപദം</string>
+    <string name="translation_strength_natural">സ്വാഭാവികം</string>
+    <string name="translation_strength_free">സ്വതന്ത്രം</string>
+    <string name="translation_domain_label">മേഖല</string>
+    <string name="translation_domain_general">പൊതുവായത്</string>
+    <string name="translation_domain_game">ഗെയിം</string>
+    <string name="translation_domain_comic">കോമിക്</string>
+    <string name="translation_domain_tech">സാങ്കേതികം</string>
+    <string name="translation_domain_business">ബിസിനസ്</string>
 </resources>

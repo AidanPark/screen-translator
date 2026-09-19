@@ -104,4 +104,19 @@
   <string name="error_translate_network">ข้อผิดพลาดเครือข่าย ตรวจสอบการเชื่อมต่อ</string>
   <string name="error_translate_generic">การแปลล้มเหลว โปรดลองอีกครั้ง</string>
   <string name="key_saved_credit_hint">ยืนยันคีย์แล้ว การแปลยังต้องมีเครดิตหรือโควตาฟรีในบัญชีด้วย</string>
+    <string name="translation_context_label">บริบท</string>
+    <string name="translation_context_off">ปิด</string>
+    <string name="translation_context_nearby">ประโยคใกล้เคียง</string>
+    <string name="translation_context_screen">ทั้งหน้าจอ</string>
+    <string name="translation_context_guide">ส่งข้อความรอบข้างไปด้วยเพื่อตีความสรรพนามและคำกำกวม ใช้โทเค็นมากขึ้น</string>
+    <string name="translation_strength_label">สไตล์การแปล</string>
+    <string name="translation_strength_literal">แปลตรงตัว</string>
+    <string name="translation_strength_natural">เป็นธรรมชาติ</string>
+    <string name="translation_strength_free">แปลอิสระ</string>
+    <string name="translation_domain_label">สาขา</string>
+    <string name="translation_domain_general">ทั่วไป</string>
+    <string name="translation_domain_game">เกม</string>
+    <string name="translation_domain_comic">การ์ตูน</string>
+    <string name="translation_domain_tech">เทคนิค</string>
+    <string name="translation_domain_business">ธุรกิจ</string>
 </resources>

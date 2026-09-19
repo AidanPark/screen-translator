@@ -104,4 +104,19 @@
     <string name="error_translate_network">ನೆಟ್‌ವರ್ಕ್ ದೋಷ. ಸಂಪರ್ಕ ಪರಿಶೀಲಿಸಿ.</string>
     <string name="error_translate_generic">ಅನುವಾದ ವಿಫಲವಾಗಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
     <string name="key_saved_credit_hint">ಕೀ ದೃಢೀಕರಿಸಲಾಗಿದೆ. ಅನುವಾದಕ್ಕೆ ಖಾತೆಯಲ್ಲಿ ಕ್ರೆಡಿಟ್ ಅಥವಾ ಉಚಿತ ಕೋಟಾ ಸಹ ಬೇಕು.</string>
+    <string name="translation_context_label">ಸಂದರ್ಭ</string>
+    <string name="translation_context_off">ಆಫ್</string>
+    <string name="translation_context_nearby">ಹತ್ತಿರದ ವಾಕ್ಯಗಳು</string>
+    <string name="translation_context_screen">ಪೂರ್ಣ ಪರದೆ</string>
+    <string name="translation_context_guide">ಸರ್ವನಾಮಗಳು ಮತ್ತು ದ್ವಂದ್ವಾರ್ಥ ಪದಗಳನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು ಸುತ್ತಲಿನ ಪಠ್ಯವನ್ನೂ ಕಳುಹಿಸುತ್ತದೆ. ಹೆಚ್ಚು ಟೋಕನ್‌ಗಳನ್ನು ಬಳಸುತ್ತದೆ.</string>
+    <string name="translation_strength_label">ಅನುವಾದ ಶೈಲಿ</string>
+    <string name="translation_strength_literal">ಪದಶಃ</string>
+    <string name="translation_strength_natural">ಸಹಜ</string>
+    <string name="translation_strength_free">ಸ್ವತಂತ್ರ</string>
+    <string name="translation_domain_label">ಕ್ಷೇತ್ರ</string>
+    <string name="translation_domain_general">ಸಾಮಾನ್ಯ</string>
+    <string name="translation_domain_game">ಆಟ</string>
+    <string name="translation_domain_comic">ಕಾಮಿಕ್</string>
+    <string name="translation_domain_tech">ತಾಂತ್ರಿಕ</string>
+    <string name="translation_domain_business">ವ್ಯವಹಾರ</string>
 </resources>

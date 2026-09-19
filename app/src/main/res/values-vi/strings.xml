@@ -104,4 +104,19 @@
   <string name="error_translate_network">Lỗi mạng. Kiểm tra kết nối của bạn.</string>
   <string name="error_translate_generic">Dịch không thành công. Vui lòng thử lại.</string>
   <string name="key_saved_credit_hint">Đã xác minh khóa. Việc dịch cũng cần tín dụng hoặc hạn mức miễn phí trong tài khoản.</string>
+    <string name="translation_context_label">Ngữ cảnh</string>
+    <string name="translation_context_off">Tắt</string>
+    <string name="translation_context_nearby">Câu lân cận</string>
+    <string name="translation_context_screen">Toàn màn hình</string>
+    <string name="translation_context_guide">Gửi kèm văn bản xung quanh để hiểu đại từ và từ đa nghĩa. Dùng nhiều token hơn.</string>
+    <string name="translation_strength_label">Kiểu dịch</string>
+    <string name="translation_strength_literal">Dịch sát</string>
+    <string name="translation_strength_natural">Tự nhiên</string>
+    <string name="translation_strength_free">Dịch thoáng</string>
+    <string name="translation_domain_label">Lĩnh vực</string>
+    <string name="translation_domain_general">Chung</string>
+    <string name="translation_domain_game">Trò chơi</string>
+    <string name="translation_domain_comic">Truyện tranh</string>
+    <string name="translation_domain_tech">Kỹ thuật</string>
+    <string name="translation_domain_business">Kinh doanh</string>
 </resources>

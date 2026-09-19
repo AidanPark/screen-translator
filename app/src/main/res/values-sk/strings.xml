@@ -104,6 +104,21 @@
     <string name="error_translate_network">Chyba siete. Skontrolujte pripojenie.</string>
     <string name="error_translate_generic">Preklad zlyhal. Skúste znova.</string>
     <string name="key_saved_credit_hint">Kľúč overený. Preklad vyžaduje aj kredity alebo bezplatnú kvótu na účte.</string>
+    <string name="translation_context_label">Kontext</string>
+    <string name="translation_context_off">Vypnuté</string>
+    <string name="translation_context_nearby">Okolité vety</string>
+    <string name="translation_context_screen">Celá obrazovka</string>
+    <string name="translation_context_guide">Odošle okolitý text, aby sa dali určiť zámená a viacvýznamové slová. Spotrebuje viac tokenov.</string>
+    <string name="translation_strength_label">Štýl prekladu</string>
+    <string name="translation_strength_literal">Doslovný</string>
+    <string name="translation_strength_natural">Prirodzený</string>
+    <string name="translation_strength_free">Voľný</string>
+    <string name="translation_domain_label">Oblasť</string>
+    <string name="translation_domain_general">Všeobecné</string>
+    <string name="translation_domain_game">Hry</string>
+    <string name="translation_domain_comic">Komiks</string>
+    <string name="translation_domain_tech">Technika</string>
+    <string name="translation_domain_business">Biznis</string>
 </resources>
 
 
