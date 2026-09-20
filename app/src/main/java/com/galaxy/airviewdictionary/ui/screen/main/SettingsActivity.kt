@@ -2131,7 +2131,7 @@ class SettingsActivity : AVDActivity() {
 
     /**
      * OpenAI API 키 입력 + 번역 모델 선택 팝업. DeepL 다이얼로그와 같은 카드 스타일.
-     * 모델 후보는 Remote Config([RemoteConfigRepository.OPENAI_TRANSLATE_MODELS])에서 온다.
+     * 모델 후보는 Remote Config([RemoteConfigRepository.TRANSLATE_MODELS])에서 온다.
      */
     @Composable
     fun OpenAiApiKeyDialog(
@@ -2424,7 +2424,7 @@ class SettingsActivity : AVDActivity() {
 
     /**
      * Gemini API 키 입력 + 번역 모델 선택 팝업. OpenAI 다이얼로그와 같은 카드 스타일.
-     * 모델 후보는 Remote Config([RemoteConfigRepository.GEMINI_TRANSLATE_MODELS])에서 온다.
+     * 모델 후보는 Remote Config([RemoteConfigRepository.TRANSLATE_MODELS])에서 온다.
      */
     @Composable
     fun GeminiApiKeyDialog(
@@ -2710,7 +2710,7 @@ class SettingsActivity : AVDActivity() {
 
     /**
      * Claude API 키 입력 + 번역 모델 선택 팝업. OpenAI/Gemini 다이얼로그와 같은 카드 스타일.
-     * 모델 후보는 Remote Config([RemoteConfigRepository.CLAUDE_TRANSLATE_MODELS])에서 온다.
+     * 모델 후보는 Remote Config([RemoteConfigRepository.TRANSLATE_MODELS])에서 온다.
      */
     @Composable
     fun ClaudeApiKeyDialog(

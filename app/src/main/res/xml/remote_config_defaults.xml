@@ -45,31 +45,61 @@
     </entry>
 
     <!--
-        2.6.0 ~ OpenAI 번역 모델 후보 (쉼표 구분). 설정에서 이 중 하나를 고른다.
+        2.7.2 ~ AI 번역 엔진별 모델 후보. 설정에서 이 중 하나를 고른다.
+        2.6.0~2.7.1 의 openai_translate_models / gemini_translate_models /
+        claude_translate_models 세 항목을 하나로 합친 것이다.
+        (구 항목은 2.7.1 이하 사용자가 아직 읽으므로 콘솔에서 바로 지우지 말 것)
+
+        목록의 앞에 있는 모델을 먼저 쓰고(설정의 기본값), 실패하면 뒤로 넘어간다.
+        사용자가 자기 API 키를 쓰므로 싼 것을 앞에 둔다. 2026-09-20 각 사 문서 기준으로 갱신.
+
+        openai  gpt-5.6-luna 가 현행 라인업 중 가장 싸다($0.20/입력 MTok). gpt-4o-mini 는
+                현행 라인업에서 빠졌지만 아직 폐기 고지는 없어, 신모델 접근이 없는 계정용
+                하위 호환으로 맨 뒤에 남긴다. gpt-4o 는 뺐다(gpt-4o-mini 가 더 싸고 같은 세대).
+        gemini  롤링 별칭(-latest)을 앞에 두어 모델이 은퇴해도 깨지지 않게 한다.
+                flash-lite 가 앞인 이유: 무료 등급 한도가 더 높아 429 가 덜 나고 응답이 빠르다.
+                맨 뒤 고정 ID 는 gemini-2.5-flash-lite → gemini-3.5-flash-lite 로 올렸다.
+        claude  Haiku 4.5 가 가장 빠르고 싸다($1/입력 MTok). Opus 는 legacy 가 된
+                claude-opus-4-8 대신 claude-opus-5 로 교체.
+                주의: Haiku 4.5 은퇴 가능 시점이 2026-10-15 이후다. 목록의 첫 모델이므로
+                은퇴하면 이 항목을 원격으로 먼저 고쳐야 한다.
     -->
     <entry>
-        <key>openai_translate_models</key>
-        <value>gpt-4o-mini,gpt-4o,gpt-5.6-luna</value>
+        <key>translate_models</key>
+        <value>
+            {
+                "openai": ["gpt-5.6-luna", "gpt-5.6-terra", "gpt-4o-mini"],
+                "gemini": ["gemini-flash-lite-latest", "gemini-flash-latest", "gemini-3.5-flash-lite"],
+                "claude": ["claude-haiku-4-5-20251001", "claude-sonnet-5", "claude-opus-5"]
+            }
+        </value>
     </entry>
 
-    <!--
-        2.6.0 ~ Gemini 번역 모델 후보 (쉼표 구분).
-    -->
-    <!--
-        롤링 별칭(-latest) 위주로 두어 모델이 은퇴해도 깨지지 않게 한다.
-        flash-lite 를 앞에 두는 이유: 무료 등급 한도가 더 높고(429 완화) 응답이 더 빠르다.
-    -->
-    <entry>
-        <key>gemini_translate_models</key>
-        <value>gemini-flash-lite-latest,gemini-flash-latest,gemini-2.5-flash-lite</value>
-    </entry>
 
     <!--
-        2.6.0 ~ Claude 번역 모델 후보 (쉼표 구분). 빠르고 저렴한 Haiku 를 앞에 둔다.
+        2.7.2 ~ 광고 게이트 동작 정책.
+
+        failure_threshold / backoff_hours
+            광고 로드가 연속 N회 실패하면 그 시간 동안 게이트를 열지 않는다.
+            러시아는 광고 게재가 중단돼 일치율 0%, 이란은 제재로 요청 자체가 나가지 않는다.
+            이런 사용자에게 게이트는 수익 없이 5분마다 창을 띄우고 최대 15초를 기다리게 할 뿐이다.
+            국가 목록이 아니라 실제 로드 결과로 판단하므로 다른 지역이 막혀도 자동 대응된다.
+            억제가 만료되면 다시 광고를 시도한다(영구 차단 아님). 0 이하면 기능이 꺼진다.
+
+        skip_cooldown_seconds
+            사용자가 광고를 스킵한 뒤 게이트를 다시 열지 않는 시간. 0 이면 즉시 재게이트.
+            이 값의 손익은 eCPM 이 높은 국가(일본·미국·한국)에 집중되므로,
+            배포 후 노출수를 보고 앱 릴리스 없이 조정한다.
     -->
     <entry>
-        <key>claude_translate_models</key>
-        <value>claude-haiku-4-5-20251001,claude-sonnet-5,claude-opus-4-8</value>
+        <key>ad_gate_failure_backoff</key>
+        <value>
+            {
+                "failure_threshold": 3,
+                "backoff_hours": 24,
+                "skip_cooldown_seconds": 60
+            }
+        </value>
     </entry>
 
 </defaultsMap>

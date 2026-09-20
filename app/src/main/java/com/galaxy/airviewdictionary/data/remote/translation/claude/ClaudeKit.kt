@@ -37,7 +37,7 @@ import javax.inject.Singleton
  * Anthropic Claude 번역 엔진. 전용 번역 API 대신 Messages API 에 번역 프롬프트를 보내 사용한다.
  * 사용자가 발급받은 개인 API 키로 동작하며, 키는 설정 > API Key > Claude 에서
  * [SecureStore] 에 암호화 저장된다. 사용할 모델은 설정에서 고르고, 후보 목록은 Firebase Remote Config
- * ([RemoteConfigRepository.CLAUDE_TRANSLATE_MODELS])로 관리한다.
+ * ([RemoteConfigRepository.TRANSLATE_MODELS])로 관리한다.
  * 저장된 키가 없으면 엔진은 비활성 상태이며 엔진 전환기에 노출되지 않는다.
  */
 @Singleton
@@ -133,7 +133,14 @@ class ClaudeKit @Inject constructor(
             val requestBody = mapOf(
                 "model" to model,
                 "max_tokens" to 4096,
-                "temperature" to 0,
+                // temperature 를 보내지 않는다.
+                // Claude Sonnet 5 / Opus 5 / Opus 4.8 은 `temperature` is deprecated for this model
+                // 으로 400 을 낸다(2026-09-20 실측). Haiku 4.5 는 있으나 없으나 동일하게 동작하므로
+                // 모델별 분기 대신 아예 뺀다. 결정성은 system 프롬프트로 확보한다.
+                //
+                // effort 도 넣지 않는다: Sonnet 5 는 output_config.effort=low 로 약 0.7초 빨라지지만
+                // Haiku 4.5 는 effort 를 지원하지 않아 400 이 난다. 모델별 분기가 필요한데
+                // RC 로 모델이 바뀌는 구조라 목록 하드코딩이 쉽게 어긋난다.
                 "system" to buildSystemPrompt(
                     sourceLanguageCode = sourceLanguageCode,
                     targetLanguageCode = targetLanguageCode,

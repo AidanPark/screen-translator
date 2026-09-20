@@ -1018,6 +1018,15 @@ class TargetHandleViewModel(
             UsageInfo.getFirstUseTime(applicationContext)
         }
 
+        // 광고 로드 연속 실패로 부여된 게이트 억제 상태를 메모리로 올린다.
+        // AdGateState 는 프로세스 전역 object 라 앱을 껐다 켜면 비어 있다.
+        viewModelScope.launch {
+            AdGateState.hydrate(
+                streak = preferenceRepository.adLoadFailureStreakFlow.first(),
+                suppressedUntil = preferenceRepository.adGateSuppressedUntilFlow.first(),
+            )
+        }
+
         // 번역 카운트 통계 (앱 리뷰 유도 및 사용량 통계용)
         viewModelScope.launch {
             pointerPositionedTranslationFlow
@@ -1046,7 +1055,7 @@ class TargetHandleViewModel(
          *   번역 수행 시, 광고 시청/5분 사용권으로 사용 가능한 상태가 아니고(AdGateState.isUsable() == false)
          *   설정 화면 상태가 아니면 리워드 광고를 띄운다.
          *   광고를 끝까지 보면 이번 세션 동안 다시 뜨지 않고, 로드/표시 실패면 5분 유예,
-         *   스킵(중간 닫기·홈키 중단)이면 유예 없이 다음 번역 시 다시 뜬다.
+         *   스킵(중간 닫기·홈키 중단)이면 짧은 쿨다운 뒤 다시 뜬다(Remote Config 로 조정).
          */
         viewModelScope.launch {
             pointerPositionedTranslationFlow

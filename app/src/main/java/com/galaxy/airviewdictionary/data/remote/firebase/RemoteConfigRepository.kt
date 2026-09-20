@@ -2,6 +2,8 @@ package com.galaxy.airviewdictionary.data.remote.firebase
 
 import android.content.Context
 import com.galaxy.airviewdictionary.R
+import com.galaxy.airviewdictionary.data.local.ads.AdGatePolicy
+import org.json.JSONObject
 import com.google.firebase.Firebase
 import com.google.firebase.remoteconfig.ConfigUpdate
 import com.google.firebase.remoteconfig.ConfigUpdateListener
@@ -30,45 +32,69 @@ class RemoteConfigRepository @Inject constructor(@ApplicationContext val context
         const val FORCE_UPDATE_VERSION_CODE_KEY = "force_update_version_code"
         const val AD_UNIT_ID = "ad_unit_id"
 
-        // OpenAI 번역에서 고를 수 있는 모델 후보 (쉼표 구분). 설정 UI 가 이 목록을 노출한다.
-        const val OPENAI_TRANSLATE_MODELS = "openai_translate_models"
+        // AI 번역 엔진별 모델 후보. 설정 UI 가 이 목록을 노출하고, 각 Kit 이 앞에서부터 시도한다.
+        // { "openai": [...], "gemini": [...], "claude": [...] } 형식의 한 항목.
+        // 2.6.0~2.7.1 의 openai_/gemini_/claude_translate_models 세 항목을 합친 것이다.
+        const val TRANSLATE_MODELS = "translate_models"
 
-        // Gemini 번역에서 고를 수 있는 모델 후보 (쉼표 구분).
-        const val GEMINI_TRANSLATE_MODELS = "gemini_translate_models"
-
-        // Claude 번역에서 고를 수 있는 모델 후보 (쉼표 구분).
-        const val CLAUDE_TRANSLATE_MODELS = "claude_translate_models"
+        // 광고 게이트 동작 정책. JSON 한 항목으로 담는다.
+        // { "failure_threshold": 3, "backoff_hours": 24, "skip_cooldown_seconds": 60 }
+        // 자세한 의미는 [AdGatePolicy] 참조.
+        const val AD_GATE_FAILURE_BACKOFF = "ad_gate_failure_backoff"
     }
 
     /**
-     * OpenAI 번역 모델 후보 목록. Remote Config 의 쉼표 구분 문자열을 파싱한다.
-     * (기본값은 res/xml/remote_config_defaults.xml 참조)
+     * 광고 게이트 정책. Remote Config 의 JSON 을 파싱한다.
+     * 값이 비었거나 형식이 깨졌으면 [AdGatePolicy.FALLBACK] 을 돌려준다.
+     * 누락된 필드는 FALLBACK 값으로 채워, 항목 일부만 설정해도 동작한다.
      */
-    fun getOpenAiTranslateModels(): List<String> {
-        return remoteConfig[OPENAI_TRANSLATE_MODELS].asString()
-            .split(",")
-            .map { it.trim() }
-            .filter { it.isNotBlank() }
+    fun getAdGatePolicy(): AdGatePolicy {
+        val raw = remoteConfig[AD_GATE_FAILURE_BACKOFF].asString()
+        if (raw.isBlank()) return AdGatePolicy.FALLBACK
+        return try {
+            val json = JSONObject(raw)
+            AdGatePolicy(
+                failureThreshold = json.optInt(
+                    "failure_threshold", AdGatePolicy.FALLBACK.failureThreshold
+                ),
+                backoffHours = json.optInt(
+                    "backoff_hours", AdGatePolicy.FALLBACK.backoffHours
+                ),
+                skipCooldownSeconds = json.optInt(
+                    "skip_cooldown_seconds", AdGatePolicy.FALLBACK.skipCooldownSeconds
+                ),
+            )
+        } catch (e: Exception) {
+            Timber.tag(TAG).w(e, "$AD_GATE_FAILURE_BACKOFF JSON 파싱 실패: '$raw'")
+            AdGatePolicy.FALLBACK
+        }
     }
 
-    /**
-     * Gemini 번역 모델 후보 목록. Remote Config 의 쉼표 구분 문자열을 파싱한다.
-     */
-    fun getGeminiTranslateModels(): List<String> {
-        return remoteConfig[GEMINI_TRANSLATE_MODELS].asString()
-            .split(",")
-            .map { it.trim() }
-            .filter { it.isNotBlank() }
-    }
+    /** OpenAI 번역 모델 후보 목록. (기본값은 res/xml/remote_config_defaults.xml 참조) */
+    fun getOpenAiTranslateModels(): List<String> = getTranslateModels("openai")
+
+    /** Gemini 번역 모델 후보 목록. */
+    fun getGeminiTranslateModels(): List<String> = getTranslateModels("gemini")
+
+    /** Claude 번역 모델 후보 목록. */
+    fun getClaudeTranslateModels(): List<String> = getTranslateModels("claude")
 
     /**
-     * Claude 번역 모델 후보 목록. Remote Config 의 쉼표 구분 문자열을 파싱한다.
+     * [TRANSLATE_MODELS] JSON 에서 엔진 하나의 모델 후보를 꺼낸다.
+     * 항목이 없거나 형식이 깨졌으면 빈 목록 — 설정 UI 는 빈 목록을 이미 처리한다.
      */
-    fun getClaudeTranslateModels(): List<String> {
-        return remoteConfig[CLAUDE_TRANSLATE_MODELS].asString()
-            .split(",")
-            .map { it.trim() }
-            .filter { it.isNotBlank() }
+    private fun getTranslateModels(engine: String): List<String> {
+        val raw = remoteConfig[TRANSLATE_MODELS].asString()
+        if (raw.isBlank()) return emptyList()
+        return try {
+            val array = JSONObject(raw).optJSONArray(engine) ?: return emptyList()
+            (0 until array.length())
+                .map { array.optString(it).trim() }
+                .filter { it.isNotBlank() }
+        } catch (e: Exception) {
+            Timber.tag(TAG).w(e, "$TRANSLATE_MODELS JSON 파싱 실패: '$raw'")
+            emptyList()
+        }
     }
 
     private val remoteConfig: FirebaseRemoteConfig = Firebase.remoteConfig
@@ -82,6 +108,7 @@ class RemoteConfigRepository @Inject constructor(@ApplicationContext val context
         Timber.tag(TAG).d("LATEST_VERSION_CODE_KEY ${remoteConfig[LATEST_VERSION_CODE_KEY].asString()}")
         Timber.tag(TAG).d("FORCE_UPDATE_VERSION_CODE_KEY ${remoteConfig[FORCE_UPDATE_VERSION_CODE_KEY].asString()}")
         Timber.tag(TAG).d("AD_UNIT_ID ${remoteConfig[AD_UNIT_ID].asString()}")
+        Timber.tag(TAG).d("TRANSLATE_MODELS ${remoteConfig[TRANSLATE_MODELS].asString()}")
         _remoteConfigFlow.value = remoteConfig.all
     }
 

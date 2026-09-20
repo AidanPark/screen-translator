@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.floatPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -95,6 +96,13 @@ class PreferenceRepository @Inject constructor(@ApplicationContext val context: 
 
         val SOURCE_LANGUAGE_CODE_HISTORY = stringPreferencesKey("source_language_code_history")
         val TARGET_LANGUAGE_CODE_HISTORY = stringPreferencesKey("target_language_code_history")
+
+        // 광고 로드 연속 실패 횟수. 한 번이라도 성공하면 0 으로 돌아간다.
+        val AD_LOAD_FAILURE_STREAK = intPreferencesKey("ad_load_failure_streak")
+
+        // 광고 게이트를 열지 않을 만료 시각(epoch millis). 지나면 다시 광고를 시도한다.
+        // 프로세스가 죽어도 유지돼야 해서 메모리(AdGateState)가 아니라 여기에 둔다.
+        val AD_GATE_SUPPRESSED_UNTIL = longPreferencesKey("ad_gate_suppressed_until")
     }
 
     private val preferenceDataStore: DataStore<Preferences> = context.preferenceDataStore
@@ -116,6 +124,14 @@ class PreferenceRepository @Inject constructor(@ApplicationContext val context: 
                 preferences[key] = value
             }
         }
+    }
+
+    val adLoadFailureStreakFlow: Flow<Int> = preferenceFlow.map { preferences ->
+        preferences[AD_LOAD_FAILURE_STREAK] ?: 0
+    }
+
+    val adGateSuppressedUntilFlow: Flow<Long> = preferenceFlow.map { preferences ->
+        preferences[AD_GATE_SUPPRESSED_UNTIL] ?: 0L
     }
 
     val wasTrailerShownFlow: Flow<Boolean> = preferenceFlow.map { preferences ->

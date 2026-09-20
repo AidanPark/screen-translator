@@ -38,7 +38,7 @@ import javax.inject.Singleton
  * 번역 프롬프트를 보내 사용한다. 사용자가 발급받은 개인 API 키로 동작하며,
  * 키는 설정 > API Key > Gemini 에서 [SecureStore] 에 암호화 저장된다.
  * 사용할 모델은 설정에서 고르고, 후보 목록은 Firebase Remote Config
- * ([RemoteConfigRepository.GEMINI_TRANSLATE_MODELS])로 관리한다.
+ * ([RemoteConfigRepository.TRANSLATE_MODELS])로 관리한다.
  * 저장된 키가 없으면 엔진은 비활성 상태이며 엔진 전환기에 노출되지 않는다.
  */
 @Singleton
