@@ -18,6 +18,7 @@ import com.galaxy.airviewdictionary.data.remote.translation.goolge.GoogleWebKit
 import com.galaxy.airviewdictionary.di.OpenAiRetrofit
 import com.google.gson.Gson
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -157,15 +158,19 @@ class OpenAiKit @Inject constructor(
             val resultText = cleanOutput(response.choices.firstOrNull()?.message?.content.orEmpty())
             TranslationResponse.Success(
                 Transaction(
-                    sourceLanguageCode = sourceLanguageCode,
                     targetLanguageCode = targetLanguageCode,
                     sourceText = sourceText,
                     translationKitType = TranslationKitType.OPENAI,
-                    detectedLanguageCode = if (sourceLanguageCode == "auto") null else sourceLanguageCode,
+                    // 텍스트 경로는 언어를 판정하지 않는다. 지정 번역이면 그 언어가 곧 원문 언어다.
+                    resolvedSourceLanguageCode = sourceLanguageCode.takeIf { it != "auto" },
                     resultText = resultText,
                     modelName = model,
                 )
             )
+        } catch (e: CancellationException) {
+            // 취소는 오류가 아니다. 여기서 삼키면 핸들이 떠나 취소된 요청이
+            // 실패 안내로 둔갑하고, 상위 코루틴은 취소된 줄 모른 채 계속 진행한다.
+            throw e
         } catch (e: Exception) {
             Timber.tag(TAG).w("request error: ${e.message}")
             TranslationResponse.Error(e)

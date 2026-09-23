@@ -1,5 +1,14 @@
 package com.galaxy.airviewdictionary.data.remote.translation.claude
 
+import android.graphics.Bitmap
+import android.util.Base64
+import com.galaxy.airviewdictionary.data.local.capture.TargetCrop
+import com.galaxy.airviewdictionary.data.local.vision.TextDetectMode
+import com.galaxy.airviewdictionary.data.remote.translation.buildImageTranslationSystemPrompt
+import com.galaxy.airviewdictionary.data.remote.translation.NoTextAtPointerException
+import com.galaxy.airviewdictionary.data.remote.translation.detectedLanguageCodeOrNull
+import com.galaxy.airviewdictionary.data.remote.translation.parseImageTranslation
+import java.io.ByteArrayOutputStream
 import android.content.Context
 import com.galaxy.airviewdictionary.data.local.preference.PreferenceRepository
 import com.galaxy.airviewdictionary.data.local.secure.SecureStore
@@ -18,6 +27,7 @@ import com.galaxy.airviewdictionary.data.remote.translation.goolge.GoogleWebKit
 import com.galaxy.airviewdictionary.di.ClaudeRetrofit
 import com.google.gson.Gson
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -118,6 +128,120 @@ class ClaudeKit @Inject constructor(
         sourceText: String
     ): TranslationResponse = request(sourceLanguageCode, targetLanguageCode, sourceText, null)
 
+    override fun supportsImageRequest(): Boolean = true
+
+    /**
+     * 화면 크롭을 그대로 보내는 번역. 배경은 [TranslationKit.request] 이미지 오버로드와 [TargetCrop] 참조.
+     * Gemini 경로와 형식·프롬프트를 공유한다(LANG/SRC/DST 줄 접두사).
+     */
+    override suspend fun request(
+        sourceLanguageCode: String,
+        targetLanguageCode: String,
+        sourceText: String,
+        contextText: String?,
+        targetImage: Bitmap,
+        detectMode: TextDetectMode,
+    ): TranslationResponse {
+        return try {
+            val apiKey = getStoredApiKey(context) ?: throw IllegalStateException("Claude API key is not set.")
+            val model = resolveModel()
+            val strength = preferenceRepository.claudeTranslationStrengthFlow.first()
+            val domain = preferenceRepository.claudeTranslationDomainFlow.first()
+
+            val encodeStart = System.nanoTime()
+            val imageBase64 = targetImage.toJpegBase64()
+            val encodeMs = (System.nanoTime() - encodeStart) / 1_000_000
+
+            val requestBody = mapOf(
+                "model" to model,
+                "max_tokens" to 4096,
+                "system" to buildImageTranslationSystemPrompt(
+                    sourceLanguageName = if (sourceLanguageCode == "auto") null else Language(sourceLanguageCode).englishName,
+                    targetLanguageName = Language(targetLanguageCode).englishName,
+                    strength = strength,
+                    domain = domain,
+                    detectMode = detectMode,
+                ),
+                // 이미지만 보낸다. OCR 힌트도 문맥 텍스트도 넣지 않는다 —
+                // 필요한 정보가 이미 이미지에 있고, 둘 다 토큰만 늘린다.
+                "messages" to listOf(
+                    mapOf(
+                        "role" to "user",
+                        "content" to listOf(
+                            mapOf(
+                                "type" to "image",
+                                "source" to mapOf(
+                                    "type" to "base64",
+                                    "media_type" to "image/jpeg",
+                                    "data" to imageBase64,
+                                ),
+                            )
+                        ),
+                    ),
+                    // assistant 프리필: 응답 첫머리를 고정해 형식을 강제한다.
+                    // 프롬프트로 부탁하면 모델이 설명문을 내놓을 수 있고, 그게 번역 결과로 떴다.
+                    // (끝에 공백을 두면 API 가 거부하므로 붙이지 않는다)
+                    mapOf("role" to "assistant", "content" to PREFILL),
+                ),
+            )
+            val json = Gson().toJson(requestBody).toRequestBody("application/json".toMediaType())
+            val callStart = System.nanoTime()
+            val response = withContext(Dispatchers.IO) {
+                service.messages(apiKey, json)
+            }
+            val callMs = (System.nanoTime() - callStart) / 1_000_000
+
+            // 프리필한 만큼은 응답에 포함되지 않으므로 앞에 도로 붙여 파싱한다.
+            val raw = PREFILL + (response.content?.firstOrNull { it.type == "text" } ?: response.content?.firstOrNull())
+                ?.text.orEmpty()
+            val parsed = parseImageTranslation(cleanOutput(raw))
+                ?: throw IllegalStateException("형식을 벗어난 응답: ${cleanOutput(raw).take(120)}")
+            // 마커 아래에 글자가 없다는 답. 오류 안내 대신 조용히 끝내라고 호출부에 알린다.
+            if (parsed.isNoText) throw NoTextAtPointerException()
+
+            // 이 경로의 성패는 지연과 토큰 비용에서 갈린다. 릴리스에서는 R8 이 걷어낸다.
+            val usage = response.usage
+            Timber.tag(TAG).i(
+                "image request: ${targetImage.width}x${targetImage.height}" +
+                        " jpeg=${imageBase64.length / 1024}KB encode=${encodeMs}ms call=${callMs}ms" +
+                        " in=${usage?.input_tokens} out=${usage?.output_tokens}" +
+                        " mode=$detectMode model=$model"
+            )
+
+            TranslationResponse.Success(
+                Transaction(
+                    targetLanguageCode = targetLanguageCode,
+                    // 모델이 이미지에서 직접 읽은 원문. 못 읽었으면 null 로 두고
+                    // 무엇으로 대신할지는 파이프라인이 정한다.
+                    sourceText = parsed.source.takeIf { it.isNotBlank() },
+                    translationKitType = TranslationKitType.CLAUDE,
+                    // 이미지 경로는 auto 라도 모델이 언어를 판정한다.
+                    resolvedSourceLanguageCode = if (sourceLanguageCode == "auto") {
+                        parsed.detectedLanguageCodeOrNull()
+                    } else {
+                        sourceLanguageCode
+                    },
+                    resultText = parsed.translation,
+                    modelName = model,
+                )
+            )
+        } catch (e: CancellationException) {
+            // 취소는 오류가 아니다. 여기서 삼키면 핸들이 떠나 취소된 요청이
+            // 실패 안내로 둔갑하고, 상위 코루틴은 취소된 줄 모른 채 계속 진행한다.
+            throw e
+        } catch (e: Exception) {
+            Timber.tag(TAG).w("image request error: ${e.message}")
+            TranslationResponse.Error(e)
+        }
+    }
+
+    /** Claude 의 image 블록은 base64 를 받는다. PNG 보다 JPEG 이 화면 캡처에서 훨씬 작다. */
+    private fun Bitmap.toJpegBase64(): String {
+        val stream = ByteArrayOutputStream()
+        compress(Bitmap.CompressFormat.JPEG, JPEG_QUALITY, stream)
+        return Base64.encodeToString(stream.toByteArray(), Base64.NO_WRAP)
+    }
+
     override suspend fun request(
         sourceLanguageCode: String,
         targetLanguageCode: String,
@@ -163,15 +287,19 @@ class ClaudeKit @Inject constructor(
                 ?.text.orEmpty()
             TranslationResponse.Success(
                 Transaction(
-                    sourceLanguageCode = sourceLanguageCode,
                     targetLanguageCode = targetLanguageCode,
                     sourceText = sourceText,
                     translationKitType = TranslationKitType.CLAUDE,
-                    detectedLanguageCode = if (sourceLanguageCode == "auto") null else sourceLanguageCode,
+                    // 텍스트 경로는 언어를 판정하지 않는다. 지정 번역이면 그 언어가 곧 원문 언어다.
+                    resolvedSourceLanguageCode = sourceLanguageCode.takeIf { it != "auto" },
                     resultText = cleanOutput(raw),
                     modelName = model,
                 )
             )
+        } catch (e: CancellationException) {
+            // 취소는 오류가 아니다. 여기서 삼키면 핸들이 떠나 취소된 요청이
+            // 실패 안내로 둔갑하고, 상위 코루틴은 취소된 줄 모른 채 계속 진행한다.
+            throw e
         } catch (e: Exception) {
             Timber.tag(TAG).w("request error: ${e.message}")
             TranslationResponse.Error(e)
@@ -204,6 +332,12 @@ class ClaudeKit @Inject constructor(
 
     companion object {
         const val BASE_URL = "https://api.anthropic.com/"
+
+        /** 화면 캡처는 사진이 아니라 UI 라, 품질을 조금 낮춰도 글자 가독성은 유지된다. */
+        private const val JPEG_QUALITY = 85
+
+        /** 이미지 경로 응답의 첫머리. 형식을 강제하는 assistant 프리필로도 쓴다. */
+        private const val PREFILL = "LANG:"
         const val DEFAULT_MODEL = "claude-haiku-4-5-20251001"
 
         // Claude API 키 발급/사용량 안내 링크

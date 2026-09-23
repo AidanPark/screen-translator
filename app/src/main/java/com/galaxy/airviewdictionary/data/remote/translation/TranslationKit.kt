@@ -1,5 +1,7 @@
 package com.galaxy.airviewdictionary.data.remote.translation
 
+import android.graphics.Bitmap
+import com.galaxy.airviewdictionary.data.local.vision.TextDetectMode
 import com.galaxy.airviewdictionary.data.remote.translation.Language
 
 
@@ -50,6 +52,28 @@ abstract class TranslationKit {
         sourceText: String,
         contextText: String?,
     ): TranslationResponse = request(sourceLanguageCode, targetLanguageCode, sourceText)
+
+    /** 이 엔진이 이미지 경로를 실제로 지원하는지. */
+    open fun supportsImageRequest(): Boolean = false
+
+    /**
+     * 화면 이미지를 직접 받는 번역 요청.
+     *
+     * OCR 이 텍스트 경계를 잘못 그으면(아랍어 등 연결 문자, 태국어 등 무공백 문자)
+     * [sourceText] 자체가 망가져 있어 어떤 모델을 써도 번역 품질에 상한이 생긴다.
+     * 이미지를 읽는 엔진은 [targetImage] 의 마커 위치와 [detectMode] 로 대상을 직접 찾아
+     * OCR 의 잘못된 분할을 교정할 수 있다. [sourceText] 는 참고용 힌트로만 넘긴다.
+     *
+     * 지원하지 않는 엔진은 기본 구현대로 기존 텍스트 경로를 탄다.
+     */
+    open suspend fun request(
+        sourceLanguageCode: String,
+        targetLanguageCode: String,
+        sourceText: String,
+        contextText: String?,
+        targetImage: Bitmap,
+        detectMode: TextDetectMode,
+    ): TranslationResponse = request(sourceLanguageCode, targetLanguageCode, sourceText, contextText)
 
 }
 

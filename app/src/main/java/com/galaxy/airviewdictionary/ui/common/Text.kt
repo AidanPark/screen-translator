@@ -29,7 +29,8 @@ import timber.log.Timber
  * @param minFontSize 텍스트가 맞지 않을 경우 줄일 수 있는 최소 폰트 크기.
  * @param enableAutoResize 텍스트의 자동 크기 조절 기능을 켜거나 끄는 플래그.
  * @param modifier Text를 포함한 Box에 적용할 Modifier.
- * @param onReadyToDisplay 텍스트의 레이아웃이 완료되고 화면에 표시할 준비가 되었을 때 호출되는 콜백 함수.
+ * @param onReadyToDisplay 레이아웃이 끝나 표시할 준비가 되었을 때, 실제로 그려진 높이(px)와 함께 호출된다.
+ *        호출부가 그 높이에 창을 맞출 수 있도록 넘긴다 — 미리 잰 값과 어긋나면 빈 공간이 남기 때문이다.
  */
 @Composable
 fun AutoResizeText(
@@ -39,7 +40,7 @@ fun AutoResizeText(
     enableAutoResize: Boolean = true,
     inlineContent: Map<String, InlineTextContent> = mapOf(), // 텍스트에 삽입할 인라인 콘텐츠(예: 스피커 아이콘)
     modifier: Modifier = Modifier,
-    onReadyToDisplay: () -> Unit // 텍스트 준비 완료 시 호출되는 콜백
+    onReadyToDisplay: (renderedHeightPx: Int) -> Unit // 텍스트 준비 완료 시 실제 높이와 함께 호출
 ) {
     // 현재 폰트 크기를 나타내며, 처음에는 최대 폰트 크기로 설정됩니다.
     var fontSize by remember { mutableStateOf(maxFontSize) }
@@ -67,7 +68,7 @@ fun AutoResizeText(
                         Timber.tag("AutoResizeText").d("AutoResizeText [${fontSize}] ")
                     } else {
                         // 텍스트가 맞거나 최소 폰트 크기에 도달하면 표시 준비 완료로 간주하고 콜백 호출
-                        onReadyToDisplay()
+                        onReadyToDisplay(textLayoutResult.size.height)
                     }
                 }
             }

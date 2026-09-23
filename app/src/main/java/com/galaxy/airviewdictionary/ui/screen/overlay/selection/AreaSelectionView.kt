@@ -356,6 +356,10 @@ open class AreaSelectionView : OverlayView() {
                 return@launchInOverlayViewCoroutineScope
             }
 
+            // 이미지 번역 경로가 잘라 쓸 원본과 영역. 검게 덮기 전의 캡처를 넘긴다 —
+            // OCR 에는 영역 밖을 가린 이미지가 필요하지만, 모델에는 영역만 잘라 주면 된다.
+            targetHandleViewModel.setSelectedArea(captureResponse.bitmap, selectedArea)
+
             // 영역선택 이미지
             val selectedAreaBitmap = createOverlaidBitmap(captureResponse.bitmap, selectedArea)
 

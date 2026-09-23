@@ -6,6 +6,7 @@ import com.galaxy.airviewdictionary.di.GoogleWebRetrofit
 import com.galaxy.airviewdictionary.data.remote.translation.Language
 import com.galaxy.airviewdictionary.data.remote.translation.Transaction
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationResponse
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
@@ -172,17 +173,21 @@ class GoogleWebKit @Inject constructor(@GoogleWebRetrofit private val googleWebS
             return TranslationResponse.Error(e)
         } catch (e: HttpException) {
             return TranslationResponse.Error(e)
+        } catch (e: CancellationException) {
+            // 취소는 오류가 아니다. 여기서 삼키면 핸들이 떠나 취소된 요청이
+            // 실패 안내로 둔갑하고, 상위 코루틴은 취소된 줄 모른 채 계속 진행한다.
+            throw e
         } catch (e: Exception) {
             return TranslationResponse.Error(e)
         }
 
         return TranslationResponse.Success(
             Transaction(
-                sourceLanguageCode = sourceLanguageCode,
                 targetLanguageCode = targetLanguageCode,
                 sourceText = sourceText,
                 translationKitType = TranslationKitType.GOOGLE,
-                detectedLanguageCode = detectedLanguageCode,
+                // auto 로 보내도 구글이 감지한 언어를 돌려준다.
+                resolvedSourceLanguageCode = detectedLanguageCode,
                 resultText = resultText
             )
         )

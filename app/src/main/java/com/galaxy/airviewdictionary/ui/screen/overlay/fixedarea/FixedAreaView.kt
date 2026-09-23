@@ -545,11 +545,14 @@ open class FixedAreaView : OverlayView() {
                 when (it) {
                     is TranslationResponse.Success -> {
                         val transaction = com.galaxy.airviewdictionary.data.remote.translation.Transaction(
-                            sourceLanguageCode = it.result.sourceLanguageCode,
+                            requestedSourceLanguageCode = sourceLanguageCode,
+                            // 고정영역은 OCR 텍스트만 번역한다(이미지 경로 없음).
+                            // 킷이 판정하지 못했으면 화면 전체 OCR 이 판정한 언어가 곧 원문 언어다.
+                            resolvedSourceLanguageCode = it.result.resolvedSourceLanguageCode
+                                ?: sourceLanguageCode.takeIf { code -> code != "auto" && code != "und" },
                             targetLanguageCode = it.result.targetLanguageCode,
                             sourceText = sourceText,
                             translationKitType = it.result.translationKitType,
-                            detectedLanguageCode = it.result.detectedLanguageCode,
                             resultText = it.result.resultText,
                             modelName = it.result.modelName,
                         )

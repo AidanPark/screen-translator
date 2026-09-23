@@ -105,11 +105,11 @@ class AnalyticsRepository @Inject constructor(@ApplicationContext val context: C
         if (BuildConfig.DEBUG) return
 
         firebaseAnalytics.logEvent(Event.TRANSLATE) {
-            param(Param.SOURCE_LANGUAGE_CODE, transaction.sourceLanguageCode ?: "unknown")
+            param(Param.SOURCE_LANGUAGE_CODE, transaction.requestedSourceLanguageCode ?: "unknown")
             param(Param.TARGET_LANGUAGE_CODE, transaction.targetLanguageCode ?: "unknown")
             param(Param.TRANSLATION_KIT_TYPE, transaction.translationKitType?.name ?: "unknown")
             param(Param.TEXT_DETECT_MODE, textDetectMode?.name ?: "unknown")
-            param(Param.DETECTED_LANGUAGE_CODE, transaction.detectedLanguageCode ?: "unknown")
+            param(Param.DETECTED_LANGUAGE_CODE, transaction.resolvedSourceLanguageCode ?: "unknown")
         }
     }
 
@@ -117,7 +117,7 @@ class AnalyticsRepository @Inject constructor(@ApplicationContext val context: C
         if (BuildConfig.DEBUG) return
 
         firebaseAnalytics.logEvent(Event.TRANSLATE) {
-            param(Param.SOURCE_LANGUAGE_CODE, transaction.sourceLanguageCode ?: "unknown")
+            param(Param.SOURCE_LANGUAGE_CODE, transaction.requestedSourceLanguageCode ?: "unknown")
             param(Param.TARGET_LANGUAGE_CODE, transaction.targetLanguageCode ?: "unknown")
             param(Param.TRANSLATION_KIT_TYPE, transaction.translationKitType?.name ?: "unknown")
         }

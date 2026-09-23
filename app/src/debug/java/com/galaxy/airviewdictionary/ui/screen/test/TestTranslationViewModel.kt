@@ -57,18 +57,22 @@ class TestTranslationViewModel @Inject constructor(
         viewModelScope.launch {
             _request.collect { sourceText ->
                 if (sourceText.isNotBlank()) {
-                    _translationFlow.value = Transaction(sourceLanguageCode, targetLanguageCode, sourceText)
+                    _translationFlow.value = Transaction(
+                        requestedSourceLanguageCode = sourceLanguageCode,
+                        targetLanguageCode = targetLanguageCode,
+                        sourceText = sourceText,
+                    )
                     translationRepository.request(TranslationKitType.GOOGLE, sourceLanguageCode, targetLanguageCode, sourceText)
                         .let { translationResponse ->
                             if (translationResponse is TranslationResponse.Success
-                                && _translationFlow.value.sourceLanguageCode == translationResponse.result.sourceLanguageCode
+                                && _translationFlow.value.requestedSourceLanguageCode == sourceLanguageCode
                                 && _translationFlow.value.targetLanguageCode == translationResponse.result.targetLanguageCode
                                 && _translationFlow.value.sourceText == translationResponse.result.sourceText
                             ) {
                                 Timber.tag(TAG).d("translationResponse ${translationResponse.result}")
                                 _translationFlow.update {
                                     it.copy(
-                                        detectedLanguageCode = translationResponse.result.detectedLanguageCode,
+                                        resolvedSourceLanguageCode = translationResponse.result.resolvedSourceLanguageCode,
                                         resultText = translationResponse.result.resultText
                                     )
                                 }

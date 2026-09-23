@@ -40,6 +40,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -54,15 +55,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
@@ -78,6 +83,7 @@ import com.galaxy.airviewdictionary.data.local.screen.ScreenInfoHolder
 import com.galaxy.airviewdictionary.data.local.vision.WritingDirection
 import com.galaxy.airviewdictionary.data.local.vision.model.VisionText
 import com.galaxy.airviewdictionary.data.remote.translation.Language
+import com.galaxy.airviewdictionary.data.remote.translation.detectedLanguageLabel
 import com.galaxy.airviewdictionary.data.remote.translation.Transaction
 import com.galaxy.airviewdictionary.extensions.toSpValue
 import com.galaxy.airviewdictionary.ui.common.AutoResizeText
@@ -187,7 +193,9 @@ open class TranslationView : OverlayView() {
     private val FONT_SIZE_MAX_SP: Float = 24f // 최대 폰트 사이즈
     private val FONT_SIZE_RATIO: Float = 0.9f // visionTextFontHeight 대비 번역창 폰트 사이즈 비율
     private val CONTENT_WIDTH_RATIO: Float = 1.2f // VisionText 대비 콘텐트 너비 비율
-    private val SOURCE_TEXT_RESULT_TEXT_SPACE: String = "  " // 원본텍스트와 번역텍스트 사이의 공백
+    // 원문과 번역문은 서로 다른 언어이고 쓰기 방향도 다를 수 있어 각각 독립된 문단으로 그린다.
+    // 그래서 구분자는 공백이 아니라 줄바꿈이다. 창 크기 측정과 복사도 같은 구분자를 쓴다.
+    private val SOURCE_RESULT_SEPARATOR: String = "\n"
 
     // 텍스트 맨 앞에 특수문자처럼 인라인으로 들어가는 스피커 아이콘.
     private val SPEAKER_INLINE_ID: String = "speaker" // annotatedString inline content id
@@ -215,6 +223,18 @@ open class TranslationView : OverlayView() {
         return " ".repeat(spaceCount)
     }
 
+    /**
+     * 이 언어로 쓴 문단의 기준 방향. 코드를 모르면 LTR.
+     *
+     * 문단마다 방향을 따로 주는 이유: 원문과 번역문을 한 문단에 이어 붙이면 양방향 알고리즘이
+     * 문단 전체에 기준 방향 하나만 정한다. 아랍어 원문 뒤에 한국어 번역문이 오면 기준이 LTR 로
+     * 잡혀, 아랍어 구간의 숫자·괄호·마침표가 반대편에 붙어 문장이 뒤집혀 보인다.
+     */
+    private fun paragraphDirectionOf(languageCode: String?): TextDirection =
+        if (languageCode != null &&
+            Language.writingDirection(languageCode, false) == WritingDirection.RTL
+        ) TextDirection.Rtl else TextDirection.Ltr
+
     private fun getTranslationLayout(
         applicationContext: Context,
         translation: Transaction,
@@ -226,28 +246,34 @@ open class TranslationView : OverlayView() {
 
         Timber.tag(TAG).d("translationTransaction.sourceText [${translation.sourceText}] ")
         Timber.tag(TAG).d("drawnTranslationTransaction?.sourceText [${drawnTranslation?.sourceText}] ")
-        Timber.tag(TAG).d("translationTransaction.detectedLanguageCode [${translation.detectedLanguageCode}] ")
-        Timber.tag(TAG).d("drawnTranslationTransaction?.detectedLanguageCode [${drawnTranslation?.detectedLanguageCode}] ")
+        Timber.tag(TAG).d("translationTransaction.resolvedSourceLanguageCode [${translation.resolvedSourceLanguageCode}] ")
+        Timber.tag(TAG).d("drawnTranslationTransaction?.resolvedSourceLanguageCode [${drawnTranslation?.resolvedSourceLanguageCode}] ")
 
         if (
             translation.sourceText != drawnTranslation?.sourceText
-            || translation.detectedLanguageCode != drawnTranslation?.detectedLanguageCode
+            || translation.resolvedSourceLanguageCode != drawnTranslation?.resolvedSourceLanguageCode
         ) {
             Timber.tag(TAG).e("+++++++++++ clear() !!!!!!!!!!!!!!!!!!")
             clear()
         }
 
-        val sourceText = translation.sourceText
+        // 표시용 원문. 모델이 읽은 경우에만 판정 언어 라벨이 앞에 붙는다(복사·TTS 에는 붙지 않는다).
+        val sourceText = translation.detectedLanguageLabel + translation.sourceText
 
         // 폰트 사이즈
         val fontSizeSp = getRenderFontSizeSp(applicationContext, visionText.fontHeight)
         Timber.tag(TAG).d("+++++++++++ getTranslationLayout fontSizeSp [${fontSizeSp}]")
 
-        // text (측정용): [인라인 아이콘 폭≈공백] + [아이콘~텍스트 갭] + 원본 + 사이여백 + 번역
-        val text = getSpeakerSpace(applicationContext, fontSizeSp) + SPEAKER_TEXT_GAP + sourceText + SOURCE_TEXT_RESULT_TEXT_SPACE + translation.resultText
+        // 측정용 문자열. 원문 문단에는 인라인 아이콘 폭(≈공백)과 아이콘~텍스트 갭이 앞에 붙는다.
+        val sourceMeasureText =
+            getSpeakerSpace(applicationContext, fontSizeSp) + SPEAKER_TEXT_GAP + sourceText
+        val resultMeasureText = translation.resultText.orEmpty()
 
-        // 화면상 text 너비
-        val textWidth = measureTextWidth(applicationContext, text, fontSizeSp)
+        // 두 문단이 세로로 쌓이므로 너비는 둘 중 넓은 쪽이다(합이 아니다).
+        val textWidth = maxOf(
+            measureTextWidth(applicationContext, sourceMeasureText, fontSizeSp),
+            measureTextWidth(applicationContext, resultMeasureText, fontSizeSp),
+        )
         Timber.tag(TAG).d("textWidth [${textWidth}]")
 
         // 스크린과 TranslationView 사이 최소 마진
@@ -286,11 +312,22 @@ open class TranslationView : OverlayView() {
         val viewWidth: Int = (viewShadowPadding + viewContentPadding + contentWidth + viewContentPadding + viewShadowPadding).roundToInt().coerceIn(viewMinWidth, viewMaxWidth)
         Timber.tag(TAG).d("viewWidth [${viewWidth}]")
 
-        // content 높이
+        // content 높이. 두 문단을 각각 재서 더한다.
+        //
+        // 하나의 StaticLayout 에 "원문\n번역문" 으로 넣어 재면 안 된다. 실제 렌더는 문단마다
+        // 별도의 Paragraph 라서 각자 ascent/descent 를 갖는데, 한 번에 재면 그 여백이 맨 위와
+        // 맨 아래에만 붙어 렌더보다 낮게 나온다. 그러면 AutoResizeText 가 오버플로로 판단해
+        // 폰트를 한 단계 줄여 그리고, 줄어든 만큼이 창 아래에 빈 줄처럼 남는다.
+        val contentTextWidth = viewWidth - (viewShadowPadding * 2) - (viewContentPadding * 2)
         val contentHeight = calculateTextHeight(
             applicationContext,
-            text,
-            viewWidth - (viewShadowPadding * 2) - (viewContentPadding * 2),
+            sourceMeasureText,
+            contentTextWidth,
+            fontSizeSp,
+        ) + calculateTextHeight(
+            applicationContext,
+            resultMeasureText,
+            contentTextWidth,
             fontSizeSp,
         )
         Timber.tag(TAG).d("contentHeight [${contentHeight}]")
@@ -407,6 +444,41 @@ open class TranslationView : OverlayView() {
         return layout.height
     }
 
+    /**
+     * 창을 실제로 그려진 텍스트 높이에 맞춘다.
+     *
+     * 창 크기는 표시 전에 StaticLayout 으로 미리 재는데, 그 줄바꿈 판정이 Compose 와 다르다.
+     * 아랍어처럼 폴백 폰트로 셰이핑되는 글에서 한 줄씩 어긋나고(18줄 대 19줄 — 2026-09-22 실측),
+     * 그러면 AutoResizeText 가 폰트를 줄여 맞추느라 줄어든 만큼이 번역문 아래 빈 공간으로 남는다.
+     * 두 엔진의 줄바꿈을 맞추는 것은 폰트 폴백에 기대는 일이라, 그린 뒤에 창을 줄이는 쪽이 안전하다.
+     *
+     * 말풍선은 대상 위에 붙으므로 줄인 만큼 아래로 내려 아랫변을 제자리에 둔다.
+     * 한 번만 줄인다 — 줄인 창에서 다시 재면 또 줄어들어 되먹임이 생긴다.
+     */
+    private var heightAdjustedFor: Transaction? = null
+
+    private fun shrinkToRenderedHeight(context: Context, renderedHeightPx: Int) {
+        val translation = drawnTranslation ?: return
+        if (heightAdjustedFor === translation) return
+        if (!isAttachedToWindow()) return
+
+        val shadow = context.resources.getDimensionPixelSize(R.dimen.translation_view_shadow_padding)
+        val padding = context.resources.getDimensionPixelSize(R.dimen.translation_view_content_padding)
+        val bottomMenu = context.resources.getDimensionPixelSize(R.dimen.translation_view_bottom_menu_height)
+        val wanted = shadow + padding + renderedHeightPx + bottomMenu + shadow
+        val slack = layoutParams.height - wanted
+        // 늘리지는 않는다. 미리 잰 값보다 더 필요했다면 이미 폰트를 줄여 맞춘 상태다.
+        if (slack <= MIN_HEIGHT_ADJUST_PX) return
+
+        heightAdjustedFor = translation
+        layoutParams.height = wanted
+        layoutParams.y += slack
+        updateLayout(context)
+    }
+
+    /** 이보다 작은 차이는 무시한다. 반올림 때문에 창이 미세하게 흔들리는 것을 막는다. */
+    private val MIN_HEIGHT_ADJUST_PX = 8
+
     @Composable
     fun TranslationBox(
         translation: Transaction,
@@ -438,31 +510,29 @@ open class TranslationView : OverlayView() {
         val viewContentPadding = dimensionResource(R.dimen.translation_view_content_padding)
         val bottomMenuHeight = dimensionResource(R.dimen.translation_view_bottom_menu_height)
 
-        val isWritingRtl = remember { mutableStateOf(false) }
-        val writingDirection = remember { mutableStateOf(WritingDirection.LTR) }
         val sourceLanguageCode by targetHandleViewModel.preferenceRepository.sourceLanguageCodeFlow.collectAsStateWithLifecycle(
             lifecycle = lifecycleOwner.lifecycle,
             initialValue = "auto"
         )
-        LaunchedEffect(sourceLanguageCode) {
-            writingDirection.value = Language.writingDirection(sourceLanguageCode, false)
-            isWritingRtl.value = writingDirection.value == WritingDirection.RTL
-        }
+        // 원문 문단은 확정된 원문 언어의 방향을 따른다. 설정이 auto 면 설정값에는 "auto" 밖에
+        // 없으므로, 모델이나 엔진이 판정한 언어가 유일한 단서다.
+        val sourceDirection =
+            paragraphDirectionOf(translation.resolvedSourceLanguageCode ?: sourceLanguageCode)
+        val resultDirection = paragraphDirectionOf(translation.targetLanguageCode)
+        val sourceIsRtl = sourceDirection == TextDirection.Rtl
 
-        val sourceText = translation.sourceText
+        // 표시용 원문. 라벨은 화면에만 붙이고 클립보드에는 넣지 않는다.
+        val sourceText = translation.detectedLanguageLabel + translation.sourceText
+
+        // 원문과 번역문을 각각 하나의 문단으로 만든다. 문단마다 기준 방향이 따로 정해지므로
+        // 아랍어 원문은 오른쪽에서, 한국어 번역문은 왼쪽에서 시작한다.
+        // 정렬은 AutoResizeText 의 TextAlign.Start 가 각 문단의 방향에 맞춰 해석한다.
         val annotatedText = buildAnnotatedString {
-            // 스피커 아이콘을 텍스트 맨 앞에 특수문자처럼 인라인으로 삽입한다(폰트 크기에 맞춰 스케일).
-            appendInlineContent(SPEAKER_INLINE_ID, "🔊")
-            append(SPEAKER_TEXT_GAP)
-            if (isWritingRtl.value) {
-                withStyle(
-                    style = SpanStyle(
-                        color = resultTextColor,
-                    )
-                ) {
-                    append(translation.resultText)
-                }
-                append(SOURCE_TEXT_RESULT_TEXT_SPACE)
+            withStyle(ParagraphStyle(textDirection = sourceDirection)) {
+                // 스피커 아이콘을 원문 문단 맨 앞에 특수문자처럼 인라인으로 삽입한다.
+                // 문단이 RTL 이면 "맨 앞"이 오른쪽이라 아이콘도 함께 넘어간다.
+                appendInlineContent(SPEAKER_INLINE_ID, "🔊")
+                append(SPEAKER_TEXT_GAP)
                 withStyle(
                     style = SpanStyle(
                         color = sourceTextColor,
@@ -471,22 +541,10 @@ open class TranslationView : OverlayView() {
                 ) {
                     append(sourceText)
                 }
-            } else {
-                withStyle(
-                    style = SpanStyle(
-                        color = sourceTextColor,
-                        fontWeight = FontWeight.Bold
-                    )
-                ) {
-                    append(sourceText)
-                }
-                append(SOURCE_TEXT_RESULT_TEXT_SPACE)
-                withStyle(
-                    style = SpanStyle(
-                        color = resultTextColor,
-                    )
-                ) {
-                    append(translation.resultText)
+            }
+            withStyle(ParagraphStyle(textDirection = resultDirection)) {
+                withStyle(style = SpanStyle(color = resultTextColor)) {
+                    append(translation.resultText.orEmpty())
                 }
             }
         }
@@ -516,6 +574,12 @@ open class TranslationView : OverlayView() {
                     placeholderVerticalAlign = PlaceholderVerticalAlign.Center
                 )
             ) {
+                // AutoMirrored 아이콘은 레이아웃 방향을 따라 좌우가 뒤집힌다.
+                // 원문이 RTL 이면 스피커도 반대쪽을 향해야 문단 방향과 어긋나지 않는다.
+                CompositionLocalProvider(
+                    LocalLayoutDirection provides
+                            if (sourceIsRtl) LayoutDirection.Rtl else LayoutDirection.Ltr
+                ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Outlined.VolumeUp,
                     contentDescription = "Listen to translation",
@@ -531,6 +595,7 @@ open class TranslationView : OverlayView() {
                             targetHandleViewModel.playTTS(translation)
                         }
                 )
+                }
             }
         )
 
@@ -621,7 +686,7 @@ open class TranslationView : OverlayView() {
                                     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                                     val clip = ClipData.newPlainText(
                                         "Translated Text",
-                                        sourceText + SOURCE_TEXT_RESULT_TEXT_SPACE + translation.resultText
+                                        translation.sourceText + SOURCE_RESULT_SEPARATOR + translation.resultText
                                     )
                                     clipboard.setPrimaryClip(clip)
                                 },
@@ -647,7 +712,7 @@ open class TranslationView : OverlayView() {
                                         ReplyActivity.start(
                                             context,
                                             translation.resultText,
-                                            translation.detectedLanguageCode,
+                                            translation.resolvedSourceLanguageCode,
                                             translation.targetLanguageCode
                                         )
                                         clear()
@@ -691,7 +756,10 @@ open class TranslationView : OverlayView() {
                                 maxFontSize = fontSize,
                                 enableAutoResize = enableAutoResize,
                                 inlineContent = inlineContent,
-                                onReadyToDisplay = { readyToDisplay = true },
+                                onReadyToDisplay = { renderedHeightPx ->
+                                    readyToDisplay = true
+                                    shrinkToRenderedHeight(context, renderedHeightPx)
+                                },
                                 modifier = Modifier.align(Alignment.TopStart)
                             )
                         }

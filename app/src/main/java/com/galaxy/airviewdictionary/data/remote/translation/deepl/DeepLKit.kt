@@ -12,6 +12,7 @@ import com.galaxy.airviewdictionary.data.remote.translation.TranslationKit
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationKitType
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationResponse
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -108,14 +109,18 @@ class DeepLKit @Inject constructor(
             }
             TranslationResponse.Success(
                 Transaction(
-                    sourceLanguageCode = sourceLanguageCode,
                     targetLanguageCode = targetLanguageCode,
                     sourceText = sourceText,
                     translationKitType = TranslationKitType.DEEPL,
-                    detectedLanguageCode = textResult.detectedSourceLanguage,
+                    // DeepL 은 대문자 코드("EN")를 돌려준다. 정규화는 파이프라인이 한다.
+                    resolvedSourceLanguageCode = textResult.detectedSourceLanguage,
                     resultText = textResult.text
                 )
             )
+        } catch (e: CancellationException) {
+            // 취소는 오류가 아니다. 여기서 삼키면 핸들이 떠나 취소된 요청이
+            // 실패 안내로 둔갑하고, 상위 코루틴은 취소된 줄 모른 채 계속 진행한다.
+            throw e
         } catch (e: Exception) {
             TranslationResponse.Error(e)
         }

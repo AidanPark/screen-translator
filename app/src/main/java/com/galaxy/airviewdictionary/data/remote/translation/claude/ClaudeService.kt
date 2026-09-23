@@ -20,5 +20,14 @@ interface ClaudeService {
     ): ClaudeResponse
 }
 
-data class ClaudeResponse(val content: List<ClaudeContentBlock>?)
+data class ClaudeResponse(
+    val content: List<ClaudeContentBlock>?,
+    /** 토큰 사용량. 이미지 경로의 실제 비용을 재는 데 쓴다. */
+    val usage: ClaudeUsage? = null,
+)
+
+data class ClaudeUsage(
+    val input_tokens: Int? = null,
+    val output_tokens: Int? = null,
+)
 data class ClaudeContentBlock(val type: String?, val text: String?)

@@ -13,6 +13,16 @@ class Language(val code: String) : Comparable<Language> {
 
     val displayShortName: String = code.uppercase().substring(0, 2)
 
+    /**
+     * 영어로 쓴 언어 이름. AI 모델에 보내는 프롬프트 전용이다.
+     *
+     * [displayName] 을 쓰면 안 된다 — 기기 로케일을 따라 한국 기기에서 "한국어",
+     * 일본 기기에서 "韓国語" 가 되므로 같은 코드라도 기기마다 다른 프롬프트가 나간다.
+     */
+    val englishName: String =
+        Locale(code.substringBefore('-')).getDisplayLanguage(Locale.ENGLISH).ifBlank { code } +
+                (englishVariantMap[code.uppercase()] ?: "")
+
     val localDisplayName: String = Locale(code).getDisplayLanguage(Locale(code))
 
     /**
@@ -130,6 +140,18 @@ class Language(val code: String) : Comparable<Language> {
                 languageCode.startsWith(code, ignoreCase = true)
             }
         }
+
+        /** 지역 변종 코드에 붙일 영어 꼬리표. [englishName] 이 쓴다. */
+        private val englishVariantMap = mapOf(
+            "ZH-CN" to " (simplified)",
+            "ZH-TW" to " (traditional)",
+            "ZH-HANS" to " (simplified)",
+            "ZH-HANT" to " (traditional)",
+            "EN-GB" to " (British)",
+            "EN-US" to " (American)",
+            "PT-BR" to " (Brazilian)",
+            "PT-PT" to " (excluding Brazilian)",
+        )
 
         val displayNameMap = mapOf(
             "AUTO" to "Auto",

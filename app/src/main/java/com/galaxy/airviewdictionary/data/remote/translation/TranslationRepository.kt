@@ -1,5 +1,7 @@
 package com.galaxy.airviewdictionary.data.remote.translation
 
+import android.graphics.Bitmap
+import com.galaxy.airviewdictionary.data.local.vision.TextDetectMode
 import com.galaxy.airviewdictionary.data.AVDRepository
 import com.galaxy.airviewdictionary.data.remote.translation.claude.ClaudeKit
 import com.galaxy.airviewdictionary.data.remote.translation.deepl.DeepLKit
@@ -134,6 +136,33 @@ class TranslationRepository @Inject constructor(
 
     fun isLanguageSwappable(sourceLanguageCode: String, targetLanguageCode: String, kitType: TranslationKitType): Boolean {
         return getTranslationKit(kitType).isLanguageSwappable(sourceLanguageCode, targetLanguageCode)
+    }
+
+    /** [translationKitType] 엔진이 이미지 경로를 지원하는지. */
+    fun supportsImageRequest(translationKitType: TranslationKitType): Boolean =
+        getTranslationKit(translationKitType).supportsImageRequest()
+
+    /**
+     * 화면 이미지를 직접 보내는 번역 요청. 지원하지 않는 엔진은 텍스트 경로로 떨어진다.
+     * 배경은 [TranslationKit.request] 의 이미지 오버로드 주석 참조.
+     */
+    suspend fun request(
+        translationKitType: TranslationKitType,
+        sourceLanguageCode: String,
+        targetLanguageCode: String,
+        sourceText: String,
+        contextText: String?,
+        targetImage: Bitmap,
+        detectMode: TextDetectMode,
+    ): TranslationResponse {
+        return getTranslationKit(translationKitType).request(
+            sourceLanguageCode,
+            targetLanguageCode,
+            sourceText,
+            contextText,
+            targetImage,
+            detectMode,
+        )
     }
 
     suspend fun request(
