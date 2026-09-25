@@ -469,7 +469,6 @@ class KeyboardAwareFrameLayout @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val newHeight = MeasureSpec.getSize(heightMeasureSpec)
-//        Timber.tag(TAG).d("✅ fullHeight: ${ScreenEz.safeHeight} $newHeight")
         if (lastHeight != 0) {
             val heightDiff = lastHeight - newHeight
             val isKeyboardVisible = heightDiff > lastHeight * 0.15

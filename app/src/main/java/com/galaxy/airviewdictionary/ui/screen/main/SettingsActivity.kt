@@ -173,10 +173,6 @@ import com.galaxy.airviewdictionary.ui.screen.overlay.targethandle.TargetHandleV
 import com.galaxy.airviewdictionary.ui.screen.overlay.voicelist.VoiceListView
 import com.galaxy.airviewdictionary.ui.screen.permissions.ScreenCapturePermissionRequesterActivity
 import com.galaxy.airviewdictionary.ui.theme.ScreenTranslatorTheme
-import com.google.android.play.core.review.ReviewException
-import com.google.android.play.core.review.ReviewManager
-import com.google.android.play.core.review.ReviewManagerFactory
-import com.google.android.play.core.review.testing.FakeReviewManager
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.analytics
 import dagger.hilt.android.AndroidEntryPoint
@@ -203,6 +199,9 @@ class SettingsActivity : AVDActivity() {
 
         // 웹 사용 가이드 (모드별 데모 영상 + FAQ)
         private const val HOW_TO_USE_GUIDE_URL = "https://aidanpark.github.io/screen-translator/guide/"
+
+        // 개인정보처리방침 (Play Console에 등록된 주소와 동일)
+        private const val PRIVACY_POLICY_URL = "https://aidanpark.github.io/privacy.html"
 
         fun start(context: Context) {
             val intent = Intent(context, SettingsActivity::class.java)
@@ -313,8 +312,6 @@ class SettingsActivity : AVDActivity() {
                 }
             }
         })
-
-        appReview()
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -774,7 +771,6 @@ class SettingsActivity : AVDActivity() {
                                                     .calculateLeftPadding(layoutDirection)
                                                     .toPx(context)
                                                 val posX = offset.x.toInt() + layoutCoordinates.size.width - startPadding
-//                                            Timber.tag(TAG).d("Pointer docking delay posX $posX")
                                                 dockingDelaySubtextOffset.value = Point(posX, offset.y.toInt())
                                             },
                                         contentAlignment = Alignment.CenterEnd
@@ -1520,9 +1516,14 @@ class SettingsActivity : AVDActivity() {
                             MenuItem(
                                 menuItemPosition = MenuItemPosition.Top,
                                 onClick = {
-                                    val guideIntent = Intent(Intent.ACTION_VIEW, HOW_TO_USE_GUIDE_URL.toUri())
-                                    context.startActivitySafely(guideIntent)
-                                    viewModel.analyticsRepository.screenViewReport("HowToUseGuide")
+                                    coroutineScope.launch {
+                                        // 오버레이 안내(핸들 말풍선, 설정 재진입 코치마크)도 첫 실행처럼 다시 보여준다.
+                                        // 브라우저가 뜨며 설정이 멈추는 순간이 코치마크의 조건이라 초기화를 먼저 끝낸다.
+                                        viewModel.preferenceRepository.resetOverlayGuides()
+                                        val guideIntent = Intent(Intent.ACTION_VIEW, HOW_TO_USE_GUIDE_URL.toUri())
+                                        context.startActivitySafely(guideIntent)
+                                        viewModel.analyticsRepository.screenViewReport("HowToUseGuide")
+                                    }
                                 },
                             ) {
                                 Row(
@@ -1534,6 +1535,27 @@ class SettingsActivity : AVDActivity() {
                                 ) {
                                     MenuText(
                                         text = getString(R.string.settings_menu_how_to_use),
+                                    )
+                                }
+                            }
+
+                            MenuItem(
+                                menuItemPosition = MenuItemPosition.Middle,
+                                onClick = {
+                                    val privacyPolicyIntent = Intent(Intent.ACTION_VIEW, PRIVACY_POLICY_URL.toUri())
+                                    context.startActivitySafely(privacyPolicyIntent)
+                                    viewModel.analyticsRepository.screenViewReport("PrivacyPolicy")
+                                },
+                            ) {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .heightIn(min = 50.dp)
+                                        .padding(end = 6.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                ) {
+                                    MenuText(
+                                        text = getString(R.string.settings_menu_privacy_policy),
                                     )
                                 }
                             }
@@ -3049,64 +3071,5 @@ class SettingsActivity : AVDActivity() {
             style = MaterialTheme.typography.bodyMedium.copy(fontSize = fontSize),
         )
 
-    }
-
-    private fun appReview() {
-        Timber.tag(TAG).d("appReview()")
-        val manager =
-            if (BuildConfig.DEBUG) {
-                FakeReviewManager(applicationContext)
-            } else {
-                ReviewManagerFactory.create(applicationContext)
-            }
-
-        lifecycleScope.launch {
-            val trialCount = viewModel.secureRepository.getTrialCount()
-            Timber.tag(TAG).d("appReview() trialCount $trialCount")
-            val isReviewDone = viewModel.preferenceRepository.isReviewDoneFlow.first()
-            Timber.tag(TAG).d("appReview() isReviewDone $isReviewDone")
-            if (trialCount > 10 && !isReviewDone) {
-                while (true) {
-                    delay(3000L)
-                    if (
-                        !LanguageListView.INSTANCE.isRunning.get()
-                        && !HelpTextDetectModeView.INSTANCE.isRunning.get()
-                        && !HelpTranslationKitView.INSTANCE.isRunning.get()
-                        && !SliderDialogView.INSTANCE.isRunning.get()
-                        && !VoiceListView.INSTANCE.isRunning.get()
-                    ) {
-                        Timber.tag(TAG).d("All states are false. Proceeding with review flow.")
-                        startReviewFlow(manager)  // 리뷰 플로우 시작
-                        break  // 반복 종료
-                    }
-                }
-            }
-        }
-    }
-
-    private fun startReviewFlow(manager: ReviewManager) {
-        MenuBarView.INSTANCE.clear()
-        TargetHandleView.INSTANCE.clear()
-
-        val request = manager.requestReviewFlow()
-//        Timber.tag(TAG).d("appReview() startReviewFlow request $request")
-        request.addOnCompleteListener { task ->
-//            Timber.tag(TAG).d("appReview() startReviewFlow task ${task.isSuccessful}")
-            if (task.isSuccessful) {
-                val reviewInfo = task.result
-                val flow = manager.launchReviewFlow(this, reviewInfo)
-                flow.addOnCompleteListener { _ ->
-                    viewModel.updateIsReviewDone()
-                }
-            } else {
-                // 실패 원인이 ReviewException 이 아닐 수도 있다(강제 캐스팅은 2.6.0 에서 크래시).
-                val reviewErrorCode = (task.exception as? ReviewException)?.errorCode
-                Timber.tag(TAG).d("appReview() startReviewFlow reviewErrorCode $reviewErrorCode ${task.exception}")
-            }
-            lifecycleScope.launch {
-                MenuBarView.INSTANCE.cast(applicationContext)
-                TargetHandleView.INSTANCE.cast(applicationContext)
-            }
-        }
     }
 }

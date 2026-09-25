@@ -96,6 +96,8 @@
   <string name="help_text_claude_own_key">Naudoja jūsų asmeninį Claude API raktą</string>
   <string name="claude_key_signup_guide">Sukurkite API raktą Anthropic Console. Naudojimas apmokestinamas jūsų Anthropic paskyroje.</string>
     <string name="settings_menu_how_to_use">Naudojimo instrukcija</string>
+    <string name="settings_menu_privacy_policy">Privatumo politika</string>
+    <string name="source_language_no_screen_reader">Ekrano teksto atpažinimas nepalaikomas</string>
     <string name="ocr_model_preparing">Ruošiamas vertimo variklis. Šiek tiek palaukite.</string>
     <string name="error_translate_invalid_key">API raktas negalioja. Patikrinkite jį nustatymuose.</string>
     <string name="error_translate_no_credit">Paskyroje neliko kreditų. Papildykite tiekėjo konsolėje.</string>

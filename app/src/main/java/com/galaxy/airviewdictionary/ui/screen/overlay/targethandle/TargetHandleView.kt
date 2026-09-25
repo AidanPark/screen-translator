@@ -136,6 +136,7 @@ class TargetHandleView private constructor() : OverlayView() {
             Timber.tag(TAG).d("LaunchedEffect fixedAreaViewState $fixedAreaViewState")
         }
         val translateStatus by viewModel.translateStatusFlow.collectAsStateWithLifecycle()
+        val targetPending by viewModel.targetPendingFlow.collectAsStateWithLifecycle()
         val motionEventState by viewModel.motionEventFlow.collectAsStateWithLifecycle()
         LaunchedEffect(pointerStoppedPosition) {
             Timber.tag(TAG).d("LaunchedEffect motionEventState $motionEventState")
@@ -192,7 +193,6 @@ class TargetHandleView private constructor() : OverlayView() {
         // SELECT 모드 AreaSelectionView 런칭
         LaunchedEffect(textDetectMode, pointerStoppedPosition) {
             if (pointerStoppedPosition != null && textDetectMode == TextDetectMode.SELECT && !AreaSelectionView.INSTANCE.isRunning.get()) {
-                // Timber.tag(TAG).i("AreaSelectionView.INSTANCE.cast $pointerStoppedPosition")
                 if (dragHandleHaptic) {
                     context.vibrate()
                 }
@@ -203,7 +203,6 @@ class TargetHandleView private constructor() : OverlayView() {
         // FIXED_AREA 모드 FixedAreaView 런칭
         LaunchedEffect(textDetectMode, pointerStoppedPosition) {
             if (pointerStoppedPosition != null && textDetectMode == TextDetectMode.FIXED_AREA && !FixedAreaView.INSTANCE.isRunning.get()) {
-                // Timber.tag(TAG).i("FixedAreaView.INSTANCE.cast $pointerStoppedPosition")
                 if (dragHandleHaptic) {
                     context.vibrate()
                 }
@@ -243,7 +242,8 @@ class TargetHandleView private constructor() : OverlayView() {
                     .offset { IntOffset(pointerOffsetX, pointerOffsetY) },
                 contentAlignment = Alignment.Center
             ) {
-                if (translateStatus == TranslateStatus.Requested && textDetectMode != TextDetectMode.SELECT) {
+                // 포인터가 멈춘 뒤 대상을 찾는 동안(OCR·문단 읽기)과 번역을 기다리는 동안 돈다.
+                if ((targetPending || translateStatus == TranslateStatus.Requested) && textDetectMode != TextDetectMode.SELECT) {
                     CircularProgressIndicator(
                         modifier = Modifier.size(dimensionResource(id = R.dimen.target_pointer_progress_dimen)),
                         color = Color(0xFF48baef),
@@ -302,7 +302,6 @@ class TargetHandleView private constructor() : OverlayView() {
 
         // 핸들 도킹
         LaunchedEffect(motionEventState, translationState, menuOperatingState) {
-//            Timber.tag(TAG).d("LaunchedEffect motionEventState == MotionEvent.ACTION_UP : ${motionEventState == MotionEvent.ACTION_UP}")
             Timber.tag(TAG).d("LaunchedEffect translationState [$translationState]")
             if (menuOperatingState) {
                 cancelDockDragHandle()
@@ -315,7 +314,6 @@ class TargetHandleView private constructor() : OverlayView() {
                     val loc = IntArray(2)
                     view?.getLocationOnScreen(loc)
                     val posX = loc[0]
-//                Timber.tag(TAG).d("posX [$posX] [$viewWidth] [${(screenInfo.height - viewWidth)}]")
                     if (posX < 10.dp.toPx(context)) {
                         scheduleDockDragHandle(context, true, 500)
                     } else if ((screenInfo.width - viewWidth - 10.dp.toPx(context)) < posX) {
@@ -405,7 +403,6 @@ class TargetHandleView private constructor() : OverlayView() {
                         val _screenStartAdjustionPosition = adjustionPositionWidth
                         val _screenEndAdjustionPosition = screenInfo.width - adjustionPositionWidth
 
-//                        Timber.tag(TAG).d("isRTL $isRTL centerX $centerX fullWidth ${screenInfo.height} StartAdjustion $_screenStartAdjustionPosition EndAdjustion $_screenEndAdjustionPosition")
                         val _pointerOffsetX = when {
                             centerX < _screenStartAdjustionPosition -> _screenStartAdjustionPosition - centerX
                             centerX > _screenEndAdjustionPosition -> _screenEndAdjustionPosition - centerX
@@ -441,9 +438,6 @@ class TargetHandleView private constructor() : OverlayView() {
         viewWidth = applicationContext.resources.getDimensionPixelSize(R.dimen.target_handle_width)
         viewHeight = applicationContext.resources.getDimensionPixelSize(R.dimen.target_handle_height)
         pointerDimen = applicationContext.resources.getDimensionPixelSize(R.dimen.target_pointer_dimen)
-//        Timber.tag(TAG).d("viewWidth $viewWidth")
-//        Timber.tag(TAG).d("viewHeight $viewHeight")
-//        Timber.tag(TAG).d("pointerDimen $pointerDimen")
 
         layoutParams = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,
@@ -643,9 +637,6 @@ class TargetHandleView private constructor() : OverlayView() {
                     if (moveY != 0) layoutParams.y = fromY + ((moveY * value) / move).toInt()
                     updateLayout(applicationContext)
                 }
-                addEndListener { animation, canceled, value, velocity ->
-                    // Timber.tag(TAG).d("springAnim End $animation $canceled $value $velocity")
-                }
             }.start()
         }
     }
@@ -757,7 +748,6 @@ class TargetHandleView private constructor() : OverlayView() {
             addUpdateListener { valueAnimator ->
                 val fraction = valueAnimator.animatedValue as Float
                 val currentX = startX + (deltaX * fraction).toInt()
-//                Timber.tag(TAG).d("[${screenInfo.height}] [${viewWidth}] [$currentX] [$startX] [$deltaX] [${(deltaX * fraction).toInt()}]")
                 layoutParams.x = currentX
                 updateLayout(context)
             }

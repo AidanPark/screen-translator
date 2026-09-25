@@ -65,6 +65,7 @@ import com.galaxy.airviewdictionary.ui.screen.overlay.dialog.DialogView
 import com.galaxy.airviewdictionary.ui.screen.overlay.selection.createOverlaidBitmap
 import com.galaxy.airviewdictionary.ui.screen.overlay.targethandle.TargetHandleView
 import com.galaxy.airviewdictionary.ui.screen.overlay.targethandle.TargetHandleViewModel
+import com.galaxy.airviewdictionary.ui.screen.overlay.targethandle.TranslationSourceLanguage
 import com.galaxy.airviewdictionary.ui.screen.permissions.ScreenCapturePermissionRequesterActivity
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -221,7 +222,6 @@ open class FixedAreaView : OverlayView() {
         }
 
         LaunchedEffect(pointerStoppedPosition) {
-            // Timber.tag(TAG).d("LaunchedEffect pointerStoppedPosition $pointerStoppedPosition")
 
             if (pointerStoppedPosition == null) {
                 return@LaunchedEffect
@@ -451,12 +451,16 @@ open class FixedAreaView : OverlayView() {
         fixedAreaViewStateFlow.value = State.Idle
         translateJob?.cancel()
         translateJob = null
+        detectedString = null
         targetHandleViewModel.areaSelectingStateFlow.value = false
         super.clear()
     }
 
     private fun startFixedAreaTranslate(context: Context, selectedArea: Rect) {
         translateJob?.cancel()
+        // 새로 시작하면 첫 인식 결과는 언제나 처리한다 — 직전 글과 같아도 번역하고(해제 후 같은 글 위에 다시 잡으면
+        // 결과창이 빈 채로 남던 문제), 빈 글이면 이전 세션의 자막을 지운다.
+        detectedString = null
         fixedAreaViewStateFlowJob?.cancel()
         fixedAreaViewStateFlow.value = State.Translating
         translateJob = launchInOverlayViewCoroutineScope {
@@ -476,7 +480,8 @@ open class FixedAreaView : OverlayView() {
         }
     }
 
-    private var detectedString = ""
+    /** 직전에 번역한 인식 글. null 이면 이번 세션에서 아직 아무것도 처리하지 않았다. */
+    private var detectedString: String? = null
 
     private suspend fun requestVision(context: Context, selectedArea: Rect) {
         // 캡처 이미지
@@ -492,7 +497,6 @@ open class FixedAreaView : OverlayView() {
                 clear()
             } else if (captureResponse.t is CapturePreventedException) {
                 // 캡처 방지 알림
-                // Timber.tag(TAG).e("CapturePreventedException: 캡처 방지 알림")
                 // captureResponse.t.checkerBitmap 처리
             }
             return
@@ -507,27 +511,32 @@ open class FixedAreaView : OverlayView() {
         val visionResponse: VisionResponse = targetHandleViewModel.visionRepository.request(
             bitmap = selectedAreaBitmap,
             sourceLanguageCode = sourceLanguageCode,
+            // 영역 안의 글 전체가 필요하다 — 검출만 하고 멈추지 않는다.
+            readAll = true,
         )
 
         if (visionResponse !is VisionResponse.Success) {
             return
         }
 
-        val visionResponseString = visionResponse.result.text.text.replace("\n", " ")
-//        Timber.tag(TAG).d("[visionResponseString] [$visionResponseString]")
+        val visionResponseString = visionResponse.result.ocr.text.replace("\n", " ")
         if (detectedString == visionResponseString) {
             return
         }
 
         detectedString = visionResponseString
         Timber.tag(TAG).d("[detectedString] $detectedString")
-        requestTranslate(context, visionResponse.result, detectedString)
+        requestTranslate(context, visionResponse.result, visionResponseString)
     }
 
     private suspend fun requestTranslate(context: Context, visionResult: Transaction, sourceText: String) {
         val translationKitType: TranslationKitType = targetHandleViewModel.preferenceRepository.translationKitTypeFlow.first()
+        // 영역 글 전체로 식별한 언어(auto 면 ML Kit 식별값, 아니면 고른 언어). 확정 원문 언어의 대체값이다.
         val sourceLanguageCode: String = visionResult.detectedLanguageCode
+        val sourceLanguagePref: String = targetHandleViewModel.preferenceRepository.sourceLanguageCodeFlow.first()
         val targetLanguageCode: String = targetHandleViewModel.preferenceRepository.targetLanguageCodeFlow.first()
+        // 엔진에 넘기는 값 — 포인터 모드와 같은 규칙이다(auto 면 AI 엔진이 판정, "und" 는 auto 로. §23)
+        val kitSourceLanguageCode = TranslationSourceLanguage.forKit(translationKitType, sourceLanguagePref, sourceLanguageCode)
 
         if (sourceText.trim().isEmpty()) {
             translationFlow.value = ""
@@ -538,18 +547,19 @@ open class FixedAreaView : OverlayView() {
             }
             targetHandleViewModel.translationRepository.request(
                 translationKitType = translationKitType,
-                sourceLanguageCode = sourceLanguageCode,
+                sourceLanguageCode = kitSourceLanguageCode,
                 targetLanguageCode = targetLanguageCode,
                 sourceText = sourceText,
             ).also {
                 when (it) {
                     is TranslationResponse.Success -> {
                         val transaction = com.galaxy.airviewdictionary.data.remote.translation.Transaction(
-                            requestedSourceLanguageCode = sourceLanguageCode,
-                            // 고정영역은 OCR 텍스트만 번역한다(이미지 경로 없음).
+                            // 포인터 모드와 같이 설정값("auto" 포함)을 기록한다.
+                            requestedSourceLanguageCode = sourceLanguagePref,
+                            // 고정영역은 OCR 텍스트를 번역한다.
                             // 킷이 판정하지 못했으면 화면 전체 OCR 이 판정한 언어가 곧 원문 언어다.
-                            resolvedSourceLanguageCode = it.result.resolvedSourceLanguageCode
-                                ?: sourceLanguageCode.takeIf { code -> code != "auto" && code != "und" },
+                            // 정규화(소문자, "auto"/"und" 는 판정 못 한 것)는 포인터 모드의 확정과 같은 함수로 한다.
+                            resolvedSourceLanguageCode = TranslationSourceLanguage.resolved(it.result.resolvedSourceLanguageCode, sourceLanguageCode),
                             targetLanguageCode = it.result.targetLanguageCode,
                             sourceText = sourceText,
                             translationKitType = it.result.translationKitType,
@@ -559,6 +569,11 @@ open class FixedAreaView : OverlayView() {
                         Timber.tag(TAG).d("===== $translationKitType ${it.result.resultText}")
                         translationFlow.value = it.result.resultText ?: ""
                         targetHandleViewModel.increaseTrialCount()
+                        // 인식 텍스트가 바뀌어 새로 번역했을 때만 온다(폴링마다가 아님).
+                        targetHandleViewModel.analyticsRepository.translationReport(
+                            transaction = transaction,
+                            textDetectMode = TextDetectMode.FIXED_AREA,
+                        )
                     }
 
                     is TranslationResponse.Error -> {

@@ -69,6 +69,47 @@ interface VisionSingleLineText : VisionText {
     }
 
     companion object {
+        /**
+         * 읽는 순서로 정렬한다. 조립기의 정렬은 전부 이것을 거친다.
+         *
+         * 가로쓰기는 [getComparator] 그대로다. 세로쓰기는 비교 함수 하나로 정할 수 없다 — ML Kit 이
+         * 한 열을 여러 조각으로 끊으면 조각마다 오른쪽 끝이 1~3px 씩 달라, 오른쪽 끝으로 정렬하면
+         * 아래 조각이 위 조각보다 앞에 온다(실측: zh106 한 열의 세 조각이 위 좌표 11 → 867 → 691
+         * 순으로 이어져 문단 안 글이 뒤섞였다). 세로 분기에는 가로 경로처럼 다시 정렬하는 후처리가
+         * 없어 그대로 출력된다. 허용 오차를 비교 함수에 넣으면 전이성이 깨져 정렬이 예외를 낼 수
+         * 있으므로, 가로로 겹치는 것끼리 먼저 열로 묶고, 열은 읽는 방향으로, 열 안은 위에서 아래로 놓는다.
+         */
+        @JvmStatic
+        fun <T : VisionSingleLineText> sortedForReading(
+            items: Collection<T>,
+            writingDirection: WritingDirection,
+        ): List<T> {
+            val rightToLeft = writingDirection == WritingDirection.TTB_RTL
+            if (!rightToLeft && writingDirection != WritingDirection.TTB_LTR) {
+                return items.sortedWith(getComparator(writingDirection))
+            }
+            val sweep = if (rightToLeft) items.sortedByDescending { it.boundingBox.right }
+            else items.sortedBy { it.boundingBox.left }
+            val columns = mutableListOf<MutableList<T>>()
+            var left = 0
+            var right = 0
+            for (item in sweep) {
+                val box = item.boundingBox
+                val overlap = minOf(box.right, right) - maxOf(box.left, left)
+                val narrower = minOf(box.width(), right - left)
+                if (columns.isNotEmpty() && narrower > 0 && overlap > narrower * 0.5) {
+                    columns.last().add(item)
+                    left = minOf(left, box.left)
+                    right = maxOf(right, box.right)
+                } else {
+                    columns.add(mutableListOf(item))
+                    left = box.left
+                    right = box.right
+                }
+            }
+            return columns.flatMap { column -> column.sortedBy { it.boundingBox.top } }
+        }
+
         @JvmStatic
         fun getComparator(writingDirection: WritingDirection): Comparator<VisionSingleLineText> {
             return when (writingDirection) {

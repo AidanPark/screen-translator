@@ -96,6 +96,8 @@
   <string name="help_text_claude_own_key">個人のClaude APIキーを使用します</string>
   <string name="claude_key_signup_guide">Anthropic Console で API キーを作成します。使用量は Anthropic アカウントに請求されます。</string>
   <string name="settings_menu_how_to_use">使い方</string>
+  <string name="settings_menu_privacy_policy">プライバシーポリシー</string>
+  <string name="source_language_no_screen_reader">画面の文字認識に未対応</string>
   <string name="ocr_model_preparing">翻訳エンジンを準備しています。しばらくお待ちください。</string>
   <string name="error_translate_invalid_key">APIキーが無効です。設定で確認してください。</string>
   <string name="error_translate_no_credit">アカウントのクレジットがありません。提供元のコンソールでチャージしてください。</string>

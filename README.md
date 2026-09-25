@@ -261,7 +261,12 @@ app/src/main/java/com/galaxy/airviewdictionary/
 
 ## License
 
-Licensed under the [Apache License 2.0](LICENSE) — you are free to use, modify, and redistribute this code, commercially or not, as long as you keep the attribution (the copyright notice and the [NOTICE](NOTICE) file).
+Source-available under the [PolyForm Noncommercial License 1.0.0](LICENSE):
+
+- **Free for any noncommercial use.** Personal use, study, research, hobby projects, and noncommercial organizations may use, modify, and share it, keeping the license and the [NOTICE](NOTICE).
+- **No commercial use without permission.** Selling it, shipping it (or a modified version) in an app with ads or in-app purchases, or using it in a business requires a separate license. To ask, open an [issue](https://github.com/AidanPark/screen-translator/issues).
+
+Versions up to commit `8717cf0` (2026-09-23) were released under the Apache License 2.0 and stay under it. Third-party parts keep their own licenses; see [NOTICE](NOTICE).
 
 ---
 

@@ -96,6 +96,8 @@
   <string name="help_text_claude_own_key">మీ వ్యక్తిగత Claude API కీని ఉపయోగిస్తుంది</string>
   <string name="claude_key_signup_guide">Anthropic Console లో API కీని సృష్టించండి. వినియోగానికి మీ Anthropic ఖాతాకు బిల్లు వేయబడుతుంది.</string>
     <string name="settings_menu_how_to_use">ఉపయోగించే విధానం</string>
+    <string name="settings_menu_privacy_policy">గోప్యతా విధానం</string>
+    <string name="source_language_no_screen_reader">స్క్రీన్ టెక్స్ట్ గుర్తింపుకు మద్దతు లేదు</string>
     <string name="ocr_model_preparing">అనువాద ఇంజిన్ సిద్ధమవుతోంది. దయచేసి కాసేపు వేచి ఉండండి.</string>
     <string name="error_translate_invalid_key">API కీ చెల్లదు. సెట్టింగ్‌లలో తనిఖీ చేయండి.</string>
     <string name="error_translate_no_credit">ఖాతాలో క్రెడిట్‌లు లేవు. ప్రొవైడర్ కన్సోల్‌లో టాప్-అప్ చేయండి.</string>

@@ -96,6 +96,8 @@
   <string name="help_text_claude_own_key">Utilizează cheia API Claude personală</string>
   <string name="claude_key_signup_guide">Creați o cheie API în Anthropic Console. Utilizarea este facturată în contul dvs. Anthropic.</string>
     <string name="settings_menu_how_to_use">Mod de utilizare</string>
+    <string name="settings_menu_privacy_policy">Politica de confidențialitate</string>
+    <string name="source_language_no_screen_reader">Recunoașterea textului de pe ecran nu este acceptată</string>
     <string name="ocr_model_preparing">Se pregătește motorul de traducere. Așteptați un moment.</string>
     <string name="error_translate_invalid_key">Cheia API nu este validă. Verificați-o în setări.</string>
     <string name="error_translate_no_credit">Nu mai aveți credite în cont. Reîncărcați în consola furnizorului.</string>

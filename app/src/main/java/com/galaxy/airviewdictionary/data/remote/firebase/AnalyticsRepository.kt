@@ -83,7 +83,6 @@ class AnalyticsRepository @Inject constructor(@ApplicationContext val context: C
         TTSRate: String,
     ) {
         if (BuildConfig.DEBUG) return
-//        Timber.tag(TAG).i("$dockDelay $haptic $menuTransparency $menuComposition $transTransparency $closeDelay $autoTTS $TTSVoice $TTSRate")
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
             param(Param.DOCKING_DELAY, dockDelay)
             param(Param.DRAG_HANDLE_HAPTIC, haptic)
@@ -113,13 +112,25 @@ class AnalyticsRepository @Inject constructor(@ApplicationContext val context: C
         }
     }
 
+    /**
+     * 답장 화면에서 번역문을 클립보드로 복사했을 때. 화면 번역과 같은 [Event.TRANSLATE] 로 남기되
+     * detectMode 를 [REPLY_DETECT_MODE] 로 둬서 리포트에서 걸러낼 수 있게 한다
+     * (안 두면 번역 수가 부풀고 detectMode 에 "(not set)" 행이 생긴다).
+     *
+     * detectedCode 는 원문 언어가 정해졌을 때만 남긴다 — 킷이 판정한 값, 없으면 답장의 원문 언어(사용자가 쓴 언어).
+     * 둘 다 없으면 비워 둔다.
+     */
     fun replyReport(transaction: Transaction) {
         if (BuildConfig.DEBUG) return
 
+        val detectedCode = transaction.resolvedSourceLanguageCode
+            ?: transaction.requestedSourceLanguageCode?.takeUnless { it.equals("auto", ignoreCase = true) }
         firebaseAnalytics.logEvent(Event.TRANSLATE) {
             param(Param.SOURCE_LANGUAGE_CODE, transaction.requestedSourceLanguageCode ?: "unknown")
             param(Param.TARGET_LANGUAGE_CODE, transaction.targetLanguageCode ?: "unknown")
             param(Param.TRANSLATION_KIT_TYPE, transaction.translationKitType?.name ?: "unknown")
+            param(Param.TEXT_DETECT_MODE, REPLY_DETECT_MODE)
+            detectedCode?.takeIf { it.isNotBlank() }?.let { param(Param.DETECTED_LANGUAGE_CODE, it.lowercase()) }
         }
     }
 
@@ -139,6 +150,10 @@ class AnalyticsRepository @Inject constructor(@ApplicationContext val context: C
         }
     }
 
+    companion object {
+        /** 답장 화면에서 나온 [Event.TRANSLATE] 의 detectMode 값. [TextDetectMode] 이름과 겹치지 않는다. */
+        const val REPLY_DETECT_MODE = "REPLY"
+    }
 }
 
 

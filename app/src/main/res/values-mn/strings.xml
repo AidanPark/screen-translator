@@ -96,6 +96,8 @@
   <string name="help_text_claude_own_key">Таны хувийн Claude API түлхүүрийг ашигладаг</string>
   <string name="claude_key_signup_guide">Anthropic Console-д API түлхүүр үүсгэнэ үү. Ашиглалтыг таны Anthropic данснаас төлбөр авна.</string>
     <string name="settings_menu_how_to_use">Ашиглах заавар</string>
+    <string name="settings_menu_privacy_policy">Нууцлалын бодлого</string>
+    <string name="source_language_no_screen_reader">Дэлгэцийн текст танихыг дэмжихгүй</string>
     <string name="ocr_model_preparing">Орчуулгын хөдөлгүүрийг бэлтгэж байна. Түр хүлээнэ үү.</string>
     <string name="error_translate_invalid_key">API түлхүүр хүчингүй. Тохиргооноос шалгана уу.</string>
     <string name="error_translate_no_credit">Дансанд кредит үлдсэнгүй. Нийлүүлэгчийн консолоос цэнэглэнэ үү.</string>

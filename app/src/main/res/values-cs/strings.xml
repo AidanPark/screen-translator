@@ -96,6 +96,8 @@
   <string name="help_text_claude_own_key">Používá váš osobní klíč API Claude</string>
   <string name="claude_key_signup_guide">Vytvořte klíč API v Anthropic Console. Použití se účtuje na váš účet Anthropic.</string>
     <string name="settings_menu_how_to_use">Jak používat</string>
+    <string name="settings_menu_privacy_policy">Zásady ochrany osobních údajů</string>
+    <string name="source_language_no_screen_reader">Rozpoznávání textu na obrazovce není podporováno</string>
     <string name="ocr_model_preparing">Připravuje se překladový modul. Chvíli počkejte, prosím.</string>
     <string name="error_translate_invalid_key">Klíč API je neplatný. Zkontrolujte ho v nastavení.</string>
     <string name="error_translate_no_credit">Na účtu nezbývají kredity. Dobijte je v konzoli poskytovatele.</string>

@@ -96,6 +96,8 @@
   <string name="help_text_claude_own_key">உங்கள் தனிப்பட்ட Claude API விசையைப் பயன்படுத்துகிறது</string>
   <string name="claude_key_signup_guide">Anthropic Console இல் ஒரு API விசையை உருவாக்கவும். பயன்பாட்டிற்கு உங்கள் Anthropic கணக்கில் கட்டணம் விதிக்கப்படும்.</string>
     <string name="settings_menu_how_to_use">பயன்படுத்தும் முறை</string>
+    <string name="settings_menu_privacy_policy">தனியுரிமைக் கொள்கை</string>
+    <string name="source_language_no_screen_reader">திரை உரை அங்கீகாரம் ஆதரிக்கப்படவில்லை</string>
     <string name="ocr_model_preparing">மொழிபெயர்ப்பு இயந்திரம் தயாராகிறது. சிறிது காத்திருக்கவும்.</string>
     <string name="error_translate_invalid_key">API சாவி செல்லாதது. அமைப்புகளில் சரிபார்க்கவும்.</string>
     <string name="error_translate_no_credit">கணக்கில் கிரெடிட் இல்லை. வழங்குநர் கன்சோலில் நிரப்பவும்.</string>

@@ -119,7 +119,6 @@ class CaptureRepository @Inject constructor(@ApplicationContext val context: Con
             )
 
             imageReader!!.setOnImageAvailableListener({ imageReader ->
-//                Timber.tag(TAG).d("---- onImageAvailable imageReader $imageReader ----")
                 val capturedImage = imageReader.acquireLatestImage()
                 try {
                     if (captureResponseFlow.value == null) {
@@ -130,27 +129,18 @@ class CaptureRepository @Inject constructor(@ApplicationContext val context: Con
                             val pixelStride = planes[0].pixelStride
                             val rowStride = planes[0].rowStride
                             val rowPadding: Int = rowStride - pixelStride * screenInfo.width
-//                            Timber.tag(TAG).d("width $width")
-//                            Timber.tag(TAG).d("height $height")
-//                            Timber.tag(TAG).d("capturedImage.width ${capturedImage.width}")
-//                            Timber.tag(TAG).d("capturedImage.height ${capturedImage.height}")
-//                            Timber.tag(TAG).d("pixelStride $pixelStride")
-//                            Timber.tag(TAG).d("rowStride $rowStride")
-//                            Timber.tag(TAG).d("rowPadding $rowPadding")
 
                             var capturedBitmap = createBitmap(screenInfo.width + rowPadding / pixelStride, screenInfo.height)
                             capturedBitmap.copyPixelsFromBuffer(buffer)
                             // rowPadding > 0 인 경우 rowPadding/pixelStride 만큼 이미지 의 width 가 오른쪽 으로 늘어 나므로, 늘어난 부분을 잘라준다.
                             capturedBitmap = Bitmap.createBitmap(capturedBitmap, 0, 0, screenInfo.width, screenInfo.height)
-//                            Timber.tag(TAG).d("capturedBitmap.allocationByteCount ${capturedBitmap.allocationByteCount}")
                             captureResponseFlow.value = CaptureResponse.Success(capturedBitmap)
                         } else {
                             captureResponseFlow.value = CaptureResponse.Error(CapturedImageInvalidException())
                         }
                     }
                 } catch (t: Throwable) {
-                    t.printStackTrace()
-                    Timber.tag(TAG).e("err t ${t.toString()} $mediaProjectionToken")
+                    Timber.tag(TAG).e(t, "err t $mediaProjectionToken")
                     captureResponseFlow.value = CaptureResponse.Error(NoMediaProjectionTokenException(t.toString()))
                 } finally {
                     capturedImage?.close()
@@ -170,8 +160,7 @@ class CaptureRepository @Inject constructor(@ApplicationContext val context: Con
             Cannot start already started MediaProjection
          */
         catch (e: Exception) {
-            e.printStackTrace()
-            Timber.tag(TAG).e("err e ${e.toString()} $mediaProjectionToken")
+            Timber.tag(TAG).e(e, "err e $mediaProjectionToken")
             captureResponseFlow.value = CaptureResponse.Error(NoMediaProjectionTokenException(e.toString()))
         }
     }
@@ -228,14 +217,12 @@ class CaptureRepository @Inject constructor(@ApplicationContext val context: Con
         Timber.tag(TAG).d("checkerBitmap width ${checkerBitmap.width} height ${checkerBitmap.height}")
         checkerBitmap.getPixels(checkerScreenshotPixels, 0, checker_w, 0, 0, checker_w, checker_h)
         val firstPixel = checkerScreenshotPixels[0]
-//        Timber.tag(TAG).d("firstPixel : $firstPixel checkerScreenshotPixels.size ${checkerScreenshotPixels.size}");
         /*
 
          */
         // 30 픽셀씩 건너 뛰어 가면서 픽셀 값이 같은지 확인. 픽셀 값이 모두 같으면 캡처가 방지된 것으로 간주한다.
         var i = 0
         while (i < checkerScreenshotPixels.size) {
-//            Timber.tag(TAG).d("checkerScreenshot[$i] : ${checkerScreenshotPixels[i]} ${(firstPixel == checkerScreenshotPixels[i])}");
             if (firstPixel != checkerScreenshotPixels[i]) {
                 isCapturePrevented = false
                 break

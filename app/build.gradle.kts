@@ -24,8 +24,8 @@ android {
         applicationId = "com.galaxy.airviewdictionary"
         minSdk = 26
         targetSdk = 36
-        versionCode = 20703
-        versionName = "2.7.3"
+        versionCode = 20800
+        versionName = "2.8.0"
         manifestPlaceholders["ADMOB_APP_ID"] = admobAppId
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -61,6 +61,11 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
     }
+    // PP-OCRv5 모델 팩. 스토어 설치에서는 Play 가 설치 직후 받아 준다(fast-follow).
+    assetPacks += listOf(":paddle_models")
+    // installDebug 로 까는 APK 에는 팩이 따라가지 않는다. 디버그 빌드는 같은 모델을 APK 에셋으로도 넣어
+    // 기기에서 바로 돌려 볼 수 있게 한다 — 코드는 팩을 먼저 찾고 없으면 에셋을 본다(PaddleModelFiles).
+    sourceSets.getByName("debug").assets.directories.add("../paddle_models/src/main/assets")
     lint {
         checkReleaseBuilds = false
         abortOnError = false
@@ -139,6 +144,11 @@ dependencies {
     // icons
     implementation(libs.material.icons.extended)
 
+    // PP-OCRv5 추론(ML Kit 이 없는 문자권: 아랍·키릴·태국). 출시 APK 에 들어간다. 설치 크기 arm64 +17.6MB, 내려받기 약 +6.3MB
+    implementation(libs.onnxruntime.android)
+    // PP-OCRv5 모델 팩(:paddle_models, fast-follow)을 받는다.
+    implementation(libs.play.asset.delivery)
+
     // OCR: 언번들(GMS) 버전 — OCR 모델을 앱에 내장하지 않고 Play 서비스가 런타임에 제공해 앱 크기를 줄인다.
     // 모델은 App.onCreate 에서 ModuleInstallClient 로 첫 실행 시 미리 내려받는다(첫 OCR 지연 방지).
     implementation(libs.google.gms.mlkit.text.recognition)
@@ -169,7 +179,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.androidx.monitor)
+    androidTestImplementation(libs.androidx.monitor)
 }
 
 

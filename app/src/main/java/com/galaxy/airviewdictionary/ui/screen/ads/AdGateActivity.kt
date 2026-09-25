@@ -1,5 +1,12 @@
 package com.galaxy.airviewdictionary.ui.screen.ads
 
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.withTimeoutOrNull
+import com.google.android.play.core.review.testing.FakeReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
+import com.google.android.play.core.ktx.requestReview
+import com.google.android.play.core.ktx.launchReview
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -37,7 +44,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withResumed
 import com.galaxy.airviewdictionary.BuildConfig
 import com.galaxy.airviewdictionary.R
 import com.galaxy.airviewdictionary.data.local.ads.AdGateState
@@ -78,6 +87,8 @@ import java.util.concurrent.atomic.AtomicBoolean
  * 1. 안내 다이얼로그 표시 + 광고 로드 시작 (확인 버튼 비활성)
  * 2. 로드 성공/실패가 확정되면 확인 버튼 활성화
  * 3. 확인 클릭 → 로드 성공이면 광고 표시 / 실패면 스킵 취급으로 종료
+ *    (광고를 띄우기 시작하면 다이얼로그 대신 진행 표시만 남는다)
+ * 4. 끝까지 봤으면 두 번째 게이트부터 인앱 리뷰를 한 번 청한 뒤 종료
  *
  * 보상 규칙:
  * - 끝까지 시청(onUserEarnedReward): 앱 종료 시까지 광고 없이 사용
@@ -105,7 +116,9 @@ class AdGateActivity : ComponentActivity() {
         private var liveInstance: WeakReference<AdGateActivity>? = null
 
         /**
-         * 앱 전체가 백그라운드로 내려갔을 때 살아 있는 게이트를 스킵으로 종료한다.
+         * 앱 전체가 백그라운드로 내려갔을 때 살아 있는 게이트를 정리한다.
+         * 광고 전이면 스킵으로, 보상을 받은 뒤(리뷰 단계 포함)면 그냥 종료한다.
+         * 광고를 보는 도중이면 게이트는 두고 오버레이만 되돌린다.
          *
          * 게이트는 onCreate 에서 플로팅 오버레이를 숨기고 onDestroy 에서 복원하는데,
          * 광고 도중/직후에 홈키로 나가면 stop 만 되고 destroy 는 되지 않아
@@ -118,6 +131,19 @@ class AdGateActivity : ComponentActivity() {
         fun finishIfAppBackgrounded() {
             val activity = liveInstance?.get() ?: return
             if (activity.isFinishing || activity.isDestroyed) return
+            if (activity.rewardEarned || activity.requestingReview) {
+                // 보상은 이미 받았다(adFreeSession). 남은 일은 리뷰뿐이라 게이트를 붙잡아 둘 이유가 없다.
+                // 붙잡아 두면 두 가지가 샌다:
+                // - ReviewInfo 를 기다리는 중이면, 응답이 온 뒤 백그라운드에서 리뷰를 띄워 다른 앱 위에
+                //   dim 과 리뷰 창이 뜬다(오버레이 권한이 있어 백그라운드 시작 제한을 받지 않는다).
+                // - 리뷰 창이 뜬 채 나갔으면 launchReview 가 끝나지 않는다. 게이트 태스크는 최근 앱에 없어
+                //   돌아올 길도 없고, 그동안 메뉴바·핸들·번역창이 숨겨진 채 남는다.
+                // 광고 클릭으로 나간 경우라도 돌아와 광고를 마저 봐서 받을 보상이 더 없다.
+                // (그 경우 돌아와 본 광고 끝 화면 위에는 오버레이가 보일 수 있다 — 게이트가 없어 다시 숨길 주체가 없다)
+                Timber.tag(activity.TAG).i("App backgrounded after the reward; finishing gate")
+                activity.runOnUiThread { activity.finishGate() }
+                return
+            }
             if (activity.adShown) {
                 // 광고가 이미 표시된 뒤의 이탈은 "광고 클릭 → 광고주 페이지"일 수 있다.
                 // 여기서 게이트를 닫아버리면 돌아와 광고를 마저 봐도 보상을 받지 못한다.
@@ -146,6 +172,12 @@ class AdGateActivity : ComponentActivity() {
         /** 광고 로드 대기 한계. 초과 시 로드 실패로 확정한다 */
         private const val LOAD_TIMEOUT_MILLIS = 15_000L
 
+        /** 인앱 리뷰를 청하기 시작하는 게이트 순번(누적). */
+        private const val REVIEW_FROM_GATE_COUNT = 2
+
+        /** 인앱 리뷰 요청 대기 한계: ReviewInfo 받기 + 게이트가 다시 앞에 오기까지. 넘기면 리뷰 없이 닫는다. */
+        private const val REVIEW_REQUEST_TIMEOUT_MILLIS = 5_000L
+
         fun start(context: Context) {
             val intent = Intent(context, AdGateActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -166,10 +198,28 @@ class AdGateActivity : ComponentActivity() {
 
     private var finished = false
 
+    /**
+     * 확인을 눌러 광고를 띄우기 시작했는지. 이때부터 다이얼로그 대신 진행 표시만 보인다 —
+     * 광고는 한 번만 띄우므로 확인 버튼이 남아 있으면 눌러도 아무 일이 없다(광고가 닫힌 뒤 리뷰를 기다리는 동안 등).
+     */
+    private val adStartedFlow = MutableStateFlow(false)
+
     /** 광고가 전체화면으로 표시되었는지 여부. 종료 콜백 유실 대비 안전망(onResume)에서 사용. */
     private var adShown = false
 
+    /** 광고를 끝까지 봐서 보상(adFreeSession)을 받았는지. */
+    private var rewardEarned = false
+
     private var timeoutJob: Job? = null
+
+    /**
+     * 인앱 리뷰를 청하는 중(ReviewInfo 받기부터 리뷰 창이 닫힐 때까지).
+     * 그동안은 onResume 안전망이 게이트를 스킵으로 닫지 않고, 앱이 백그라운드로 가면 게이트를 바로 닫는다.
+     */
+    private var requestingReview = false
+
+    /** 리뷰 창을 띄웠다. 이 뒤로 게이트가 다시 앞에 오면 리뷰 창은 닫힌 것이다. */
+    private var reviewLaunched = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Android 15(SDK 35)+ edge-to-edge 강제에 맞춰 이전 버전에서도 동일 동작 (Play Console 권장 조치)
@@ -177,6 +227,11 @@ class AdGateActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         liveStateFlow.value = true
         liveInstance = WeakReference(this)
+        // 게이트가 열린 횟수를 센다. 화면 재생성(다크 모드·글꼴 크기·멀티 윈도우 등)은 새 게이트가 아니다.
+        // 값은 필드에 들고 있지 않는다 — 재생성되면 필드는 0 으로 돌아간다. 리뷰를 정할 때 저장소에서 다시 읽는다.
+        if (savedInstanceState == null) {
+            lifecycleScope.launch { preferenceRepository.incrementAdGateOpenCount() }
+        }
 
         // 뒤 화면 전체를 어둡게 덮는다 (SplashActivity 와 동일한 검증된 패턴: 윈도우 레벨 dim)
         val layoutParams = window.attributes
@@ -195,12 +250,19 @@ class AdGateActivity : ComponentActivity() {
 
         setContent {
             val adLoadState by adLoadStateFlow.collectAsState()
+            val adStarted by adStartedFlow.collectAsState()
 
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Surface(
+                if (adStarted) {
+                    // 광고를 띄운 뒤에는 게이트가 닫히거나 리뷰 창이 뜨기를 기다릴 뿐이다.
+                    CircularProgressIndicator(
+                        color = Color.White,
+                        modifier = Modifier.size(40.dp)
+                    )
+                } else Surface(
                     shape = RoundedCornerShape(20.dp),
                     color = Color(0xF2222222),
                 ) {
@@ -320,13 +382,26 @@ class AdGateActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
+        // 리뷰 창을 띄운 뒤 게이트가 다시 앞에 왔다 = 리뷰 창이 닫혔다. 보통은 launchReview 가 곧 끝나
+        // 게이트를 닫는다. 끝나지 않더라도 게이트가 남지 않게 잠시 기다렸다가 닫는다.
+        if (reviewLaunched && !finished) {
+            lifecycleScope.launch {
+                delay(1000) // 정상 흐름이 먼저 닫을 시간
+                if (!finished) {
+                    Timber.tag(TAG).w("Back at the gate but the review flow did not finish; finishing (safety net)")
+                    finishGate()
+                }
+            }
+            return
+        }
         // 안전망: 광고가 표시된 후 게이트로 복귀했는데(=광고가 닫혔는데)
         // 종료 콜백(onAdDismissed/onAdFailedToShow)이 유실된 경우에도
         // 게이트가 화면에 남지 않도록 잠시 기다렸다가 스킵 처리로 종료한다.
-        if (adShown && !finished) {
+        // 리뷰를 청하는 중이면 건드리지 않는다 — 요청 한도가 끝을 보장한다.
+        if (adShown && !finished && !requestingReview) {
             lifecycleScope.launch {
                 delay(1000) // 정상 콜백이 먼저 처리될 시간
-                if (adShown && !finished) {
+                if (adShown && !finished && !requestingReview) {
                     Timber.tag(TAG).w("Ad closed but no dismiss callback; finishing as skip (safety net)")
                     finishAsSkip()
                 }
@@ -475,7 +550,8 @@ class AdGateActivity : ComponentActivity() {
     }
 
     private fun showRewardedVideo() {
-        if (finished || adShown) return
+        // 연타로 같은 광고를 두 번 띄우지 않는다(두 번째는 표시 실패로 게이트를 닫아 버린다).
+        if (finished || adShown || adStartedFlow.value) return
 
         val ad = rewardedAd
         if (ad == null) {
@@ -483,16 +559,13 @@ class AdGateActivity : ComponentActivity() {
             return
         }
 
-        // 광고를 끝까지 시청(onUserEarnedReward)했는지 여부. 닫힐 때 분기에 사용.
-        var earned = false
-
         ad.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
-                Timber.tag(TAG).d("Ad dismissed. earned=$earned")
+                Timber.tag(TAG).d("Ad dismissed. earned=$rewardEarned")
                 rewardedAd = null
-                if (earned) {
-                    // 완주 → 이미 adFreeSession 이 부여됐다.
-                    finishGate()
+                if (rewardEarned) {
+                    // 완주 → 이미 adFreeSession 이 부여됐다. 때가 됐으면 리뷰를 청한 뒤 닫는다.
+                    requestReviewIfDueThenFinish()
                 } else {
                     // 끝까지 보지 않고 닫음(홈키 중단 포함)은 스킵과 동일 취급.
                     finishAsSkip()
@@ -515,9 +588,10 @@ class AdGateActivity : ComponentActivity() {
             }
         }
 
+        adStartedFlow.value = true
         ad.show(this) {
             // 끝까지 시청 → 이번 세션 동안 광고 없이 사용
-            earned = true
+            rewardEarned = true
             AdGateState.grantAdFreeSession()
             Timber.tag(TAG).i("User earned the reward -> ad-free session")
         }
@@ -538,6 +612,67 @@ class AdGateActivity : ComponentActivity() {
         if (finished) return
         AdGateState.grantFailureWindow()
         finishGate()
+    }
+
+    /**
+     * 두 번째 게이트부터, 광고를 끝까지 본 직후에 한 번 인앱 리뷰를 청한다. 스킵·실패 직후에는 청하지 않는다 —
+     * 다음 게이트에서 끝까지 봤을 때 다시 본다.
+     *
+     * 리뷰는 보상과 엮지 않는다(Play 정책). 사용권은 광고를 봐서 이미 받았다.
+     * 실제로 띄울지는 Play 가 정하고(사용자별 할당량), 별점을 남겼는지도 알려 주지 않는다.
+     * 그래서 리뷰 흐름을 한 번 띄우고 나면 다시 묻지 않는다([PreferenceRepository.IS_REVIEW_DONE]).
+     * 게이트가 앞에 없어 띄우지 못했으면 기록하지 않고 다음 게이트에서 다시 청한다.
+     */
+    private fun requestReviewIfDueThenFinish() {
+        // 안전망이나 백그라운드 정리로 이미 닫힌 뒤 늦게 온 콜백이면 리뷰를 띄우지 않는다.
+        if (finished) return
+        // 코루틴이 돌기 전에 세운다 — 그 사이 onResume 안전망이 게이트를 스킵으로 닫지 않도록.
+        requestingReview = true
+        lifecycleScope.launch {
+            try {
+                if (isReviewDue()) requestAndLaunchReview()
+            } finally {
+                requestingReview = false
+            }
+            finishGate()
+        }
+    }
+
+    private suspend fun isReviewDue(): Boolean =
+        preferenceRepository.adGateOpenCountFlow.first() >= REVIEW_FROM_GATE_COUNT &&
+                !preferenceRepository.isReviewDoneFlow.first()
+
+    /** 리뷰 창을 청해 띄우고, 사용자가 닫을 때까지 기다린다. 띄울 수 없으면 그냥 돌아온다. */
+    private suspend fun requestAndLaunchReview() {
+        try {
+            val manager = if (BuildConfig.DEBUG) FakeReviewManager(applicationContext) else ReviewManagerFactory.create(applicationContext)
+            // 요청이 응답하지 않아도 게이트가 남지 않게 한도를 둔다. 광고가 닫혔다는 콜백은 게이트가 다시
+            // 앞에 오기 전에 올 수 있어서, 게이트가 앞(RESUMED)에 올 때까지도 같은 한도 안에서 기다린다.
+            val reviewInfo = withTimeoutOrNull(REVIEW_REQUEST_TIMEOUT_MILLIS) {
+                manager.requestReview().also { lifecycle.withResumed { } }
+            }
+            if (reviewInfo == null) {
+                Timber.tag(TAG).w("in-app review not ready in time; finishing without it")
+                return
+            }
+            // 기다리는 사이 게이트가 닫혔거나 앱이 백그라운드로 갔으면 띄우지 않는다.
+            // 백그라운드에서 띄우면 다른 앱 위에 dim 과 리뷰 창이 뜬다.
+            if (finished || !lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+                Timber.tag(TAG).i("Gate no longer in front; skipping in-app review")
+                return
+            }
+            // 실제로 띄울 때만 기록한다. 건너뛴 경우는 다음 게이트에서 다시 청한다.
+            preferenceRepository.update(PreferenceRepository.IS_REVIEW_DONE, true)
+            reviewLaunched = true
+            // 띄운 뒤에는 사용자가 닫을 때까지 기다린다. 끝나지 않을 때는 onResume 안전망과
+            // finishIfAppBackgrounded 가 게이트를 닫는다.
+            manager.launchReview(this, reviewInfo)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            // Play 밖 설치·Play 스토어 없음 등. 다음 게이트에서 다시 청한다.
+            Timber.tag(TAG).w(e, "in-app review request failed")
+        }
     }
 
     private fun finishGate() {

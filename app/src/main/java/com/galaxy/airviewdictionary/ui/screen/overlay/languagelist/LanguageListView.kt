@@ -1,6 +1,7 @@
 package com.galaxy.airviewdictionary.ui.screen.overlay.languagelist
 
 
+import com.galaxy.airviewdictionary.data.local.vision.kit.VisionKitSelector
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.PixelFormat
@@ -315,7 +316,9 @@ class LanguageListView private constructor() : OverlayView() {
     ) {
         val coroutineScope = rememberCoroutineScope()
         val isDarkMode = isSystemInDarkTheme()
-        val enabled = language.supportKitTypes.intersect(oppositeLanguage.supportKitTypes.toSet()).isNotEmpty()
+        // 원문 목록에서는 화면 글자를 읽을 엔진이 없는 언어를 고를 수 없다 — 사유를 함께 보인다(§21).
+        val noScreenReader = type.value == Type.SOURCE && !VisionKitSelector.hasReaderFor(language.code)
+        val enabled = !noScreenReader && language.supportKitTypes.intersect(oppositeLanguage.supportKitTypes.toSet()).isNotEmpty()
 
         Button(
             onClick = {
@@ -350,6 +353,13 @@ class LanguageListView private constructor() : OverlayView() {
                         style = MaterialTheme.typography.bodySmall.copy(fontSize = 13.sp),
                         color = Color.Gray
                     )
+                    if (noScreenReader) {
+                        Text(
+                            text = stringResource(id = R.string.source_language_no_screen_reader),
+                            style = MaterialTheme.typography.bodySmall.copy(fontSize = 12.sp),
+                            color = contentDisabledColor
+                        )
+                    }
                 }
                 language.supportKitTypes.forEach { kitType ->
                     val support =

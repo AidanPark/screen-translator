@@ -54,3 +54,10 @@
     public *** w(...);
     public *** e(...);
 }
+
+# ONNX Runtime(PP-OCRv5 추론) — 네이티브 코드가 JNI 로 이 클래스들을 이름으로 찾는다. AAR 에 소비자 규칙이 없다
+-keep class ai.onnxruntime.** { *; }
+
+# ── Play In-App Review (review-ktx) ──
+# review-ktx 의 SAM 변환이 play-services-basement 의 컴파일 전용 애노테이션을 참조한다. 런타임에는 없어도 된다.
+-dontwarn com.google.android.gms.common.annotation.NoNullnessRewrite

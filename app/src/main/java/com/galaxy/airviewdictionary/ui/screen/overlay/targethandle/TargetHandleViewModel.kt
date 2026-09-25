@@ -1,6 +1,5 @@
 package com.galaxy.airviewdictionary.ui.screen.overlay.targethandle
 
-import com.galaxy.airviewdictionary.data.local.capture.TargetCrop
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -44,7 +43,6 @@ import com.galaxy.airviewdictionary.data.remote.translation.TranslationContextMo
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationKitType
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationRepository
 import com.galaxy.airviewdictionary.data.local.vision.model.TranslationTarget
-import com.galaxy.airviewdictionary.data.remote.translation.NoTextAtPointerException
 import com.galaxy.airviewdictionary.data.remote.translation.TranslationResponse
 import com.galaxy.airviewdictionary.extensions.finishService
 import com.galaxy.airviewdictionary.extensions.voiceNameMatchesLanguage
@@ -61,8 +59,7 @@ import com.galaxy.airviewdictionary.ui.screen.overlay.translation.TranslationErr
 import com.galaxy.airviewdictionary.ui.screen.overlay.translation.TranslationView
 import com.galaxy.airviewdictionary.ui.screen.overlay.visiontext.VisionTextView
 import com.galaxy.airviewdictionary.ui.screen.permissions.ScreenCapturePermissionRequesterActivity
-import getAverageTextBlockHeight
-import getBoundingBoxUnion
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -78,8 +75,10 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.transformLatest
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import timber.log.Timber
@@ -134,34 +133,8 @@ class TargetHandleViewModel(
     /** 문맥으로 보낼 최대 글자 수. 토큰 폭증과 지연을 막는 상한. */
     private val MAX_CONTEXT_CHARS = 4000
 
-    /**
-     * 마지막 캡처 화면. 이미지 번역 경로에서 번역 대상 주변을 잘라내는 데 쓴다.
-     * 캡처마다 교체되고 ViewModel 이 정리될 때 버린다.
-     * (CaptureRepository 가 소유한 비트맵이라 여기서 recycle 하지 않는다)
-     */
-    private var lastCapturedBitmap: Bitmap? = null
-
-    /** 마지막으로 대상이 정해진 포인터 위치. 이미지 번역 경로의 마커 좌표로 쓴다. */
+    /** 마지막으로 대상이 정해진 포인터 위치. */
     private var lastPointerStoppedPosition: Point? = null
-
-    /**
-     * SELECT 모드에서 사용자가 그린 영역(전체 화면 좌표).
-     * 이 모드는 표적이 한 점이 아니라 영역 자체라, 이미지 경로가 이 사각형을 그대로 잘라 보낸다.
-     */
-    private var lastSelectedArea: Rect? = null
-
-    /**
-     * SELECT 모드의 캡처와 선택 영역을 넘겨받는다.
-     * 이 모드는 [AreaSelectionView] 가 직접 캡처하므로 [requestCapture] 를 거치지 않는다.
-     */
-    fun setSelectedArea(capturedBitmap: Bitmap, area: Rect) {
-        lastCapturedBitmap = capturedBitmap
-        lastSelectedArea = Rect(area)
-    }
-
-    private var startTime = System.nanoTime()
-
-    private var endTime = System.nanoTime()
 
     /**
      * target handle 모션 이벤트 flow
@@ -198,6 +171,16 @@ class TargetHandleViewModel(
      * [TranslateStatus.Translated] 번역 결과 수신 상태
      */
     val translateStatusFlow = MutableStateFlow(TranslateStatus.Idle)
+
+    /**
+     * 포인터가 멈춘 자리의 대상을 찾는 중인가 — OCR 결과를 기다리거나 가리킨 문단을 읽고 있다.
+     * 표적 안의 프로그레스가 번역 요청([TranslateStatus.Requested]) 전부터 돌게 한다. 검출만 된 화면(PP-OCRv5)은 가리킨 문단을
+     * 읽는 데 1초 남짓 걸리고 auto 는 OCR 자체가 몇 초 걸려, 이것 없이는 머무는 동안 아무 표시가 없다.
+     */
+    val targetPendingFlow = MutableStateFlow(false)
+
+    /** 이번 제스처의 OCR 이 도는 중인가. 결과([visionResultFlow])가 오기 전에 포인터가 멈추면 대상 찾기가 기다린다. */
+    private val ocrRunningFlow = MutableStateFlow(false)
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -395,11 +378,18 @@ class TargetHandleViewModel(
      */
     private var captureEpoch = 0
 
+    /**
+     * 진행 중인 OCR. 새 제스처가 시작되면 취소한다 — 앞 제스처의 느린 결과(auto 는 4초 가까이 걸린다)가 새 제스처의 결과를
+     * 덮어쓰지 않게, 그리고 새 제스처의 OCR 과 CPU 를 다투지 않게. 캡처 자체는 취소하지 않는다(취소되면 프레임 생산을 멈추지 못한다).
+     */
+    private var visionJob: Job? = null
+
     private fun requestCapture() {
-        startTime = System.nanoTime()
         Timber.tag(TAG).i("#### requestCapture() ####")
 
-        captureEpoch++
+        val epoch = ++captureEpoch
+        visionJob?.cancel()
+        visionJob = null
 
         // 남아 있는 실패 안내 창은 새 제스처 시작 시 해제한다.
         // (캡처 이미지에 안내 창이 찍혀 OCR 에 섞이는 것도 방지)
@@ -408,6 +398,7 @@ class TargetHandleViewModel(
         }
 
         visionResultFlow.value = null
+        ocrRunningFlow.value = true
         captureStatusFlow.value = CaptureStatus.Requested
 
         viewModelScope.launch {
@@ -418,19 +409,23 @@ class TargetHandleViewModel(
             val captureResponse: CaptureResponse = captureRepository.request()
             Timber.tag(TAG).d("requestCapture viewModelScope.launch -------------- 2 $captureResponse")
             if (captureResponse is CaptureResponse.Success) {
-                endTime = System.nanoTime()
-//                val duration = (endTime - startTime) / 1_000_000 // 나노초를 밀리초로 변환
-                // Timber.tag(TAG).d("captureRepository.request() 실행 시간: $duration 밀리초")
-
                 Timber.tag(TAG).d("captureResponse.bitmap ${captureResponse.bitmap.width} ${captureResponse.bitmap.height}")
 
                 val motionEventState = motionEventFlow.first()
                 Timber.tag(TAG).d("requestCapture motionEventState $motionEventState")
-                if (motionEventState == MotionEvent.ACTION_DOWN || motionEventState == MotionEvent.ACTION_MOVE) {
+                if (epoch != captureEpoch) {
+                    // 캡처가 돌아오기 전에 새 제스처가 시작됐다 — 이 캡처는 새 제스처의 것이 아니다. 상태는 새 제스처가 쥐고 있다.
+                    Timber.tag(TAG).d("requestCapture stale capture (epoch $epoch -> $captureEpoch)")
+                } else if (motionEventState == MotionEvent.ACTION_DOWN || motionEventState == MotionEvent.ACTION_MOVE) {
                     captureStatusFlow.value = CaptureStatus.Captured
-                    // 이미지 번역 경로가 켜져 있으면 번역 시점에 이 비트맵을 잘라 쓴다.
-                    lastCapturedBitmap = captureResponse.bitmap
-                    requestVision(captureResponse.bitmap)
+                    visionJob = launch {
+                        try {
+                            requestVision(captureResponse.bitmap, epoch)
+                        } finally {
+                            // 새 제스처가 시작됐으면 OCR 상태는 그 제스처의 것이다.
+                            if (epoch == captureEpoch) ocrRunningFlow.value = false
+                        }
+                    }
                 } else {
                     // 캡처가 돌아오기 전에 제스처가 끝났거나 취소된 경우.
                     // 되돌리지 않으면 Requested 로 남아 핸들이 계속 투명하다.
@@ -440,6 +435,7 @@ class TargetHandleViewModel(
                 Timber.tag(TAG).d("CaptureResponse.Error ${captureResponse.t.toString()}")
                 if (captureResponse.t is NoMediaProjectionTokenException) {
                     captureStatusFlow.value = CaptureStatus.PermissionRequested
+                    ocrRunningFlow.value = false
                     // 화면 캡처 권한을 요청
                     val intent = Intent(
                         applicationContext,
@@ -450,7 +446,6 @@ class TargetHandleViewModel(
                 } else {
                     if (captureResponse.t is CapturePreventedException) {
                         // 캡처 방지 알림
-                        // Timber.tag(TAG).e("CapturePreventedException: 캡처 방지 알림")
                         // captureResponse.t.checkerBitmap 처리
                     }
                     // 권한 요청이 아닌 모든 실패는 상태를 되돌린다.
@@ -469,6 +464,8 @@ class TargetHandleViewModel(
             captureStatusFlow.value = CaptureStatus.Idle
         }
         translateStatusFlow.value = TranslateStatus.Idle
+        targetPendingFlow.value = false
+        ocrRunningFlow.value = false
         visionResultFlow.value = null
     }
 
@@ -500,7 +497,10 @@ class TargetHandleViewModel(
         val mode = preferenceRepository.contextModeFlow(kitType).first()
         if (mode == TranslationContextMode.OFF) return null
 
-        val paragraphs = transaction.paragraphs
+        // 검출만 된 화면이면 지금까지 읽은 문단만 문맥이 된다(.docs/vision-engine-design.md §10.3).
+        // 화면 전체 문맥은 대상 문단의 위아래 이웃까지 읽고 나서 모은다(§18) — 번역이 그만큼 늦어진다.
+        if (mode == TranslationContextMode.SCREEN && transaction.unread != null) readNeighbours(transaction, target)
+        val paragraphs = transaction.readParagraphs()
         if (paragraphs.isEmpty()) return null
 
         val sources = when (mode) {
@@ -519,41 +519,8 @@ class TargetHandleViewModel(
         return context.takeIf { it.isNotBlank() && it != target.representation.trim() }
     }
 
-    /**
-     * 이미지 번역 경로에 보낼 크롭을 만든다. 조건이 하나라도 맞지 않으면 null 이고,
-     * 호출부는 기존 텍스트 경로로 떨어진다.
-     *
-     * SELECT 는 사용자가 그린 영역을 마커 없이 그대로 잘라 보낸다. 표적이 한 점이 아니라
-     * 영역이라 가리킬 마커가 없고, 모델은 그 안의 글을 전부 읽는다.
-     * FIXED_AREA 는 제외한다 — 자체 번역창과 갱신 주기를 따로 갖는 경로다.
-     */
-    private suspend fun buildTargetCrop(
-        translationKitType: TranslationKitType,
-        target: TranslationTarget,
-    ): Bitmap? {
-        // 사용자 설정이 아니다. 이미지를 받는 엔진이면 언제나 이 경로로 간다 —
-        // OCR 로 읽히는 문자에서도 모델이 직접 읽는 편이 경계를 덜 틀리게 긋는다.
-        if (!translationRepository.supportsImageRequest(translationKitType)) return null
-        if (textDetectMode != TextDetectMode.WORD &&
-            textDetectMode != TextDetectMode.SENTENCE &&
-            textDetectMode != TextDetectMode.PARAGRAPH &&
-            textDetectMode != TextDetectMode.SELECT
-        ) return null
-
-        val source = lastCapturedBitmap ?: return null
-        return runCatching {
-            if (textDetectMode == TextDetectMode.SELECT) {
-                TargetCrop.buildArea(source, lastSelectedArea ?: return@runCatching null)
-            } else {
-                TargetCrop.build(source, target.visionText.boundingBox, target.pointerPosition)
-            }
-        }
-            .onFailure { Timber.tag(TAG).w(it, "target crop 실패 — 텍스트 경로로 진행") }
-            .getOrNull()
-    }
-
-    private suspend fun requestVision(capturedBitmap: Bitmap) {
-        startTime = System.nanoTime()
+    /** [epoch] 는 이 캡처를 요청한 제스처 세대. 결과가 돌아왔을 때 세대가 바뀌었으면(새 제스처) 버린다. */
+    private suspend fun requestVision(capturedBitmap: Bitmap, epoch: Int) {
         Timber.tag(TAG).i("#### requestVision() ####")
 
         val sourceLanguageCode: String = preferenceRepository.sourceLanguageCodeFlow.first()
@@ -562,14 +529,14 @@ class TargetHandleViewModel(
             sourceLanguageCode = sourceLanguageCode,
         )
 
+        if (epoch != captureEpoch) {
+            Timber.tag(TAG).d("drop stale visionResult (epoch $epoch -> $captureEpoch)")
+            return
+        }
         if (visionResponse is VisionResponse.Success) {
-            endTime = System.nanoTime()
-            val duration = (endTime - startTime) / 1_000_000 // 나노초를 밀리초로 변환
-            // Timber.tag(TAG).d("visionRepository.request() 실행 시간: $duration 밀리초")
-
             val motionEventState = motionEventFlow.first()
-            if (motionEventState == MotionEvent.ACTION_DOWN || motionEventState == MotionEvent.ACTION_MOVE) {
-                Timber.tag(TAG).i("set visionResult :\n====[${visionResponse.result.text}]====")
+            if (epoch == captureEpoch && (motionEventState == MotionEvent.ACTION_DOWN || motionEventState == MotionEvent.ACTION_MOVE)) {
+                Timber.tag(TAG).i("set visionResult : ${visionResponse.result.ocr.blocks.size} blocks")
                 visionResultFlow.value = visionResponse.result
             }
         } else if (visionResponse is VisionResponse.Error) {
@@ -661,47 +628,105 @@ class TargetHandleViewModel(
         }
     }
 
+    /** 포인터가 멈춘 자리의 대상 찾기. */
+    private sealed interface TargetLookup {
+        /** 찾는 중이다 — OCR 결과를 기다리거나 가리킨 문단을 읽고 있다. */
+        data object Pending : TargetLookup
+
+        /** 찾았다. 그 자리에 글이 없으면 null. */
+        data class Found(val visionText: VisionText?) : TargetLookup
+    }
+
+    /** 대상 찾기의 입력. [visionResult] 가 null 이면 OCR 이 아직 돌고 있다. */
+    private class LookupInput(
+        val position: Point,
+        val visionResult: com.galaxy.airviewdictionary.data.local.vision.model.Transaction?,
+    )
+
     /**
-     * [pointerStoppedPositionFlow] (포인터가 머무는 위치) 와 [visionResultFlow] 를 취합하여 해당 위치의 VisionText 를 발행한다.
+     * [pointerStoppedPositionFlow] (포인터가 머무는 위치) 와 [visionResultFlow] 를 취합하여 해당 위치의 대상을 찾는다.
+     *
+     * 고르기는 `transformLatest` 에서 한다. 검출만 된 화면은 고르기 전에 가리킨 문단을 읽어야 하는데, 포인터가 다음 문단으로 가면
+     * 읽던 것을 취소해야 하기 때문이다. 다 읽힌 화면(ML Kit)은 읽을 것이 없어 멈추지 않고 바로 고른다.
+     * 기다려야 하면(OCR 이 아직 돌거나 문단을 읽어야 하면) 먼저 [TargetLookup.Pending] 을 낸다 — 표적의 프로그레스를 켜는 신호다.
      */
-    val pointerPositionedVisionTextFlow: Flow<VisionText?> = combine(
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val targetLookupFlow: Flow<TargetLookup> = combine(
         // filterNotNull 을 쓰면 안 된다. [pointerStoppedPositionFlow] 는 포인터가 마진을 벗어나
         // 대상을 떠났을 때 null 을 보내는데, 그것이 "진행 중인 번역을 취소하라"는 신호다.
         // 걸러내면 그 신호가 아래로 전달되지 않아, 이미 떠난 대상의 요청이 끝까지 진행된다.
         pointerStoppedPositionFlow,
-        visionResultFlow
-    ) { pointerStoppedPosition, visionResult ->
+        visionResultFlow,
+        ocrRunningFlow,
+    ) { pointerStoppedPosition, visionResult, ocrRunning ->
         // 다만 null 을 "대상을 떠났다"로 읽는 것은 포인터로 대상을 고르는 모드에서만 옳다.
         // SELECT 는 손을 뗀 뒤에 영역을 그리는데, ACTION_UP 에서도 null 이 나가므로
         // 그대로 받으면 영역 선택을 마치는 순간 대상이 없다고 판단해 번역이 아예 안 된다.
         val stoppedPosition = pointerStoppedPosition
             ?: lastPointerStoppedPosition.takeIf { textDetectMode == TextDetectMode.SELECT }
             ?: return@combine null
-        // 이미지 번역 경로가 마커를 그릴 위치. pointerStoppedPositionFlow 는 channelFlow 라
+        // 위의 SELECT 대체값으로 쓴다. pointerStoppedPositionFlow 는 channelFlow 라
         // 나중에 값을 다시 꺼낼 수 없어, 대상이 정해지는 이 시점에 붙잡아 둔다.
         lastPointerStoppedPosition = stoppedPosition
-        visionResult?.let {
-            getPointerPositionedVisionText(
-                visionResult = visionResult,
-                pointerPosition = stoppedPosition,
-                textDetectMode = textDetectMode
-            )
+        when {
+            visionResult != null -> LookupInput(stoppedPosition, visionResult)
+            ocrRunning -> LookupInput(stoppedPosition, null)
+            else -> null
         }
-    }.distinctUntilChanged()
+    }
+        // OCR 이 끝나면 결과가 먼저 오고 ocrRunning 이 뒤따라 꺼진다. 그 두 번째 신호에 읽던 문단을 취소하고 다시 읽지 않게 거른다.
+        .distinctUntilChanged { old, new -> old?.position == new?.position && old?.visionResult === new?.visionResult }
+        .transformLatest { input ->
+            val visionResult = input?.visionResult
+            when {
+                input == null -> emit(TargetLookup.Found(null))
+                visionResult == null -> emit(TargetLookup.Pending)
+                else -> {
+                    if (needsReading(visionResult, input.position)) emit(TargetLookup.Pending)
+                    emit(
+                        TargetLookup.Found(
+                            getPointerPositionedVisionText(
+                                visionResult = visionResult,
+                                pointerPosition = input.position,
+                                textDetectMode = textDetectMode
+                            )
+                        )
+                    )
+                }
+            }
+        }
 
-    private fun getPointerPositionedVisionText(
+    /** 포인터가 머무는 위치의 VisionText. 그 자리에 글이 없으면 null. */
+    val pointerPositionedVisionTextFlow: Flow<VisionText?> = targetLookupFlow
+        .filterIsInstance<TargetLookup.Found>()
+        .map { it.visionText }
+        .distinctUntilChanged()
+
+    /** 포인터 자리의 문단을 아직 읽지 않았나 — 읽는 동안 대상 찾기가 기다린다. SELECT 는 문단을 읽지 않는다. */
+    private fun needsReading(
+        visionResult: com.galaxy.airviewdictionary.data.local.vision.model.Transaction,
+        pointerPosition: Point,
+    ): Boolean {
+        if (textDetectMode == TextDetectMode.SELECT) return false
+        val unread = visionResult.unread ?: return false
+        return visionResult.paragraphs.find { paragraph ->
+            paragraph.boundingBox.contains(pointerPosition.x, pointerPosition.y)
+        }?.let { unread.needsReading(it) } == true
+    }
+
+    private suspend fun getPointerPositionedVisionText(
         visionResult: com.galaxy.airviewdictionary.data.local.vision.model.Transaction,
         pointerPosition: Point,
         textDetectMode: TextDetectMode,
     ): VisionText? {
         if (textDetectMode == TextDetectMode.SELECT) {
-            val boundingBox = visionResult.text.getBoundingBoxUnion()
-            val averageTextBlockHeight = visionResult.text.getAverageTextBlockHeight()
+            val boundingBox = visionResult.ocr.blockBoundingBoxUnion()
+            val averageTextBlockHeight = visionResult.ocr.averageBlockHeight()
             val writingDirection = visionResult.mostFrequentWritingDirection()
             if (boundingBox != null && averageTextBlockHeight > 0 && writingDirection != null) {
                 return Word(
                     boundingBox = boundingBox,
-                    representation = visionResult.text.text,
+                    representation = visionResult.ocr.text,
                     writingDirection = writingDirection,
                     chars = emptyList(),
                     presetFontHeight = averageTextBlockHeight
@@ -710,26 +735,15 @@ class TargetHandleViewModel(
             return null
         }
 
+        // 문단은 검출 상자로 고르고, 그 안의 문장·단어는 읽은 문단에서 고른다.
         val positionedParagraph: Paragraph? = visionResult.paragraphs.find { paragraph ->
             paragraph.boundingBox.contains(pointerPosition.x, pointerPosition.y)
-        }
-//        Timber.tag(TAG).d("pointerPosition.x [${pointerPosition.x}] pointerPosition.x [${pointerPosition.x}] positionedParagraph [${positionedParagraph?.representation}]")
+        }?.let { readParagraph(visionResult, it) }
         if (textDetectMode == TextDetectMode.PARAGRAPH) {
             return positionedParagraph
         }
 
         if (textDetectMode == TextDetectMode.SENTENCE) {
-            positionedParagraph?.sentences?.forEach {
-//                Timber.tag(TAG).d("sentence : ${it.boundingBox}, ${it.representation}")
-//                it.lines.forEach {
-//                    Timber.tag(TAG).i("line : ${it.boundingBox}, ${it.representation}")
-//                }
-//                Timber.tag(TAG).i(
-//                    "boundingPolygon : ${it.boundingPolygon.points}, $pointerPosition ${
-//                        it.boundingPolygon.contains(pointerPosition)
-//                    }"
-//                )
-            }
             return positionedParagraph?.sentences?.find { sentence ->
                 sentence.boundingPolygon.contains(pointerPosition)
             }
@@ -744,6 +758,30 @@ class TargetHandleViewModel(
             expandedRect.contains(pointerPosition.x, pointerPosition.y)
         }
         return positionedWord
+    }
+
+    /** [target] 이 든 문단의 앞뒤 문단(화면의 문단 순서)을 읽어 둔다. 읽은 문단은 캐시돼 같은 화면의 다음 번역도 쓴다. */
+    private suspend fun readNeighbours(
+        transaction: com.galaxy.airviewdictionary.data.local.vision.model.Transaction,
+        target: com.galaxy.airviewdictionary.data.local.vision.model.VisionText,
+    ) {
+        val paragraphs = transaction.paragraphs
+        val at = paragraphs.indexOfFirst { android.graphics.Rect.intersects(it.boundingBox, target.boundingBox) }
+        if (at < 0) return
+        listOfNotNull(paragraphs.getOrNull(at - 1), paragraphs.getOrNull(at + 1)).forEach { readParagraph(transaction, it) }
+    }
+
+    /** 문단의 글을 채운다. 읽기에 실패하면 대상이 없는 것으로 본다 — 흐름을 끊지 않는다. */
+    private suspend fun readParagraph(
+        visionResult: com.galaxy.airviewdictionary.data.local.vision.model.Transaction,
+        paragraph: Paragraph,
+    ): Paragraph? = try {
+        visionRepository.readParagraph(visionResult, paragraph)
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        Timber.tag(TAG).e(e, "readParagraph 실패")
+        null
     }
 
     /**
@@ -761,11 +799,28 @@ class TargetHandleViewModel(
      */
     private fun collectVisionTextForTranslationView() {
         viewModelScope.launch {
-            pointerPositionedVisionTextFlow
-                .distinctUntilChanged { old, new -> isSameTarget(old, new) }
+            // 마지막으로 아래로 넘긴 대상. 같은 대상을 다시 잡으면 넘기지 않는다([isSameTarget]).
+            var forwarded: TargetLookup.Found? = null
+            targetLookupFlow
+                // 찾는 동안에는 프로그레스만 켠다 — 아래로 넘기지 않으니 진행 중이던 번역은 그대로 간다.
+                // 끄는 것은 대상이 정해진 쪽이다. 새 대상이면 번역 요청을 걸면서 끈다(먼저 끄면 그 사이 한 프레임 깜빡인다).
+                // 같은 대상이거나 빈 자리면 여기서 끈다.
+                .filter { lookup ->
+                    if (lookup !is TargetLookup.Found) {
+                        targetPendingFlow.value = true
+                        return@filter false
+                    }
+                    val last = forwarded
+                    val isNew = last == null
+                            || (last.visionText != lookup.visionText && !isSameTarget(last.visionText, lookup.visionText))
+                    if (isNew) forwarded = lookup
+                    if (!isNew || lookup.visionText == null) targetPendingFlow.value = false
+                    isNew
+                }
+                .map { (it as TargetLookup.Found).visionText }
                 // collect 가 아니라 collectLatest 다. 새 신호가 오면 진행 중이던 번역 요청이
                 // 취소된다. collect 는 순차 수집이라 앞 요청이 끝나야 다음이 시작되고,
-                // 떠난 대상의 요청도 끝까지 진행된다 — 이미지 번역(2~4초)에서는 요청이 줄을 서서
+                // 떠난 대상의 요청도 끝까지 진행된다 — 느린 번역(2~4초)에서는 요청이 줄을 서서
                 // 도착하는 결과가 언제나 한참 전에 떠난 대상의 것이 된다(2026-09-22 실측).
                 .collectLatest { pointerPositionedVisionText ->
                     // 핸들이 대상을 떠났다. 진행 중이던 요청은 위에서 이미 취소됐다.
@@ -778,11 +833,10 @@ class TargetHandleViewModel(
                     visionResultFlow.value?.let { visionResultTransaction ->
                         val translationKitType: TranslationKitType = preferenceRepository.translationKitTypeFlow.first()
                         val targetLanguageCode: String = preferenceRepository.targetLanguageCodeFlow.first()
-                        // Timber.tag(TAG).d("kitType $kitType")
-                        // Timber.tag(TAG).d("targetLanguageCode $targetLanguageCode")
                         val motionEventState = motionEventFlow.first()
                         if (motionEventState == MotionEvent.ACTION_DOWN || motionEventState == MotionEvent.ACTION_MOVE) {
                             translateStatusFlow.value = TranslateStatus.Requested
+                            targetPendingFlow.value = false
 
                             Timber.tag(TAG).d("sourceText ${pointerPositionedVisionText.representation}")
                             Timber.tag(TAG).d("translationKitType $translationKitType")
@@ -797,7 +851,10 @@ class TargetHandleViewModel(
                             } else {
                                 visionResultTransaction.detectedLanguageCode
                             }
-                            Timber.tag(TAG).d("sourceLanguageCode $sourceLanguageCode (pref $sourceLanguagePref)")
+                            // 엔진에 넘기는 값은 따로 정한다 — auto 면 AI 엔진은 스스로 판정하고, 식별 못 한 값("und")은 auto 로(§23).
+                            // 위의 식별값은 확정 원문 언어의 대체값(confirmTransaction)과 TTS 기록에 쓴다.
+                            val kitSourceLanguageCode = TranslationSourceLanguage.forKit(translationKitType, sourceLanguagePref, sourceLanguageCode)
+                            Timber.tag(TAG).d("sourceLanguageCode $sourceLanguageCode -> kit $kitSourceLanguageCode (pref $sourceLanguagePref)")
 
                             // TTS 목소리 목록 등이 참조하는 "마지막 번역의 실제 소스 언어"를 기록
                             sourceLanguageCode.takeIf { it.isNotBlank() && it != "auto" && it != "und" }?.let {
@@ -813,7 +870,6 @@ class TargetHandleViewModel(
                                 val target = TranslationTarget(
                                     id = ++targetSequence,
                                     visionText = pointerPositionedVisionText,
-                                    pointerPosition = lastPointerStoppedPosition ?: Point(0, 0),
                                 )
                                 currentTargetFlow.value = target
                                 val contextText = buildContextText(
@@ -821,40 +877,13 @@ class TargetHandleViewModel(
                                     transaction = visionResultTransaction,
                                     target = pointerPositionedVisionText,
                                 )
-                                // 이미지 경로: OCR 이 그은 경계 대신 화면을 그대로 보내 모델이 직접 읽게 한다.
-                                // 켜져 있고, 엔진이 지원하고, 포인터 기반 모드이고, 크롭에 성공했을 때만 탄다.
-                                val targetCrop = buildTargetCrop(
-                                    translationKitType = translationKitType,
-                                    target = target,
+                                translationRepository.request(
+                                    translationKitType,
+                                    kitSourceLanguageCode,
+                                    targetLanguageCode,
+                                    pointerPositionedVisionText.representation,
+                                    contextText,
                                 )
-                                if (targetCrop != null) {
-                                    translationRepository.request(
-                                        translationKitType,
-                                        // 이미지 경로에는 Auto 를 그대로 넘긴다.
-                                        // 위에서 Auto 를 푸는 identifyLanguage() 는 OCR 텍스트로 판정하는데,
-                                        // 아랍어처럼 인식기가 없는 문자에서는 라틴 쓰레기를 영어로 오판한다.
-                                        // 그러면 프롬프트가 "영어를 번역하라"가 되어 모델이 거부하거나
-                                        // 엉뚱한 언어명을 답한다(2026-09-21 실측). 판정은 모델에게 맡긴다.
-                                        if (sourceLanguagePref.equals("auto", ignoreCase = true)) "auto"
-                                        else sourceLanguageCode,
-                                        targetLanguageCode,
-                                        pointerPositionedVisionText.representation,
-                                        // 이미지 경로에는 문맥 텍스트를 보내지 않는다.
-                                        // 크롭에 주변 문장이 이미 담겨 있어 중복이고,
-                                        // 4000자 문맥이 입력 토큰의 대부분을 차지해 지연을 키운다.
-                                        null,
-                                        targetCrop,
-                                        textDetectMode,
-                                    )
-                                } else {
-                                    translationRepository.request(
-                                        translationKitType,
-                                        sourceLanguageCode,
-                                        targetLanguageCode,
-                                        pointerPositionedVisionText.representation,
-                                        contextText,
-                                    )
-                                }
                                     .also {
                                         // 실패 안내는 손을 뗀 뒤 응답이 도착해도 반드시 표시한다.
                                         // 번역창 파이프라인(translationFlow)은 ACTION_UP 이후에는
@@ -863,12 +892,6 @@ class TargetHandleViewModel(
                                         if (it is TranslationResponse.Error) {
                                             Timber.tag(TAG).d("Response Error ${it.t}")
                                             translateStatusFlow.value = TranslateStatus.Translated
-                                            // 이미지 경로에서 모델이 "가리킨 곳에 글자 없음"이라고 답한 경우.
-                                            // 실패가 아니므로 안내를 띄우지 않는다 — OCR 경로도 글자가 없으면
-                                            // 아무 창 없이 끝난다. 동작을 맞춘다.
-                                            if (it.t is NoTextAtPointerException) {
-                                                return@also
-                                            }
                                             // 새 제스처가 이미 시작됐다면 낡은 실패 안내는 버린다.
                                             // (다음 제스처 위·캡처 프레임에 이전 안내가 찍히는 것 방지)
                                             if (requestEpoch != captureEpoch) {
@@ -885,8 +908,7 @@ class TargetHandleViewModel(
                                             val errorTransaction = Transaction(
                                                 targetId = target.id,
                                                 requestedSourceLanguageCode = sourceLanguagePref,
-                                                resolvedSourceLanguageCode = sourceLanguageCode
-                                                    .takeIf { code -> code != "auto" && code != "und" },
+                                                resolvedSourceLanguageCode = TranslationSourceLanguage.normalized(sourceLanguageCode),
                                                 targetLanguageCode = targetLanguageCode,
                                                 sourceText = pointerPositionedVisionText.representation,
                                                 translationKitType = translationKitType,
@@ -904,35 +926,35 @@ class TargetHandleViewModel(
                                             return@also
                                         }
 
+                                        // 여기부터는 성공이다(실패는 위에서 끝났다).
+                                        val transaction = confirmTransaction(
+                                            target = target,
+                                            kitResult = (it as TranslationResponse.Success).result,
+                                            requestedSourceLanguageCode = sourceLanguagePref,
+                                            ocrSourceLanguageCode = sourceLanguageCode,
+                                        )
+                                        // 번역 한 건에 한 번 센다 — 손을 뗀 뒤 도착해 창이 뜨지 않아도 번역은 한 것이다.
+                                        // 번역창 컴포저블에서 세면 다시 그릴 때마다 중복될 수 있다.
+                                        analyticsRepository.translationReport(transaction, textDetectMode)
+
                                         val motionEventState = motionEventFlow.first()
                                         if (motionEventState == MotionEvent.ACTION_DOWN || motionEventState == MotionEvent.ACTION_MOVE) {
                                             translateStatusFlow.value = TranslateStatus.Translated
+                                            Timber.tag(TAG).d("translationRepository Translated transaction $transaction")
 
-                                            when (it) {
-                                                is TranslationResponse.Success -> {
-                                                    val transaction = confirmTransaction(
-                                                        target = target,
-                                                        kitResult = it.result,
-                                                        requestedSourceLanguageCode = sourceLanguagePref,
-                                                        ocrSourceLanguageCode = sourceLanguageCode,
-                                                    )
-                                                    Timber.tag(TAG).d("translationRepository Translated transaction $transaction")
-
-                                                    TranslationView.INSTANCE.cast(
-                                                        applicationContext,
-                                                        transaction,
-                                                        pointerPositionedVisionText
-                                                    )
-                                                    pointerPositionedTranslationFlow.value = transaction
-                                                }
-
-                                                is TranslationResponse.Error -> Unit // 위에서 선처리(모션 가드와 무관하게 표시)
-                                            }
+                                            TranslationView.INSTANCE.cast(
+                                                applicationContext,
+                                                transaction,
+                                                pointerPositionedVisionText
+                                            )
+                                            pointerPositionedTranslationFlow.value = transaction
                                         }
                                     }
                             }
+                        } else {
+                            targetPendingFlow.value = false
                         }
-                    }
+                    } ?: run { targetPendingFlow.value = false }
                 }
         }
     }
@@ -946,8 +968,8 @@ class TargetHandleViewModel(
      * 지금 번역을 시도 중인 대상. 요청을 보내는 시점에 새로 만들어 채운다.
      *
      * 번역창은 이 대상과 [pointerPositionedTranslationFlow] 의 결과가 같은 신원일 때만 뜬다.
-     * 신원 없이 텍스트 내용으로 짝을 맞추면 이미지 경로에서 영영 일치하지 않는다 —
-     * 그 경로의 원문은 모델이 읽은 값이라 OCR 텍스트와 같을 수 없기 때문이다.
+     * 텍스트 내용으로 짝을 맞추지 않는다 — 킷이 돌려준 원문이 OCR 텍스트와 같다는 보장이 없다
+     * (예전 AI 이미지 경로에서는 늘 달랐다. .docs/vision-engine-design.md §21 에서 걷어냈다).
      */
     private val currentTargetFlow = MutableStateFlow<TranslationTarget?>(null)
 
@@ -983,9 +1005,8 @@ class TargetHandleViewModel(
      * 킷이 보고한 결과를 화면·TTS·답장·애널리틱스가 그대로 믿고 쓸 수 있게 확정한다.
      *
      * 확정이 여기 한 곳에 모여 있어야 하는 이유: 킷마다 아는 것이 다르다.
-     * 텍스트 경로의 킷은 우리가 준 OCR 텍스트를 그대로 돌려주지만, 이미지 경로의 킷은
-     * 원문과 언어를 모두 모델에게서 받는다. 이 차이를 여기서 한 번 흡수하지 않으면
-     * 소비처마다 "OCR 값이냐 모델 값이냐"를 따로 판단하게 되고, 그러다 조용히 어긋난다.
+     * 원문 언어를 판정해 돌려주는 킷도 있고 아닌 킷도 있다. 이 차이를 여기서 한 번 흡수하지 않으면
+     * 소비처마다 "킷 값이냐 OCR 값이냐"를 따로 판단하게 되고, 그러다 조용히 어긋난다.
      *
      * @param ocrSourceLanguageCode OCR 텍스트로 앱이 판정한 언어. 킷이 판정하지 못했을 때만 쓴다.
      */
@@ -998,12 +1019,10 @@ class TargetHandleViewModel(
         targetId = target.id,
         requestedSourceLanguageCode = requestedSourceLanguageCode,
         // 킷이 판정했으면 그 값을, 아니면 OCR 판정값을 쓴다.
-        // "auto"/"und" 는 언어가 아니므로 미확정(null)으로 떨어뜨린다.
-        resolvedSourceLanguageCode = (kitResult.resolvedSourceLanguageCode ?: ocrSourceLanguageCode)
-            ?.lowercase()
-            ?.takeIf { it.isNotBlank() && it != "auto" && it != "und" },
+        // "auto"/"und" 는 언어가 아니므로 판정 못 한 것으로 본다 — 고정 영역과 같은 규칙이다(TranslationSourceLanguage).
+        resolvedSourceLanguageCode = TranslationSourceLanguage.resolved(kitResult.resolvedSourceLanguageCode, ocrSourceLanguageCode),
         targetLanguageCode = kitResult.targetLanguageCode,
-        // 킷이 원문을 못 돌려줬으면(이미지 경로에서 모델이 못 읽은 경우) OCR 값으로 대신한다.
+        // 킷이 원문을 못 돌려줬으면 OCR 값으로 대신한다.
         sourceText = kitResult.sourceText?.takeIf { it.isNotBlank() }
             ?: target.visionText.representation,
         translationKitType = kitResult.translationKitType,
@@ -1062,13 +1081,8 @@ class TargetHandleViewModel(
     ) { target, translation, motionEvent, ttsStatus, dismissRunningCommand ->
         TranslationStateData(target, translation, motionEvent, ttsStatus, dismissRunningCommand)
     }.flatMapLatest { (target, translation, motionEvent, ttsStatus, dismissRunningCommand) ->
-//        Timber.tag(TAG).d("---------------------------------------------------")
-//        Timber.tag(TAG).d("motionEvent != MotionEvent.ACTION_UP : $motionEvent ${motionEvent != MotionEvent.ACTION_UP}")
-//        Timber.tag(TAG).d("shown != null : ${shown != null}")
 
-//        Timber.tag(TAG).d("ttsStatus : $ttsStatus")
 
-//        Timber.tag(TAG).d("dismissRunningCommand : $dismissRunningCommand")
 
         if (motionEvent == null) {
             emptyFlow()
@@ -1104,8 +1118,8 @@ class TargetHandleViewModel(
         else {
             // TargetHandle 위치의 텍스트 번역이 된 경우
             // 이 번역이 지금 시도 중인 대상의 것인지 신원으로 본다.
-            // 텍스트 내용으로 비교하면 안 된다 — 이미지 경로의 원문은 모델이 읽은 값이라
-            // OCR 텍스트와 같을 수 없고, 그러면 아래 else 로 떨어져 번역창을 바로 닫는다.
+            // 텍스트 내용으로 비교하지 않는다 — 킷이 돌려준 원문이 OCR 텍스트와 다르면
+            // 아래 else 로 떨어져 번역창을 바로 닫는다.
             if (
                 target != null &&
                 translation != null &&
@@ -1293,7 +1307,6 @@ class TargetHandleViewModel(
     }
 
     override fun onCleared() {
-        lastCapturedBitmap = null
         lastPointerStoppedPosition = null
         secureRepository.release()
         captureRepository.release()

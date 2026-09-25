@@ -96,6 +96,8 @@
   <string name="help_text_claude_own_key">Izmanto jūsu personīgo Claude API atslēgu</string>
   <string name="claude_key_signup_guide">Izveidojiet API atslēgu Anthropic Console. Lietojums tiek rēķināts jūsu Anthropic kontā.</string>
   <string name="settings_menu_how_to_use">Lietošanas pamācība</string>
+  <string name="settings_menu_privacy_policy">Konfidencialitātes politika</string>
+  <string name="source_language_no_screen_reader">Ekrāna teksta atpazīšana netiek atbalstīta</string>
   <string name="ocr_model_preparing">Tiek sagatavots tulkošanas dzinējs. Lūdzu, uzgaidiet brīdi.</string>
   <string name="error_translate_invalid_key">API atslēga nav derīga. Pārbaudiet to iestatījumos.</string>
   <string name="error_translate_no_credit">Kontā nav kredītu. Papildiniet pakalpojumu sniedzēja konsolē.</string>

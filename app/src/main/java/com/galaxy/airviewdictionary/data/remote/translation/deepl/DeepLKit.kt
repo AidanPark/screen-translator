@@ -112,7 +112,8 @@ class DeepLKit @Inject constructor(
                     targetLanguageCode = targetLanguageCode,
                     sourceText = sourceText,
                     translationKitType = TranslationKitType.DEEPL,
-                    // DeepL 은 대문자 코드("EN")를 돌려준다. 정규화는 파이프라인이 한다.
+                    // 응답의 원문 언어(detected_source_language). deepl-java 가 소문자 코드("en")로 표준화해 돌려준다
+                    // (LanguageCode.standardize).
                     resolvedSourceLanguageCode = textResult.detectedSourceLanguage,
                     resultText = textResult.text
                 )

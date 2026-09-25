@@ -18,6 +18,7 @@ import java.io.UnsupportedEncodingException
 import java.util.zip.GZIPInputStream
 import javax.inject.Inject
 import javax.inject.Singleton
+import timber.log.Timber
 
 
 @Singleton
@@ -156,7 +157,6 @@ class GoogleWebKit @Inject constructor(@GoogleWebRetrofit private val googleWebS
                     originStringBuilder.append(origin)
                     val trans = jsonArr_0_n[0] as String
                     transStringBuilder.append(trans)
-                    //println("$i : $trans")
                 } catch (e: Exception) {
                 }
             }
@@ -165,7 +165,7 @@ class GoogleWebKit @Inject constructor(@GoogleWebRetrofit private val googleWebS
             try {
                 detectedLanguageCode = jsonArr[2] as String
             } catch (e: Exception) {
-                e.printStackTrace()
+                Timber.w(e, "감지 언어 없음")
             }
         } catch (e: UnsupportedEncodingException) {
             return TranslationResponse.Error(e)
@@ -186,7 +186,7 @@ class GoogleWebKit @Inject constructor(@GoogleWebRetrofit private val googleWebS
                 targetLanguageCode = targetLanguageCode,
                 sourceText = sourceText,
                 translationKitType = TranslationKitType.GOOGLE,
-                // auto 로 보내도 구글이 감지한 언어를 돌려준다.
+                // 응답에 구글이 판정한 원문 언어(세 번째 항목)가 있으면 그 값, 없으면 요청한 원문 코드 그대로다("auto" 일 수 있다).
                 resolvedSourceLanguageCode = detectedLanguageCode,
                 resultText = resultText
             )

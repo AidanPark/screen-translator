@@ -11,13 +11,14 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -39,7 +40,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.galaxy.airviewdictionary.R
 import com.galaxy.airviewdictionary.core.OverlayService
 import com.galaxy.airviewdictionary.data.local.vision.TextDetectMode
-import com.galaxy.airviewdictionary.data.local.vision.WritingDirection
 import com.galaxy.airviewdictionary.data.local.vision.model.Line
 import com.galaxy.airviewdictionary.data.local.vision.model.Paragraph
 import com.galaxy.airviewdictionary.data.local.vision.model.Sentence
@@ -82,7 +82,6 @@ class VisionTextView private constructor() : OverlayView() {
         )
 
         pointerPositionedVisionTextState?.let { visionText ->
-//            Timber.tag(TAG).d("${visionText.boundingBox}")
             when (visionText) {
                 is Paragraph -> Timber.tag(TAG).d("Paragraph ${visionText.representation}")
                 is Line -> Timber.tag(TAG).d("Line ${visionText.representation}")
@@ -154,18 +153,16 @@ fun VisionTextBox(
                 val lineWidth = TypedValueCompat.pxToDp(it.width.toFloat(), displayMetrics).dp
                 val lineHeight = TypedValueCompat.pxToDp(it.height.toFloat(), displayMetrics).dp
                 val relativeBoundingBox = it.relativeBoundingBox(visionText.boundingBox)
-                val paddingStart = when (visionText.writingDirection) {
-                    WritingDirection.LTR, WritingDirection.TTB_LTR -> TypedValueCompat.pxToDp(relativeBoundingBox.left.toFloat(), displayMetrics).dp
-                    WritingDirection.RTL, WritingDirection.TTB_RTL -> TypedValueCompat.pxToDp(relativeBoundingBox.right.toFloat(), displayMetrics).dp
-                }
+                // 줄 상자는 화면 좌표 그대로 놓는다 — 글의 쓰기 방향(RTL)이나 앱의 레이아웃 방향과 무관하다.
+                // 예전에는 RTL 글이면 시작 여백으로 줄의 오른쪽 끝을 써서 블록이 줄 너비만큼 밀려 보이지 않았다.
+                val paddingLeft = TypedValueCompat.pxToDp(relativeBoundingBox.left.toFloat(), displayMetrics).dp
                 val paddingTop = TypedValueCompat.pxToDp(relativeBoundingBox.top.toFloat(), displayMetrics).dp
-//                Timber.tag("VisionTextView").i("Sentence ${it.boundingBox} ${it.representation} $paddingStart, $paddingTop $lineWidth, $lineHeight")
 
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(
-                            start = paddingStart,
+                        .absolutePadding(
+                            left = paddingLeft,
                             top = paddingTop,
                         )
                 ) {
@@ -174,7 +171,7 @@ fun VisionTextBox(
                         text = "",
                         style = MaterialTheme.typography.bodySmall.copy(color = Color.Black, fontSize = 11.sp),
                         modifier = Modifier
-                            .align(Alignment.TopStart)
+                            .align(AbsoluteAlignment.TopLeft)
                             .background(visionTextColor.copy(alpha = alpha))
                             .width(lineWidth)
                             .height(lineHeight),

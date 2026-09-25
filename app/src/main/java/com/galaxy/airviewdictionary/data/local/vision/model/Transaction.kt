@@ -1,15 +1,24 @@
 package com.galaxy.airviewdictionary.data.local.vision.model
 
 import android.graphics.Bitmap
+import com.galaxy.airviewdictionary.data.local.vision.UnreadParagraphs
 import com.galaxy.airviewdictionary.data.local.vision.WritingDirection
-import com.google.mlkit.vision.text.Text
+import com.galaxy.airviewdictionary.data.local.vision.ocr.OcrText
 
 data class Transaction(
     val bitmap: Bitmap,
-    val text: Text,
+    /** 엔진이 준 인식 결과 날것. 선택 모드와 고정 영역이 화면 전체 글·덩어리 상자를 쓴다. */
+    val ocr: OcrText,
     val detectedLanguageCode: String,
+    /** 화면의 문단. 검출만 된 화면이면 줄 상자로 묶은 것이라 글이 없다 — `VisionRepository.readParagraph` 로 읽는다. */
     val paragraphs: List<Paragraph>,
+    /** 검출만 된 화면이면 있다. 다 읽힌 화면(ML Kit)은 null. */
+    val unread: UnreadParagraphs? = null,
 ) {
+
+    /** 글이 있는 문단. 검출만 된 화면이면 지금까지 읽은 것만, 화면의 문단 순서대로. */
+    fun readParagraphs(): List<Paragraph> =
+        unread?.let { unread -> paragraphs.mapNotNull { unread.cached(it) } } ?: paragraphs
 
     fun mostFrequentWritingDirection(): WritingDirection? {
         return paragraphs.groupingBy { it.writingDirection } // 각 writingDirection별 그룹화
@@ -21,9 +30,10 @@ data class Transaction(
     override fun toString(): String {
         return "Vision(" +
                 "bitmap=$bitmap, " +
-                "text=$text, " +
+                "ocr=${ocr.blocks.size} blocks, " +
                 "detectedLanguageCode=$detectedLanguageCode, " +
                 "result=$paragraphs, " +
+                "unread=${unread != null}, " +
                 ")"
     }
 }

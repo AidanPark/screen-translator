@@ -138,10 +138,6 @@ open class TranslationView : OverlayView() {
                         onResumeDismissRunning = { targetHandleViewModel.resumeDismissRunning() },
                         onRerunDismissRunning = { targetHandleViewModel.rerunDismissRunning() }
                     )
-                    targetHandleViewModel.analyticsRepository.translationReport(
-                        transaction = translation,
-                        textDetectMode = targetHandleViewModel.textDetectMode,
-                    )
                 }
             }
         } ?: clear()
@@ -350,7 +346,10 @@ open class TranslationView : OverlayView() {
         Timber.tag(TAG).d("viewHeight [${viewHeight}]")
 
         // 확장된 너비 반영된 포지션
-        val layoutPosX = (visionText.start - (viewWidth - visionText.width) / 2).coerceIn(
+        // 말풍선을 대상 텍스트의 가운데에 맞춘다.
+        // visionText.start 를 쓰면 안 된다 — RTL 에서 그 값은 박스의 오른쪽 변이라
+        // 말풍선이 글자 폭만큼 통째로 오른쪽으로 밀린다(LTR 공식은 우연히 가운데 정렬과 같다).
+        val layoutPosX = (visionText.boundingBox.centerX() - viewWidth / 2).coerceIn(
             0,
             (screenInfo.width - viewWidth)
         )

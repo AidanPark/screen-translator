@@ -96,6 +96,8 @@
   <string name="help_text_claude_own_key">Isebenzisa ukhiye wakho we-Claude API womuntu siqu</string>
   <string name="claude_key_signup_guide">Dala ukhiye we-API ku-Anthropic Console. Ukusetshenziswa kukhokhiswa ku-akhawunti yakho ye-Anthropic.</string>
     <string name="settings_menu_how_to_use">Indlela yokusebenzisa</string>
+    <string name="settings_menu_privacy_policy">Inqubomgomo yobumfihlo</string>
+    <string name="source_language_no_screen_reader">Ukubona umbhalo wesikrini akusekelwe</string>
     <string name="ocr_model_preparing">Kulungiswa injini yokuhumusha. Sicela ulinde isikhashana.</string>
     <string name="error_translate_invalid_key">Ukhiye we-API awuvumelekile. Wuhlole kuzilungiselelo.</string>
     <string name="error_translate_no_credit">Awunamakhredithi ku-akhawunti. Faka kukhonsoli yomhlinzeki.</string>

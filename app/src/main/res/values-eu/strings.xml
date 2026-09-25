@@ -96,6 +96,8 @@
   <string name="help_text_claude_own_key">Zure Claude API gako pertsonala erabiltzen du</string>
   <string name="claude_key_signup_guide">Sortu API gako bat Anthropic Console-n. Erabilera zure Anthropic kontuan fakturatzen da.</string>
     <string name="settings_menu_how_to_use">Nola erabili</string>
+    <string name="settings_menu_privacy_policy">Pribatutasun-politika</string>
+    <string name="source_language_no_screen_reader">Pantailako testuaren ezagutza ez da onartzen</string>
     <string name="ocr_model_preparing">Itzulpen-motorra prestatzen ari da. Itxaron une bat.</string>
     <string name="error_translate_invalid_key">API gakoa ez da baliozkoa. Egiaztatu ezarpenetan.</string>
     <string name="error_translate_no_credit">Ez dago krediturik kontuan. Kargatu hornitzailearen kontsolan.</string>

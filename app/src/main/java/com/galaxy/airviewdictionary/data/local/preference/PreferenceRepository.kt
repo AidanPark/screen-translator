@@ -1,8 +1,10 @@
 package com.galaxy.airviewdictionary.data.local.preference
 
+import com.galaxy.airviewdictionary.data.local.vision.kit.VisionKitSelector
 import android.content.Context
 import android.speech.tts.Voice
 import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
@@ -56,6 +58,15 @@ class PreferenceRepository @Inject constructor(@ApplicationContext val context: 
         // 설정 화면이 처음 닫힌 뒤, 핸들 더블탭으로 설정을 다시 열 수 있음을 한 번만 안내했는지
         val IS_SETTINGS_REOPEN_HINT_SHOWN = booleanPreferencesKey("is_settings_reopen_hint_shown")
 
+        // 첫 실행 때 한 번씩만 뜨는 오버레이 안내(핸들 "여기 있어요" 말풍선 좌/우, 설정 재진입 코치마크)의 플래그.
+        // "사용법 안내" 를 누르면 이 목록만 지워 안내를 다시 보여준다.
+        // 온보딩 완료(WAS_TRAILER_SHOWN)·리뷰 요청(IS_REVIEW_DONE)처럼 안내 표시가 아닌 값은 넣지 않는다.
+        val OVERLAY_GUIDE_SHOWN_KEYS: List<Preferences.Key<Boolean>> = listOf(
+            IS_SAY_HERE_L_SHOWN,
+            IS_SAY_HERE_R_SHOWN,
+            IS_SETTINGS_REOPEN_HINT_SHOWN,
+        )
+
         val TEXT_DETECT_MODE: Preferences.Key<String> = stringPreferencesKey("text_detect_mode")
         val SOURCE_LANGUAGE_CODE = stringPreferencesKey("source_language_code")
         val TARGET_LANGUAGE_CODE = stringPreferencesKey("target_language_code")
@@ -103,6 +114,9 @@ class PreferenceRepository @Inject constructor(@ApplicationContext val context: 
         // 광고 게이트를 열지 않을 만료 시각(epoch millis). 지나면 다시 광고를 시도한다.
         // 프로세스가 죽어도 유지돼야 해서 메모리(AdGateState)가 아니라 여기에 둔다.
         val AD_GATE_SUPPRESSED_UNTIL = longPreferencesKey("ad_gate_suppressed_until")
+
+        // 광고 게이트가 열린 횟수(누적). 두 번째 게이트부터 인앱 리뷰를 청한다([AdGateActivity]).
+        val AD_GATE_OPEN_COUNT = intPreferencesKey("ad_gate_open_count")
     }
 
     private val preferenceDataStore: DataStore<Preferences> = context.preferenceDataStore
@@ -134,6 +148,10 @@ class PreferenceRepository @Inject constructor(@ApplicationContext val context: 
         preferences[AD_GATE_SUPPRESSED_UNTIL] ?: 0L
     }
 
+    val adGateOpenCountFlow: Flow<Int> = preferenceFlow.map { preferences ->
+        preferences[AD_GATE_OPEN_COUNT] ?: 0
+    }
+
     val wasTrailerShownFlow: Flow<Boolean> = preferenceFlow.map { preferences ->
         preferences[WAS_TRAILER_SHOWN] ?: false
     }
@@ -152,6 +170,37 @@ class PreferenceRepository @Inject constructor(@ApplicationContext val context: 
 
     val isSettingsReopenHintShownFlow: Flow<Boolean> = preferenceFlow.map { preferences ->
         preferences[IS_SETTINGS_REOPEN_HINT_SHOWN] ?: false
+    }
+
+    /**
+     * 오버레이 안내를 첫 실행 상태로 되돌린다. 안내 쪽은 뜰 조건마다 플래그를 새로 읽으므로
+     * 앱을 다시 시작하지 않아도 다음 조건(설정 닫힘, 핸들 도킹)에서 바로 다시 뜬다.
+     * 호출부가 완료를 기다릴 수 있도록 suspend 로 둔다. 저장에 실패해도 호출부 동작은 막지 않는다.
+     */
+    suspend fun resetOverlayGuides() {
+        try {
+            preferenceDataStore.edit { preferences ->
+                preferences.clearOverlayGuideShownFlags()
+            }
+        } catch (e: IOException) {
+            Timber.tag(TAG).w(e, "resetOverlayGuides() failed")
+        }
+    }
+
+    /**
+     * 광고 게이트가 열린 횟수를 하나 올리고 올린 값을 돌려준다. 저장에 실패하면 0.
+     * 게이트는 이 값을 들고 있지 않고 쓸 때 [adGateOpenCountFlow] 로 다시 읽는다 — 액티비티가 재생성되면 필드는 잃는다.
+     */
+    suspend fun incrementAdGateOpenCount(): Int = try {
+        var count = 0
+        preferenceDataStore.edit { preferences ->
+            count = (preferences[AD_GATE_OPEN_COUNT] ?: 0) + 1
+            preferences[AD_GATE_OPEN_COUNT] = count
+        }
+        count
+    } catch (e: IOException) {
+        Timber.tag(TAG).w(e, "incrementAdGateOpenCount() failed")
+        0
     }
 
     /**
@@ -175,7 +224,8 @@ class PreferenceRepository @Inject constructor(@ApplicationContext val context: 
     val sourceLanguageCodeFlow: Flow<String> = preferenceFlow.map { preferences ->
         Timber.tag(TAG).d(" preferences[SOURCE_LANGUAGE_CODE] ${preferences[SOURCE_LANGUAGE_CODE]} getCurrentLocale().language ${getCurrentLocale().language}")
         // 기본값은 auto(자동 감지). 소스 언어가 원문과 어긋나 OCR 인식기가 잘못 선택되는 문제를 방지한다.
-        preferences[SOURCE_LANGUAGE_CODE] ?: "auto"
+        // 화면 글자를 읽을 엔진이 없는 언어가 남아 있으면(예전에 고른 값) auto 로 읽는다(.docs/vision-engine-design.md §21).
+        (preferences[SOURCE_LANGUAGE_CODE] ?: "auto").takeIf { VisionKitSelector.hasReaderFor(it) } ?: "auto"
     }
 
     val targetLanguageCodeFlow: Flow<String> = preferenceFlow.map { preferences ->
@@ -362,11 +412,10 @@ class PreferenceRepository @Inject constructor(@ApplicationContext val context: 
 
 }
 
-
-
-
-
-
-
-
-
+/**
+ * [PreferenceRepository.OVERLAY_GUIDE_SHOWN_KEYS] 를 지운다. 미설정은 "아직 안 보여줌" 으로 읽힌다.
+ * (DataStore 없이 단위 테스트할 수 있도록 편집 로직만 분리)
+ */
+internal fun MutablePreferences.clearOverlayGuideShownFlags() {
+    PreferenceRepository.OVERLAY_GUIDE_SHOWN_KEYS.forEach { key -> remove(key) }
+}

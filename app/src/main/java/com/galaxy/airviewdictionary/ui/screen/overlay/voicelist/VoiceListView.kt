@@ -76,6 +76,7 @@ import com.galaxy.airviewdictionary.ui.screen.overlay.OverlayView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Singleton
+import timber.log.Timber
 
 
 /**
@@ -219,7 +220,7 @@ class VoiceListView private constructor() : OverlayView() {
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                         context.startActivity(intent)
                                     } catch (e: ActivityNotFoundException) {
-                                        e.printStackTrace()
+                                        Timber.w(e, "TTS 데이터 설치 화면 없음")
                                     }
                                 },
                             ) {

@@ -41,6 +41,12 @@ class RemoteConfigRepository @Inject constructor(@ApplicationContext val context
         // { "failure_threshold": 3, "backoff_hours": 24, "skip_cooldown_seconds": 60 }
         // 자세한 의미는 [AdGatePolicy] 참조.
         const val AD_GATE_FAILURE_BACKOFF = "ad_gate_failure_backoff"
+
+        // PP-OCRv5 끄기 스위치(.docs/vision-engine-design.md §19). 둘 다 기본 켜짐 — 값을 못 받았으면 켜진 것으로 본다.
+        // PADDLE_OCR_ENABLED 를 끄면 PP-OCRv5 를 아예 쓰지 않는다(지정 언어·auto 모두 ML Kit 으로).
+        // PADDLE_OCR_AUTO_ENABLED 를 끄면 auto 에서만 PP-OCRv5 표본을 돌리지 않는다.
+        const val PADDLE_OCR_ENABLED = "paddle_ocr_enabled"
+        const val PADDLE_OCR_AUTO_ENABLED = "paddle_ocr_auto_enabled"
     }
 
     /**

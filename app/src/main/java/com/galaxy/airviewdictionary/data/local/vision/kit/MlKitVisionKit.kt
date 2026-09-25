@@ -1,6 +1,10 @@
-package com.galaxy.airviewdictionary.data.local.vision
+package com.galaxy.airviewdictionary.data.local.vision.kit
 
+import android.graphics.Bitmap
 import androidx.lifecycle.Lifecycle
+import com.galaxy.airviewdictionary.data.local.vision.ocr.OcrLine
+import com.galaxy.airviewdictionary.data.local.vision.ocr.OcrText
+import com.galaxy.airviewdictionary.data.local.vision.ocr.toOcrText
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
@@ -25,9 +29,12 @@ enum class TextRecognizerType {
     DEVANAGARI,
 }
 
-class MyTextRecognizer(val type: TextRecognizerType) {
+/** ML Kit 문자 인식기 하나. 검출과 인식을 쪼갤 수 없어 [detect] 에서 화면을 통째로 읽는다. */
+class MlKitVisionKit(val type: TextRecognizerType) : VisionKit {
 
     private val TAG = javaClass.simpleName
+
+    override val name: String get() = type.name
 
     private  var recognizer: TextRecognizer
 
@@ -45,11 +52,17 @@ class MyTextRecognizer(val type: TextRecognizerType) {
         }
     }
 
-    fun addObserver(lifecycle: Lifecycle) {
+    override fun addObserver(lifecycle: Lifecycle) {
         lifecycle.addObserver(recognizer)
     }
 
-    suspend fun process(inputImage: InputImage): Text =
+    /** ML Kit 결과 타입은 여기서 밖으로 나가지 않는다. */
+    override suspend fun detect(screen: Bitmap): OcrText = process(InputImage.fromBitmap(screen, 0)).toOcrText()
+
+    /** [detect] 가 이미 다 읽었다. */
+    override suspend fun recognize(screen: Bitmap, lines: List<OcrLine>): List<OcrLine> = lines
+
+    private suspend fun process(inputImage: InputImage): Text =
         suspendCancellableCoroutine { continuation ->
             Timber.tag(TAG).d("---------- process ---------")
             recognizer.process(inputImage)

@@ -172,7 +172,6 @@ open class AreaSelectionView : OverlayView() {
         }
 
         LaunchedEffect(pointerStoppedPosition) {
-            // Timber.tag(TAG).d("LaunchedEffect pointerStoppedPosition $pointerStoppedPosition")
 
             if (pointerStoppedPosition == null) {
                 return@LaunchedEffect
@@ -350,15 +349,10 @@ open class AreaSelectionView : OverlayView() {
                     clear()
                 } else if (captureResponse.t is CapturePreventedException) {
                     // 캡처 방지 알림
-                    // Timber.tag(TAG).e("CapturePreventedException: 캡처 방지 알림")
                     // captureResponse.t.checkerBitmap 처리
                 }
                 return@launchInOverlayViewCoroutineScope
             }
-
-            // 이미지 번역 경로가 잘라 쓸 원본과 영역. 검게 덮기 전의 캡처를 넘긴다 —
-            // OCR 에는 영역 밖을 가린 이미지가 필요하지만, 모델에는 영역만 잘라 주면 된다.
-            targetHandleViewModel.setSelectedArea(captureResponse.bitmap, selectedArea)
 
             // 영역선택 이미지
             val selectedAreaBitmap = createOverlaidBitmap(captureResponse.bitmap, selectedArea)
@@ -369,6 +363,8 @@ open class AreaSelectionView : OverlayView() {
             val visionResponse: VisionResponse = targetHandleViewModel.visionRepository.request(
                 bitmap = selectedAreaBitmap,
                 sourceLanguageCode = sourceLanguageCode,
+                // 영역 안의 글 전체가 필요하다 — 검출만 하고 멈추지 않는다.
+                readAll = true,
             )
             Timber.tag(TAG).d("$selectedArea sourceLanguageCode $sourceLanguageCode")
             Timber.tag(TAG).d("$selectedArea visionResponse $visionResponse")

@@ -11,9 +11,8 @@ package com.galaxy.airviewdictionary.data.remote.translation
  * - **파이프라인**(TargetHandleViewModel)이 그 결과를 받아 나머지를 채우고 빈 값을 메운다.
  *   확정은 거기 한 곳에서만 일어난다.
  *
- * 이 분담이 필요한 이유: 킷마다 아는 것이 다르다. 텍스트 경로의 킷은 우리가 준 OCR 텍스트를
- * 그대로 돌려주지만, 이미지 경로의 킷은 원문과 언어를 모두 모델에게서 받는다.
- * 그 차이를 파이프라인에서 한 번 흡수하고, 그 아래로는 출처를 묻지 않는 값만 내려보낸다.
+ * 이 분담이 필요한 이유: 킷마다 아는 것이 다르다. 원문 언어를 판정해 돌려주는 킷도 있고
+ * 아닌 킷도 있다. 그 차이를 파이프라인에서 한 번 흡수하고, 그 아래로는 출처를 묻지 않는 값만 내려보낸다.
  */
 data class Transaction(
     /**
@@ -32,11 +31,11 @@ data class Transaction(
      *
      * 쓰기 방향·TTS 목소리·답장 언어·애널리틱스는 모두 이 값만 본다.
      * 예전에는 설정값(auto 포함)과 감지값이 별도 필드로 공존해서, 소비처마다
-     * 둘 중 무엇을 볼지 제각기 정하다가 이미지 경로에서 조용히 어긋났다.
+     * 둘 중 무엇을 볼지 제각기 정하다가 조용히 어긋났다.
      */
     val resolvedSourceLanguageCode: String? = null,
     val targetLanguageCode: String? = null,
-    /** 확정된 원문. 텍스트 경로는 OCR 이, 이미지 경로는 모델이 읽은 값이다. */
+    /** 확정된 원문. 킷이 돌려준 원문이 있으면 그것, 없으면 OCR 이 읽은 값이다. */
     val sourceText: String? = null,
     val translationKitType: TranslationKitType? = null,
     val resultText: String? = null,

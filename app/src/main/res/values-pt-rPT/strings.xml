@@ -96,6 +96,8 @@
   <string name="help_text_claude_own_key">Usa a sua chave de API pessoal do Claude</string>
   <string name="claude_key_signup_guide">Crie uma chave API na Anthropic Console. A utilização é faturada na sua conta Anthropic.</string>
     <string name="settings_menu_how_to_use">Como utilizar</string>
+    <string name="settings_menu_privacy_policy">Política de privacidade</string>
+    <string name="source_language_no_screen_reader">Reconhecimento de texto do ecrã não suportado</string>
     <string name="ocr_model_preparing">A preparar o motor de tradução. Aguarde um momento.</string>
     <string name="error_translate_invalid_key">A chave de API é inválida. Verifique nas Definições.</string>
     <string name="error_translate_no_credit">Sem créditos na conta. Carregue na consola do fornecedor.</string>

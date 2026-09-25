@@ -1,5 +1,6 @@
 package com.galaxy.airviewdictionary.ui.screen.overlay.languagelist
 
+import com.galaxy.airviewdictionary.data.local.vision.kit.VisionKitSelector
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -64,6 +65,8 @@ class LanguageListViewModel(
      * language 와 oppositeLanguage 는 반드시 공통의 TranslationKitType 을 가지고 있어야 한다.
      */
     fun updateLanguage(isSourceLanguage: Boolean, language: Language, oppositeLanguage: Language) {
+        // 화면 글자를 읽을 엔진이 없는 언어는 원문으로 고를 수 없다(목록에서도 비활성, §21).
+        if (isSourceLanguage && !VisionKitSelector.hasReaderFor(language.code)) return
         viewModelScope.launch {
             val kitType: TranslationKitType = preferenceRepository.translationKitTypeFlow.first()
             val commonKitTypes = mutableListOf<TranslationKitType>().apply {

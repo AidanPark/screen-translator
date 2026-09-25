@@ -96,6 +96,8 @@
   <string name="help_text_claude_own_key">იყენებს თქვენს პირად Claude API გასაღებს</string>
   <string name="claude_key_signup_guide">შექმენით API გასაღები Anthropic Console-ში. გამოყენება ერიცხება თქვენს Anthropic ანგარიშს.</string>
     <string name="settings_menu_how_to_use">გამოყენების ინსტრუქცია</string>
+    <string name="settings_menu_privacy_policy">კონფიდენციალურობის პოლიტიკა</string>
+    <string name="source_language_no_screen_reader">ეკრანის ტექსტის ამოცნობა არ არის მხარდაჭერილი</string>
     <string name="ocr_model_preparing">თარგმნის ძრავა მზადდება. გთხოვთ, ცოტა ხანი მოიცადოთ.</string>
     <string name="error_translate_invalid_key">API გასაღები არასწორია. შეამოწმეთ პარამეტრებში.</string>
     <string name="error_translate_no_credit">ანგარიშზე კრედიტები აღარ არის. შეავსეთ პროვაიდერის კონსოლში.</string>

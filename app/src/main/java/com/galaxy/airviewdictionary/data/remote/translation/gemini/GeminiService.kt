@@ -22,17 +22,7 @@ interface GeminiService {
     ): GeminiResponse
 }
 
-data class GeminiResponse(
-    val candidates: List<GeminiCandidate>?,
-    /** 토큰 사용량. 이미지 경로의 실제 비용을 재는 데 쓴다. */
-    val usageMetadata: GeminiUsageMetadata? = null,
-)
-
-data class GeminiUsageMetadata(
-    val promptTokenCount: Int? = null,
-    val candidatesTokenCount: Int? = null,
-    val totalTokenCount: Int? = null,
-)
+data class GeminiResponse(val candidates: List<GeminiCandidate>?)
 data class GeminiCandidate(val content: GeminiContent?)
 data class GeminiContent(val parts: List<GeminiPart>?)
 data class GeminiPart(val text: String?)

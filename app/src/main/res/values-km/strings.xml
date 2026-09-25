@@ -96,6 +96,8 @@
   <string name="help_text_claude_own_key">ប្រើកូនសោ API Claude ផ្ទាល់ខ្លួនរបស់អ្នក</string>
   <string name="claude_key_signup_guide">បង្កើតសោ API នៅក្នុង Anthropic Console។ ការប្រើប្រាស់ត្រូវបានគិតថ្លៃទៅគណនី Anthropic របស់អ្នក។</string>
     <string name="settings_menu_how_to_use">របៀបប្រើប្រាស់</string>
+    <string name="settings_menu_privacy_policy">គោលការណ៍ឯកជនភាព</string>
+    <string name="source_language_no_screen_reader">មិនគាំទ្រការស្គាល់អត្ថបទលើអេក្រង់</string>
     <string name="ocr_model_preparing">កំពុងរៀបចំម៉ាស៊ីនបកប្រែ។ សូមរង់ចាំបន្តិច។</string>
     <string name="error_translate_invalid_key">សោ API មិនត្រឹមត្រូវទេ។ ពិនិត្យវានៅក្នុងការកំណត់។</string>
     <string name="error_translate_no_credit">គ្មានឥណទាននៅក្នុងគណនីទេ។ បញ្ចូលនៅក្នុងកុងសូលអ្នកផ្តល់សេវា។</string>

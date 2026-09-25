@@ -123,6 +123,10 @@ class ResponseInterceptor : Interceptor {
         val request = chain.request()
         val response = chain.proceed(request)
         Timber.tag("response.code").d("response.code %s", response.code)
+        // 실패 사유는 본문에 있다(모델 폐기·파라미터 거부·한도 등). 키는 헤더라 본문에 없다. 로그는 디버그 빌드만 남는다.
+        if (!response.isSuccessful) {
+            Timber.tag("response.code").w("%s %s -> %s", request.method, request.url.encodedPath, response.peekBody(2048).string())
+        }
         return response
     }
 }

@@ -102,6 +102,8 @@
     <string name="settings_menu_app_version">App Version</string>
     <string name="settings_menu_app_version_latest">(Latest)</string>
     <string name="settings_menu_how_to_use">How to Use</string>
+    <string name="settings_menu_privacy_policy">Privacy Policy</string>
+    <string name="source_language_no_screen_reader">Screen text recognition not supported</string>
     <!-- 고유명사라 번역 불필요. 기본 리소스만 정의하고 전체 로케일이 폴백으로 사용한다. -->
     <string name="settings_menu_github" translatable="false">GitHub</string>
 

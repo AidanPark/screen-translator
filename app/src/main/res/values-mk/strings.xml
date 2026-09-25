@@ -97,6 +97,8 @@
   <string name="help_text_claude_own_key">Го користи вашиот личен Claude API клуч</string>
   <string name="claude_key_signup_guide">Создадете API клуч во Anthropic Console. Користењето се наплаќа на вашата Anthropic сметка.</string>
   <string name="settings_menu_how_to_use">Како се користи</string>
+  <string name="settings_menu_privacy_policy">Политика за приватност</string>
+  <string name="source_language_no_screen_reader">Препознавањето текст од екранот не е поддржано</string>
   <string name="ocr_model_preparing">Се подготвува преведувачкиот мотор. Ве молиме почекајте малку.</string>
   <string name="error_translate_invalid_key">API клучот е неважечки. Проверете го во поставките.</string>
   <string name="error_translate_no_credit">Нема кредити на сметката. Дополнете во конзолата на давателот.</string>

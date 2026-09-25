@@ -218,7 +218,9 @@ class TranslationErrorView : OverlayView() {
         val heightSlack = dpToPx(2f) + (textLayout.lineCount - 1) * dpToPx(1f)
         val viewHeight = shadowPadding * 2 + vPadding * 2 + max(textLayout.height, iconPx) + heightSlack
 
-        val layoutPosX = (visionText.start - (viewWidth - visionText.width) / 2)
+        // 안내창도 대상 텍스트의 가운데에 맞춘다. visionText.start 는 RTL 에서 오른쪽 변이라
+        // 그대로 쓰면 글자 폭만큼 오른쪽으로 밀린다.
+        val layoutPosX = (visionText.boundingBox.centerX() - viewWidth / 2)
             .coerceIn(0, (screenInfo.width - viewWidth))
         val layoutPosY = (
                 visionText.boundingBox.top -

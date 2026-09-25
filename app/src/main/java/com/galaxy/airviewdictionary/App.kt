@@ -12,6 +12,7 @@ import com.google.android.gms.common.moduleinstall.ModuleInstall
 import com.google.android.gms.common.moduleinstall.ModuleInstallRequest
 import com.google.android.gms.common.moduleinstall.ModuleInstallStatusUpdate
 import com.google.android.gms.common.moduleinstall.ModuleInstallStatusUpdate.InstallState
+import com.galaxy.airviewdictionary.data.local.vision.kit.paddle.PaddleModelFiles
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.chinese.ChineseTextRecognizerOptions
@@ -137,6 +138,8 @@ class App : Application() {
      * 이미 설치돼 있으면 아무 동작도 하지 않는다(매 실행 호출해도 안전).
      */
     private fun prefetchOcrModels() {
+        // PP-OCRv5 모델 팩(fast-follow). Play 가 설치 직후 받아 주지만, 곧바로 앱을 열면 아직일 수 있어 한 번 청한다
+        PaddleModelFiles(this).requestIfMissing()
         val recognizers: List<TextRecognizer> = listOf(
             TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS),
             TextRecognition.getClient(ChineseTextRecognizerOptions.Builder().build()),

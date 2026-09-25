@@ -32,10 +32,6 @@ class SettingsViewModel @Inject constructor(
 
     val scrollState = ScrollState(initial = 0)
 
-    fun updateIsReviewDone() {
-        preferenceRepository.update(PreferenceRepository.IS_REVIEW_DONE, true)
-    }
-
     fun updateDragHandleDocking(dragHandleDocking: Boolean) {
         preferenceRepository.update(PreferenceRepository.DRAG_HANDLE_DOCKING, dragHandleDocking)
     }
