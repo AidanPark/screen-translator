@@ -148,6 +148,7 @@ TEMPLATE = """<!DOCTYPE html>
 
   <h2>{lang_h}</h2>
   <p>{lang_p}</p>
+  <p>{lang_p2}</p>
 
   <h2>{ai_h}</h2>
   <div class="card">
@@ -159,6 +160,7 @@ TEMPLATE = """<!DOCTYPE html>
       <li>{ai_li4}</li>
     </ul>
     <p>{ai_p2}</p>
+    <p>{ai_p3}</p>
     <p>{ai_fail}</p>
   </div>
 
@@ -180,6 +182,8 @@ TEMPLATE = """<!DOCTYPE html>
       <p>{f1_a}</p></details>
     <details><summary>{f2_q}</summary>
       <p>{f2_a}</p></details>
+    <details><summary>{fauto_q}</summary>
+      <p>{fauto_a}</p></details>
     <details><summary>{f3_q}</summary>
       <p>{f3_a}</p></details>
     <details><summary>{f4_q}</summary>
@@ -188,6 +192,8 @@ TEMPLATE = """<!DOCTYPE html>
       <p>{ffail_a}</p></details>
     <details><summary>{f5_q}</summary>
       <p>{f5_a}</p></details>
+    <details><summary>{ftips_q}</summary>
+      <p>{ftips_a}</p></details>
   </div>
 
   <h2>{os_h}</h2>
@@ -199,7 +205,7 @@ TEMPLATE = """<!DOCTYPE html>
   <p>{stuck_p}</p>
   <a class="store" href="https://play.google.com/store/apps/details?id=com.galaxy.airviewdictionary">{store_btn}</a>
 
-  <footer>© 2026 BoxBee Corp.</footer>
+  <footer>© 2026 BoxBee Corp. · <a href="{site}/privacy.html">{privacy}</a></footer>
 </main>
 <script>
 (function () {{

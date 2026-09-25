@@ -71,6 +71,8 @@ Screen Translate floats on top of whatever you're doing. Just drag the pointer t
   </tr>
 </table>
 
+Plus **Fixed Area** mode: pin a region of the screen and it re-translates automatically whenever the text changes — made for game dialogue and video subtitles.
+
 ---
 
 ## Works Everywhere
@@ -99,27 +101,27 @@ Not all translation engines are created equal. Screen Translate lets you switch 
 
 <table>
   <tr>
-    <td align="center" width="20%">
+    <td align="center" valign="top" width="20%">
       <img src="https://img.shields.io/badge/Google-4285F4?style=for-the-badge&logo=googletranslate&logoColor=white" alt="Google Translate"/><br><br>
       <strong>Google Translate</strong><br>
       <sub>The all-rounder. Fast, free,<br>and built in — no key needed.</sub>
     </td>
-    <td align="center" width="20%">
+    <td align="center" valign="top" width="20%">
       <img src="https://img.shields.io/badge/DeepL-0F2B46?style=for-the-badge&logo=deepl&logoColor=white" alt="DeepL"/><br><br>
       <strong>DeepL</strong><br>
       <sub>Natural, human-sounding<br>translations. Best for European languages.</sub>
     </td>
-    <td align="center" width="20%">
+    <td align="center" valign="top" width="20%">
       <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI"/><br><br>
       <strong>OpenAI</strong><br>
       <sub>LLM translation that keeps<br>context, tone, and idiom.</sub>
     </td>
-    <td align="center" width="20%">
+    <td align="center" valign="top" width="20%">
       <img src="https://img.shields.io/badge/Gemini-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white" alt="Gemini"/><br><br>
       <strong>Gemini</strong><br>
       <sub>Google's LLM. Fast, with a<br>generous free tier.</sub>
     </td>
-    <td align="center" width="20%">
+    <td align="center" valign="top" width="20%">
       <img src="https://img.shields.io/badge/Claude-D97757?style=for-the-badge&logo=claude&logoColor=white" alt="Claude"/><br><br>
       <strong>Claude</strong><br>
       <sub>Anthropic's LLM. Strong at<br>nuance and longer passages.</sub>
@@ -127,7 +129,7 @@ Not all translation engines are created equal. Screen Translate lets you switch 
   </tr>
 </table>
 
-> Google works out of the box. **DeepL, OpenAI, Gemini and Claude run on your own API key** — enter it under *Settings → API Key*. For the three LLM engines you can also choose which model to use.
+> Google works out of the box. **DeepL, OpenAI, Gemini and Claude run on your own API key** — enter it under *Settings → API Key*. For the three LLM engines you can also choose the model, send the surrounding on-screen text as context (so pronouns and ambiguous words come out right), and set the translation style (literal, natural, liberal) and subject (game, comic, technical, business).
 
 > **A note on the screenshots:** some still show the older engine line-up, which included **Azure Translator** and **Papago**. Those two ran on API keys the app handed out to paid installs — when the paid features were removed, the keys went away and those engines went with them. DeepL and OpenAI stayed on by switching to keys you supply yourself.
 
@@ -140,6 +142,8 @@ Not all translation engines are created equal. Screen Translate lets you switch 
 </p>
 
 From Arabic to Zulu, from English to Japanese — translate between **130+ languages** with automatic source language detection. No need to manually set what language you're reading.
+
+Screen text is read on-device for Latin, Chinese, Japanese, Korean and Devanagari scripts and — **new in 2.8** — Arabic script (Arabic, Persian, Urdu…), Cyrillic (Russian, Ukrainian, Belarusian, Bulgarian) and Thai. *Auto* picks the right recognizer for each screen. Languages in scripts the app can't read yet, such as Greek or Hebrew, stay available as translation targets.
 
 ---
 
@@ -158,12 +162,12 @@ Over time, it grew into a full-featured translation tool with multiple engines a
 ### How the magic happens
 
 1. **Screen Capture** — Android's `MediaProjection` API continuously captures what's on your screen
-2. **Text Recognition** — Google ML Kit runs **on-device OCR** to find and extract text from the captured frames
-3. **Smart Grouping** — A custom algorithm clusters detected text into words, lines, sentences, or paragraphs based on position, spacing, and font size
+2. **Text Recognition** — **On-device OCR** finds the text in the captured frame: Google ML Kit for Latin, Chinese, Japanese, Korean and Devanagari, and PaddleOCR's **PP-OCRv5** on ONNX Runtime for Arabic-script, Cyrillic and Thai. On *Auto*, a quick sample decides which recognizer fits the screen, and PP-OCRv5 reads only the paragraph you point at
+3. **Smart Grouping** — A custom algorithm clusters detected text into words, lines, sentences, or paragraphs based on position, spacing, and font size, keeping right-to-left lines in reading order
 4. **Translation** — The recognized text is sent to your chosen translation engine via REST APIs
 5. **Overlay Rendering** — Results are displayed in a floating Compose UI overlay on top of your current app
 
-All of this happens in **under a second**.
+With a fixed source language, all of this usually takes **about a second**.
 
 ### Tech highlights
 
@@ -173,12 +177,17 @@ All of this happens in **under a second**.
 | **Adaptive, edge-to-edge UI** | Scales cleanly from phones to tablets and foldables |
 | **Clean Architecture + MVVM** | Separation of concerns with ViewModels and Repositories |
 | **Hilt** | Dependency injection for clean, testable code |
-| **ML Kit** | On-device OCR for English, Chinese, Japanese, Korean, and Devanagari |
+| **Pluggable OCR engines** | ML Kit and PP-OCRv5 behind one engine-neutral text model; *Auto* picks the recognizer per screen |
+| **ML Kit** | On-device OCR for Latin, Chinese, Japanese, Korean, and Devanagari scripts, plus language identification |
+| **PP-OCRv5 + ONNX Runtime** | On-device OCR for Arabic-script, Cyrillic, and Thai; only the paragraph you point at is read |
+| **Play Asset Delivery** | The PP-OCRv5 models ship as a fast-follow pack, so the base APK stays small |
+| **Right-to-left aware** | Unicode bidi runs keep Arabic, Persian, and Urdu lines in reading order |
 | **Multi-engine translation** | Google, DeepL, OpenAI, Gemini, and Claude behind one interface |
-| **Coroutines + StateFlow** | Smooth async operations without callback hell |
-| **Firebase** | Analytics, Crashlytics, and Remote Config |
+| **Coroutines + StateFlow** | Stale OCR and translation work is cancelled the moment the pointer moves |
+| **Firebase** | Analytics, Crashlytics, and Remote Config — AI model lists and kill switches change without an app update |
 | **Firebase App Check** | Play Integrity attestation for backend requests |
-| **AdMob** | A rewarded-ad gate — how the app stays free |
+| **AdMob + UMP** | A rewarded-ad gate — how the app stays free — with a consent prompt where the law requires one |
+| **Play In-App Review** | Asks for a rating inside the app, without sending you to the store |
 | **Encrypted key storage** | AES-GCM + Android Keystore for user-supplied API keys |
 | **MediaProjection** | Real-time screen capture with optimized frame streaming |
 
@@ -189,11 +198,15 @@ app/src/main/java/com/galaxy/airviewdictionary/
 ├── core/                  # OverlayService — the heart of the app
 ├── data/
 │   ├── local/
-│   │   ├── vision/        # OCR & text grouping algorithms
+│   │   ├── vision/        # Recognition, text grouping, lazy paragraph reading
+│   │   │   ├── kit/       # OCR engines: ML Kit, PP-OCRv5 (paddle/), Auto selection
+│   │   │   ├── ocr/       # Engine-neutral OCR text and reading order
+│   │   │   └── model/     # Words, lines, sentences, paragraphs
 │   │   ├── capture/       # Screen capture via MediaProjection
+│   │   ├── screen/        # Screen size and orientation
 │   │   ├── tts/           # Text-to-Speech
 │   │   ├── secure/        # Encrypted storage for user API keys
-│   │   ├── ads/           # Rewarded-ad state
+│   │   ├── ads/           # Rewarded-ad gate policy and state
 │   │   └── preference/    # User settings
 │   └── remote/
 │       ├── translation/   # Google, DeepL, OpenAI, Gemini, Claude
@@ -201,15 +214,21 @@ app/src/main/java/com/galaxy/airviewdictionary/
 │       └── geolocale/     # Region lookup
 ├── ui/
 │   ├── screen/
-│   │   ├── overlay/       # Floating translation UI
+│   │   ├── overlay/       # Floating UI: handle, menu bar, translation window,
+│   │   │                  #   area selection, fixed area, text highlight
 │   │   ├── main/          # Settings screens
-│   │   ├── ads/           # Rewarded-ad gate
+│   │   ├── ads/           # Rewarded-ad gate and in-app review
 │   │   ├── reply/         # Reply translation window
-│   │   └── onboarding/    # First-time setup
-│   └── common/            # Shared components
+│   │   ├── permissions/   # Screen-capture and notification permission flows
+│   │   ├── onboarding/    # First-time setup
+│   │   └── intro/         # Splash screen
+│   ├── common/            # Shared components
+│   └── theme/             # Compose theme
 ├── di/                    # Hilt dependency injection
 └── extensions/            # Kotlin extension functions
 ```
+
+`paddle_models/` at the repository root is the Play Asset Delivery module that carries the PP-OCRv5 models (see *Building from Source*).
 
 ---
 
@@ -225,8 +244,8 @@ app/src/main/java/com/galaxy/airviewdictionary/
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/AidanPark/android-screen-translator.git
-   cd android-screen-translator
+   git clone https://github.com/AidanPark/screen-translator.git
+   cd screen-translator
    ```
 
 2. **Set up signing** — Edit `gradle.properties`:
@@ -244,6 +263,8 @@ app/src/main/java/com/galaxy/airviewdictionary/
    ```
 
 > **Note:** You'll need your own Firebase project to run the full app. Google translation and the on-device OCR need no API key at all. DeepL, OpenAI, Gemini and Claude are optional — they use keys you enter inside the app at runtime (*Settings → API Key*), not build-time config.
+
+> **PP-OCRv5 models are not included.** Without them the app falls back to ML Kit, so Arabic-script, Cyrillic and Thai screen text isn't recognized. To enable it, export PaddleOCR's PP-OCRv5 text detection model and its Arabic, East Slavic and Thai recognition models to ONNX, and put them with their dictionaries in `paddle_models/src/main/assets/paddle/` as `det.onnx`, `arabic_rec.onnx` + `arabic_dict.txt`, `eslav_rec.onnx` + `eslav_dict.txt`, and `th_rec.onnx` + `th_dict.txt`. The models are Apache-2.0 licensed by PaddlePaddle.
 
 ---
 

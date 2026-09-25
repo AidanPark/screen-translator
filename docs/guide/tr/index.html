@@ -97,14 +97,14 @@
   <h2>🚀 Hızlı Başlangıç</h2>
   <div class="step"><div class="num">1</div><div><strong>İki izin verin.</strong> İlk açılışta uygulama <em>Diğer uygulamaların üzerinde göster</em> (yüzen baloncuk için) ve <em>Ekran yakalama</em> (ekrandaki metni okumak için) izinlerini ister. Android 14+ sürümünde sorulduğunda <em>“Tüm ekran”</em> seçin.</div></div>
   <div class="step"><div class="num">2</div><div><strong>Kısa bir reklam izleyin.</strong> Tek bir ödüllü reklam, uygulamayı <em>siz kapatana kadar reklamsız</em> yapar. Reklamı atlarsanız, reklam ekranı bir sonraki çeviride yeniden açılır.</div></div>
-  <div class="step"><div class="num">3</div><div><strong>İşaretçiyi metnin üzerine sürükleyin.</strong> Ekranda yüzen bir baloncuk belirir. Sürükleyin — işaretçi parmağınızı izler. Herhangi bir metni işaret edip bırakın: çeviri hemen orada belirir.</div></div>
+  <div class="step"><div class="num">3</div><div><strong>İşaretçiyi metnin üzerine sürükleyin.</strong> Ekranda yüzen bir baloncuk belirir. Sürükleyin — işaretçi parmağınızı izler. Herhangi bir metnin üzerinde bekletin: metin okunurken işaretçinin içinde küçük bir halka döner ve çeviri hemen orada belirir. Parmağınızı kaldırdığınızda çeviri birkaç saniye ekranda kalır.</div></div>
 
   <h2>📌 Yüzen Menü Çubuğu</h2>
   <div class="card">
     <p><strong>Menü çubuğu</strong> ekranda her zaman yüzer — uygulamanın kontrol merkezidir. Yalnızca yakalama sırasında (işaretçiyi basılı tutarken) ve bir çeviri penceresi görünürken kısa süreliğine gizlenir. Sanılandan fazlasını yapar:</p>
     <ul>
       <li><strong>Algılama modu simgesi</strong> (solda) — Kelime / Cümle / Paragraf / Alan Seç / Sabit Alan arasında geçiş yapar.</li>
-      <li><strong>Kaynak dil</strong> — <em>Auto</em> sizin için algılar; belirli bir dile sabitlemek için dokunun.</li>
+      <li><strong>Kaynak dil</strong> — <em>Auto</em> sizin için algılar; belirli bir dile sabitlemek için dokunun. Ekran metni henüz okunamayan diller gri görünür.</li>
       <li><strong>⇄ Değiştir</strong> — kaynak ve hedefi tek dokunuşla ters çevirir.</li>
       <li><strong>Hedef dil</strong> — dokunup 110'dan fazla dil arasından seçin.</li>
       <li><strong>Motor simgesi</strong> (sağda) — her dokunuş çeviri motorunu değiştirir: Google, DeepL, GPT, Gemini, Claude.</li>
@@ -143,6 +143,7 @@
 
   <h2>🌐 Diller</h2>
   <p>110'dan fazla dil. Kaynak dil <strong>otomatik algılanır</strong>; hedef dili menü çubuğundan seçin. İstediğiniz zaman değiştirin.</p>
+  <p>Ekrandaki metin doğrudan telefonunuzda okunur. Desteklenen yazı sistemleri: Latin alfabesi (İngilizce, İspanyolca, Fransızca, Vietnamca&hellip;), Çince, Japonca, Korece, Devanagari (Hintçe, Marathi, Nepalce&hellip;) ve — 2.8 sürümüyle yeni — Arap alfabesi (Arapça, Farsça, Urduca&hellip;), Rusça, Ukraynaca, Belarusça, Bulgarca ve Tayca. Yunanca, İbranice veya Tamilce gibi başka yazı sistemleri kullanan diller yine hedef dil olarak seçilebilir, ancak henüz ekrandan okunamaz.</p>
 
   <h2>🤖 Yapay Zekâ Çevirisi (isteğe bağlı)</h2>
   <div class="card">
@@ -154,6 +155,7 @@
       <li><strong>Claude</strong> — anahtar Anthropic Console'dan</li>
     </ul>
     <p>Menü çubuğu → <em>çeviri motoru</em> → motor seçin → anahtarınızı yapıştırın. Kullanım, o sağlayıcıdaki <em>kendi</em> hesabınıza faturalandırılır; uygulama üzerine bir şey eklemez.</p>
+    <p>OpenAI, Gemini ve Claude'un anahtar sayfalarında (Ayarlar → API Key) ek seçenekler vardır. <em>Model</em> seçebilirsiniz. <em>Bağlam</em>, zamirlerin ve belirsiz kelimelerin doğru çevrilmesi için çevredeki metni de (yakındaki cümleler veya tüm ekran) gönderir. <em>Çeviri stili</em> özgün metne ne kadar bağlı kalınacağını belirler (birebir, doğal veya serbest); <em>Alan</em> ise ifadeleri oyun, çizgi roman, teknik veya iş metinlerine göre ayarlar.</p>
     <p>Bir çeviri başarısız olursa uygulama nedenini ekranda gösterir — geçersiz API anahtarı, kredisi bitmiş hesap, kullanım sınırı veya ağ hatası. Not: Geçerli anahtar tek başına yetmez — sağlayıcı hesabında da kredi veya etkin bir ücretsiz katman olmalı.</p>
   </div>
 
@@ -174,7 +176,9 @@
     <details><summary>Yüzen baloncuk kayboldu</summary>
       <p>Hizmeti yeniden başlatmak için uygulamayı tekrar açın. Devam ederse <em>Diğer uygulamaların üzerinde göster</em> izninin hâlâ açık olduğunu kontrol edin ve uygulamayı pil optimizasyonundan hariç tutun (Ayarlar → Pil → Kısıtlanmamış).</p></details>
     <details><summary>İlk çeviri yavaş veya “hazırlanıyor” diyor</summary>
-      <p>İlk kullanımda OCR modeli Google Play hizmetleri üzerinden bir kez indirilir. Sonrasında tanıma anındadır ve OCR çevrimdışı çalışır.</p></details>
+      <p>Tanıma modelleri yalnızca bir kez indirilir. Ana OCR modeli ilk kullanımda Google Play hizmetleri üzerinden gelir; Arap alfabesi, Kiril alfabesi ve Tay yazısı için modeller ise uygulamayı yükledikten veya güncelledikten hemen sonra indirilir — o zamana kadar bu diller okunamaz. Sonrasında tanıma çevrimdışı çalışır.</p></details>
+    <details><summary>Auto seçiliyken çeviri uzun sürüyor</summary>
+      <p>Kaynak dil <em>Auto</em> olduğunda uygulama önce ekrana hangi metin tanıyıcının uyduğunu kontrol eder; bu biraz daha uzun sürer — özellikle Arap alfabesi, Kiril alfabesi ve Tay yazısında. Çoğunlukla tek bir dil okuyorsanız, daha hızlı sonuç için o dili menü çubuğundan kaynak dil olarak seçin.</p></details>
     <details><summary>Bazı ekranlarda hiçbir şey olmuyor</summary>
       <p>Ekran görüntüsünü engelleyen uygulamalar (banka uygulamaları, DRM'li video oynatıcılar) yakalanamaz — Android, içeriklerini tüm yakalama uygulamalarından gizler.</p></details>
     <details><summary>Neden reklam görüyorum?</summary>
@@ -183,18 +187,20 @@
       <p>Mesaj nedenini söyler. <em>Geçersiz API anahtarı</em>: Ayarlar'dan anahtarı yeniden kontrol edin. <em>Kredi bitti</em>: sağlayıcının konsolundan yükleyin — geçerli anahtarın yine de krediye ihtiyacı var. <em>Kullanım sınırı</em>: biraz bekleyip yeniden deneyin. <em>Ağ hatası</em>: bağlantınızı kontrol edin.</p></details>
     <details><summary>Çeviri kalitesi tuhaf görünüyor</summary>
       <p>Cümle veya Paragraf modunu deneyin (daha çok bağlam = daha iyi çeviri), ya da en iyi kalite için bir yapay zekâ motoru (DeepL/GPT/Gemini/Claude) bağlayın.</p></details>
+    <details><summary>Ekrandaki ipuçlarını nasıl tekrar görebilirim?</summary>
+      <p>Ayarlar'ı açıp <em>Kullanım kılavuzu</em>na dokunun. Bu, kılavuzu açmanın yanı sıra ipuçlarını da sıfırlar; böylece uygulamayı kullandıkça yeniden görünürler.</p></details>
   </div>
 
-  <h2>💻 Açık Kaynak</h2>
+  <h2>💻 Kaynak Kodu</h2>
   <div class="card">
-    <p>Screen Translate açık kaynaklıdır — tüm kaynak kodu <a href="https://github.com/AidanPark/android-screen-translator">GitHub</a> üzerindedir. Herkes kodu inceleyebilir, dilediği gibi değiştirebilir ve kendi sürümünü derleyebilir. Lisans Apache-2.0'dır; yeniden kullanırken kaynak bildirimini (telif hakkı notunu) koruyun.</p>
+    <p>Screen Translate'in tüm kaynak kodu <a href="https://github.com/AidanPark/screen-translator">GitHub</a> üzerinde, <a href="https://polyformproject.org/licenses/noncommercial/1.0.0">PolyForm Noncommercial License 1.0.0</a> kapsamında yer alır. Kişisel ve diğer ticari olmayan amaçlarla kodu inceleyebilir, değiştirebilir ve paylaşabilirsiniz. Ticari kullanım — örneğin reklam veya uygulama içi satın alma içeren değiştirilmiş bir sürüm yayımlamak — iznimizi gerektirir; bunun için bir GitHub issue'su açarak bize sorun.</p>
   </div>
 
   <h2>📮 Hâlâ takıldınız mı?</h2>
   <p>Bize <a href="mailto:handwritingdictionary@gmail.com">handwritingdictionary@gmail.com</a> adresinden yazın — her şeyi okuyoruz.</p>
   <a class="store" href="https://play.google.com/store/apps/details?id=com.galaxy.airviewdictionary">Google Play'den edinin</a>
 
-  <footer>© 2026 BoxBee Corp.</footer>
+  <footer>© 2026 BoxBee Corp. · <a href="https://aidanpark.github.io/privacy.html">Gizlilik Politikası</a></footer>
 </main>
 <script>
 (function () {

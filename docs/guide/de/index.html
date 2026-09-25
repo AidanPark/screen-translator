@@ -97,14 +97,14 @@
   <h2>🚀 Schnellstart</h2>
   <div class="step"><div class="num">1</div><div><strong>Erteile zwei Berechtigungen.</strong> Beim ersten Start fragt die App nach <em>Über anderen Apps anzeigen</em> (für die schwebende Blase) und <em>Bildschirmaufnahme</em> (um Text auf dem Bildschirm zu lesen). Ab Android 14 wähle <em>„Gesamter Bildschirm“</em>, wenn du gefragt wirst.</div></div>
   <div class="step"><div class="num">2</div><div><strong>Schau eine kurze Werbung.</strong> Eine einzige Prämienanzeige macht die App <em>werbefrei, bis du sie schließt</em>. Überspringst du die Werbung, öffnet sich das Werbefenster bei deiner nächsten Übersetzung einfach erneut.</div></div>
-  <div class="step"><div class="num">3</div><div><strong>Zieh den Zeiger auf den Text.</strong> Eine schwebende Blase erscheint auf dem Bildschirm. Zieh sie — ein Zeiger folgt deinem Finger. Zeige auf einen Text und lass los: Die Übersetzung erscheint direkt dort.</div></div>
+  <div class="step"><div class="num">3</div><div><strong>Zieh den Zeiger auf den Text.</strong> Eine schwebende Blase erscheint auf dem Bildschirm. Zieh sie — ein Zeiger folgt deinem Finger. Halte ihn über einen Text: Während der Text gelesen wird, dreht sich ein kleiner Ring im Zeiger, und die Übersetzung erscheint direkt dort. Lässt du los, bleibt sie noch ein paar Sekunden sichtbar.</div></div>
 
   <h2>📌 Die schwebende Menüleiste</h2>
   <div class="card">
     <p>Die <strong>Menüleiste</strong> schwebt dauerhaft auf dem Bildschirm — die Kommandozentrale der App. Sie verschwindet nur kurz während der Aufnahme (solange du den Zeiger hältst) und solange ein Übersetzungsfenster angezeigt wird. Sie kann mehr, als die meisten denken:</p>
     <ul>
       <li><strong>Erkennungsmodus-Symbol</strong> (links) — wechselt zwischen Wort / Satz / Absatz / Bereich wählen / Fixierter Bereich.</li>
-      <li><strong>Ausgangssprache</strong> — <em>Auto</em> erkennt sie automatisch; antippen, um eine bestimmte Sprache festzulegen.</li>
+      <li><strong>Ausgangssprache</strong> — <em>Auto</em> erkennt sie automatisch; antippen, um eine bestimmte Sprache festzulegen. Sprachen, deren Bildschirmtext noch nicht gelesen werden kann, sind ausgegraut.</li>
       <li><strong>⇄ Tauschen</strong> — vertauscht Ausgangs- und Zielsprache mit einem Tipp.</li>
       <li><strong>Zielsprache</strong> — antippen und aus über 110 Sprachen wählen.</li>
       <li><strong>Engine-Symbol</strong> (rechts) — antippen, um die Übersetzungs-Engine zu wechseln: Google, DeepL, GPT, Gemini, Claude.</li>
@@ -143,6 +143,7 @@
 
   <h2>🌐 Sprachen</h2>
   <p>Über 110 Sprachen. Die Ausgangssprache wird <strong>automatisch erkannt</strong>; wähle die Zielsprache in der Menüleiste. Jederzeit umschaltbar.</p>
+  <p>Bildschirmtext wird direkt auf deinem Handy gelesen. Unterstützte Schriften: lateinische Schrift (Englisch, Spanisch, Französisch, Vietnamesisch&hellip;), Chinesisch, Japanisch, Koreanisch, Devanagari (Hindi, Marathi, Nepalesisch&hellip;) und — neu in Version 2.8 — arabische Schrift (Arabisch, Persisch, Urdu&hellip;), Russisch, Ukrainisch, Belarussisch, Bulgarisch und Thailändisch. Sprachen mit anderen Schriften wie Griechisch, Hebräisch oder Tamil lassen sich weiterhin als Zielsprache wählen, können aber noch nicht vom Bildschirm gelesen werden.</p>
 
   <h2>🤖 KI-Übersetzung (optional)</h2>
   <div class="card">
@@ -154,6 +155,7 @@
       <li><strong>Claude</strong> — Schlüssel aus der Anthropic Console</li>
     </ul>
     <p>Menüleiste → <em>Übersetzungs-Engine</em> → Engine wählen → Schlüssel einfügen. Die Nutzung wird über <em>dein</em> Konto beim Anbieter abgerechnet; die App schlägt nichts drauf.</p>
+    <p>OpenAI, Gemini und Claude haben auf ihren Schlüsselseiten (Einstellungen → API Key) zusätzliche Optionen. Wähle das <em>Modell</em>. <em>Kontext</em> sendet den umgebenden Text mit (umliegende Sätze oder gesamter Bildschirm), damit Pronomen und mehrdeutige Wörter richtig übersetzt werden. <em>Übersetzungsstil</em> legt fest, wie eng die Übersetzung dem Original folgt (wörtlich, natürlich oder frei), und <em>Fachgebiet</em> stimmt die Wortwahl auf Spiele, Comics, Technik- oder Business-Texte ab.</p>
     <p>Schlägt eine Übersetzung fehl, zeigt die App den Grund direkt an — ungültiger API-Schlüssel, kein Guthaben, Nutzungslimit oder Netzwerkfehler. Hinweis: Ein gültiger Schlüssel allein reicht nicht — das Anbieterkonto braucht auch Guthaben oder ein aktives Gratis-Kontingent.</p>
   </div>
 
@@ -174,7 +176,9 @@
     <details><summary>Die schwebende Blase ist verschwunden</summary>
       <p>Öffne die App erneut, um den Dienst neu zu starten. Passiert es öfter, prüfe, ob <em>Über anderen Apps anzeigen</em> noch erlaubt ist, und nimm die App von der Akku-Optimierung aus (Einstellungen → Akku → Nicht eingeschränkt).</p></details>
     <details><summary>Die erste Übersetzung ist langsam oder zeigt „wird vorbereitet“</summary>
-      <p>Bei der ersten Nutzung wird das OCR-Modell einmalig über die Google-Play-Dienste heruntergeladen. Danach ist die Erkennung sofort da, und OCR funktioniert offline.</p></details>
+      <p>Erkennungsmodelle werden nur einmal heruntergeladen. Das Haupt-OCR-Modell kommt bei der ersten Nutzung über die Google-Play-Dienste; die Modelle für arabische Schrift, Kyrillisch und Thailändisch werden direkt nach der Installation oder dem Update der App heruntergeladen — bis dahin können diese Sprachen nicht gelesen werden. Danach funktioniert die Erkennung offline.</p></details>
+    <details><summary>Mit Auto dauert die Übersetzung länger</summary>
+      <p>Steht die Ausgangssprache auf <em>Auto</em>, prüft die App zuerst, welche Texterkennung zum Bildschirm passt — das dauert etwas länger, besonders bei arabischer Schrift, Kyrillisch und Thailändisch. Liest du meist nur eine Sprache, wähle sie in der Menüleiste als Ausgangssprache, dann geht es schneller.</p></details>
     <details><summary>Auf manchen Bildschirmen passiert nichts</summary>
       <p>Apps, die Screenshots blockieren (Banking-Apps, DRM-Videoplayer), lassen sich nicht erfassen — Android verbirgt ihren Inhalt vor jeder Aufnahme-App.</p></details>
     <details><summary>Warum sehe ich Werbung?</summary>
@@ -183,18 +187,20 @@
       <p>Die Meldung nennt den Grund. <em>Ungültiger API-Schlüssel</em>: Schlüssel in den Einstellungen prüfen. <em>Kein Guthaben</em>: In der Konsole des Anbieters aufladen — ein gültiger Schlüssel braucht trotzdem Guthaben. <em>Nutzungslimit</em>: Kurz warten und erneut versuchen. <em>Netzwerkfehler</em>: Verbindung prüfen.</p></details>
     <details><summary>Die Übersetzungsqualität wirkt schlecht</summary>
       <p>Probiere den Satz- oder Absatzmodus (mehr Kontext = bessere Übersetzung), oder verbinde eine KI-Engine (DeepL/GPT/Gemini/Claude) für beste Qualität.</p></details>
+    <details><summary>Wie sehe ich die Hinweise auf dem Bildschirm noch einmal?</summary>
+      <p>Öffne die Einstellungen und tippe auf <em>Bedienungsanleitung</em>. Das öffnet diese Anleitung und setzt gleichzeitig die Hinweise zurück, sodass sie bei der Nutzung der App wieder erscheinen.</p></details>
   </div>
 
-  <h2>💻 Open Source</h2>
+  <h2>💻 Quellcode</h2>
   <div class="card">
-    <p>Screen Translate ist Open Source — der gesamte Quellcode liegt auf <a href="https://github.com/AidanPark/android-screen-translator">GitHub</a>. Jeder darf den Code erkunden, nach Belieben verändern und eine eigene Version bauen. Die Lizenz ist Apache-2.0 — bitte behalte bei der Weiterverwendung die Quellenangabe (Copyright-Hinweis) bei.</p>
+    <p>Der vollständige Quellcode von Screen Translate liegt auf <a href="https://github.com/AidanPark/screen-translator">GitHub</a>, unter der <a href="https://polyformproject.org/licenses/noncommercial/1.0.0">PolyForm Noncommercial License 1.0.0</a>. Du darfst ihn für private und andere nicht-kommerzielle Zwecke gern studieren, verändern und weitergeben. Kommerzielle Nutzung — etwa die Veröffentlichung einer veränderten Version mit Werbung oder In-App-Käufen — braucht unsere Erlaubnis; frag einfach über ein GitHub-Issue an.</p>
   </div>
 
   <h2>📮 Kommst du nicht weiter?</h2>
   <p>Schreib uns an <a href="mailto:handwritingdictionary@gmail.com">handwritingdictionary@gmail.com</a> — wir lesen alles.</p>
   <a class="store" href="https://play.google.com/store/apps/details?id=com.galaxy.airviewdictionary">Bei Google Play laden</a>
 
-  <footer>© 2026 BoxBee Corp.</footer>
+  <footer>© 2026 BoxBee Corp. · <a href="https://aidanpark.github.io/privacy.html">Datenschutzerklärung</a></footer>
 </main>
 <script>
 (function () {

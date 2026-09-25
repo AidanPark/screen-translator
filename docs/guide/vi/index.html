@@ -97,14 +97,14 @@
   <h2>🚀 Bắt đầu nhanh</h2>
   <div class="step"><div class="num">1</div><div><strong>Cấp hai quyền.</strong> Lần mở đầu tiên, ứng dụng xin quyền <em>Hiển thị trên ứng dụng khác</em> (cho bong bóng nổi) và <em>Chụp màn hình</em> (để đọc chữ trên màn hình). Trên Android 14+, hãy chọn <em>“Toàn bộ màn hình”</em> khi được hỏi.</div></div>
   <div class="step"><div class="num">2</div><div><strong>Xem một quảng cáo ngắn.</strong> Chỉ một quảng cáo có thưởng là ứng dụng <em>không còn quảng cáo cho đến khi bạn đóng</em>. Nếu bỏ qua quảng cáo, màn hình quảng cáo sẽ mở lại ở lần dịch tiếp theo.</div></div>
-  <div class="step"><div class="num">3</div><div><strong>Kéo con trỏ đến chữ.</strong> Một bong bóng nổi xuất hiện trên màn hình. Kéo nó — con trỏ đi theo ngón tay bạn. Chỉ vào chữ bất kỳ rồi thả tay: bản dịch hiện ra ngay tại đó.</div></div>
+  <div class="step"><div class="num">3</div><div><strong>Kéo con trỏ đến chữ.</strong> Một bong bóng nổi xuất hiện trên màn hình. Kéo nó — con trỏ đi theo ngón tay bạn. Giữ con trỏ trên chữ bất kỳ: trong lúc chữ đang được đọc, một vòng tròn nhỏ quay bên trong con trỏ, rồi bản dịch hiện ra ngay tại đó. Thả tay ra, bản dịch vẫn ở lại trên màn hình vài giây.</div></div>
 
   <h2>📌 Thanh menu nổi</h2>
   <div class="card">
     <p><strong>Thanh menu</strong> luôn nổi trên màn hình — trung tâm điều khiển của ứng dụng. Nó chỉ tạm ẩn trong lúc chụp (khi bạn giữ con trỏ) và khi cửa sổ dịch đang hiển thị. Nó làm được nhiều hơn bạn nghĩ:</p>
     <ul>
       <li><strong>Biểu tượng chế độ nhận diện</strong> (bên trái) — chuyển giữa Từ / Câu / Đoạn văn / Chọn vùng / Vùng cố định.</li>
-      <li><strong>Ngôn ngữ nguồn</strong> — <em>Auto</em> tự nhận diện; chạm để ghim một ngôn ngữ cụ thể.</li>
+      <li><strong>Ngôn ngữ nguồn</strong> — <em>Auto</em> tự nhận diện; chạm để ghim một ngôn ngữ cụ thể. Những ngôn ngữ chưa đọc được chữ trên màn hình sẽ hiện màu xám.</li>
       <li><strong>⇄ Hoán đổi</strong> — đảo ngôn ngữ nguồn và đích trong một chạm.</li>
       <li><strong>Ngôn ngữ đích</strong> — chạm để chọn trong hơn 110 ngôn ngữ.</li>
       <li><strong>Biểu tượng công cụ dịch</strong> (bên phải) — mỗi lần chạm sẽ đổi công cụ dịch: Google, DeepL, GPT, Gemini, Claude.</li>
@@ -143,6 +143,7 @@
 
   <h2>🌐 Ngôn ngữ</h2>
   <p>Hơn 110 ngôn ngữ. Ngôn ngữ nguồn được <strong>tự động nhận diện</strong>; chỉ cần chọn ngôn ngữ đích trên thanh menu. Đổi bất cứ lúc nào.</p>
+  <p>Chữ trên màn hình được đọc ngay trên điện thoại của bạn. Các hệ chữ được hỗ trợ: chữ Latinh (tiếng Anh, tiếng Tây Ban Nha, tiếng Pháp, tiếng Việt&hellip;), tiếng Trung, tiếng Nhật, tiếng Hàn, chữ Devanagari (tiếng Hindi, tiếng Marathi, tiếng Nepal&hellip;) và — mới từ phiên bản 2.8 — chữ Ả Rập (tiếng Ả Rập, tiếng Ba Tư, tiếng Urdu&hellip;), tiếng Nga, tiếng Ukraina, tiếng Belarus, tiếng Bulgaria và tiếng Thái. Các ngôn ngữ dùng hệ chữ khác, như tiếng Hy Lạp, tiếng Do Thái hay tiếng Tamil, vẫn có thể chọn làm ngôn ngữ đích nhưng chưa đọc được từ màn hình.</p>
 
   <h2>🤖 Dịch bằng AI (tùy chọn)</h2>
   <div class="card">
@@ -154,6 +155,7 @@
       <li><strong>Claude</strong> — lấy khóa từ Anthropic Console</li>
     </ul>
     <p>Thanh menu → <em>công cụ dịch</em> → chọn công cụ → dán khóa. Chi phí tính vào tài khoản <em>của bạn</em> ở nhà cung cấp đó; ứng dụng không thu thêm.</p>
+    <p>OpenAI, Gemini và Claude có thêm tùy chọn trên trang khóa của từng dịch vụ (Cài đặt → API Key). Chọn <em>Mô hình</em>. <em>Ngữ cảnh</em> gửi kèm phần chữ xung quanh (câu lân cận hoặc toàn màn hình) để đại từ và từ đa nghĩa được dịch đúng. <em>Kiểu dịch</em> quyết định bám sát bản gốc đến mức nào (dịch sát, tự nhiên hoặc dịch thoáng), còn <em>Lĩnh vực</em> điều chỉnh cách dùng từ cho văn bản trò chơi, truyện tranh, kỹ thuật hoặc kinh doanh.</p>
     <p>Nếu dịch thất bại, ứng dụng hiển thị lý do ngay trên màn hình — khóa API không hợp lệ, hết tín dụng, chạm giới hạn dùng, hoặc lỗi mạng. Lưu ý: khóa hợp lệ thôi chưa đủ — tài khoản ở nhà cung cấp còn cần có tín dụng hoặc bậc miễn phí đang hoạt động.</p>
   </div>
 
@@ -174,7 +176,9 @@
     <details><summary>Bong bóng nổi biến mất</summary>
       <p>Mở lại ứng dụng để khởi động lại dịch vụ. Nếu lặp lại, kiểm tra quyền <em>Hiển thị trên ứng dụng khác</em> còn bật không, và loại ứng dụng khỏi tối ưu pin (Cài đặt → Pin → Không hạn chế).</p></details>
     <details><summary>Lần dịch đầu chậm hoặc báo “đang chuẩn bị”</summary>
-      <p>Lần dùng đầu tiên, mô hình OCR được tải một lần qua dịch vụ Google Play. Sau đó nhận diện tức thì và OCR hoạt động ngoại tuyến.</p></details>
+      <p>Mô hình nhận diện chỉ cần tải một lần. Mô hình OCR chính được tải qua dịch vụ Google Play ở lần dùng đầu tiên, còn mô hình cho chữ Ả Rập, chữ Kirin và chữ Thái được tải ngay sau khi bạn cài đặt hoặc cập nhật ứng dụng — trước đó, các ngôn ngữ này chưa đọc được. Sau đó, việc nhận diện hoạt động ngoại tuyến.</p></details>
+    <details><summary>Dịch chậm khi để Auto</summary>
+      <p>Khi ngôn ngữ nguồn để <em>Auto</em>, ứng dụng trước tiên phải xác định bộ nhận diện chữ nào phù hợp với màn hình nên mất thêm chút thời gian — nhất là với chữ Ả Rập, chữ Kirin và chữ Thái. Nếu bạn chủ yếu đọc một ngôn ngữ, hãy chọn ngôn ngữ đó làm ngôn ngữ nguồn trên thanh menu để có kết quả nhanh hơn.</p></details>
     <details><summary>Một số màn hình không có phản ứng gì</summary>
       <p>Ứng dụng chặn chụp màn hình (app ngân hàng, trình phát video DRM) không thể bị chụp — Android ẩn nội dung của chúng khỏi mọi ứng dụng chụp.</p></details>
     <details><summary>Sao tôi thấy quảng cáo?</summary>
@@ -183,18 +187,20 @@
       <p>Thông báo cho biết lý do. <em>Khóa API không hợp lệ</em>: kiểm tra lại khóa trong Cài đặt. <em>Hết tín dụng</em>: nạp thêm trên bảng điều khiển nhà cung cấp — khóa hợp lệ vẫn cần tín dụng. <em>Giới hạn dùng</em>: đợi chút rồi thử lại. <em>Lỗi mạng</em>: kiểm tra kết nối.</p></details>
     <details><summary>Chất lượng dịch có vẻ không ổn</summary>
       <p>Thử chế độ Câu hoặc Đoạn văn (nhiều ngữ cảnh = dịch tốt hơn), hoặc kết nối công cụ AI (DeepL/GPT/Gemini/Claude) để có chất lượng tốt nhất.</p></details>
+    <details><summary>Làm sao để xem lại các mẹo trên màn hình?</summary>
+      <p>Mở Cài đặt và chạm <em>Hướng dẫn sử dụng</em>. Ngoài việc mở trang hướng dẫn này, thao tác đó còn đặt lại các mẹo để chúng hiện lại khi bạn dùng ứng dụng.</p></details>
   </div>
 
-  <h2>💻 Mã nguồn mở</h2>
+  <h2>💻 Mã nguồn</h2>
   <div class="card">
-    <p>Screen Translate là mã nguồn mở — toàn bộ mã nguồn nằm trên <a href="https://github.com/AidanPark/android-screen-translator">GitHub</a>. Ai cũng có thể xem mã, chỉnh sửa tùy ý và tự dựng phiên bản của riêng mình. Giấy phép là Apache-2.0 — vui lòng giữ ghi công (thông báo bản quyền) khi sử dụng.</p>
+    <p>Toàn bộ mã nguồn của Screen Translate có trên <a href="https://github.com/AidanPark/screen-translator">GitHub</a>, theo giấy phép <a href="https://polyformproject.org/licenses/noncommercial/1.0.0">PolyForm Noncommercial License 1.0.0</a>. Bạn có thể tự do tìm hiểu, chỉnh sửa và chia sẻ mã cho mục đích cá nhân và các mục đích phi thương mại khác. Việc sử dụng thương mại — ví dụ phát hành bản đã chỉnh sửa có quảng cáo hoặc mua hàng trong ứng dụng — cần được chúng tôi cho phép; hãy hỏi qua một issue trên GitHub.</p>
   </div>
 
   <h2>📮 Vẫn chưa xử lý được?</h2>
   <p>Gửi email cho chúng tôi tại <a href="mailto:handwritingdictionary@gmail.com">handwritingdictionary@gmail.com</a> — chúng tôi đọc tất cả.</p>
   <a class="store" href="https://play.google.com/store/apps/details?id=com.galaxy.airviewdictionary">Tải trên Google Play</a>
 
-  <footer>© 2026 BoxBee Corp.</footer>
+  <footer>© 2026 BoxBee Corp. · <a href="https://aidanpark.github.io/privacy.html">Chính sách quyền riêng tư</a></footer>
 </main>
 <script>
 (function () {

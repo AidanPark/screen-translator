@@ -97,14 +97,14 @@
   <h2>🚀 빠른 시작</h2>
   <div class="step"><div class="num">1</div><div><strong>두 가지 권한을 허용하세요.</strong> 첫 실행 시 <em>다른 앱 위에 표시</em>(플로팅 버블용)와 <em>화면 캡처</em>(화면 텍스트 인식용) 권한을 요청합니다. Android 14 이상에서는 <em>&ldquo;전체 화면&rdquo;</em>을 선택하세요.</div></div>
   <div class="step"><div class="num">2</div><div><strong>짧은 광고 한 편을 시청하세요.</strong> 보상형 광고 한 편이면 <em>앱을 닫을 때까지 광고 없이</em> 사용할 수 있습니다. 광고를 건너뛰면 다음 번역 때 광고 화면이 다시 열립니다.</div></div>
-  <div class="step"><div class="num">3</div><div><strong>포인터를 텍스트 위로 끌어다 놓으세요.</strong> 화면에 플로팅 버블이 나타납니다. 버블을 끌면 포인터가 손가락을 따라옵니다. 텍스트를 가리키고 손을 떼면 그 자리에 번역이 나타납니다.</div></div>
+  <div class="step"><div class="num">3</div><div><strong>포인터를 텍스트 위로 끌어다 놓으세요.</strong> 화면에 플로팅 버블이 나타납니다. 버블을 끌면 포인터가 손가락을 따라옵니다. 텍스트 위에 멈춰 있으면 글자를 읽는 동안 포인터 안에서 작은 원이 돌고, 곧 그 자리에 번역이 나타납니다. 손을 떼도 몇 초간 화면에 남아 있습니다.</div></div>
 
   <h2>📌 플로팅 메뉴바</h2>
   <div class="card">
     <p><strong>메뉴바</strong>는 화면에 항상 떠 있는 앱의 컨트롤 센터입니다. 핸들을 눌러 캡처하는 동안과 번역창이 보여지는 동안에만 잠시 숨겨집니다. 생각보다 많은 일을 할 수 있어요:</p>
     <ul>
       <li><strong>감지 모드 아이콘</strong>(왼쪽) — 단어 / 문장 / 문단 / 영역 선택 / 고정 영역 모드를 전환합니다.</li>
-      <li><strong>원문 언어</strong> — <em>Auto</em>가 자동으로 감지해 주며, 탭하면 특정 언어로 고정할 수도 있습니다.</li>
+      <li><strong>원문 언어</strong> — <em>Auto</em>가 자동으로 감지해 주며, 탭하면 특정 언어로 고정할 수도 있습니다. 아직 화면 글자를 읽을 수 없는 언어는 회색으로 표시됩니다.</li>
       <li><strong>⇄ 스왑</strong> — 원문·번역 언어를 한 번에 맞바꿉니다.</li>
       <li><strong>번역 언어</strong> — 탭해서 110개 이상의 언어 중에서 고릅니다.</li>
       <li><strong>엔진 아이콘</strong>(오른쪽) — 탭할 때마다 번역 엔진이 전환됩니다: Google, DeepL, GPT, Gemini, Claude.</li>
@@ -143,6 +143,7 @@
 
   <h2>🌐 지원 언어</h2>
   <p>110개 이상의 언어를 지원합니다. 원문 언어는 <strong>자동으로 감지</strong>되며, 번역될 언어만 메뉴바에서 고르면 됩니다. 언제든 바꿀 수 있습니다.</p>
+  <p>화면의 글자는 휴대폰 안에서 바로 읽습니다. 지원하는 문자는 라틴 문자(영어·스페인어·프랑스어·베트남어 등), 중국어, 일본어, 한국어, 데바나가리 문자(힌디어·마라티어·네팔어 등)이며, 2.8 버전부터 아랍 문자(아랍어·페르시아어·우르두어 등), 러시아어·우크라이나어·벨라루스어·불가리아어, 태국어가 추가되었습니다. 그리스어·히브리어·타밀어처럼 다른 문자를 쓰는 언어는 번역될 언어로는 고를 수 있지만, 아직 화면에서 읽지는 못합니다.</p>
 
   <h2>🤖 AI 번역 (선택)</h2>
   <div class="card">
@@ -154,6 +155,7 @@
       <li><strong>Claude</strong> — Anthropic Console 에서 키 발급</li>
     </ul>
     <p>메뉴바 → <em>번역 엔진</em> → 엔진 선택 → 키 붙여넣기. 사용량은 해당 서비스의 <em>본인</em> 계정으로 청구되며, 앱은 수수료를 받지 않습니다.</p>
+    <p>OpenAI·Gemini·Claude는 각 키 화면(설정 → API Key)에 추가 옵션이 있습니다. <em>모델</em>을 고를 수 있고, <em>문맥</em>은 주변 글(주변 문장 또는 화면 전체)을 함께 보내 대명사나 애매한 단어를 바르게 옮기게 합니다. <em>번역 스타일</em>은 원문을 얼마나 따를지(직역·자연스럽게·의역), <em>분야</em>는 게임·만화·기술·비즈니스 글에 맞는 표현을 정합니다.</p>
     <p>번역이 실패하면 이유가 화면에 바로 표시됩니다 — 잘못된 API 키, 크레딧 부족, 사용량 한도, 네트워크 오류. 참고: 키가 유효해도 그것만으로는 부족합니다 — 해당 서비스 계정에 크레딧(또는 활성화된 무료 등급)이 있어야 합니다.</p>
   </div>
 
@@ -174,7 +176,9 @@
     <details><summary>플로팅 버블이 사라졌어요</summary>
       <p>앱을 다시 열어 서비스를 재시작하세요. 반복된다면 <em>다른 앱 위에 표시</em> 권한이 유지되어 있는지 확인하고, 배터리 최적화에서 앱을 제외하세요 (설정 → 배터리 → 제한 없음).</p></details>
     <details><summary>첫 번역이 느리거나 &ldquo;준비 중&rdquo;이라고 나와요</summary>
-      <p>처음 사용할 때 Google Play 서비스를 통해 OCR 모델을 한 번 다운로드합니다. 이후에는 인식이 즉시 되며, OCR은 오프라인에서도 작동합니다.</p></details>
+      <p>인식 모델은 한 번만 내려받습니다. 기본 OCR 모델은 처음 사용할 때 Google Play 서비스를 통해 받고, 아랍 문자·키릴 문자·태국어용 모델은 앱을 설치하거나 업데이트한 직후에 받습니다. 받기 전까지는 해당 언어를 읽지 못합니다. 이후에는 인식이 오프라인에서도 작동합니다.</p></details>
+    <details><summary>Auto로 두면 번역이 오래 걸려요</summary>
+      <p>원문 언어가 <em>Auto</em>이면 먼저 화면에 맞는 문자 인식기를 고르느라 시간이 조금 더 걸립니다. 아랍 문자·키릴 문자·태국어는 특히 그렇습니다. 주로 한 언어를 읽는다면 메뉴바에서 그 언어를 원문 언어로 지정하면 더 빨라집니다.</p></details>
     <details><summary>일부 화면에서는 아무 일도 일어나지 않아요</summary>
       <p>스크린샷을 차단하는 앱(은행 앱, DRM 영상 플레이어)은 캡처할 수 없습니다 — Android가 모든 캡처 앱으로부터 해당 콘텐츠를 숨깁니다.</p></details>
     <details><summary>왜 광고가 나오나요?</summary>
@@ -183,18 +187,20 @@
       <p>메시지가 이유를 알려줍니다. <em>API 키 오류</em>: 설정에서 키를 다시 확인하세요. <em>크레딧 부족</em>: 해당 서비스 콘솔에서 충전하세요 — 키가 유효해도 크레딧은 별도로 필요합니다. <em>사용량 한도</em>: 잠시 후 다시 시도하세요. <em>네트워크 오류</em>: 연결 상태를 확인하세요.</p></details>
     <details><summary>번역 품질이 이상해요</summary>
       <p>문장·문단 모드를 써 보세요(문맥이 많을수록 번역이 좋아집니다). 최고 품질을 원하면 AI 엔진(DeepL/GPT/Gemini/Claude)을 연결하세요.</p></details>
+    <details><summary>화면 안내를 다시 보고 싶어요</summary>
+      <p>설정에서 <em>사용법 안내</em>를 누르세요. 이 안내 페이지가 열리면서 화면 안내도 초기화되어, 앱을 쓰는 동안 다시 나타납니다.</p></details>
   </div>
 
-  <h2>💻 오픈소스</h2>
+  <h2>💻 소스 코드</h2>
   <div class="card">
-    <p>화면 번역은 오픈소스입니다 — 전체 소스 코드가 <a href="https://github.com/AidanPark/android-screen-translator">GitHub</a> 에 공개되어 있습니다. 누구나 코드를 살펴보고 원하는 대로 수정해 자신만의 버전을 만들어 사용할 수 있습니다. 라이선스는 Apache-2.0 이며, 사용 시 출처(저작권 고지)를 유지해 주세요.</p>
+    <p>화면 번역의 전체 소스 코드는 <a href="https://github.com/AidanPark/screen-translator">GitHub</a>에 있으며, <a href="https://polyformproject.org/licenses/noncommercial/1.0.0">PolyForm Noncommercial License 1.0.0</a>을 따릅니다. 개인적인 용도나 그 밖의 비상업적 목적이라면 자유롭게 살펴보고, 수정하고, 공유할 수 있습니다. 광고나 인앱 결제를 붙인 수정본 배포처럼 상업적으로 쓰려면 허가가 필요하니 GitHub 이슈로 문의해 주세요.</p>
   </div>
 
   <h2>📮 그래도 해결이 안 되나요?</h2>
   <p><a href="mailto:handwritingdictionary@gmail.com">handwritingdictionary@gmail.com</a> 으로 메일을 보내주세요 — 모든 메일을 읽습니다.</p>
   <a class="store" href="https://play.google.com/store/apps/details?id=com.galaxy.airviewdictionary">Google Play 에서 받기</a>
 
-  <footer>© 2026 BoxBee Corp.</footer>
+  <footer>© 2026 BoxBee Corp. · <a href="https://aidanpark.github.io/privacy.html">개인정보처리방침</a></footer>
 </main>
 <script>
 (function () {

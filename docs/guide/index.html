@@ -97,14 +97,14 @@
   <h2>🚀 Quick Start</h2>
   <div class="step"><div class="num">1</div><div><strong>Grant two permissions.</strong> On first launch the app asks for <em>Display over other apps</em> (for the floating bubble) and <em>Screen capture</em> (to read text on screen). On Android 14+, choose <em>&ldquo;Entire screen&rdquo;</em> when prompted.</div></div>
   <div class="step"><div class="num">2</div><div><strong>Watch one short ad.</strong> A single rewarded ad unlocks the app <em>ad-free until you close it</em>. If you skip the ad, the gate simply reopens on your next translation.</div></div>
-  <div class="step"><div class="num">3</div><div><strong>Drag the pointer onto text.</strong> A floating bubble appears on your screen. Drag it — a pointer follows your finger. Point at any text and release: the translation pops up right there.</div></div>
+  <div class="step"><div class="num">3</div><div><strong>Drag the pointer onto text.</strong> A floating bubble appears on your screen. Drag it — a pointer follows your finger. Hold it on any text: a small ring spins inside the pointer while the text is being read, and the translation pops up right there. Let go, and it stays on screen for a few seconds.</div></div>
 
   <h2>📌 The Floating Menu Bar</h2>
   <div class="card">
     <p>The <strong>menu bar</strong> floats on your screen at all times — the app&rsquo;s control center. It only hides briefly during capture (while you hold the pointer) and while a translation window is on screen. It does more than most people realize:</p>
     <ul>
       <li><strong>Detect-mode icon</strong> (left) — switch between Word / Sentence / Paragraph / Select Area / Fixed Area.</li>
-      <li><strong>Source language</strong> — <em>Auto</em> detects it for you; tap to pin a specific language instead.</li>
+      <li><strong>Source language</strong> — <em>Auto</em> detects it for you; tap to pin a specific language instead. Languages whose screen text can&rsquo;t be read yet are greyed out.</li>
       <li><strong>⇄ Swap</strong> — flip source and target with one tap.</li>
       <li><strong>Target language</strong> — tap to pick from 110+ languages.</li>
       <li><strong>Engine icon</strong> (right) — tap to switch the translation engine: Google, DeepL, GPT, Gemini, Claude.</li>
@@ -143,6 +143,7 @@
 
   <h2>🌐 Languages</h2>
   <p>110+ languages. The source language is <strong>detected automatically</strong>; pick the target language from the menu bar. Swap them any time.</p>
+  <p>Screen text is read right on your phone. Supported scripts: Latin (English, Spanish, French, Vietnamese&hellip;), Chinese, Japanese, Korean, Devanagari (Hindi, Marathi, Nepali&hellip;) and — new in version 2.8 — Arabic script (Arabic, Persian, Urdu&hellip;), Russian, Ukrainian, Belarusian, Bulgarian and Thai. Languages in other scripts, such as Greek, Hebrew or Tamil, can still be chosen as the target language, but can&rsquo;t be read from the screen yet.</p>
 
   <h2>🤖 AI Translation (optional)</h2>
   <div class="card">
@@ -154,6 +155,7 @@
       <li><strong>Claude</strong> — key from the Anthropic Console</li>
     </ul>
     <p>Menu bar → <em>translation engine</em> → choose an engine → paste your key. Usage is billed to <em>your</em> account with that provider; the app adds no markup.</p>
+    <p>OpenAI, Gemini and Claude have extra options on their key pages (Settings → API Key). Pick the <em>Model</em>. <em>Context</em> sends the surrounding text (nearby sentences or the whole screen) so pronouns and ambiguous words come out right. <em>Translation style</em> sets how closely to follow the original (literal, natural or liberal), and <em>Subject</em> tunes the wording for games, comics, technical or business text.</p>
     <p>If a translation fails, the app shows the reason right on screen — invalid API key, out-of-credit account, rate limit, or network error. Note: a valid key alone is not enough — the provider account also needs credit or an active free tier.</p>
   </div>
 
@@ -174,7 +176,9 @@
     <details><summary>The floating bubble disappeared</summary>
       <p>Open the app again to restart the service. If it keeps happening, check that <em>Display over other apps</em> is still allowed, and exclude the app from battery optimization (Settings → Battery → Unrestricted).</p></details>
     <details><summary>First translation is slow or says &ldquo;preparing&rdquo;</summary>
-      <p>On first use the OCR model is downloaded once through Google Play services. After that, recognition is instant and works offline for OCR.</p></details>
+      <p>Recognition models are downloaded once. The main OCR model comes through Google Play services on first use, and the models for Arabic-script, Cyrillic and Thai text are downloaded right after you install or update the app — until then, those languages can&rsquo;t be read. After that, recognition works offline.</p></details>
+    <details><summary>Translation takes a while on Auto</summary>
+      <p>With the source language on <em>Auto</em>, the app first checks which text recognizer fits the screen, which takes a little longer — especially for Arabic-script, Cyrillic and Thai text. If you mostly read one language, choose it as the source language on the menu bar for faster results.</p></details>
     <details><summary>Nothing happens on some screens</summary>
       <p>Apps that block screenshots (banking apps, DRM video players) can&rsquo;t be captured — Android hides their content from every capture app.</p></details>
     <details><summary>Why do I see an ad?</summary>
@@ -183,18 +187,20 @@
       <p>The message tells you why. <em>Invalid API key</em>: re-check the key in Settings. <em>Out of credit</em>: top up on the provider&rsquo;s console — a valid key still needs credit. <em>Rate limit</em>: wait a moment and retry. <em>Network error</em>: check your connection.</p></details>
     <details><summary>Translation quality seems off</summary>
       <p>Try the Sentence or Paragraph mode (more context = better translation), or connect an AI engine (DeepL/GPT/Gemini/Claude) for the best quality.</p></details>
+    <details><summary>How do I see the on-screen tips again?</summary>
+      <p>Open Settings and tap <em>How to Use</em>. Along with opening this guide, it resets the tips, so they show again as you use the app.</p></details>
   </div>
 
-  <h2>💻 Open Source</h2>
+  <h2>💻 Source Code</h2>
   <div class="card">
-    <p>Screen Translate is open source — the full source code lives on <a href="https://github.com/AidanPark/android-screen-translator">GitHub</a>. Anyone is welcome to explore the code, modify it however they like, and build their own version. It is licensed under Apache-2.0, so please keep the attribution (copyright notice) when you reuse it.</p>
+    <p>The full source code of Screen Translate is on <a href="https://github.com/AidanPark/screen-translator">GitHub</a>, under the <a href="https://polyformproject.org/licenses/noncommercial/1.0.0">PolyForm Noncommercial License 1.0.0</a>. You are welcome to study it, modify it and share it for personal and other noncommercial purposes. Commercial use — for example, publishing a modified version with ads or in-app purchases — needs our permission; ask through a GitHub issue.</p>
   </div>
 
   <h2>📮 Still stuck?</h2>
   <p>Email us at <a href="mailto:handwritingdictionary@gmail.com">handwritingdictionary@gmail.com</a> — we read everything.</p>
   <a class="store" href="https://play.google.com/store/apps/details?id=com.galaxy.airviewdictionary">Get it on Google Play</a>
 
-  <footer>© 2026 BoxBee Corp.</footer>
+  <footer>© 2026 BoxBee Corp. · <a href="https://aidanpark.github.io/privacy.html">Privacy Policy</a></footer>
 </main>
 <script>
 (function () {

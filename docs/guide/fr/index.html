@@ -97,19 +97,19 @@
   <h2>🚀 Démarrage rapide</h2>
   <div class="step"><div class="num">1</div><div><strong>Accordez deux autorisations.</strong> Au premier lancement, l'appli demande <em>Superposer aux autres applis</em> (pour la bulle flottante) et <em>Capture d'écran</em> (pour lire le texte à l'écran). Sur Android 14+, choisissez <em>« Tout l'écran »</em> quand on vous le demande.</div></div>
   <div class="step"><div class="num">2</div><div><strong>Regardez une courte pub.</strong> Une seule annonce avec récompense rend l'appli <em>sans pub jusqu'à sa fermeture</em>. Si vous passez la pub, l'écran de pub se rouvre simplement à votre prochaine traduction.</div></div>
-  <div class="step"><div class="num">3</div><div><strong>Glissez le pointeur sur le texte.</strong> Une bulle flottante apparaît à l'écran. Faites-la glisser — un pointeur suit votre doigt. Visez un texte et relâchez : la traduction s'affiche sur place.</div></div>
+  <div class="step"><div class="num">3</div><div><strong>Glissez le pointeur sur le texte.</strong> Une bulle flottante apparaît à l'écran. Faites-la glisser — un pointeur suit votre doigt. Maintenez-le sur un texte : un petit anneau tourne dans le pointeur pendant la lecture du texte, puis la traduction s'affiche sur place. Relâchez, et elle reste à l'écran quelques secondes.</div></div>
 
   <h2>📌 La barre de menu flottante</h2>
   <div class="card">
     <p>La <strong>barre de menu</strong> flotte en permanence à l'écran — c'est le centre de contrôle de l'appli. Elle ne se cache brièvement que pendant la capture (quand vous maintenez le pointeur) et lorsqu'une fenêtre de traduction est affichée. Elle fait plus qu'on ne le croit :</p>
     <ul>
       <li><strong>Icône du mode de détection</strong> (à gauche) — bascule entre Mot / Phrase / Paragraphe / Sélection de zone / Zone fixe.</li>
-      <li><strong>Langue source</strong> — <em>Auto</em> la détecte pour vous ; touchez pour figer une langue précise.</li>
+      <li><strong>Langue source</strong> — <em>Auto</em> la détecte pour vous ; touchez pour figer une langue précise. Les langues dont le texte à l'écran ne peut pas encore être lu sont grisées.</li>
       <li><strong>⇄ Permuter</strong> — inverse source et cible d'un geste.</li>
       <li><strong>Langue cible</strong> — touchez pour choisir parmi plus de 110 langues.</li>
       <li><strong>Icône du moteur</strong> (à droite) — touchez pour changer de moteur de traduction : Google, DeepL, GPT, Gemini, Claude.</li>
     </ul>
-    <p>La barre se déplace où vous voulez par glisser-déposer. Si vous changez rarement ces options et qu'elle vous gêne, ajustez sa transparence et sa disposition dans les Réglages — ou masquez-la complètement avec <em>Afficher la barre de menu</em>.</p>
+    <p>La barre se déplace où vous voulez par glisser-déposer. Si vous changez rarement ces options et qu'elle vous gêne, ajustez sa transparence et sa disposition dans les Paramètres — ou masquez-la complètement avec <em>Afficher la barre de menu</em>.</p>
   </div>
 
   <h2>🎯 Cinq modes de traduction</h2>
@@ -143,6 +143,7 @@
 
   <h2>🌐 Langues</h2>
   <p>Plus de 110 langues. La langue source est <strong>détectée automatiquement</strong> ; choisissez la langue cible dans la barre de menu. Changez à tout moment.</p>
+  <p>Le texte à l'écran est lu directement sur votre téléphone. Écritures prises en charge : alphabet latin (anglais, espagnol, français, vietnamien&hellip;), chinois, japonais, coréen, devanagari (hindi, marathi, népalais&hellip;) et — nouveauté de la version 2.8 — alphabet arabe (arabe, persan, ourdou&hellip;), russe, ukrainien, biélorusse, bulgare et thaï. Les langues utilisant d'autres écritures, comme le grec, l'hébreu ou le tamoul, peuvent toujours être choisies comme langue cible, mais ne peuvent pas encore être lues à l'écran.</p>
 
   <h2>🤖 Traduction IA (facultatif)</h2>
   <div class="card">
@@ -154,13 +155,14 @@
       <li><strong>Claude</strong> — clé depuis la console Anthropic</li>
     </ul>
     <p>Barre de menu → <em>moteur de traduction</em> → choisissez un moteur → collez votre clé. L'usage est facturé sur <em>votre</em> compte chez ce fournisseur ; l'appli ne prend aucune commission.</p>
+    <p>OpenAI, Gemini et Claude proposent des options supplémentaires sur leur page de clé (Paramètres → API Key). Choisissez le <em>Modèle</em>. <em>Contexte</em> envoie le texte environnant (phrases voisines ou écran entier) pour que les pronoms et les mots ambigus soient bien traduits. <em>Style de traduction</em> règle la fidélité à l'original (littéral, naturel ou libre), et <em>Domaine</em> adapte la formulation aux textes de jeux, de bandes dessinées, techniques ou professionnels.</p>
     <p>Si une traduction échoue, l'appli affiche la raison à l'écran — clé API invalide, compte sans crédit, limite d'utilisation ou erreur réseau. Attention : une clé valide ne suffit pas — le compte du fournisseur doit aussi avoir du crédit ou une offre gratuite active.</p>
   </div>
 
   <h2>🔊 Lecture à voix haute et voix TTS</h2>
   <div class="card">
-    <p>L'appli peut lire le texte à voix haute : touchez l'icône haut-parleur sur une traduction, ou activez la <em>lecture automatique</em> dans les Réglages. Le réglage <em>Cible de lecture</em> choisit si c'est le texte original ou la traduction qui est lu.</p>
-    <p>Choisissez la voix dans Réglages → <em>Voix TTS</em> : les voix sont groupées par langue, et en toucher une lance un court aperçu pour comparer avant de choisir.</p>
+    <p>L'appli peut lire le texte à voix haute : touchez l'icône haut-parleur sur une traduction, ou activez la <em>lecture automatique</em> dans les Paramètres. Le réglage <em>Cible de lecture</em> choisit si c'est le texte original ou la traduction qui est lu.</p>
+    <p>Choisissez la voix dans Paramètres → <em>Voix TTS</em> : les voix sont groupées par langue, et en toucher une lance un court aperçu pour comparer avant de choisir.</p>
   </div>
 
   <h2>💬 Répondre dans les chats</h2>
@@ -172,29 +174,33 @@
   <h2>❓ FAQ et dépannage</h2>
   <div class="faq">
     <details><summary>La bulle flottante a disparu</summary>
-      <p>Rouvrez l'appli pour redémarrer le service. Si cela se reproduit, vérifiez que <em>Superposer aux autres applis</em> est toujours autorisé et excluez l'appli de l'optimisation de batterie (Réglages → Batterie → Sans restriction).</p></details>
+      <p>Rouvrez l'appli pour redémarrer le service. Si cela se reproduit, vérifiez que <em>Superposer aux autres applis</em> est toujours autorisé et excluez l'appli de l'optimisation de batterie (Paramètres → Batterie → Sans restriction).</p></details>
     <details><summary>La première traduction est lente ou affiche « préparation »</summary>
-      <p>À la première utilisation, le modèle OCR est téléchargé une fois via les services Google Play. Ensuite, la reconnaissance est instantanée et l'OCR fonctionne hors ligne.</p></details>
+      <p>Les modèles de reconnaissance ne sont téléchargés qu'une fois. Le modèle OCR principal arrive via les services Google Play à la première utilisation, et les modèles pour les textes en alphabet arabe, en cyrillique et en thaï sont téléchargés juste après l'installation ou la mise à jour de l'appli — d'ici là, ces langues ne peuvent pas être lues. Ensuite, la reconnaissance fonctionne hors ligne.</p></details>
+    <details><summary>La traduction est lente en mode Auto</summary>
+      <p>Quand la langue source est sur <em>Auto</em>, l'appli vérifie d'abord quel outil de reconnaissance de texte convient à l'écran, ce qui prend un peu plus de temps — surtout pour les textes en alphabet arabe, en cyrillique et en thaï. Si vous lisez surtout une seule langue, choisissez-la comme langue source dans la barre de menu pour aller plus vite.</p></details>
     <details><summary>Rien ne se passe sur certains écrans</summary>
       <p>Les applis qui bloquent les captures (applis bancaires, lecteurs vidéo DRM) ne peuvent pas être capturées — Android cache leur contenu à toutes les applis de capture.</p></details>
     <details><summary>Pourquoi je vois une pub ?</summary>
       <p>Une courte pub par session garde toutes les fonctions principales gratuites. Après la pub, l'appli reste totalement sans pub jusqu'à sa fermeture.</p></details>
     <details><summary>Un message ⚠ dit que la traduction a échoué</summary>
-      <p>Le message vous en donne la raison. <em>Clé API invalide</em> : revérifiez la clé dans les Réglages. <em>Crédit épuisé</em> : rechargez sur la console du fournisseur — une clé valide a quand même besoin de crédit. <em>Limite d'utilisation</em> : patientez un instant puis réessayez. <em>Erreur réseau</em> : vérifiez votre connexion.</p></details>
+      <p>Le message vous en donne la raison. <em>Clé API invalide</em> : revérifiez la clé dans les Paramètres. <em>Crédit épuisé</em> : rechargez sur la console du fournisseur — une clé valide a quand même besoin de crédit. <em>Limite d'utilisation</em> : patientez un instant puis réessayez. <em>Erreur réseau</em> : vérifiez votre connexion.</p></details>
     <details><summary>La qualité de traduction semble médiocre</summary>
       <p>Essayez le mode Phrase ou Paragraphe (plus de contexte = meilleure traduction), ou connectez un moteur IA (DeepL/GPT/Gemini/Claude) pour la meilleure qualité.</p></details>
+    <details><summary>Comment revoir les astuces à l'écran ?</summary>
+      <p>Ouvrez les Paramètres et touchez <em>Mode d'emploi</em>. En plus d'ouvrir ce guide, cela réinitialise les astuces, qui réapparaissent au fil de votre utilisation de l'appli.</p></details>
   </div>
 
-  <h2>💻 Open source</h2>
+  <h2>💻 Code source</h2>
   <div class="card">
-    <p>Screen Translate est open source — tout le code se trouve sur <a href="https://github.com/AidanPark/android-screen-translator">GitHub</a>. Chacun peut explorer le code, le modifier à sa guise et compiler sa propre version. La licence est Apache-2.0 : conservez l'attribution (mention de copyright) en le réutilisant.</p>
+    <p>Tout le code source de Screen Translate est sur <a href="https://github.com/AidanPark/screen-translator">GitHub</a>, sous la licence <a href="https://polyformproject.org/licenses/noncommercial/1.0.0">PolyForm Noncommercial License 1.0.0</a>. Vous pouvez librement l'étudier, le modifier et le partager à des fins personnelles ou non commerciales. Toute utilisation commerciale — par exemple publier une version modifiée avec des publicités ou des achats intégrés — nécessite notre autorisation ; faites-en la demande via une issue GitHub.</p>
   </div>
 
   <h2>📮 Toujours bloqué ?</h2>
   <p>Écrivez-nous à <a href="mailto:handwritingdictionary@gmail.com">handwritingdictionary@gmail.com</a> — nous lisons tout.</p>
   <a class="store" href="https://play.google.com/store/apps/details?id=com.galaxy.airviewdictionary">Disponible sur Google Play</a>
 
-  <footer>© 2026 BoxBee Corp.</footer>
+  <footer>© 2026 BoxBee Corp. · <a href="https://aidanpark.github.io/privacy.html">Politique de confidentialité</a></footer>
 </main>
 <script>
 (function () {

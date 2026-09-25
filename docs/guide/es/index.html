@@ -97,14 +97,14 @@
   <h2>🚀 Inicio rápido</h2>
   <div class="step"><div class="num">1</div><div><strong>Concede dos permisos.</strong> Al abrir la app por primera vez, pide <em>Mostrar sobre otras apps</em> (para la burbuja flotante) y <em>Captura de pantalla</em> (para leer el texto en pantalla). En Android 14+, elige <em>«Toda la pantalla»</em> cuando se te pregunte.</div></div>
   <div class="step"><div class="num">2</div><div><strong>Mira un anuncio corto.</strong> Un solo anuncio con recompensa deja la app <em>sin anuncios hasta que la cierres</em>. Si lo omites, la pantalla de anuncio simplemente vuelve a aparecer en tu próxima traducción.</div></div>
-  <div class="step"><div class="num">3</div><div><strong>Arrastra el puntero sobre el texto.</strong> Aparece una burbuja flotante en tu pantalla. Arrástrala: un puntero sigue tu dedo. Apunta a cualquier texto y suelta: la traducción aparece ahí mismo.</div></div>
+  <div class="step"><div class="num">3</div><div><strong>Arrastra el puntero sobre el texto.</strong> Aparece una burbuja flotante en tu pantalla. Arrástrala: un puntero sigue tu dedo. Mantenlo sobre cualquier texto: mientras se lee el texto, un pequeño anillo gira dentro del puntero y la traducción aparece ahí mismo. Al soltar, se queda en pantalla unos segundos.</div></div>
 
   <h2>📌 La barra de menú flotante</h2>
   <div class="card">
     <p>La <strong>barra de menú</strong> flota en pantalla en todo momento: es el centro de control de la app. Solo se oculta brevemente durante la captura (mientras mantienes el puntero) y mientras se muestra una ventana de traducción. Hace más de lo que la mayoría imagina:</p>
     <ul>
       <li><strong>Icono de modo de detección</strong> (izquierda): cambia entre Palabra / Frase / Párrafo / Seleccionar área / Área fija.</li>
-      <li><strong>Idioma de origen</strong>: <em>Auto</em> lo detecta por ti; tócalo para fijar un idioma concreto.</li>
+      <li><strong>Idioma de origen</strong>: <em>Auto</em> lo detecta por ti; tócalo para fijar un idioma concreto. Los idiomas cuyo texto en pantalla aún no se puede leer aparecen en gris.</li>
       <li><strong>⇄ Intercambiar</strong>: invierte origen y destino con un toque.</li>
       <li><strong>Idioma de destino</strong>: toca para elegir entre más de 110 idiomas.</li>
       <li><strong>Icono del motor</strong> (derecha): toca para cambiar el motor de traducción: Google, DeepL, GPT, Gemini, Claude.</li>
@@ -143,6 +143,7 @@
 
   <h2>🌐 Idiomas</h2>
   <p>Más de 110 idiomas. El idioma de origen se <strong>detecta automáticamente</strong>; elige el idioma de destino en la barra de menú. Cámbialos cuando quieras.</p>
+  <p>El texto de la pantalla se lee directamente en tu teléfono. Sistemas de escritura compatibles: alfabeto latino (inglés, español, francés, vietnamita&hellip;), chino, japonés, coreano, devanagari (hindi, maratí, nepalí&hellip;) y, como novedad de la versión 2.8, alfabeto árabe (árabe, persa, urdu&hellip;), ruso, ucraniano, bielorruso, búlgaro y tailandés. Los idiomas con otras escrituras, como el griego, el hebreo o el tamil, se pueden elegir igualmente como idioma de destino, pero todavía no se pueden leer desde la pantalla.</p>
 
   <h2>🤖 Traducción con IA (opcional)</h2>
   <div class="card">
@@ -154,6 +155,7 @@
       <li><strong>Claude</strong> — clave desde la consola de Anthropic</li>
     </ul>
     <p>Barra de menú → <em>motor de traducción</em> → elige un motor → pega tu clave. El uso se factura a <em>tu</em> cuenta con ese proveedor; la app no añade recargos.</p>
+    <p>OpenAI, Gemini y Claude tienen opciones adicionales en sus páginas de clave (Ajustes → API Key). Elige el <em>Modelo</em>. <em>Contexto</em> envía el texto de alrededor (frases cercanas o toda la pantalla) para que los pronombres y las palabras ambiguas se traduzcan bien. <em>Estilo de traducción</em> define cuánto se ciñe al original (literal, natural o libre), y <em>Ámbito</em> ajusta el vocabulario a textos de juegos, cómics, técnicos o de negocios.</p>
     <p>Si una traducción falla, la app muestra el motivo en pantalla: clave de API no válida, cuenta sin crédito, límite de uso o error de red. Ojo: una clave válida no basta por sí sola; la cuenta del proveedor también necesita crédito o un nivel gratuito activo.</p>
   </div>
 
@@ -174,7 +176,9 @@
     <details><summary>La burbuja flotante desapareció</summary>
       <p>Vuelve a abrir la app para reiniciar el servicio. Si sigue pasando, comprueba que <em>Mostrar sobre otras apps</em> siga permitido y excluye la app de la optimización de batería (Ajustes → Batería → Sin restricciones).</p></details>
     <details><summary>La primera traducción es lenta o dice «preparando»</summary>
-      <p>En el primer uso se descarga una vez el modelo de OCR a través de los servicios de Google Play. Después, el reconocimiento es instantáneo y el OCR funciona sin conexión.</p></details>
+      <p>Los modelos de reconocimiento se descargan una sola vez. El modelo principal de OCR llega a través de los servicios de Google Play en el primer uso, y los modelos para texto en alfabeto árabe, cirílico y tailandés se descargan justo después de instalar o actualizar la app; hasta entonces, esos idiomas no se pueden leer. Después, el reconocimiento funciona sin conexión.</p></details>
+    <details><summary>La traducción tarda un poco con Auto</summary>
+      <p>Con el idioma de origen en <em>Auto</em>, la app primero comprueba qué reconocedor de texto se adapta a la pantalla, lo que tarda algo más, sobre todo con texto en alfabeto árabe, cirílico y tailandés. Si sueles leer un solo idioma, elígelo como idioma de origen en la barra de menú para obtener resultados más rápidos.</p></details>
     <details><summary>En algunas pantallas no pasa nada</summary>
       <p>Las apps que bloquean capturas (apps bancarias, reproductores con DRM) no se pueden capturar: Android oculta su contenido a todas las apps de captura.</p></details>
     <details><summary>¿Por qué veo un anuncio?</summary>
@@ -183,18 +187,20 @@
       <p>El mensaje te dice el porqué. <em>Clave de API no válida</em>: revisa la clave en Ajustes. <em>Sin crédito</em>: recarga en la consola del proveedor — una clave válida sigue necesitando crédito. <em>Límite de uso</em>: espera un momento y reintenta. <em>Error de red</em>: comprueba tu conexión.</p></details>
     <details><summary>La calidad de la traducción no convence</summary>
       <p>Prueba el modo Frase o Párrafo (más contexto = mejor traducción), o conecta un motor de IA (DeepL/GPT/Gemini/Claude) para la mejor calidad.</p></details>
+    <details><summary>¿Cómo vuelvo a ver los consejos en pantalla?</summary>
+      <p>Abre Ajustes y toca <em>Cómo usar</em>. Además de abrir esta guía, restablece los consejos para que vuelvan a aparecer mientras usas la app.</p></details>
   </div>
 
-  <h2>💻 Código abierto</h2>
+  <h2>💻 Código fuente</h2>
   <div class="card">
-    <p>Screen Translate es de código abierto: todo el código fuente está en <a href="https://github.com/AidanPark/android-screen-translator">GitHub</a>. Cualquiera puede explorarlo, modificarlo a su gusto y compilar su propia versión. La licencia es Apache-2.0: conserva la atribución (aviso de copyright) al reutilizarlo.</p>
+    <p>Todo el código fuente de Screen Translate está en <a href="https://github.com/AidanPark/screen-translator">GitHub</a>, bajo la <a href="https://polyformproject.org/licenses/noncommercial/1.0.0">PolyForm Noncommercial License 1.0.0</a>. Puedes estudiarlo, modificarlo y compartirlo libremente con fines personales u otros fines no comerciales. El uso comercial (por ejemplo, publicar una versión modificada con anuncios o compras dentro de la app) requiere nuestro permiso; solicítalo mediante un issue de GitHub.</p>
   </div>
 
   <h2>📮 ¿Sigues atascado?</h2>
   <p>Escríbenos a <a href="mailto:handwritingdictionary@gmail.com">handwritingdictionary@gmail.com</a> — lo leemos todo.</p>
   <a class="store" href="https://play.google.com/store/apps/details?id=com.galaxy.airviewdictionary">Consíguela en Google Play</a>
 
-  <footer>© 2026 BoxBee Corp.</footer>
+  <footer>© 2026 BoxBee Corp. · <a href="https://aidanpark.github.io/privacy.html">Política de privacidad</a></footer>
 </main>
 <script>
 (function () {

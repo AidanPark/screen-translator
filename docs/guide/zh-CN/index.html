@@ -97,14 +97,14 @@
   <h2>🚀 快速上手</h2>
   <div class="step"><div class="num">1</div><div><strong>授予两项权限。</strong>首次启动时，应用会请求<em>显示在其他应用上层</em>（用于悬浮气泡）和<em>屏幕捕获</em>（用于识别屏幕文字）。Android 14 及以上请选择<em>“整个屏幕”</em>。</div></div>
   <div class="step"><div class="num">2</div><div><strong>观看一条短广告。</strong>看完一条激励广告后，<em>直到关闭应用前都不会再有广告</em>。如果跳过广告，下次翻译时广告页面会重新出现。</div></div>
-  <div class="step"><div class="num">3</div><div><strong>把指针拖到文字上。</strong>屏幕上会出现悬浮气泡。拖动它，指针会跟随手指。指向任意文字后松手，译文就会在原处弹出。</div></div>
+  <div class="step"><div class="num">3</div><div><strong>把指针拖到文字上。</strong>屏幕上会出现悬浮气泡。拖动它，指针会跟随手指。在任意文字上停住：识别文字时，指针内会有一个小圆环在转动，随后译文就在原处弹出。松开手指后，译文会在屏幕上停留几秒。</div></div>
 
   <h2>📌 悬浮菜单栏</h2>
   <div class="card">
     <p><strong>菜单栏</strong>始终悬浮在屏幕上，是应用的控制中心。只有在按住指针进行捕获时和译文窗口显示期间才会暂时隐藏。功能比想象中多：</p>
     <ul>
       <li><strong>识别模式图标</strong>（左侧）— 在单词／句子／段落／框选区域／固定区域之间切换。</li>
-      <li><strong>源语言</strong> — <em>Auto</em> 自动检测；点按也可固定为某种语言。</li>
+      <li><strong>源语言</strong> — <em>Auto</em> 自动检测；点按也可固定为某种语言。暂时无法识别屏幕文字的语言会显示为灰色。</li>
       <li><strong>⇄ 互换</strong> — 一键对调源语言和目标语言。</li>
       <li><strong>目标语言</strong> — 点按后从 110 多种语言中选择。</li>
       <li><strong>引擎图标</strong>（右侧）— 每点一次切换一个翻译引擎：Google、DeepL、GPT、Gemini、Claude。</li>
@@ -143,6 +143,7 @@
 
   <h2>🌐 支持语言</h2>
   <p>支持 110 多种语言。源语言<strong>自动检测</strong>，只需在菜单栏选择目标语言，随时可以切换。</p>
+  <p>屏幕文字直接在手机上识别。支持的文字：拉丁字母（英语、西班牙语、法语、越南语等）、中文、日语、韩语、天城文（印地语、马拉地语、尼泊尔语等），以及 2.8 版新增的阿拉伯字母（阿拉伯语、波斯语、乌尔都语等）、俄语、乌克兰语、白俄罗斯语、保加利亚语和泰语。使用其他文字的语言，如希腊语、希伯来语或泰米尔语，仍可选作目标语言，但暂时还无法从屏幕上识别。</p>
 
   <h2>🤖 AI 翻译（可选）</h2>
   <div class="card">
@@ -154,6 +155,7 @@
       <li><strong>Claude</strong> — 在 Anthropic Console 获取密钥</li>
     </ul>
     <p>菜单栏 → <em>翻译引擎</em> → 选择引擎 → 粘贴密钥。用量计入你在该服务商的<em>个人</em>账户，应用不加价。</p>
+    <p>OpenAI、Gemini 和 Claude 的密钥页面（设置 → API Key）还有更多选项。可以选择<em>模型</em>；<em>上下文</em>会一并发送周围的文字（邻近句子或整个屏幕），让代词和有歧义的词翻译得更准确；<em>翻译风格</em>决定贴近原文的程度（直译、自然或意译）；<em>领域</em>则针对游戏、漫画、技术或商务文本调整措辞。</p>
     <p>翻译失败时，原因会直接显示在屏幕上 — API 密钥无效、余额不足、达到用量上限或网络错误。注意：仅有有效密钥还不够，服务商账户还需要有余额或可用的免费额度。</p>
   </div>
 
@@ -174,7 +176,9 @@
     <details><summary>悬浮气泡不见了</summary>
       <p>重新打开应用即可重启服务。如果频繁发生，请确认<em>显示在其他应用上层</em>权限仍然开启，并把应用从电池优化中排除（设置 → 电池 → 不受限制）。</p></details>
     <details><summary>第一次翻译很慢或显示“准备中”</summary>
-      <p>首次使用时会通过 Google Play 服务下载一次 OCR 模型。之后识别即时完成，OCR 可离线工作。</p></details>
+      <p>识别模型只需下载一次。主 OCR 模型在首次使用时通过 Google Play 服务下载；阿拉伯字母、西里尔字母和泰文的模型会在安装或更新应用后立即下载，下载完成前无法识别这些语言。之后，识别可离线进行。</p></details>
+    <details><summary>源语言设为 Auto 时翻译较慢</summary>
+      <p>源语言为 <em>Auto</em> 时，应用会先判断哪种文字识别模型适合当前屏幕，因此会多花一点时间，阿拉伯字母、西里尔字母和泰文尤其如此。如果你主要阅读一种语言，在菜单栏中把它设为源语言，速度会更快。</p></details>
     <details><summary>某些屏幕上没有任何反应</summary>
       <p>禁止截屏的应用（银行应用、DRM 视频播放器）无法被捕获 — Android 会对所有捕获类应用隐藏其内容。</p></details>
     <details><summary>为什么会看到广告？</summary>
@@ -183,18 +187,20 @@
       <p>提示会告诉你原因。<em>API 密钥无效</em>：在设置中重新检查密钥。<em>余额不足</em>：到服务商控制台充值 — 密钥有效也仍需余额。<em>用量上限</em>：稍等片刻再试。<em>网络错误</em>：检查网络连接。</p></details>
     <details><summary>翻译质量不太对</summary>
       <p>试试句子或段落模式（上下文越多，翻译越好），或连接 AI 引擎（DeepL/GPT/Gemini/Claude）获得最佳质量。</p></details>
+    <details><summary>如何再次查看屏幕提示？</summary>
+      <p>打开设置，点按<em>使用方法</em>。除了打开本指南，它还会重置提示，让提示在你使用应用时再次出现。</p></details>
   </div>
 
-  <h2>💻 开源</h2>
+  <h2>💻 源代码</h2>
   <div class="card">
-    <p>Screen Translate 是开源软件 — 完整源代码托管在 <a href="https://github.com/AidanPark/android-screen-translator">GitHub</a>。任何人都可以查看代码、随意修改并构建自己的版本。许可证为 Apache-2.0，使用时请保留出处（版权声明）。</p>
+    <p>Screen Translate 的完整源代码托管在 <a href="https://github.com/AidanPark/screen-translator">GitHub</a>，采用 <a href="https://polyformproject.org/licenses/noncommercial/1.0.0">PolyForm Noncommercial License 1.0.0</a> 许可。出于个人或其他非商业目的，欢迎你研究、修改和分享这些代码。商业用途（例如发布带广告或应用内购买的修改版）需要获得我们的许可，请通过 GitHub issue 联系我们。</p>
   </div>
 
   <h2>📮 还是没解决？</h2>
   <p>发邮件到 <a href="mailto:handwritingdictionary@gmail.com">handwritingdictionary@gmail.com</a> — 每封邮件我们都会看。</p>
   <a class="store" href="https://play.google.com/store/apps/details?id=com.galaxy.airviewdictionary">在 Google Play 获取</a>
 
-  <footer>© 2026 BoxBee Corp.</footer>
+  <footer>© 2026 BoxBee Corp. · <a href="https://aidanpark.github.io/privacy.html">隐私政策</a></footer>
 </main>
 <script>
 (function () {
